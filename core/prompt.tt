@@ -163,7 +163,7 @@ _event_register {tick} {promptTick} {_PromptTick #nop};
 	#class promptLines read core/prompt/subprompt.tt;
 	#format {prompt[1]} {%-40s} {$prompt[1]};
 	#var promptFlags @promptFlagsBar{};
-	#format {prompt[1]} {%-40s%+40s} {$vitals[print]} {$promptFlags};
+	#format {prompt[1]} {%-40s%+40s} {$prompt[1]} {$promptFlags};
 	_PromptTop;
 
 	#loop {-$prefs[split][top]} {$prefs[split][bot]} {__pLine} {
@@ -197,7 +197,7 @@ _event_register {tick} {promptTick} {_PromptTick #nop};
 
 	#format prompt[1] {%-40s} {$prompt[1]};
 	#var promptFlags @promptFlagsBar{};
-	#format {prompt[1]} {%-40s%+40s} {$vitals[print]} {$promptFlags};
+	#format {prompt[1]} {%-40s%+40s} {$prompt[1]} {$promptFlags};
 	_PromptTop;
 	#var prompt[3] @blankPrompt{};
 	#loop {-$prefs[split][top]} {$prefs[split][bot]} {__pLine} {

@@ -1,0 +1,871 @@
+C 10000000
+
+CE <078>
+CH <118>
+CP <138>
+CR <178>
+
+F 73
+
+I 99334
+
+L * # # # | # x          
+
+
+R {    1} {0} {} {} { } {} {} {} {} {} {1.000}
+
+R { 9834} {0} {<179>} {A Small Forest Path} { } {} {Mandrake Woods} {} {{terrain}{light forest}{terraininfo}{}{flags}{safe, no-npcs}{size}{narrow}{shape}{odd}} {} {1.000}
+E {1898689} {n} {n} {1} {0} {}
+E { 9835} {se} {se} {6} {0} {}
+E {1900988} {w} {w} {8} {0} {}
+
+R { 9835} {0} {<099>} {A Small Forest Path} { } {} {Mandrake Woods} {} {{terrain}{light forest}{terraininfo}{}{flags}{_empty}{size}{narrow}{shape}{odd}} {} {1.000}
+E { 9834} {nw} {nw} {9} {0} {}
+E { 9836} {se} {se} {6} {0} {}
+
+R { 9836} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10386} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10402} {0} {<099>} {A Shipwright's Workshop} { } {} {Towne of Rune} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, no-npcs}{size}{normal}{shape}{square}} {} {1.000}
+E {2839432} {s} {s} {4} {0} {}
+E {10431} {w} {w} {8} {0} {}
+
+R {10431} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10454} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10455} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{fear}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10456} {e} {e} {2} {0} {}
+E {10467} {n} {n} {1} {0} {}
+E {10478} {s} {s} {4} {0} {}
+E {10483} {w} {w} {8} {0} {}
+
+R {10456} {0} {<099>} {Towne Square North} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{spacious}{shape}{square}} {} {1.000}
+E {10386} {d} {d} {32} {0} {}
+E {10458} {e} {e} {2} {0} {}
+E {10521} {n} {n} {1} {0} {}
+E {10494} {s} {s} {4} {0} {}
+E {10455} {w} {w} {8} {0} {}
+
+R {10458} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{fear}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10459} {e} {e} {2} {0} {}
+E {10613} {n} {n} {1} {0} {}
+E {10719} {s} {s} {4} {0} {}
+E {10456} {w} {w} {8} {0} {}
+
+R {10459} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10460} {e} {e} {2} {0} {}
+E {10468} {n} {n} {1} {0} {}
+E {10763} {s} {s} {4} {0} {}
+E {10458} {w} {w} {8} {0} {}
+
+R {10460} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{indoors}{terraininfo}{}{flags}{fear}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10461} {e} {e} {2} {0} {}
+E {10466} {n} {n} {1} {0} {}
+E {10459} {w} {w} {8} {0} {}
+
+R {10461} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10498} {e} {e} {2} {0} {}
+E {10464} {n} {n} {1} {0} {}
+E {10460} {w} {w} {8} {0} {}
+
+R {10462} {0} {<099>} {Marble Bridge} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10463} {e} {e} {2} {0} {}
+E {10497} {w} {w} {8} {0} {}
+
+R {10463} {0} {<099>} {Eastern Gate of Rune} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{no-recall, no-npcs}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {2816440} {e} {e} {2} {0} {}
+E {10462} {w} {w} {8} {0} {}
+
+R {10464} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10466} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10467} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10468} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10478} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10483} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10455} {e} {e} {2} {0} {}
+E {10592} {n} {n} {1} {0} {}
+E {10598} {s} {s} {4} {0} {}
+E {10484} {w} {w} {8} {0} {}
+
+R {10484} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10483} {e} {e} {2} {0} {}
+E {10454} {n} {n} {1} {0} {}
+E {10485} {w} {w} {8} {0} {}
+
+R {10485} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10484} {e} {e} {2} {0} {}
+E {10487} {w} {w} {8} {0} {}
+
+R {10487} {0} {<099>} {Junction of Aldur and Main} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{fear}{size}{large}{shape}{square}} {} {1.000}
+E {10485} {e} {e} {2} {0} {}
+E {10513} {n} {n} {1} {0} {}
+E {10616} {s} {s} {4} {0} {}
+E {10489} {w} {w} {8} {0} {}
+
+R {10489} {0} {<099>} {Marble Bridge} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10487} {e} {e} {2} {0} {}
+E {10490} {w} {w} {8} {0} {}
+
+R {10490} {0} {<099>} {Western Gate of Rune} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{no-npcs, no-trap}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {10489} {e} {e} {2} {0} {}
+E {2809518} {n} {n} {1} {0} {}
+
+R {10494} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10497} {0} {<099>} {Junction at Main and Baphomet} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{square}} {} {1.000}
+E {10462} {e} {e} {2} {0} {}
+E {10514} {n} {n} {1} {0} {}
+E {10595} {s} {s} {4} {0} {}
+E {10498} {w} {w} {8} {0} {}
+
+R {10498} {0} {<099>} {Main Street} { } {} {Towne of Rune} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{large}{shape}{rectangular}} {} {1.000}
+E {10497} {e} {e} {2} {0} {}
+E {10558} {n} {n} {1} {0} {}
+E {10682} {s} {s} {4} {0} {}
+E {10461} {w} {w} {8} {0} {}
+
+R {10513} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10514} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10521} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10558} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10592} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10595} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10598} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10613} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10616} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10682} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10719} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {10763} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {22884} {0} {<099>} {Before the Tower of Art} { } {} {Tower of Art} {} {{terrain}{grassy field}{terraininfo}{}{flags}{_empty}{size}{tunnel}{shape}{rectangular}} {} {1.000}
+E {22885} {n} {n} {1} {0} {}
+E {1547405} {w} {w} {8} {0} {}
+
+R {22885} {0} {<179>} {Long Hallway} { } {} {Tower of Art} {} {{terrain}{indoors}{terraininfo}{}{flags}{safe, indoors, no-npcs}{size}{tunnel}{shape}{rectangular}} {} {1.000}
+E {22886} {n} {n} {1} {0} {}
+E {22884} {s} {s} {4} {0} {}
+
+R {22886} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26834} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{air}{terraininfo}{}{flags}{indoors, no-npcs, vanishing-items}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26840} {d} {d} {32} {0} {}
+E {26838} {e} {e} {2} {0} {}
+E {26835} {n} {n} {1} {0} {}
+E {26836} {s} {s} {4} {0} {}
+E {26839} {u} {u} {16} {0} {}
+E {26837} {w} {w} {8} {0} {}
+
+R {26835} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26836} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{air}{terraininfo}{}{flags}{indoors}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26842} {d} {d} {32} {0} {}
+E {26850} {e} {e} {2} {0} {}
+E {26834} {n} {n} {1} {0} {}
+E {26849} {s} {s} {4} {0} {}
+E {26842} {u} {u} {16} {0} {}
+E {26850} {w} {w} {8} {0} {}
+
+R {26837} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{air}{terraininfo}{}{flags}{indoors, vanishing-items}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26835} {d} {d} {32} {0} {}
+E {26834} {e} {e} {2} {0} {}
+E {26845} {n} {n} {1} {0} {}
+E {26845} {s} {s} {4} {0} {}
+E {26835} {u} {u} {16} {0} {}
+E {26843} {w} {w} {8} {0} {}
+
+R {26838} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26839} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26840} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26841} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26842} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26843} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{void}{terraininfo}{}{flags}{indoors, vanishing-items}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26846} {d} {d} {32} {0} {}
+E {26837} {e} {e} {2} {0} {}
+E {26844} {n} {n} {1} {0} {}
+E {26844} {s} {s} {4} {0} {}
+E {26846} {u} {u} {16} {0} {}
+E {26844} {w} {w} {8} {0} {}
+
+R {26844} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{void}{terraininfo}{}{flags}{indoors, vanishing-items}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26847} {d} {d} {32} {0} {}
+E {26843} {e} {e} {2} {0} {}
+E {26843} {n} {n} {1} {0} {}
+E {26843} {s} {s} {4} {0} {}
+E {26847} {u} {u} {16} {0} {}
+E {26845} {w} {w} {8} {0} {}
+
+R {26845} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{void}{terraininfo}{}{flags}{indoors, vanishing-items}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26848} {d} {d} {32} {0} {}
+E {26844} {e} {e} {2} {0} {}
+E {26837} {n} {n} {1} {0} {}
+E {26837} {s} {s} {4} {0} {}
+E {26848} {u} {u} {16} {0} {}
+E {26842} {w} {w} {8} {0} {}
+
+R {26846} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26847} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26848} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26849} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{air}{terraininfo}{}{flags}{indoors}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26841} {d} {d} {32} {0} {}
+E {26853} {e} {e} {2} {0} {}
+E {26836} {n} {n} {1} {0} {}
+E {26850} {s} {s} {4} {0} {}
+E {26841} {u} {u} {16} {0} {}
+E {26853} {w} {w} {8} {0} {}
+
+R {26850} {0} {<099>} {Ethereal Void} { } {} {Ethereal Void} {} {{terrain}{void}{terraininfo}{}{flags}{indoors}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26838} {d} {d} {32} {0} {}
+E {26836} {e} {e} {2} {0} {}
+E {26849} {n} {n} {1} {0} {}
+E {26848} {s} {s} {4} {0} {}
+E {26838} {u} {u} {16} {0} {}
+E {26836} {w} {w} {8} {0} {}
+
+R {26853} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26934} {0} {<099>} {Crawlspace} { } {} {Chat Rooms} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, no-npcs}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26941} {d} {d} {32} {0} {}
+
+R {26935} {0} {<099>} {Ivory Road} { } {} {Chat Rooms} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {26936} {n} {n} {1} {0} {}
+E {5250504} {s} {s} {4} {0} {}
+
+R {26936} {0} {<099>} {Ivory Road} { } {} {Chat Rooms} {} {{terrain}{city street}{terraininfo}{}{flags}{no-npcs}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {26937} {n} {n} {1} {0} {}
+E {26935} {s} {s} {4} {0} {}
+
+R {26937} {0} {<099>} {A Charming Courtyard} { } {} {Chat Rooms} {} {{terrain}{city street}{terraininfo}{}{flags}{no-npcs}{size}{large}{shape}{circular}} {} {1.000}
+E {26963} {e} {e} {2} {0} {}
+E {26938} {n} {n} {1} {0} {}
+E {26936} {s} {s} {4} {0} {}
+E {26964} {w} {w} {8} {0} {}
+
+R {26938} {0} {<099>} {Ivory Road} { } {} {Chat Rooms} {} {{terrain}{city street}{terraininfo}{}{flags}{no-npcs}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {26939} {n} {n} {1} {0} {}
+E {26937} {s} {s} {4} {0} {}
+
+R {26939} {0} {<099>} {Ivory Road} { } {} {Chat Rooms} {} {{terrain}{city street}{terraininfo}{}{flags}{no-npcs}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {26940} {n} {n} {1} {0} {}
+E {26938} {s} {s} {4} {0} {}
+
+R {26940} {0} {<099>} {Before the Ivory Tower} { } {} {Chat Rooms} {} {{terrain}{indoors}{terraininfo}{}{flags}{no-npcs}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26941} {n} {n} {1} {0} {}
+E {26939} {s} {s} {4} {0} {}
+
+R {26941} {0} {<179>} {Lobby of the Ivory Tower} { } {} {Chat Rooms} {} {{terrain}{indoors}{terraininfo}{}{flags}{safe, indoors, no-npcs}{size}{spacious}{shape}{octagonal}} {} {1.000}
+E {26943} {e} {e} {2} {0} {}
+E {26962} {n} {n} {1} {0} {}
+E {26940} {s} {s} {4} {0} {}
+E {26934} {u} {u} {16} {0} {}
+E {26942} {w} {w} {8} {0} {}
+
+R {26942} {0} {<099>} {West Mezzanine} { } {} {Chat Rooms} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{spacious}{shape}{circular}} {} {1.000}
+E {26941} {e} {e} {2} {0} {}
+E {26947} {n} {n} {1} {0} {}
+E {26945} {w} {w} {8} {0} {}
+
+R {26943} {0} {<099>} {East Mezzanine} { } {} {Chat Rooms} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, no-npcs}{size}{spacious}{shape}{circular}} {} {1.000}
+E {26944} {e} {e} {2} {0} {}
+E {26950} {n} {n} {1} {0} {}
+E {26941} {w} {w} {8} {0} {}
+
+R {26944} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26945} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26947} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26950} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26952} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26953} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26962} {0} {<099>} {Beneath the Marble Arch} { } {} {Chat Rooms} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, no-npcs}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {26953} {n} {n} {1} {0} {}
+E {26941} {s} {s} {4} {0} {}
+
+R {26963} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {26964} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {27027} {0} {<099>} {The Paladin Room} { } {} {Chat Rooms} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {26952} {e} {e} {2} {0} {}
+
+R {29874} {0} {<099>} {Shipwright's Workshop} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, no-npcs}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {3283825} {e} {e} {2} {0} {}
+E {30479} {s} {s} {4} {0} {}
+
+R {29880} {0} {<099>} {Corner of Wharf Street and Sloop Lane} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{square}} {} {1.000}
+E {29881} {e} {e} {2} {0} {}
+E {30482} {nw} {nw} {9} {0} {}
+E {29891} {s} {s} {4} {0} {}
+
+R {29881} {0} {<099>} {Wharf Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29882} {e} {e} {2} {0} {}
+E {29892} {s} {s} {4} {0} {}
+E {29880} {w} {w} {8} {0} {}
+
+R {29882} {0} {<099>} {Wharf Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29883} {e} {e} {2} {0} {}
+E {29881} {w} {w} {8} {0} {}
+
+R {29883} {0} {<099>} {Wharf Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29884} {e} {e} {2} {0} {}
+E {29882} {w} {w} {8} {0} {}
+
+R {29884} {0} {<099>} {Wharf Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29885} {e} {e} {2} {0} {}
+E {29895} {s} {s} {4} {0} {}
+E {29883} {w} {w} {8} {0} {}
+
+R {29885} {0} {<099>} {Junction of Wharf Street and Golden Boulevard} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{square}} {} {1.000}
+E {29886} {e} {e} {2} {0} {}
+E {3288425} {n} {n} {1} {0} {}
+E {29896} {s} {s} {4} {0} {}
+E {29884} {w} {w} {8} {0} {}
+
+R {29886} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29891} {0} {<099>} {Sloop Lane} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {29880} {n} {n} {1} {0} {}
+E {29902} {s} {s} {4} {0} {}
+
+R {29892} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29895} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29896} {0} {<099>} {Golden Boulevard} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {369584} {e} {e} {2} {0} {}
+E {29885} {n} {n} {1} {0} {}
+E {29907} {s} {s} {4} {0} {}
+
+R {29897} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29902} {0} {<099>} {Junction of Smuggler's Way and Sloop Lane} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {29903} {e} {e} {2} {0} {}
+E {29891} {n} {n} {1} {0} {}
+E {29913} {s} {s} {4} {0} {}
+
+R {29903} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29906} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29907} {0} {<099>} {Crossroads of Smuggler's Way and Golden Boulevard} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{square}} {} {1.000}
+E {29908} {e} {e} {2} {0} {}
+E {29896} {n} {n} {1} {0} {}
+E {29918} {s} {s} {4} {0} {}
+E {29906} {w} {w} {8} {0} {}
+
+R {29908} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29913} {0} {<099>} {Sloop Lane} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {29902} {n} {n} {1} {0} {}
+E {29924} {s} {s} {4} {0} {}
+
+R {29914} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29915} {0} {<099>} {Magical Goods} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29926} {s} {s} {4} {0} {}
+
+R {29916} {0} {<099>} {Bakery} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29927} {s} {s} {4} {0} {}
+
+R {29917} {0} {<099>} {Ring Shop} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29928} {s} {s} {4} {0} {}
+
+R {29918} {0} {<099>} {Golden Boulevard} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {29907} {n} {n} {1} {0} {}
+E {29929} {s} {s} {4} {0} {}
+
+R {29919} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29920} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29921} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29924} {0} {<099>} {Junction of Main Street and Sloop Lane} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{square}} {} {1.000}
+E {29925} {e} {e} {2} {0} {}
+E {29913} {n} {n} {1} {0} {}
+E {29935} {s} {s} {4} {0} {}
+E {30222} {w} {w} {8} {0} {}
+
+R {29925} {0} {<099>} {Main Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29926} {e} {e} {2} {0} {}
+E {29914} {n} {n} {1} {0} {}
+E {29936} {s} {s} {4} {0} {}
+E {29924} {w} {w} {8} {0} {}
+
+R {29926} {0} {<099>} {Main Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29927} {e} {e} {2} {0} {}
+E {29915} {n} {n} {1} {0} {}
+E {29937} {s} {s} {4} {0} {}
+E {29925} {w} {w} {8} {0} {}
+
+R {29927} {0} {<099>} {Main Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29928} {e} {e} {2} {0} {}
+E {29916} {n} {n} {1} {0} {}
+E {29938} {s} {s} {4} {0} {}
+E {29926} {w} {w} {8} {0} {}
+
+R {29928} {0} {<099>} {Main Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29929} {e} {e} {2} {0} {}
+E {29917} {n} {n} {1} {0} {}
+E {29939} {s} {s} {4} {0} {}
+E {29927} {w} {w} {8} {0} {}
+
+R {29929} {0} {<099>} {Town Square} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{square}} {} {1.000}
+E {29930} {e} {e} {2} {0} {}
+E {29918} {n} {n} {1} {0} {}
+E {29897} {s} {s} {4} {0} {}
+E {29928} {w} {w} {8} {0} {}
+
+R {29930} {0} {<099>} {Main Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29931} {e} {e} {2} {0} {}
+E {29919} {n} {n} {1} {0} {}
+E {29940} {s} {s} {4} {0} {}
+E {29929} {w} {w} {8} {0} {}
+
+R {29931} {0} {<099>} {Main Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29932} {e} {e} {2} {0} {}
+E {29920} {n} {n} {1} {0} {}
+E {29941} {s} {s} {4} {0} {}
+E {29930} {w} {w} {8} {0} {}
+
+R {29932} {0} {<099>} {Main Street} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29933} {e} {e} {2} {0} {}
+E {29921} {n} {n} {1} {0} {}
+E {29942} {s} {s} {4} {0} {}
+E {29931} {w} {w} {8} {0} {}
+
+R {29933} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29935} {0} {<099>} {Sloop Lane} { } {} {Pirate's Cove} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{narrow}{shape}{rectangular}} {} {1.000}
+E {29924} {n} {n} {1} {0} {}
+E {29945} {s} {s} {4} {0} {}
+
+R {29936} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29937} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29938} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29939} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29940} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29941} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {29942} {0} {<179>} {Swashbuckler's Infirmary} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{safe, indoors, high-regen, no-npcs, reinforced}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29932} {n} {n} {1} {0} {}
+
+R {29945} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {30222} {0} {<179>} {Main Gate of Pirate's Cove} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{safe, no-npcs}{size}{normal}{shape}{rectangular}} {} {1.000}
+E {29924} {e} {e} {2} {0} {}
+E {3304508} {w} {w} {8} {0} {}
+
+R {30479} {0} {<099>} {Pirate's Cove Trading Post} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, no-npcs}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {29874} {n} {n} {1} {0} {}
+
+R {30482} {0} {<119>} {The Seaside Cliff} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{no-recall, player-kill-neutral}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {30483} {n} {n} {1} {0} {}
+E {29880} {se} {se} {6} {0} {}
+
+R {30483} {0} {<119>} {The Seaside Cliff} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{no-recall, player-kill-neutral}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {30484} {n} {n} {1} {0} {}
+E {30482} {s} {s} {4} {0} {}
+
+R {30484} {0} {<119>} {The Seaside Cliff} { } {} {Pirate's Cove} {} {{terrain}{indoors}{terraininfo}{}{flags}{no-recall, player-kill-neutral}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {30485} {nw} {nw} {9} {0} {}
+E {30483} {s} {s} {4} {0} {}
+
+R {30485} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73088} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73089} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73095} {0} {<099>} {Towne Square} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73110} {e} {e} {2} {0} {}
+E {73088} {n} {n} {1} {0} {}
+E {73096} {s} {s} {4} {0} {}
+E {73100} {w} {w} {8} {0} {}
+
+R {73096} {0} {<099>} {Towne Square} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73740} {e} {e} {2} {0} {}
+E {73095} {n} {n} {1} {0} {}
+E {73103} {s} {s} {4} {0} {}
+E {73097} {w} {w} {8} {0} {}
+
+R {73097} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73099} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73100} {0} {<179>} {Before the Mighty Fountain of Life} { } {} {The Towne of Xaventry} {} {{terrain}{grassy field}{terraininfo}{}{flags}{safe, no-npcs, reinforced}{size}{open}{shape}{open}} {} {1.000}
+E {73095} {e} {e} {2} {0} {}
+E {73089} {n} {n} {1} {0} {}
+E {73097} {s} {s} {4} {0} {}
+E {73099} {w} {w} {8} {0} {}
+
+R {73103} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73118} {e} {e} {2} {0} {}
+E {73096} {n} {n} {1} {0} {}
+E {73104} {s} {s} {4} {0} {}
+
+R {73104} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{dusty road}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73103} {n} {n} {1} {0} {}
+E {73105} {s} {s} {4} {0} {}
+
+R {73105} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73104} {n} {n} {1} {0} {}
+E {73106} {s} {s} {4} {0} {}
+
+R {73106} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73105} {n} {n} {1} {0} {}
+E {73414} {s} {s} {4} {0} {}
+
+R {73110} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73118} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73414} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73106} {n} {n} {1} {0} {}
+E {73415} {s} {s} {4} {0} {}
+
+R {73415} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73463} {e} {e} {2} {0} {}
+E {73414} {n} {n} {1} {0} {}
+E {73416} {s} {s} {4} {0} {}
+
+R {73416} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{dusty road}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73415} {n} {n} {1} {0} {}
+E {73417} {s} {s} {4} {0} {}
+
+R {73417} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73416} {n} {n} {1} {0} {}
+E {73418} {s} {s} {4} {0} {}
+
+R {73418} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73417} {n} {n} {1} {0} {}
+E {73419} {s} {s} {4} {0} {}
+
+R {73419} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73418} {n} {n} {1} {0} {}
+E {73420} {s} {s} {4} {0} {}
+
+R {73420} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73419} {n} {n} {1} {0} {}
+E {73421} {s} {s} {4} {0} {}
+
+R {73421} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {369084} {e} {e} {2} {0} {}
+E {73420} {n} {n} {1} {0} {}
+E {73422} {s} {s} {4} {0} {}
+
+R {73422} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73421} {n} {n} {1} {0} {}
+E {73423} {s} {s} {4} {0} {}
+
+R {73423} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73422} {n} {n} {1} {0} {}
+E {73424} {s} {s} {4} {0} {}
+
+R {73424} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73423} {n} {n} {1} {0} {}
+E {73425} {s} {s} {4} {0} {}
+E {73451} {w} {w} {8} {0} {}
+
+R {73425} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73427} {e} {e} {2} {0} {}
+E {73424} {n} {n} {1} {0} {}
+E {73426} {s} {s} {4} {0} {}
+
+R {73426} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73425} {n} {n} {1} {0} {}
+E {73473} {s} {s} {4} {0} {}
+
+R {73427} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73451} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73463} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73473} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73426} {n} {n} {1} {0} {}
+E {73474} {s} {s} {4} {0} {}
+
+R {73474} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73473} {n} {n} {1} {0} {}
+E {73475} {s} {s} {4} {0} {}
+
+R {73475} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73477} {e} {e} {2} {0} {}
+E {73474} {n} {n} {1} {0} {}
+E {73479} {s} {s} {4} {0} {}
+E {73476} {w} {w} {8} {0} {}
+
+R {73476} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73477} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73479} {0} {<099>} {Heading Along a Well Used Woodland Trail} { } {} {The Towne of Xaventry} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{open}{shape}{open}} {} {1.000}
+E {73480} {e} {e} {2} {0} {}
+E {73475} {n} {n} {1} {0} {}
+E {73481} {s} {s} {4} {0} {}
+
+R {73480} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {73481} {0} {<099>} {The Main Entrance of the Town of Xaventry} { } {} {The Towne of Xaventry} {} {{terrain}{dusty road}{terraininfo}{}{flags}{no-npcs}{size}{open}{shape}{open}} {} {1.000}
+E {73479} {n} {n} {1} {0} {}
+E {2105636} {s} {s} {4} {0} {}
+
+R {73740} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99334} {0} {<179>} {A Dark Antechamber} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{dark, safe, indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99335} {d} {d} {32} {0} {}
+E {3952666} {w} {w} {8} {0} {}
+
+R {99335} {0} {<179>} {Starlit Foyer} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{safe, indoors, high-regen, no-npcs}{size}{normal}{shape}{square}} {} {1.000}
+E {99349} {d} {d} {32} {0} {}
+E {99337} {e} {e} {2} {0} {}
+E {99336} {n} {n} {1} {0} {}
+E {99345} {s} {s} {4} {0} {}
+E {99334} {u} {u} {16} {0} {}
+E {99342} {w} {w} {8} {0} {}
+
+R {99336} {0} {<099>} {Lounging Around} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99348} {ne} {ne} {3} {0} {}
+E {99346} {nw} {nw} {9} {0} {}
+E {99335} {s} {s} {4} {0} {}
+
+R {99337} {0} {<139>} {Danger Room} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, player-kill-lawful}{size}{normal}{shape}{square}} {} {1.000}
+E {99339} {ne} {ne} {3} {0} {}
+E {99341} {se} {se} {6} {0} {}
+E {99335} {w} {w} {8} {0} {}
+
+R {99338} {0} {<099>} {Dragon Treasure} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99344} {s} {s} {4} {0} {}
+E {99342} {se} {se} {6} {0} {}
+
+R {99339} {0} {<099>} {Musical Recreation} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99341} {s} {s} {4} {0} {}
+E {99337} {sw} {sw} {12} {0} {}
+
+R {99340} {0} {<099>} {Nobility Immemorial} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99345} {n} {n} {1} {0} {}
+
+R {99341} {0} {<099>} {A Studied Library} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99339} {n} {n} {1} {0} {}
+E {99337} {nw} {nw} {9} {0} {}
+
+R {99342} {0} {<099>} {Peculiar Post} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99335} {e} {e} {2} {0} {}
+E {99338} {nw} {nw} {9} {0} {}
+E {99344} {sw} {sw} {12} {0} {}
+
+R {99344} {0} {<099>} {Hoarding Place} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{normal}{shape}{square}} {} {1.000}
+E {99338} {n} {n} {1} {0} {}
+E {99342} {ne} {ne} {3} {0} {}
+
+R {99345} {0} {<099>} {Mortality} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, low-regen, silence}{size}{normal}{shape}{square}} {} {1.000}
+E {99335} {n} {n} {1} {0} {}
+E {99340} {s} {s} {4} {0} {}
+
+R {99346} {0} {<099>} {Respite} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {99347} {e} {e} {2} {0} {}
+E {99336} {se} {se} {6} {0} {}
+
+R {99347} {0} {<099>} {Somnolence} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {99348} {e} {e} {2} {0} {}
+E {99346} {w} {w} {8} {0} {}
+
+R {99348} {0} {<099>} {Reprieve} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {99336} {sw} {sw} {12} {0} {}
+E {99347} {w} {w} {8} {0} {}
+
+R {99349} {0} {<179>} {Indoor Courtyard} { } {} {Northstar Clan Hall} {} {{terrain}{indoors}{terraininfo}{}{flags}{safe, indoors}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {99352} {e} {e} {2} {0} {}
+E {99350} {n} {n} {1} {0} {}
+E {99360} {ne} {ne} {3} {0} {}
+E {99358} {nw} {nw} {9} {0} {}
+E {99351} {s} {s} {4} {0} {}
+E {99354} {se} {se} {6} {0} {}
+E {99356} {sw} {sw} {12} {0} {}
+E {99335} {u} {u} {16} {0} {}
+E {99353} {w} {w} {8} {0} {}
+
+R {99350} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99351} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99352} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99353} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99354} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99356} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99358} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {99360} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {344834} {0} {<119>} {The Road Leading to Takhtin} { } {} {Takhtin} {} {{terrain}{gravel road}{terraininfo}{}{flags}{player-kill-neutral}{size}{normal}{shape}{open}} {} {1.000}
+E {344841} {e} {e} {2} {0} {}
+E {344840} {n} {n} {1} {0} {}
+E {3844854} {s} {s} {4} {0} {}
+E {344835} {w} {w} {8} {0} {}
+
+R {344835} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {344840} {0} {<119>} {The Main Road} { } {} {Takhtin} {} {{terrain}{paved road}{terraininfo}{}{flags}{player-kill-neutral}{size}{open}{shape}{open}} {} {1.000}
+E {344843} {n} {n} {1} {0} {}
+E {344834} {s} {s} {4} {0} {}
+
+R {344841} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {344843} {0} {<119>} {The Main Road} { } {} {Takhtin} {} {{terrain}{paved road}{terraininfo}{}{flags}{player-kill-neutral}{size}{open}{shape}{open}} {} {1.000}
+E {344847} {n} {n} {1} {0} {}
+E {344840} {s} {s} {4} {0} {}
+E {344844} {w} {w} {8} {0} {}
+
+R {344844} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {344847} {0} {<119>} {Path to Towne Square} { } {} {Takhtin} {} {{terrain}{paved road}{terraininfo}{}{flags}{player-kill-neutral}{size}{open}{shape}{unknown}} {} {1.000}
+E {344848} {n} {n} {1} {0} {}
+E {344843} {s} {s} {4} {0} {}
+
+R {344848} {0} {<119>} {Takhtin's Towne Square} { } {} {Takhtin} {} {{terrain}{city street}{terraininfo}{}{flags}{player-kill-neutral}{size}{open}{shape}{open}} {} {1.000}
+E {344849} {n} {n} {1} {0} {}
+E {344852} {ne} {ne} {3} {0} {}
+E {344851} {nw} {nw} {9} {0} {}
+E {344847} {s} {s} {4} {0} {}
+E {344854} {se} {se} {6} {0} {}
+E {344853} {sw} {sw} {12} {0} {}
+
+R {344849} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {344851} {0} {<179>} {A Hospital Reception Room} { } {} {Takhtin} {} {{terrain}{indoors}{terraininfo}{}{flags}{safe, indoors, high-regen, no-npcs, no-mount}{size}{normal}{shape}{square}} {} {1.000}
+E {344848} {se} {se} {6} {0} {}
+
+R {344852} {0} {<119>} {General Supplies} { } {} {Takhtin} {} {{terrain}{indoors}{terraininfo}{}{flags}{indoors, player-kill-neutral, no-mount}{size}{cramped}{shape}{square}} {} {1.000}
+E {344848} {sw} {sw} {12} {0} {}
+
+R {344853} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {344854} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {369084} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {369584} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {1547405} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {1898689} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {1900988} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {2105636} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {2809518} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {2816440} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {2839432} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {3283825} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {3288425} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {3304508} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {3844854} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {3952666} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250503} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250504} {0} {<099>} {Dusty Trail} {<039>#} {} {Chat Rooms Wilderness} {} {{terrain}{city street}{terraininfo}{}{flags}{_empty}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {5250505} {e} {e} {2} {0} {}
+E {26935} {n} {n} {1} {0} {}
+E {5250648} {s} {s} {4} {0} {}
+E {5250649} {se} {se} {6} {0} {}
+E {5250647} {sw} {sw} {12} {0} {}
+E {5250503} {w} {w} {8} {0} {}
+
+R {5250505} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250647} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250648} {0} {<099>} {Grassy Fields} {<129>"} {} {Chat Rooms Wilderness} {} {{terrain}{grassy field}{terraininfo}{}{flags}{_empty}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {5250649} {e} {e} {2} {0} {}
+E {5250504} {n} {n} {1} {0} {}
+E {5250505} {ne} {ne} {3} {0} {}
+E {5250503} {nw} {nw} {9} {0} {}
+E {5250792} {s} {s} {4} {0} {}
+E {5250793} {se} {se} {6} {0} {}
+E {5250791} {sw} {sw} {12} {0} {}
+E {5250647} {w} {w} {8} {0} {}
+
+R {5250649} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250791} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250792} {0} {<099>} {Grassy Fields} {<129>"} {} {Chat Rooms Wilderness} {} {{terrain}{grassy field}{terraininfo}{}{flags}{_empty}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {5250793} {e} {e} {2} {0} {}
+E {5250648} {n} {n} {1} {0} {}
+E {5250649} {ne} {ne} {3} {0} {}
+E {5250647} {nw} {nw} {9} {0} {}
+E {5250936} {s} {s} {4} {0} {}
+E {5250937} {se} {se} {6} {0} {}
+E {5250935} {sw} {sw} {12} {0} {}
+E {5250791} {w} {w} {8} {0} {}
+
+R {5250793} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250935} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5250936} {0} {<099>} {Grassy Fields} {<129>"} {} {Chat Rooms Wilderness} {} {{terrain}{grassy field}{terraininfo}{}{flags}{_empty}{size}{unknown}{shape}{unknown}} {} {1.000}
+E {5250937} {e} {e} {2} {0} {}
+E {5250792} {n} {n} {1} {0} {}
+E {5250793} {ne} {ne} {3} {0} {}
+E {5250791} {nw} {nw} {9} {0} {}
+E {5251080} {s} {s} {4} {0} {}
+E {5251081} {se} {se} {6} {0} {}
+E {5251079} {sw} {sw} {12} {0} {}
+E {5250935} {w} {w} {8} {0} {}
+
+R {5250937} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5251079} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5251080} {0} {<fca>} {} { } {} {} {} {} {} {1.000}
+
+R {5251081} {0} {<fca>} {} { } {} {} {} {} {} {1.000}

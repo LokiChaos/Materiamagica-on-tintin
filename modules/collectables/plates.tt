@@ -1,0 +1,16 @@
+#nop
+
+#act {^     a decorative plate depicting %* (#%d)} {
+	#format _mod_Collectables_sort[%2] {     (%+3s) %s} {%2} {%1};
+	#line gag;
+}
+
+#act {^A total of %d (110 max) item{|s} weighing %d st{|s}, %d pb{|s} (6 sts, 0 pbs max).$} {
+	#foreach {${_mod_Collectables_sort[]}} {__idx} {
+		#echo {${_mod_Collectables_sort[${__idx}]}};
+	};
+	#unvar __idx;
+	#unvar _mod_Collectables_sort;
+	#var stateClient[autoContinue] 0;
+}
+

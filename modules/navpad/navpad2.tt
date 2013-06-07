@@ -1,0 +1,122 @@
+#nop internals;
+/*
+ 	Navigation pad, uses vi directions for laptops.
+
+	    y       k       u
+	     Nw     N     Ne
+	   h W <-U-(M)-D-> E l
+	     Sw     S     Se
+	    b       j       n
+
+	Up = i
+	Down = m
+
+	Commands:
+	Open = o
+	Pick = p
+
+	Flee is automatic (if in combat)
+*/
+
+#var _mod_navpad[open]   0;
+#var _mod_navpad[unlock] 0;
+#var _mod_navpad[bash]   0;
+#var _mod_navpad[pick]   0;
+#var _mod_navpad[scan]   0;
+#var _mod_navpad[look]   0;
+
+/* Direction Macro Defs {{{ */
+#macro {h} {
+	_mod_navpad_doNav w;
+};
+
+#macro {j} {
+	_mod_navpad_doNav s;
+};
+
+#macro {k} {
+	_mod_navpad_doNav n;
+};
+
+#macro {l} {
+	_mod_navpad_doNav e;
+};
+
+#macro {i} {
+	_mod_navpad_doNav u;
+};
+
+#macro {m} {
+	_mod_navpad_doNav d;
+};
+
+#macro {y} {
+	_mod_navpad_doNav nw;
+};
+
+#macro {u} {
+	_mod_navpad_doNav ne;
+};
+
+#macro {b} {
+	_mod_navpad_doNav sw;
+};
+
+#macro {n} {
+	_mod_navpad_doNav se;
+};
+/* }}} */
+
+/* Action Macro Defs {{{ */
+#macro {o} { 
+	#math _mod_navpad[open]  {!${_mod_navpad[open]}};
+};
+
+#macro {c} {
+	#math _mod_navpad[close] {!${_mod_navpad[close]}};
+};
+
+#macro {p} {
+	#math _mod_navpad[pick]  {!${_mod_navpad[pick]}};
+};
+
+#macro {0} {
+	#math _mod_navpad[scan]  {!${_mod_navpad[scan]}};
+};
+
+#macro {9} {
+	#math _mod_navpad[bash]  {!${_mod_navpad[bash]}};
+};
+
+#macro {8} {
+	#math _mod_navpad[look]  {!${_mod_navpad[look]}};
+};
+
+#macro {7} {
+	#math _mod_navpad[unlock] {!${_mod_navpad[unlock]}};
+};
+/* }}} */
+
+#alias {_mod_navpad_doNav}
+{
+	#var dir %1;
+	#foreach {unlock;pick;bash;open} {act}{
+		#if { ${_mod_navpad[$act]} } {
+			$act %1;
+			#var _mod_navpad[$act] 0;
+		};
+	};
+	#if { ${_mod_navpad[scan]} } {
+		scan %1;
+		#var _mod_navpad[scan] 0;};
+	#elseif { ${_mods_navpad[look]} } {
+		look %1;
+		#var navpad[look] 0;};
+	#else {
+		#if {$charState[Combat]} {
+			flee %1;
+		} {
+			%1;
+		};
+	};
+}

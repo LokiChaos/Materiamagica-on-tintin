@@ -1,0 +1,105 @@
+#showme {<aef>Loading: <faa>map.tt}
+
+/* MAP Notes {{{
+   roomvnum: auto
+   roomarea: $gmcp[zone]
+  roomcolor: based of SAFE/PK/DARK flags
+   roomdata: 
+   roomdesc: 
+  roomexits: auto
+  roomflags: auto
+   roomname: gmcp[Room][name]
+   roomnote: User-set with "mapnote <note>"
+ roomsymbol:
+roomterrain: {terrain}{$gmcp[Room][terrain]} 
+             {terraininfo}{$gmcp[Room][terraininfo]}
+             {flags}{$gmcp[Room][flags]}
+             {size}{$gmcp[Room][size]}
+             {shape}{$gmcp[Room][shape]}
+ roomweight: 1.000
+}}} */
+
+#var stateClient[mapping] 1;
+
+#var mapper[path] {maps};
+#var mapper[colors] {
+	{norm}{<099>}
+	{lpk}{<139>}
+	{npk}{<119>}
+	{cpk}{<019>}
+	{safe}{<179>}
+	{dark}{<100>};
+};
+
+/* Hook on gmcp_room event (gmcp.tt) */
+_event_register {gmcp_room} {mapper} {_mapGMCP};
+/* Hook on nav_changezone event (gmcp.tt) */
+_event_register {nav_changezone} {mapper} {_mapChangeZone};
+
+/* Main Mapping Routines {{{ */
+#alias {_mapGMCP} {
+	#nop %1;
+	#if { $stateClient[mapping] == 0 && $mapper[initalized] == 1 } {
+		#map goto {$gmcp[Room][num]};
+	};
+
+	#if { $stateClient[mapping] == 1 } {
+		#class mapperSub read core/map/mapper.tt;
+		#map goto {$gmcp[Room][num]} {dig};
+		#map get roomarea {__maptmp[area]};
+		#if { "${__maptmp[area]}" == "" } {
+			_mapperAddRoom;
+		};
+		#map get roomexit {__maptmp[exits]};
+		#if { &{__maptmp[exits][]} == 0 } {
+			_mapperLinkExits;
+		};
+		#unvar __maptmp;
+		#class mapperSub kill;
+	};
+	#if { $prefs[mapWrite] == 1 } {
+		#map map {70x22} {tmp/map.$sessionName};
+	};
+}
+
+/* Save OldZone Map and Load NewZone Map */
+#alias {_mapChangeZone} {
+	#echo {<149>Changed Zones "<099>%s<149>" to "<099>%s<149>".} {%3} {%2};
+	#class mapperSub read core/map/mapper.tt;
+	#if {$stateClient[mapping] == 1 } {
+		#if {"%3" == ""} {
+			#nop Don't Save A NULL zone;
+		};
+		#elseif {"%3" == "{Alyria|Sigil Underground|Great Alyrian Underground|Faerie Plane Wilderness|Chat Room Wilderness}"} {
+			_mapperWriteOut {%3};
+		};
+		#elseif {"%3" == "{The Proving Grounds|Tower of Riga}"} {
+			_mapperWriteOut {%3};
+		};
+		#else {
+			_mapperWriteOut {zones};
+		};
+	};
+	#if {"%2" == "{Alyria|Sigil Underground|Great Alyrian Underground|Faerie Plane Wilderness|Chat Room Wilderness}"} {
+		_mapperReadIn {%2};
+	};
+	#elseif {"%2" == "{The Proving Grounds|Tower of Riga}"} {
+		_mapperReadIn {%2};
+	};
+	#else {
+		_mapperReadIn {zones};
+	};
+	#class mapperSub kill;
+};
+/* }}} */
+
+/* User Mapping Command {{{ */
+#alias {mapper} {
+	#class mapperCmd read core/map/commands.tt;
+	_mapper %0;
+	#class mapperCmd kill;
+};
+/* }}} */
+
+/* Initalize Mapper, and flag it as such */
+#var mapper[initalized] 1;

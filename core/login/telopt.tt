@@ -1,0 +1,47 @@
+#showme {<aef>Loading: <faa>login/telopt.tt}
+/*
+	GMCP & Telopt handeling 
+*/
+
+/* Special telnet chars & control chars {{{ */
+#format tel[IAC]   %a 255 
+#format tel[DONT]  %a 254 
+#format tel[DO]    %a 253 
+#format tel[WONT]  %a 252 
+#format tel[WILL]  %a 251                                                  
+#format tel[SB]    %a 250 
+#format tel[SE]    %a 240 
+#format tel[ESC]   %a 27
+/* }}} */
+
+/* Various protocols IDs {{{ */
+#format tel[GMCP]  %a 201 
+#format tel[EOR]   %a 25
+#format tel[MXP]   %a 91
+#format tel[MSP]   %a 90
+#format tel[SGA]   %a 3
+#format tel[NAWS]  %a 31
+#format tel[TTYPE] %s 24
+/* }}} */
+
+/* Uncomment to disable EOR support {{{ */
+/*#event {IAC WILL EOR}
+{
+  #send {$tel[IAC]$tel[DONT]$tel[EOR]\};
+}*/
+
+/* Uncomment to enable MXP (You would need to write your own support...) */
+/*#event {IAC WILL MXP}
+{
+	#send {$tel[IAC]$tel[DO]$tel[MXP]\};
+}*/
+/* }}} */
+
+/* GMCP telopt neogtiation {{{ */
+#event {IAC WILL GMCP} 
+{ 
+  #send {$tel[IAC]$tel[DO]$tel[GMCP]\}; 
+  #send {$tel[IAC]$tel[SB]$tel[GMCP] Core.Hello [ "client": "TinTin++", "version": "$version[tt]" ] $tel[IAC]$tel[SE]\}; 
+  #send {$tel[IAC]$tel[SB]$tel[GMCP] Core.Supports.Set [ "Room 1", "Char 1", "Comm 1", "Char.Items 1", "Char.Skills 1" ] $tel[IAC]$tel[SE]\};
+}
+/* }}} */

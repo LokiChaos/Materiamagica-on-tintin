@@ -1,0 +1,26 @@
+#nop
+
+_event_register {affect_refresh} {missingAff} {_mod_missing_aff_missing};
+
+
+#if {&{prefs[modules][missing_aff][want]}} {
+	#var _desired_aff $prefs[modules][missing_aff][want];
+} {
+	#var _desired_aff {sanctuary;stone skin;shield;armor;haste};
+};
+
+#alias {_mod_missing_aff_missing} {
+	#nop %1;
+	#var __missing_str {START};
+	#foreach {${_desired_aff}} {__i} {
+		#if {"$stateAffects[${__i}]" != "1"} {
+			#var __missing_str {${__missing_str}, ${__i}};
+		};
+	};
+	#replace __missing_str {START%.} {};
+	#if {"${__missing_str}" != ""} {
+		#echo {<159>Missing:<139>%s} {${__missing_str}};	
+	};
+	#unvar __missing_str;
+	#unvar __i;
+}

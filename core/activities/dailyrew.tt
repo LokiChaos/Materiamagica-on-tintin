@@ -1,0 +1,25 @@
+#showme {<aef>Loading: <faa>activities/dailyrew.tt}
+
+/* Daily Reward Collection triggers {{{ */
+#act {^A representative from the %* Tourism Board gives you %*.} {
+	_dailyRewarded {%2};
+} {3}
+
+#act {^A representative from the %* Tourism Board nods at you.} {
+	#class dailyReward read core/activities/lib/dailyrew.tt;
+	_event_oneshot {prompt_pre} {dailyFin} {_dailyFin};
+	_dailyCollect {%1};
+	_event_raise {activity_daily_collected} {%1};
+}
+/* }}} */
+
+/* Player (daily) command {{{ */
+#alias {daily} {
+	#class dailyCmd read core/activities/lib/dailyrew.tt;
+	_doDaily %1;
+	#class dailyCmd kill;
+}
+/* }}} */
+
+/* Not enabled, bugged in game */
+/*#act {^You have gotten each of the four daily rewards every day for %d days in a row!} */

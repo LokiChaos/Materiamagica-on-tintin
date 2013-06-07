@@ -1,0 +1,11 @@
+#showme {<aef>Loading: <faa>user/alias.tt}
+/*
+	User Defined Aliases are defined here
+*/
+
+#alias {getr} 	{ReagentDo Get};
+#alias {putr} 	{ReagentDo Sort};
+#alias {checkr} {ReagentDo Sync};
+#alias {usedr}  {ReagentDo Used};
+#alias {clearr} {ReagentDo UsedClear};
+#alias {getb}   {BoTGet};

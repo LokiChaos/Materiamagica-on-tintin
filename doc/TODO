@@ -1,0 +1,120 @@
+bin/
+	Finalize behavior
+
+core/
+	activities/
+		Check that all is working
+		Finish Multi-Quest Support
+			Re-sync on Login
+			Last quest records
+		Add Luzzardo Support
+		Orc Bounty reward stacking
+	affects/
+		Finish string table
+		Add support for others affects
+	bot/
+		Move to module
+	captures/
+		Check all are working correctly
+	combat/
+		Add Super-Brief
+		Add Uses for Def & Weapons
+		Add combat stats
+	core.tt/
+		Re-select core classes for more granularity
+	equipment/
+		Verify all #actions work.
+		More ideas?
+	forms/
+		Better "form report"
+		Other ideas?
+	gmcp/
+		Mostly Finished, update as the game supports more
+	info/
+		Song/Music calc that doesn't relay on a C helper
+		Herb Mixer
+		Clean up whereis
+		Remove "locate" alias?
+		Kills TNL, implement
+		Bearing Command
+	login/
+		Clean up code
+	map.tt
+		Fairly basic...
+		Decide on final map formatting
+		Add commands to let the user easily search the map and make paths
+		Visual v-map mode in the wilds
+	mmutility.tt
+		Add more lookup functions for the data tables
+	navigation/
+		Remove "blink/teleport" recall list
+	prompt/
+		Make it more modular and flexible
+		Add hooks for modules to augment the prompt w/o having to delve in
+	reagents/
+		Reagent Buy needs to be finished
+	score/
+		add syncing sit/stand/rest/sleep state
+		Anything else?
+	speedwalks/
+		Interface with maps
+		Weighted paths
+		goto coord <loc> to generate paths to coordinates
+	state/
+		More States to track?
+		More events to hook to to better track states?
+	substitute.tt
+		Finished?
+	tab.tt
+		Add all client commands to array
+	tick.tt
+		Cleanup
+	uses.tt
+		Redo to make it easier to use
+	utility/
+		Other Standard Functions?
+		Finalize Module system
+		Sound
+			Local Play
+			Remote Play
+		Notify System
+			Local
+			Remote
+			"Log"
+		SQL
+			Needs testing!!
+		awk/shell - escape/wrapper
+
+
+modules/
+	Add Ship/Sailing Module
+	Survey needs strings
+	Check modules for bugs
+	Implement Dependency system
+	Implement auto-load
+
+data/
+	Need strings/data for:
+		Spells/Scrolls
+		Locations: recallable, zone type, coordinates, repop times, survey strings, etc.
+
+maps/
+	Once map format is finalized map out the areas and add annotations
+
+lib/
+	Reduce dependencies on external scripts
+	Revert to perl exit handler?
+
+etc/
+	Better commenting & finalize settings files
+
+Others:
+	door opener
+	PO/bank/locker info table
+
+
+General:
+	DOCUMENTATION!!!
+	Ensure all code is styled properly
+	Clean up temp variable naming
+

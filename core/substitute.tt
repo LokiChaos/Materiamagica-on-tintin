@@ -1,0 +1,24 @@
+#showme {<aef>Loading: <faa>substitute.tt}
+/*
+	These are the basic reformatting triggers
+*/
+
+/* Re-convert the show-color-alts Flags to the colored asteriks {{{ */
+#sub {[F]} {<119>*};
+#sub {[S]} {<179>*};
+#sub {[T]} {<169>*};
+#sub {[I]} {<129>*};
+#sub {[L]} {<149>*};
+/* }}} */
+
+/* Make Detect Magic's aura more informative {{{ */
+#sub {..it glows blue!$} { (Magical)};
+/* }}} */
+
+/* Make light's lit status colored {{{ */
+#sub {(lit)} {<139>(lit)<099>};
+#sub {(unlit)} {<039>(unlit)<099>};
+/* }}} */
+
+/* Make dmg immunites obvious */
+#high {^Your %* didn't seem to have any effect on %*.$} {light red}

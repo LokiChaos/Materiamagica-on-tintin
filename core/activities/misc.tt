@@ -1,0 +1,134 @@
+#showme {<aef>Loading: <faa>activities/misc.tt}
+
+/* REWARDS pp/qp/bp/exp/folklore {{{ */
+#act {^You gain %d practice{s|}!} {
+	_CaptureLog {<179>%0} {$capPath[act]};
+	_event_raise {activity_rewards} {practices} {%1};
+}
+
+#act {^You gain %W experience points!} {
+	_CaptureLog {<179>%0} {$capPath[act]};
+	_event_raise {activity_rewards} {experience points} {%1};
+}
+
+#act {^You gain %d quest points!} {
+	_CaptureLog {<179>%0} {$capPath[act]};
+	_event_raise {activity_rewards} {quest points} {%1};
+}
+
+#act {^You gain %d building points!} {
+	_CaptureLog {<179>%0} {$capPath[act]};
+	_event_raise {activity_rewards} {build points} {%1};
+}
+
+#act {^Your Folklore has been increased by %d to %d.} {
+	_CaptureLog {<179>%0} {$capPath[act]};
+}
+/* }}} */
+
+/* Standing {{{ */ 
+#act {^Your standing with the %*'s faction has changed by {\-|}%d.} {
+	_CaptureLog {<129>%0} {$capPath[important]};
+}
+
+#act {^Your standing with the %*'s faction is now {\-|}%d.} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+}
+/* }}} */
+
+/* Post-reboot loging bonus reward message {{{ */
+#act {^Lord Agrippa tells you, 'Welcome back!'$} {
+	_CaptureLog {<119>Post-Reboot Login Bonus.} {$capPath[act]};
+}
+/* }}} */
+
+/* Birthday Rewards {{{ */
+#act {^Reencaul the Sage hugs you gently. Maybe you should hug him back?$} {
+	_CaptureLog {<119>Recieved Birthday Rewards.} {$capPath[act]};
+}
+/* }}} */
+
+/* Marks {{{ */
+#act {^For %*, the Powers have granted thee a Mark.} {
+	_CaptureLog {<259>%0} {$capPath[act]};
+}
+
+#act {^You have been granted the Mark %*!} {
+	_CaptureLog {<259>%0} {$capPath[act]};
+}
+/* }}} */
+
+/* Boss Kills {{{ */
+#act {^You have killed a new boss, %*.$} {
+	_CaptureLog {<119>New Boss Kill: <179>%1} {$capPath[important]};
+	_event_raise {activity_bosskill} {%1};
+}
+/* }}} */
+
+/* Leveling Rewards {{{ */
+/* Vitals / PP on Leveling */
+#act {^You gain %d hit points, %d spell points, %d stamina, and %d practices!} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+	_event_raise {activity_levelup};
+}
+
+/* Every 15th level Stat Better */
+#act {^Due to your experiences, you have earned a %d point increase in %w.} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+}
+
+/* Multiclassing Stat max Increase */
+#act {^Your %* maximum has been increased to %d!} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+}
+
+/* Vitals Training/Manuals */
+#act {Your {hit points|spell power|stamina} increase!} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+}
+/* }}} */
+
+/* Skill Betters {{{ */
+/* Betters, either from usage or leveling */
+#act {^You have become more learned at '%*' (%*).} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+	_event_raise {activity_better} {%1} {%2};
+}
+
+/* Better on a fumble */
+#act {^You learn from your mistakes, and your knowledge of '%*' improves. (%*)} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+	_event_raise {activity_better} {%1} {%2};
+}
+
+/* Mastery of a Skill */
+#act {^You have become a master at %*} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+	_event_raise {activity_better} {%1} {100};
+}
+/* }}} */
+
+/* Training a Stat */
+#act {^Your %D increases!} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+}
+
+/* Praticing a Skill */
+#act {^You have increased your knowledge of '%*' to %d\%.} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+}
+
+/* Using a manual */
+#act {^You carefully study the techniques contained within a manual of %*...} {
+	_CaptureLog {<079>Used a manual of %1...} {$capPath[important]};
+}
+
+/* Random Exploration Bonus */
+#act {^For journeying to far-off places and broadening your horizons, the Powers have rewarded you!} {
+	_CaptureLog {<259>%0} {$capPath[act]};
+}
+
+/* TODO MOVE THIS!!! */
+#act {~%* has set your rank in Clan %* to %*} {
+	_CaptureLog {<099>%0} {$capPath[important]};
+}

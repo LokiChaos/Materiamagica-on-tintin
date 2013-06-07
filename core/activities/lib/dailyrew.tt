@@ -1,0 +1,84 @@
+#nop activities/lib/dailyrew.tt
+
+/* Subroutines for (daily) comand {{{ */
+#alias {_doDaily} {
+	#if {"%1" == "r{e|eq|equest}"} {
+		_doDailyRequest;
+	};
+	#elseif {"%1" == "s{|t|ta|tat|tatus}"} {
+		_doDailyStatus;
+	};
+	#else {
+		#echo {<149>Usage:\n     daily s[tatus] - get current status on rewards.<099>};
+		#echo {<149>     daily r[equest] - request your rewards from the represenative.<099>};
+	};
+};
+
+#alias {_doDailyRequest} {
+	#echo {TODO! - Verify Correct Location};
+	#send {sayto rep yes};
+}
+
+#alias {_doDailyStatus} {
+	std_value_restore {lastDaily};
+	#format {__timeNow} {%T};
+	#echo {<149>You can recieve daily rewards from:<099>};
+	#foreach {New Rigel;Xaventry;Sigil;Tellerium} {__towne} {
+		#math __deltaTime {($lastDaily[${__towne}][time] + 86400 - ${__timeNow})/60};
+		#if {"${__deltaTime}" < "0"} {
+			#echo {<139> * <099>%s<149> now!<099>} {${__towne}};
+		} {
+			#math __deltaHour  {${__deltaTime} / 60};
+			#math __deltaMin   {${__deltaTime} % 60};
+			#echo {<139> * <099>%s<149> at <099>%s<149> (<099>%d<149>h <099>%d<148>m from now).<099>}
+				{${__towne}} {@std_unixToTime{$lastDaily[${__towne}][time]}} {${__deltaHour}} {${__deltaMin}};
+			#unvar __deltaHour;
+			#unvar __deltaMin;
+		};
+	};
+	#unvar lastDaily;
+	#unvar __timeNow;
+	#unvar __towne;
+	#unvar __deltaTime;
+}
+/* }}} */
+
+/* Internal Helpers {{{ */
+#alias {_dailyRewarded} {
+	#math _dailyRewards[%1] {${_dailyRewards[%1]} + 1};
+	#line gag;
+}
+
+#alias {_dailyCollect} {
+	_CaptureLog {<259>Collected daily reward from %1.} {$capPath[act]};
+	std_value_restore {lastDaily};
+	#format {lastDaily[%1][time]} {%T};
+	std_value_save {lastDaily};
+	#unvar lastDaily;
+	#var _dailyRewards {};
+	#var _dailyTown {%1};
+	_event_register {item_bound} {dailyBindGag} {#line gag; #nop};
+}
+
+#alias {_dailyFin} {
+	#nop %1;
+	#foreach {${_dailyRewards[]}} {__reward} {
+		#if {${_dailyRewards[${__reward}]} == 1} {
+			#format __rewStr {A representative from the %s Tourism Board gives you %s.}
+				  {${_dailyTown}} {${__reward}};
+		} {
+			#format __rewStr {A representative from the %s Tourism Board gives you %d of %s.}
+				  {${_dailyTown}} {${_dailyRewards[${__reward}]}} {${__reward}};
+		};
+		#echo {${__rewStr}};
+		_CaptureLog {<259>${__rewStr}} {$capPath[act]};
+	};
+
+	_event_remove_specific {item_bound} {dailyBindGag};
+	#unvar __rewStr;
+	#unvar __reward;
+	#unvar _dailyTown;
+	#unvar _dailyRewards;
+	#class dailyReward kill;
+}
+/* }}} */

@@ -1,0 +1,92 @@
+#nop speedwalks/goto.tt
+
+/* Pathfinder {{{ */
+#alias {_realgoto} {
+	#unvar _pathQueue;
+	#var __goto[origin] @findOrigin{};
+	#if {${__goto[origin]} != 0 } {
+		#var __goto[destStr] @std_str_toLower{%1};
+		#replace __goto[destStr] {goto } {};
+		#var __goto[dest] @findDest{${__goto[destStr]}};
+		#if {${__goto[dest]} != 0 } {
+			#if { ${__goto[origin]} == ${__goto[dest]} } {
+				#echo {<119>Error: You're already there.};	
+			} {
+				#if { (${__goto[origin]} / 50) == (${__goto[dest]} / 50) } {
+					#map write {tmp/tmpmap.map};
+					#map read data/paths.map;
+					#map goto ${__goto[origin]};
+					#path end;
+					#map find ${__goto[dest]};
+					#path save forward __path;
+					#if {&{__path}} {
+						#list _pathQueue create {${__path}};
+						_loadPathQueue;
+						#script __goto[destName] {awk -F : '$1 == ${__goto[dest]} {print $5}' data/speedwalk.tbl};
+						#echo {<149>Path to '<099>%s<149>' loaded.} {${__goto[destName][1]}};
+					} {
+						#echo {<119>Error: Unable to find a path to destination from here.};
+					};
+					#map read {tmp/tmpmap.map};
+					#map goto {$gmcp[Room][num]};
+				} {
+					#echo {<119>Error: Unable to find a path to destination from here.};
+				};
+			};
+		} {
+			#echo {<119>Error: "${__goto[destStr]}" is not a valid destination.};
+		};
+	} {
+		#echo {<119>Error: you are not at a valid starting point.};
+	};
+	#unvar __goto;
+	#unvar __path;
+}
+/* }}} */
+
+/* Internal Helpers {{{ */
+#function {findOrigin} {
+	#if {$stateRoom[Vmap]} {
+		#script result {awk -F : '$2 ~ /$navigation[X]/ && $3 ~ /$navigation[Y]/ {print $1}' data/speedwalk.tbl};
+		#if {&result[]} {
+			#var result $result[1];
+		} {
+			#return 0;
+		};
+	} {
+		#return 0;
+	};
+}
+
+#function {findDest} {
+	#script {result} {awk -F : 'tolower($5) ~ /^%1/ {print $1}' data/speedwalk.tbl};
+	#if {&result[]} {
+		#var result $result[1];	
+	} {
+		#return 0;
+	};
+}
+/* }}} */
+
+/* Print In-Game Help {{{ */
+#alias {_gotoHelp} {
+	#echo {<149>Auto-Speedwalk system help:\n\n\tUsage: goto <179><destinaion>\n};
+	#echo {<149>The auto-speedwalk system will identify your current location based on};
+	#echo {<149>your coordiantes.  It will attempt to match the supplied desitation to};
+	#echo {<149>an internal table of locations.  Upon a sucessful match it will enqueue};
+	#echo {<149>a series of speedwalks to take you from where you are to the destination.};
+	#echo {<129>Use the "run" command to actually start the speedwalk.\n};
+	#echo {<149>Valid locations (you may omit the []'ed portions): };
+	#echo {<179> FGK              Temp<109>[elton]<179>         TempWG|TelliWG      Tell<109>[erium]<179>};
+	#echo {<179> Axora            PC                  <109>[Maldras ]<179>Keep      Deciet};
+	#echo {<179> Ceno<109>[taphy]<179>      Ves<109>[uvius]<179>          Vos<109>[pire]<179>           Sigil};
+	#echo {<179> EmpCr            Dio<109>[cletian]<179>        Man<109>[drake]<179>          Xav<109>[entry]<179>};
+	#echo {<179> LoneD            New Kovir           Rune                <109>[Hall of ]<179>Heros};
+	#echo {<179> Lasler           RuneF<109>[orest]<179>        Avarice             Wroth};
+	#echo {<179> TravR            NR                  ToB                 Baz<109>[aar]<179>};
+	#echo {<179> ToA              Thorne              Gil<109>[very]<179>           Low<109>[angen]<179>};
+	#echo {<179> XavWG            RuneWG              LowWG               SigilWG};
+	#echo {<149>You may always use a locations <488>FULL<099><149> name, case-insensitive.};
+}
+/* }}} */
+

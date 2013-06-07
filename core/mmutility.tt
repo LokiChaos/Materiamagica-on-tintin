@@ -1,0 +1,53 @@
+#nop
+/*
+	Matria magica specific helpers.
+*/
+
+#function {mmcolor2tt} {
+	#var __colorConvertTbl {
+	    {|B}{<149>}{|R}{<119>}{|C}{<169>}{|M}{<159>}{|Y}{<139>}{|W}{<179>}{|G}{<129>}
+		{|b}{<049>}{|r}{<019>}{|c}{<069>}{|m}{<059>}{|y}{<039>}{|w}{<079>}{|g}{<029>}
+		{|D}{<109>}
+	    {|I|B}{<149><788>}{|I|R}{<119><788>}{|I|C}{<169><788>}{|I|M}{<159><788>}
+		{|I|Y}{<139><788>}{|I|W}{<179><788>}{|I|G}{<129><788>}
+		{|I|b}{<049><788>}{|I|r}{<019><788>}{|I|c}{<069><788>}{|I|m}{<059><788>}
+		{|I|y}{<039><788>}{|I|w}{<079><788>}{|I|g}{<029><788>}
+		{|I|D}{<109><788>}
+
+		};
+	#var result ${__colorConvertTbl[%1]};
+	#unvar __colorConvertTbl;
+}
+
+
+/* Scroll <-> Spell Lookups from the data table {{{ */
+#function {spell2scroll} {
+	#script result {awk -F : 'tolower($1) == "%0" {print $4}' data/spells.txt};
+	#return $result[1];
+}
+
+#function {scroll2spell} {
+	#script result {awk -F : 'tolower($4) == "%0" {print $1}' data/spells.txt};
+	#return $result[1];
+}
+/* }}} */
+
+/* Zone/Location Lookups from data table {{{ */
+#function {repopTime} {
+	#script result {awk -F: '$1 == "@std_str_escape_shell{%0}" {print $12}' data/locations.txt};
+	#if {&{result[]} && "${result[1]}" != "NA"} {
+		#var result ${result[1]};
+	}{
+		#var result 0;
+	};
+}
+
+#function {zoneType} {
+	#script result {awk -F: '$1 == "@std_str_escape_shell{%0}" {print $5}' data/locations.txt};
+	#if {&{result[]}} {
+		#var result ${result[1]};
+	}{
+		#var result {};
+	};
+}
+/* }}} */

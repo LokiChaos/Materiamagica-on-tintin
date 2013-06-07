@@ -1,0 +1,290 @@
+abjure:Abjuration:75:an enchanted crimson-colored scroll
+acid blast:Conjuration:32:an icy silver scroll
+acid mist:Conjuration:88:a hissing yellow scroll
+aegis:Conjuration:14:a soggy bronze scroll
+air blast:Chaos:50:
+air evocation:Evocation:28:
+air halo:Invocation:50:
+air invocation:Invocation:2:
+animate dead:Necromancy:78:an unpleasant pink scroll
+antimagic sphere:Abjuration:82:a scroll made of leopard skin
+armor:Conjuration:0:a glossy lime scroll
+ash evocation:Evocation:50:
+ash invocation:Invocation:40:
+augment aura:Conjuration:72:a niveous lambskin scroll
+awaken:Abjuration:6:an enchanted emerald scroll
+bar:Thought:22:
+bathe:Enchantment:50:
+beacon:Enchantment:22:
+bless:Invocation:5:a soggy, yellow-green scroll
+blindness:Illusion:35:an ivory-yellow papyrus scroll
+blink:Summoning:35:a frozen cherry colored scroll
+bubble cluster:Summoning:25:a antique aquamarine scroll
+buffet:Chaos:50:
+call lightning:Evocation:28:a damp white scroll
+calm:Alteration:28:an amber scroll made of cowhide
+camouflage:Conjuration:37:a scrawled vellum scroll
+cancellation:Thought:92:
+cause critical:Necromancy:25:a soiled blue scroll
+cause light:Necromancy:8:a midnight-blue scroll
+cause serious:Necromancy:20:a mauve colored cowhide scroll
+chain lightning:Evocation:90:a soggy blue scroll
+change sex:Alteration:50:a teal rawhide scroll
+channel faith:Conjuration:15:
+charm:Enchantment:30:a silk magenta scroll
+chill touch:Necromancy:5:a cobalt blue scroll
+circle of fire:Conjuration:75:a ripped olive scroll
+circle of thorns:Conjuration:75:a tangerine spell scroll
+color spray:Illusion:20:a lustrous jade green scroll
+combat blink:Summoning:58:a scroll crafted of llama hide
+concealment:Illusion:20:a faded vellum scroll
+concentration:Conjuration:30:a pure white scroll
+condemn:Abjuration:40:a scrawled green scroll
+confusion:Chaos:65:a tangled drabbet scroll
+consecrate armor:Enchantment:60:a translucent silver scroll
+consecrate food:Enchantment:8:a translucent bronze scroll
+consecrate weapon:Enchantment:64:a translucent golden scroll
+control winds:Summoning:75:a thick lambskin scroll
+convocation:Conjuration:16:a tightly-wrapped annunciatory scroll
+counterspell:Abjuration:54:an ebony cotton scroll
+create food:Conjuration:23:an ebony colored icy scroll
+create spring:Conjuration:30:a soggy cobalt scroll
+create water:Conjuration:10:an indigo scroll
+cure blindness:Alteration:40:a glazed crystal scroll
+cure critical:Alteration:30:a luminescent mother-of-pearl scroll
+cure disease:Abjuration:25:a glowing powder blue scroll
+cure light:Alteration:17:a off-white scroll
+cure poison:Abjuration:20:a shimmering scroll
+cure serious:Alteration:20:a mauve scroll
+curse:Enchantment:40:a faded green scroll
+cursed fog:Conjuration:83:a noxious green scroll
+deafen:Chaos:15:an invisible-inked scroll
+death grip:Alteration:35:a yellow cotton scroll
+delay reincarnation:Necromancy:99:a brittle feuillemort scroll
+describe:Thought:0:
+desecrate armor:Enchantment:44:a translucent uranium scroll
+detect alignment:Divination:5:a gold-leafed papyrus scroll
+detect illusion:Divination:59:a blue colored sable scroll
+detect invisibility:Divination:15:a jet black cowhide scroll
+detect magic:Divination:0:a glazed pink scroll
+diseased cloud:Evocation:88:a pustulant verdigris scroll
+disequilibriate:Thought:50:
+disjunction:Necromancy:99:a mottled vomit-yellow scroll
+dispel area:Abjuration:75:a powder blue buckskin scroll
+dispel magic:Abjuration:50:an ivory scroll
+displacement:Illusion:50:
+disrupt sight:Thought:30:
+domination:Thought:30:
+dust evocation:Evocation:20:
+dust invocation:Invocation:28:
+earth evocation:Evocation:5:
+earth invocation:Invocation:22:
+electrogenic growth:Conjuration:27:a soggy ivory scroll
+elemental shield:Enchantment:80:a shimmering rainbow-colored scroll
+ember carom:Enchantment:50:
+energy drain:Necromancy:55:a verdant colored papyrus scroll
+enervation:Necromancy:67:a smelly metallic scroll
+enhanced strength:Alteration:10:a shimmering saffron scroll
+erase:Alteration:50:a translucent amber scroll
+esp:Thought:14:
+evil eye:Chaos:7:a spotted melanic scroll
+excommunicate:Enchantment:40:a faded sacred scroll
+faerie fire:Enchantment:5:a silvery rawhide scroll
+famine:Necromancy:45:a withered cornhusk scroll
+fatigue:Necromancy:35:a zinnober crepon scroll
+find familiar:Summoning:5:a beige scroll
+fireball:Conjuration:25:a soiled red scroll
+fire evocation:Evocation:25:
+fire invocation:Invocation:25:
+flame wind:Alteration:62:a glazed coal-black scroll
+flintstrike:Conjuration:32:a speckled red scroll
+float:Thought:8:
+force field:Thought:7:
+forget:Thought:85:
+fountain:Conjuration:32:an ecru spell scroll
+frost:Conjuration:50:a glossy yellow-green scroll
+frostborne:Enchantment:35:a scroll crafted of polar bear hide
+fungal growth:Conjuration:27:a moldy silver scroll
+gate travel:Chaos:75:a translucent scroll
+geisteblitz:Thought:45:
+guise of nature:Alteration:50:a woody lime scroll
+hands of wind:Conjuration:61:a tattered transparent scroll
+harm:Necromancy:32:a dirty white scroll
+haste:Alteration:40:a shining fuschia scroll
+heal:Alteration:55:a shimmering sapphire scroll
+hex:Enchantment:45:a damp coquelicot scroll
+iceball:Conjuration:25:a chilled transluscent scroll
+ice evocation:Evocation:43:
+ice invocation:Invocation:24:
+ice storm:Summoning:82:a brilliant sky-colored scroll
+ice whip:Evocation:80:a frosted translucent scroll
+ice wind:Conjuration:60:a opalescent blue scroll
+identify:Divination:0:a copper-colored scroll
+illumination:Divination:50:
+immobilize:Necromancy:38:a starched crinoline scroll
+impede movement:Necromancy:34:a stiff crinoline scroll
+induce aggression:Thought:44:
+infravision:Alteration:30:a weathered scroll
+insanity:Chaos:68:a pink cordovan scroll
+invisibility:Illusion:25:a rose-colored cotton scroll
+irritation:Thought:15:
+jinx:Chaos:10:a kente scroll
+kill:Necromancy:62:a bronze-colored scroll
+knock:Thought:22:
+landslide:Evocation:50:
+lava cloak:Enchantment:50:
+lava walk:Alteration:65:a tightly-wrapped calefacient scroll
+leech:Necromancy:25:a scroll crafted of annelid skin
+leech conduit:Necromancy:78:a stained, ringworm-encrusted scroll
+levitation:Enchantment:12:a platinum-colored scroll
+light:Illusion:0:a dirty ebony scroll
+lightning bolt:Conjuration:20:a mystical ivory scroll
+lightning evocation:Evocation:19:
+lightning invocation:Invocation:18:
+lightning shroud:Conjuration:75:a fizzling prismatic scroll
+magic bomb:Conjuration:72:a opalescent scroll
+magic carpet:Conjuration:52:a thin lambskin scroll
+magic dart:Conjuration:0:a navy blue scroll
+magic lock:Alteration:20:a bewitching cerulean scroll
+magic message:Conjuration:44:a glossy red scroll
+magic unlock:Alteration:25:a bewitching purple scroll
+magma evocation:Evocation:65:
+magma invocation:Invocation:35:
+magnetic field:Alteration:50:
+malediction:Necromancy:34:a dark maroon scroll
+malignancy:Necromancy:68:an atrous scroll
+megalith:Summoning:50:
+memory drain:Thought:65:
+mental clarity:Enchantment:50:a gaudy blood-red scroll
+mental disruption:Thought:88:
+mesmerize:Thought:10:
+mimic:Thought:30:
+mind shield:Thought:56:
+minerals evocation:Evocation:34:
+minerals invocation:Invocation:16:
+momentary darkness:Illusion:75:a luminescent silver scroll
+monument:Summoning:50:
+multiply magic:Enchantment:94:a glowing octarine scroll
+negation:Abjuration:42:a shiny metallic scroll
+nexus:Chaos:85:a lime-green scroll
+nullification field:Thought:91:
+ooze evocation:Evocation:43:
+ooze invocation:Invocation:24:
+otolithic growth:Alteration:65:a bubbling copper scroll
+overpressurize:Enchantment:50:a dirty antique scroll
+pass door:Alteration:50:a translucent azure scroll
+pense:Thought:4:
+pentacle:Abjuration:22:a blood-red scroll
+phalanx:Conjuration:25:a enchanted lime scroll
+plague:Necromancy:45:a swamp green scroll
+plane travel:Chaos:90:a brilliant amethyst scroll
+poison:Alteration:30:a crimson scroll
+poison gas:Conjuration:69:a smeared green scroll
+protection from evil:Abjuration:8:a torn sandy scroll
+protection from good:Abjuration:8:a shimmering crystalline scroll
+pyrokinesis:Thought:48:
+quicksand:Alteration:50:
+radiance evocation:Evocation:12:
+radiance invocation:Invocation:7:
+read aura:Divination:54:a scroll crafted of snow leopard hide
+reanimate:Necromancy:90:a glowing crystalline scroll
+recharge item:Enchantment:61:a burnt-sienna scroll
+reflective fireball:Evocation:90:a scroll made of rattlesnake skin
+refresh:Alteration:20:a sterling silver scroll
+remote sensing:Thought:30:a weighty parchment scroll
+remove curse:Abjuration:65:an immaculate violet scroll
+requiem:Alteration:10:a transparent mother-of-pearl scroll
+resurrect:Alteration:92:a translucent mother-of-pearl scroll
+room shield:Abjuration:70:a greasy aqua scroll
+salt evocation:Evocation:16:
+salt invocation:Invocation:58:
+sanctify:Abjuration:65:a glowing mother-of-pearl scroll
+sanctuary:Abjuration:65:a shining quartz scroll
+scribe:Fundamental:0:
+searing touch:Abjuration:40:an egg white scroll
+sense life:Divination:25:a moldy yellow scroll
+sensory enhancement:Thought:34:
+shadow armor:Necromancy:15:a waxen kalamkari scroll
+shadow door:Alteration:42:a waxed piceous scroll
+shadow golem:Summoning:70:a a waxen hodden scroll
+shadow imp:Summoning:58:a waxed corbeau scroll
+shadow light:Conjuration:14:a wax burnet scroll
+shield:Evocation:19:an enchanted vellum scroll
+shocking grasp:Alteration:5:a lightning blue scroll
+silence:Abjuration:80:an inky blue scroll
+sleep:Enchantment:20:a smoky transparent scroll
+slow:Necromancy:90:an antique ivory scroll
+slow magic:Chaos:90:an inky antique ivory scroll
+smoke evocation:Evocation:7:
+smoke invocation:Invocation:7:
+soul sacrifice:Conjuration:72:
+spark:Alteration:0:a didactic scroll
+spell shield:Abjuration:70:an enchanted onionskin scroll
+spook:Thought:40:
+steam evocation:Evocation:42:
+steam invocation:Invocation:20:
+stone skin:Alteration:50:a gaudy granite scroll
+summon:Summoning:93:a charred cobalt scroll
+summon elemental:Summoning:85:a mildewed magenta scroll
+summon mount:Summoning:75:a brown scroll smelling of dung
+summon shade:Summoning:85:a blackened, burned cobalt scroll
+swarm:Summoning:94:a musty black scroll
+telekinesis:Thought:72:
+telekinetic bash:Thought:30:
+telekinetic explosion:Thought:70:
+telekinetic pierce:Thought:33:
+telekinetic punch:Thought:1:
+telekinetic shield:Thought:56:
+telekinetic slash:Thought:45:
+telekinetic wave:Thought:65:
+teleport:Summoning:60:a tainted teal scroll
+telesmatic force:Thought:40:
+teleview:Thought:70:
+thunderclap:Alteration:55:a faded antique scroll
+thunderstorm:Summoning:78:a sorcerous glowing scroll
+tinnitus:Enchantment:50:a calligraphically inked scroll
+totem:Summoning:75:a woody recycled scroll
+transference:Thought:39:
+tremor:Abjuration:25:a dirty brown scroll
+underwater breathing:Alteration:50:an antique copper scroll
+unnatural strength:Alteration:10:an undulating saffron scroll
+vacuum evocation:Evocation:75:
+vacuum invocation:Invocation:40:
+warp:Summoning:89:a glossy platinum scroll
+water evocation:Evocation:70:
+water invocation:Invocation:20:
+waterspout:Evocation:50:
+weaken:Alteration:10:a tightly-wound scroll
+web:Conjuration:60:a smudged sticky scroll
+whirlwind:Alteration:30:a wind-tattered fuchsia scroll
+wind walk:Alteration:50:a translucent sky-blue scroll
+wizard eye:Divination:50:a thick parchment scroll
+word of recall:Summoning:35:a textured indigo scroll
+binding curse:::a rigid cinerious scroll
+blood dance:::a boustrophedonic scroll
+conjure boulder:::a sandy tawny scroll
+control weather:::an indigo papyrus scroll
+create candy cane:::a red and white striped scroll
+create candycorn:::an orange, yellow and white striped scroll
+create wine spring:::a wine-soaked scroll
+deceleration sphere:::a brilliant quartz scroll
+detect truth:::a gold-leafed sable scroll
+energy orb:::a humming electric blue scroll
+farsight:::an unpleasant-smelling silver scroll
+firebolt:::a scroll crafted of emu hide
+fireshield:::a bedraggled scroll
+glamour:::an icy azure scroll
+great shout:::a moldy green scroll
+icebolt:::a dragon hide scroll
+imprint aura:::a moth-eaten scroll
+improved invisibility:::a milky-white glowing scroll
+magic map:::a mandarin orange scroll
+mass animate dead:::a glowing bone scroll
+paralyze:::a wrinkled gold scroll
+reveal:::a charcoal lambskin scroll
+shadow tunnel:::a slashed woven scroll
+shadow guide:::a waxed burnet scroll
+shadow image:::a waxen sable scroll
+siphon:::a cold oxblood leather scroll
+stone curse:::a cutaneous scroll
+summon creature:::a wrinkled-gold scroll

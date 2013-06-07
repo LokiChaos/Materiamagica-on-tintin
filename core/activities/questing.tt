@@ -1,0 +1,70 @@
+#showme {<aef>Loading: <faa>activities/questing.tt}
+/*
+Quest #32193: Robot Invasion! (0/8 goals complete).
+  This quest has no time limit.
+Quest #32053: Priest Training !! (0/15 goals complete).
+  This quest has no time limit.
+This is an ACHIEVEMENT. The Goal Quests must be completed.
+Quest #32143: Wizard Training !! (0/15 goals complete).
+  This quest has no time limit.
+This is an ACHIEVEMENT. The Goal Quests must be completed.
+A total of [3] quests.
+Type QUEST STATUS <#> for complete information on that quest.
+*/
+
+/* Quest Status {{{ */
+#act {^Quest #%d: %* (%d/%d goal{|s} complete).$} {
+	#var __questIdx &{_questListing[]};
+	#var _questListing[${__questIdx}][number] {%1};
+	#var _questListing[${__questIdx}][name]   {%2};
+	#var _questListing[${__questIdx}][phCom]  {%3};
+	#var _questListing[${__questIdx}][phTot]  {%4};
+	#unvar __questIdx;
+}
+
+#act {^A total of [%d] quests.$} {
+	#var _quests[list] {${_questListing}};
+	#unvar _questListing;
+}
+
+#act {^You aren't currently on any quests.$} {
+	#var _quests[list] {};
+	#var _quests[last] {};
+}
+/* }}} */
+
+/* Running out of time and Losing a Quest {{{ */
+#act {^You have run out of time for your quest, '%*'.} {
+
+}
+
+#act {^You are no longer on the quest, '%*'.$} {
+
+}
+/* }}} */
+
+/* Requesting a Quest {{{ */
+#act {^You ask {Lord|Lady|Baron} %w for a quest.$} {
+	#class questRequest read core/activities/questreq.tt;
+	_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
+}
+/* }}} */
+
+/* Turning in a Quest {{{ */
+#act {^You inform {Lord|Lady|Baron} %w you have completed your quest '%*'.$} {
+	#class questComplete read core/activities/questcom.tt;	
+	_event_oneshot {prompt_post} {questComClean} {_questCompleteFin};
+}
+/* }}} */
+
+/* User (quest check) command {{{ */
+/*#alias {q{|uest} {check(|limit)|s(|tatus)|c(|omplete)}} {
+	#echo {quest %s} {%2};
+}*/
+/*
+#class questCmd read core/activities/lib/questing.tt;
+	questCheckLimit;
+	#class questCmd kill;
+};
+*/
+/* }}} */

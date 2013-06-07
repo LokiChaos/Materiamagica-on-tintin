@@ -1,0 +1,29 @@
+#nop combat info;
+
+/*
+Your combat output mode is set to brief.
+You are currently aiming for your victims' torso.
+You are defending yourself through the use of shield block.
+You are right-handed.
+*/
+
+
+
+
+/*
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+Combat Statistics:
+ Defenses:
+     Acrobatics:   10000    *Dodge: 10000
+     Shield Block: 10000     Parry: 10000
+     Magical Fade: 10000
+  You have sucessfully defended 10000 attacks out of 10000 (100% defense rate).
+
+ Attacks:
+     Head: 100%             *Torso: 100%   
+	 Arms: 100%              Legs:  100%
+	 Tail: 100%              Wings: 100%
+  You have hit 10000 times out of 10000 attacks (100% hit rate).
+ 
+ 
+*/

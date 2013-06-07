@@ -1,0 +1,124 @@
+#showme {<aef>Loading: <faa>forms.tt}
+/*
+	Handles tracking info from form commands and events
+	
+	Also provides the isAlly function and ally command 
+	and handles the list of friendly entities.
+	
+	Yourself, and all form memebrs are automatically assumed
+	to be friendly.  You can also set a list of always friendly
+	characters and manually add/remove people from the list.
+	
+	Those who are unformed form you will be considered friendly
+	for 5 real minutes.  Unless they attack you... then they are
+	immediately removed from it.
+*/
+
+/* Events where form info need to be refreshed */
+#act {^You aren't in a formation.}{
+	#var stateChar[Formed] 0;
+	#unvar form;
+	#if {$stateClient[muteLine]} {
+		#line gag;
+	};
+}
+
+#act {^Your formation has been disbanded.} {
+	#var stateChar[Formed] 0;
+	#unvar form;
+	_event_raise {form_disband};
+}
+
+#act {^You stop following %*.} {
+	#var stateChar[Formed] 0;
+	#unvar form;
+	_event_raise {form_left};
+}
+
+#act {%* joins your formation.$} {
+	#var stateChar[Formed] 1;
+	silentForm;
+}
+
+#act {%* stops following you.$} {
+	silentForm;
+}
+
+#act {Your formation has been restructured.$} {
+	#var stateChar[Formed] 1;
+	silentForm;
+	_event_raise {form_restruct};
+}
+
+#act {You restructure your formation.$} {
+	#var stateChar[Formed] 1;
+	silentForm;
+	_event_raise {form_restruct};
+}
+
+#act {^%* restructures {her|his} formation.} {
+	#if {"$1" == "$form[Leader]"} {
+		silentForm;
+		_event_raise {form_restruct};
+	};
+}
+/* Collect info from form/form report commands {{{ */
+#act {^Your %w Formation Consists of:$} {
+	#unvar form;
+	#var form[leader] {$charName};
+	#var form[type]   {%1};
+	#if {$stateClient[muteLine]} {
+		#line gag;
+	};
+	#class forminfo read core/forms/info.tt;
+}
+
+#act {^%*'s %w Formation Consists of:$} {
+	#unvar form;
+	#var form[leader] {%1};
+	#var form[type]   {%2};
+	#if {$stateClient[muteLine]} {
+		#line gag;
+	};
+	#class forminfo read core/forms/info.tt;
+}
+
+#alias {silentForm} {
+	#var stateClient[muteLine] 2;
+	#echo {Updating form info (Please Update with GMCP)};
+	form;
+}
+
+#act {^%* Formation's Status:$} {
+	#system {echo -e "\n\n\n\n\n\n\n\n" > tmp/formstat.$sessionName};
+	#if {$stateClient[muteLine]} {
+		#line gag;
+	};
+}
+
+#act {^[%W:%W %D] [%*] [%W/%Whp] [%W/%Wsp] [%W/%Wst]%*} {
+	#format __formLine {<149>[<139>%+3s<149>] [<139>%-13s<149>] [<099>%+4s<149>/<099>%+4s<149>] [<169>%+4s<149>] [<139>%+4s<149>]<099>} {%2} {%4} {%5} {%6} {%7} {%9};
+	#line log tmp/formstat.$sessionName {${__formLine}};
+	#line gag;
+	#if {$stateClient[muteLine] == 0} {
+		#echo {%.80s %p} {${__formLine}} {%11};
+	};
+	#unvar __formLine;
+}
+
+#alias {silentFormReport} {
+	#var stateClient[muteLine] 2;
+	form report;
+}
+
+#alias {generateAllies} {
+	#echo {Need to Imp!};
+}
+
+/*
+	ally command -
+		ally list - list allies
+		ally add <name> - add name to ally list
+		ally rem <name> - remove ally list
+		ally purge - remove all from ally list, then regen from form/perm list
+*/

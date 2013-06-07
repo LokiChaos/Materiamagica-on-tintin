@@ -1,0 +1,65 @@
+#nop reagents/use.tt
+
+/* Reagent String Lists {{{ */
+#var __rTable[ethereal] {{a glowing piece of black moss}{1}{a white sapphire}{1}{an essence of the source}{1}{the horn from a unicorn}{1}{a sunstone}{1}{a lightning bolt}{1}{a sphere of ethereal energy}{1}{a bit of shadow}{1}{a midnight pearl}{1}{a soul in a bottle}{1}{a wayward spirit}{1}{a bone from a gravedancer}{1}{a ghost essence}{1}{a small misshapen pearl}{1}{a sparkling stone}{1}{a silver scale}{1}};
+#var __rTable[water] {{a shimmering white fish scale}{1}{a piece of dried seaweed}{1}{an eye of a tubeworm}{1}{a pinch of sea salt}{1}{a clump of dried seaweed}{1}{a small guppy}{1}{a bottle of mermaids tears}{1}{a dolphin eye}{1}{an iridescent fish scale}{1}{a jar of frog eggs}{1}{a sea monkey}{1}{a blob of llama spit}{1}{a large pearl}{1}{a vial of rose water}{1}{a cracked seashell}{1}{a bag of ice}{1}{a smooth river rock}{1}{a small puka shell}{1}{raindrops in a bottle}{1}};
+#var __rTable[air] {{a wisp of fog}{1}{a sylph in a bottle}{1}{a bat's wing}{1}{a phoenix egg}{1}{a bottle of air bubbles}{1}{a toucan feather}{1}{a cloud fragment}{1}{a feather from a roc}{1}{a raven feather}{1}{a bit of condensed cloud}{1}{a pile of seagull droppings}{1}{a fragment of coconut husk}{1}{a vial of neon}{1}{an angel feather}{1}{a stiff brown feather}{1}{frozen wind}{1}{a broken wing}{1}{a flask of tornado essence}{1}{a cattail}{1}};
+#var __rTable[gem] {{a rose-colored shard}{1}{an opal gem}{1}{a petrified seed}{1}{a splinter of mithril}{1}{a magician's ruby}{1}{a fire opal}{1}{a small quartz crystal}{1}{an opal gemstone}{1}{a hunk of crystal}{1}{a small sparkling diamond}{1}{a roughly hewn gem}{1}{a fragment of amethyst}{1}{a silver runestone}{1}};
+#var __rTable[earth] {{a few pine needles}{1}{a piece of petrified wood}{1}{a tail of a dead mole}{1}{a handful of goldstone dust}{1}{a purple flower}{1}{a quartz stone}{1}{a fern leaf}{1}{an underground fungus}{1}{a single seashell}{1}{a clump of crimson moss}{1}{a browning mandrake leaf}{1}{dried silverthorn leaves}{1}{a piece of bark}{1}{a piece of dry guano}{1}{a palm frond}{1}{some earthworm innards}{1}{an empty bird's nest}{1}{a mandrake leaf}{1}{a lazy snail}{1}{a daemon heart}{1}{a twig}{1}{the claws of a dungeon rat}{1}{an oak leaf}{1}{a huge boulder}{1}{eye of newt}{1}{a ginseng root}{1}{a small pebble}{1}{a bluebell flower}{1}};
+#var __rTable[astral] {{a small meteorite}{1}{a crystal figurine}{1}{an astral bauble}{1}{a large black pearl}{1}{a beautiful crystal prism}{1}{an ivory marble}{1}{a crystallized lava rock}{1}{Vyst's heart}{1}{a carefully polished burl}{1}{a small crystal skull}{1}{a small pouch of lich bone dust}{1}{a turkey's wishbone}{1}{a small golden feather}{1}{a small indicolite}{1}{a diamond stud}{1}{a buleva crystal}{1}{a cold flame}{1}{a dracolich eye}{1}{an extradimensional sludge}{1}{a meteorite}{1}{a pegakorn tear}{1}{a large quartz crystal}{1}};
+#var __rTable[fire] {{a chunk of red volcanic rock}{1}{a limestone}{1}{a bit of foxfire}{1}{a fine cigar}{1}{a charred brick}{1}{a charred branch}{1}{a dragon tooth}{1}{a volcanic rock}{1}{a pinch of sulfur}{1}{a volcanic rock}{1}{a piece of dragon gizzard}{1}{a fire stick}{1}{a small pile of volcanic ash}{1}{a charred sliver of wood}{1}{an acidic leaf}{1}{some firepowder}{1}{a glowing ember}{1}};    	
+#var __rTable[hema] {{a small pirce of hematite}{1}};
+#var __rTable[summon] {{a summoning stone}{1}};
+#var __rTable[focus] {{a focusing crystal}{1}};
+/* }}} */
+
+#alias {_reagentUse}
+{
+	#var _rea {{fire}{0}{water}{0}{air}{0}{earth}{0}
+	          {gem}{0}{ethereal}{0}
+			  {astral}{0}{summon}{0}{focus}{0}};
+	#var __rstring @std_str_trim{@std_str_toLower{%1}};
+	#replace {__rstring} {and } {};
+	#replace {__rstring} {, } {;};
+	#foreach {${__rstring}} {__reaT} {
+		#foreach {${_rea[]}} {__ridx} {
+			#if {${__rTable[${__ridx}][${__reaT}]}} {
+				#math _rea[${__ridx}] {${_rea[${__ridx}]} + 1};
+			};
+		};		
+	};
+	#unvar __rstring;
+	#unvar __reaT;
+
+    #nop Update totals;
+	#foreach {${_rea[]}} {__ridx}{
+		#math {reagent[count][${__ridx}]} {$reagent[count][${__ridx}] - ${_rea[${__ridx}]}};
+		#math {reagent[used][${__ridx}]}  {$reagent[used][${__ridx}] + ${_rea[${__ridx}]}};
+	};
+	#unvar __ridx;
+
+	#if {$prefs[echoReagentUse] & 2} {
+		#echo {You used: <118>%+3s fire <168>%+3s water <128>%+3s earth <138>%+3s air} 
+			  {${_rea[fire]}} {${_rea[water]}} {${_rea[earth]}} {${_rea[air]}};
+		#echo {          <178>%+3s gem  <108>%+3s ethereal<098>}
+			  {${_rea[gem]}} {${_rea[ethereal]}};
+		#if {${_rea[summon]}} {
+			#echo {          <278>%+3s summoning stone}  {${_rea[summon]}};
+		};
+		#if {${_rea[hema]}}    {
+			#echo {          <108>%+3s black hematite}   {${_rea[hema]}};
+		};
+		#if {${_rea[astral]}} {
+			#echo {          <178>%+3s astral<198>}      {${_rea[astral]}};
+		};
+		#if {${_rea[focus]}}  {
+			#echo {          <178>%+3s focusing crystal<198>}  {${_rea[focus]}};
+		};
+    };
+    #if {$prefs[echoReagentUse] & 1} {
+			#nop;
+		} {
+			#line gag;
+		};
+	#unvar _rea;
+};

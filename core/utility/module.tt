@@ -1,0 +1,106 @@
+#showme {<aef>Loading: <faa>utility/modules.tt}
+/*
+	insmod <module name>
+	lsmod loaded*|unloaded|all
+	rmmod <module name>
+*/
+
+#alias {insmod} {
+	#var __mod[name] {%1};
+	#if { "${__mod[name]}" == "%S" && "${__mod[name]}" != "" } {
+		#if { @std_module_loaded{${__mod[name]}} } {
+			#echo {<139>Module '${__mod[name]}' is already loaded!}	
+		} {
+			#class {mod_${__mod[name]}} read modules/${__mod[name]}/init.tt;
+			#list _modules[loaded] add {${__mod[name]}};
+			#echo {<129>Loaded module '${__mod[name]}'};
+		};
+	} {
+		#echo {<149>Usage - insmod <modulename>};
+	};
+	#unvar __mod;
+}
+
+#alias {rmmod} {
+	#var __mod[name] {%1};
+	#if { "${__mod[name]}" == "%S" && "${__mod[name]}" != "" } {
+		#list _modules[loaded] find {${__mod[name]}} {__idx};
+		#if { ${__idx} } {
+			#list _modules[loaded] del  {${__idx}};
+			#read modules/%1/cleanup.tt;
+			#class {mod_${__mod[name]}} kill;
+			#echo {<129>Unloaded module '${__mod[name]}'};
+		} {
+			#echo {<119>Error: No such module was loaded!};
+		};
+	} {
+		#echo {<149>Usage - rmmod <modulename>};
+	};
+	#unvar __mod;
+	#unvar __idx;
+}
+
+#alias {lsmod} {
+	#if {"%1" == "l{|o|oad}"} {
+		#if {&loadedMods[]} {
+			#echo {<149>Loaded Modules:};
+			#foreach {${_modules[loaded][]}} {__idx} {
+				#echo {   <139>* <149>%s} {$_modules[loaded][${__idx}]};
+			};
+		} {
+			#echo {<139>No modules are loaded.};
+		};
+	} {
+		#script {__mod[list]} {ls modules/};
+		#echo {<149>Installed modules:};
+		#foreach {${__mod[list][]}} {__idx} {
+			#var __mod[star] {{L}{ }{A}{ }};
+			#if { @std_module_loaded{${__mod[list][${__idx}]}} } {
+				#var __mod[star][L] {*};
+			};
+			#if { @std_list_isMember{ {${__mod[list][${__idx}]}} {_modules[AutoLoad]} } } {
+				#var __mod[star][A] {*};
+			};
+			#echo {  <129>%s<139>%s <149>%-15s<099> %.59s} {${__mod[star][A]}} {${__mod[star][L]}} {${__mod[list][${__idx}]}} {@std_module_desc{${__mod[list][${__idx}]}} };
+		};
+		#echo {<149>A <139>*<149> denotes a module is loaded, <129>*<149> that it is marked to auto-load.};
+	};
+	#unvar __idx;
+	#unvar __mod;
+}
+
+#function {std_module_loaded} {
+	#math result @std_list_isMember{ {%1} {_modules[loaded]} };
+}
+
+#function {std_module_desc} {
+	#script result {cat modules/%1/desc 2>/dev/null};
+	#return $result[1];
+}
+
+
+/* All persistent values should be saved in $mod[mod_name][%*] */
+_event_register {session_connect}    {moduleRecallLoad} {_std_modules_load};
+_event_register {session_connect}    {zmoduleAutoLoad}  {_std_modules_auto};
+_event_register {session_disconnect} {moduleRecallSave} {_std_modules_save};
+
+#alias {_std_modules_auto} {
+	#nop %1;
+	#echo {<139>Autoloading %m modules.} {&{_modules[AutoLoad][]}};
+	#foreach {${_modules[AutoLoad][]}} {__mod} {
+		insmod ${_modules[AutoLoad][${__mod}]};
+	};
+}
+
+
+#alias {_std_modules_save} {
+	#nop %1;
+	#echo {<139>Saving persistent module data.};
+	std_value_save {mod};
+}
+
+#alias {_std_modules_load} {
+	#nop %1;
+	#echo {<139>Loading persistent module data.};
+	std_value_load {mod};
+}

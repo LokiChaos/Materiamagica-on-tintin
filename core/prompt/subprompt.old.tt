@@ -1,0 +1,277 @@
+#nop prompt/subprompt.tt
+
+/* Top Status Bar {{{ */
+#alias {_PromptTop} {
+	#if {$navigation[repop] > 0} {
+		#format __topB {[%d][%s} {$navigation[repop]} {$navigation[Zone]};
+	}{
+		#format __topB {[%s} {$navigation[Zone]};
+	};	
+	#format __topB {%.64s} {${__topB}};
+
+	#format prompt[5] {<007>[%-12s  %+64s]<099>} {$charName]} {${__topB}};	
+	#if {$stateChar[Dead]} {
+		#var __barColor {<117>};
+	};
+	#elseif {$stateChar[inSocial]} {
+		#var __barColor {<174>};
+	};
+	#else {
+		#var __barColor {<007>};
+	};
+	#format prompt[5] {%s[%-12s  %+64s]<099>} {${__barColor}} {$charName]} {${__topB}};	
+	#unvar __barColor;
+	#unvar __topB;
+	#echo {{%.80s}{-1}} {$prompt[5]};
+}
+/* }}} */
+
+#alias {_PromptNavBar} {
+	#if {$stateChar[Casting]} {
+		#var __casting {[<138>CASTING<098>]};
+	};
+	#elseif {$stateChar[Playing]} {
+		#var __casting {[<138>PLAYING<098>]};
+	};
+	#else {
+		#var __casting {         };
+	};
+	#if {$stateChar[Lag]} {
+		#var __lagged {[<128>LAGED<098>]};
+	} {
+		#var __lagged {       };
+	};
+	#format prompt[b] {<099>%s<098>[%.23s<098>]  %s%s<078>[<178>%s%a<078>][<128>%+4s<108>x<098>,<128>%+4s<108>y<098>]%s%s}
+		{@roomBar{}} {${_exitsC}} {${__lagged}} {${__casting}} {$gtime[regen]} {37} 
+		{$navigation[X]} {$navigation[Y]} {$gtime[printMoon]};
+	#unvar __casting;
+	#unvar __lagged;
+}
+
+/* Prompt Line #3 {{{ */
+#alias {_PromptExtrasBar}
+{
+	#var prompt[3] {};
+	#if {$stateChar[mounted]}
+		{#format {prompt[3]} {<148>M:<098>%s<148>st<098>][%s}
+			{$mount[stamina]} {$prompt[3]}};
+	#if {$stateChar[Combat]}
+		{#format {prompt[3]} {<158>%s%a<098>][%s}
+			{$combat[mobHealth]} {37} {$prompt[3]}};
+	#if {$stateChar[Flying]}
+		{#format {prompt[3]} {%s<138>Flying %-2n (%+2s)<098>][}
+			{$prompt[3]} {@std_dir_short{$navigation[flightBearing]}} {$navigation[click]}};
+	#regex {$promptFlagsB} {([%d\x25]%w)%*}
+		{#format {prompt[3]} {%s%s\x25<168> %s<098>][%s} 
+			{@vitalcolscale{&1 100}} {&1} {&2} {$prompt[3]};}{#nop};
+
+	#format {prompt[3]} {<098>[%s%-53s]} {} {$prompt[3]};
+	#format {prompt[3]} {%s%s} {$prompt[3]} {@reagentBarMake{}};
+}
+/* }}} */
+
+/* Echo Vitals Line In place of prompt  {{{ */
+#alias {_CombatEcho} {
+	#if {$stateChar[Combat]} {
+		#regex {$promptFlagsB} {([%d%%]%w)%*} {
+			#format {combat[formHP]} {[%s%% <168>%s<098>]} 
+					{@vitalcolscale{&1 100}} {&1} {&2};
+		} {
+			#var combat[formHP] {};
+		};
+	    #echo {%s [<158>%s%a<198>] %s<099>} {$prompt[1]} {$combat[mobHealth]} {37} {$combat[formHP]};
+	    #if {(0 - $vitals[dhp]) > $vitals[hp]} {
+			#echo {<719>>> Damage exceeded half of remaing HP! <<<<099>};
+		};
+	};
+}
+/* }}} */
+
+/* Colorize Vitals {{{ */
+#var __vitalsColors {
+	{0}{<118>} {1}{<218>} {2}{<138>} {3}{<138>} {4}{<138>}
+	{5}{<128>} {6}{<128>} {7}{<128>} {8}{<078>} {9}{<078>}
+	{10}{<178>}
+}
+
+/* Handles Color Codes of vitals based on thier % of max value */
+#function {vitalcolscale} {
+	#return ${__vitalsColors[@std_math_min{10;@std_math_eval{10 * %1 / %2}}]};
+}
+
+/* Handles Colors for Vital Changes eg: +GREEN =WHITE -RED */
+#function {vitalchangecol} {
+	#if {%1 == 0} {
+		#return <178>=;
+	};
+	#elseif {%1 < 0} {
+		#return <118>%1;
+	};
+	#else {
+		#return <128>+%1;
+	}
+}
+
+/* Calcultes Vital's changes and generates colors */
+#alias {_calcVitals} {
+	#foreach {hp;sp;st} {__vit} {
+		#math vitals[d][${__vit}] {$vitals[c][${__vit}] - $vitals[o][${__vit}]};
+		#var vitals[col][${__vit}] {@vitalcolscale{$vitals[c][${__vit}];$vitals[max][${__vit}]}};
+		#var vitals[col][d${__vit}] {@vitalchangecol{$vitals[d][${__vit}]}};
+	};
+	#unvar __vit;
+};
+/* }}} */
+
+/* Generate Room State Indicator {{{ */
+#function {roomBar} {
+	#if 	{$stateRoom[CPK]} {
+		#var result {<118>[CPK!]<098>};
+	};
+	#elseif {$stateRoom[nullification field]} {
+		#var result {<098>[<118>Null<098>]};
+	};
+	#elseif {$stateRoom[cancellation]} {
+		#var result {<098>[<118>Cncl<098>]};
+	};
+	#elseif {$stateRoom[anti-magic sphere]} {
+		#var result {<098>[<118>AMS!<098>]};
+		};
+	#elseif {$stateRoom[NPK]} {
+		#var result {<118>[NPK!]<098>};
+	};
+	#elseif {$stateRoom[LPK]} {
+		#var result {<118>[LPK!]<098>};
+	};
+	#elseif {$stateRoom[Dizzy]} {
+		#var result {<098>[<128>DIZY<098>]};
+	};
+	#elseif {$stateRoom[momentary darkness]} {
+		#var result {<098>[<238>DARK<098>]};
+	};
+	#elseif {$stateRoom[Safe]} {
+		#var result {<098>[<178>SAFE<098>]};
+	};
+	#elseif {$stateRoom[Vmap]} {
+		#var result {<098>[<128>vMap<098>]};
+	};
+	#elseif {$stateRoom[quicksand]} {
+		#var result {<098>[<128>Qick<098>]};
+	};	
+	#elseif {$stateRoom[room shield]} {
+		#var result {<098>[<138>RmSh<098>]};
+	};
+	#elseif {$stateRoom[storm]} {
+		#var result {<098>[<148>Strm<098>]};
+	};
+	#elseif {$stateRoom[acid mist]} {
+		#var result {<098>[<118>Acid<098>]};
+	};
+	#elseif {$stateRoom[gas]} {
+		#var result {<098>[<118>ToxG<098>]};
+	};
+	#elseif {$stateRoom[cursed fog]} {
+		#var result {<098>[<118>CrsF<098>]};
+	};
+	#elseif {$stateRoom[circle of fire]} {
+		#var result {<098>[<118>CofF<098>]};
+	};
+	#elseif {$stateRoom[circle of thorns]} {
+		#var result {<098>[<118>CofT<098>]};
+	};
+	#else {
+		#var result {<078>[    ]};
+	};
+}
+/* }}} */
+
+/*  Generates subunit of the status bar for misc flags {{{ 
+	associted with states other than status affects.
+	It also pads the string to fit with the vitals subunit.
+*/
+#alias {_promptFlagsBar} {
+	#var __pFlags {<098>};		
+	#if {$stateChar[Dead]} {
+		#var {__pFlags} {${__pFlags}<099>[<159>Shade<099>]};
+	} {
+		#if {$stateChar[Hungry]} {
+			#var {__pFlags} {${__pFlags}<099>[<039>H<099>]};
+		};
+		#if {$stateChar[Thirsty]} {
+			#var {__pFlags} {${__pFlags}<099>[<149>T<099>]};
+		};
+		#if {$stateChar[Encumbered]} {
+			#var {__pFlags} {${__pFlags}<099>[<019>Enc<099>]};
+		};
+		#if {$stateChar[Paniced]} {
+			#var {__pFlags} {${__pFlags}<099>[<119>PANIC<099>]};
+		};
+		#if {$stateChar[have_reagents]} {
+			#format {__pFlags} {${__pFlags}<099>[<169>Rx%d<099>]} {$stateChar[have_reagents]};
+		};
+		#if {$stateChar[have_bot]} {
+			#var {__pFlags} {${__pFlags}<099>[<169>BoT<099>]};
+		};	
+	};
+	#if {$stateChar[Search]} {
+		#var {__pFlags} {${__pFlags}<099>[<129>Search<099>]};
+	};
+	#if {$stateChar[Dig]} {
+		#var {__pFlags} {${__pFlags}<099>[<129>Dig<099>]};
+	};
+	#if {$stateChar[Questing]} {
+		#var {__pFlags} {${__pFlags}<099>[<149>Q<099>]};
+	};
+	#if {$stateChar[onBounty]} {
+		#var {__pFlags} {${__pFlags}<099>[<219>B<099>]};
+	};
+	#if {$stateChar[onCrystal]} {
+		#var {__pFlags} {${__pFlags}<099>[<169>C<099>]};
+	};
+	#if {$stateChar[tracking]} {
+		#var {__pFlags} {${__pFlags}<099>[<129>T<099>]};
+	};
+	#if {$stateChar[is_onSpeedWalk]} {
+		#var {__pFlags} {${__pFlags}<099>[<139>SW<099>]};
+	};
+	#if {$stateChar[Sitting]} {
+		#var {__pFlags} {${__pFlags}<099>[<129>s<099>]};
+	};
+	#elseif {$stateChar[Resting]} {
+		#var {__pFlags} {${__pFlags}<099>[<129>R<099>]};
+	};
+	#elseif {$stateChar[Sleeping]} {
+		#var {__pFlags} {${__pFlags}<099>[<129>S<099>]};
+	};
+	#if {$stateChar[Quiet]} {
+		#var {__pFlags} {${__pFlags}<099>[<119>Q<099>]};
+	};
+	#if {$stateChar[Away]} {
+		#var {__pFlags} {${__pFlags}<099>[<159>A<099>]};
+	};
+	#if {$stateChar[have_mail]} {
+		#var {__pFlags} {${__pFlags}<099>[<119>Mail<099>]};
+	};
+	#if {$stateChar[have_news]} {
+		#var {__pFlags} {${__pFlags}<099>[<129>News<099>]};
+	};
+	#if {$stateChar[tagged]} {
+		#var {__pFlags} {${__pFlags}<099>[<119>TAG!<099>]};
+	};
+	#if {$stateChar[invis]} {
+		#var {__pFlags} {${__pFlags}<099>[<149>I<099>]};
+	};
+	
+	#format {__pFlags} {%.40s} {${__pFlags}};
+	#format {prompt[1]} {%s%+40s} {$prompt[1]} {${__pFlags}};
+	#unvar __pFlags;
+}
+/* }}} */
+
+/* Reagent Count Section {{{ */
+#function {reagentBarMake} {
+  #format {result} {[<118>%+3s <168>%+3s <128>%+3s <138>%+3s <178>%+3s <108>%+3s<098>]}
+          {$reagent[count][fire]} {$reagent[count][water]} {$reagent[count][earth]}
+		  {$reagent[count][air]} {$reagent[count][gem]} {$reagent[count][ethereal]};
+}
+/* }}} */

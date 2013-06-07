@@ -1,0 +1,25 @@
+#nop activities/luzzardo.tt
+
+/* Game Strings {{{
+Luzzardo Malvenu's Lothario Hideaway
+give 50000 gold luz
+You give Luzzardo Malvenu the professional eccentric 50000 gold.
+Luzzardo Malvenu the professional eccentric gives you a page of parchment.
+
+You pay Luzzardo Malvenu the professional eccentric 46 gp from your gold on
+hand, 24,954 gp from your account at New Rigel Bank and Trust.
+Luzzardo Malvenu the professional eccentric takes your payment and hands you one
+of Luzzardo Malvenu's little silver bells.
+One of Luzzardo Malvenu's little silver bells emits a bright flare of white light as it binds with you.
+
+Luzzardo Malvenu the professional eccentric tells you 'Fine work, Shinde! That was exactly what I needed! Come back and fetch your reward!
+
+'Aha, the triumphant victor returns!' Luzzardo Malvenu the professional eccentric exclaims. 'Thank you for your help, Shinde!'
+You gain 7 practices!
+Your Folklore has been increased by 2 to 4.
+
+ }}} */
+
+#act {^Luzzardo Malvenu the professional eccentric gives you a page of parchment.$} {
+	#nop started bell hunt;
+}

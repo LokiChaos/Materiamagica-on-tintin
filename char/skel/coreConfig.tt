@@ -1,0 +1,229 @@
+#showme {<aef>Loading User Settings: <faa>../coreConfig.tt}
+
+/*
+	This File contains several variables that the core/_.tt
+	files use. I have tried to explain each of them as well
+	as I can, and provide a default value.
+
+	I highly suggest looking over the files in core/.
+*/
+
+/*============================================================================
+	Basic Client Config 
+ ============================================================================*/
+
+/* How many lines to reserve at the top and bottom of the screen
+   The default prompt expects at least one at the top and 4 at the bottom    */
+#var prefs[split][top]        1;
+#var prefs[split][bot]        4;
+
+/* Automatically Continute when given [C]ontinue [R]edraw [B]ack [E]xit: 
+	1 = Yes
+	0 = No (Default)                                                         */
+#var prefs[autoContinue]	  0;
+
+/* Default page_length you would like MM to use
+   Some client functions will raise it to 120
+   then return it to this value. 
+   Use -1 to auto-calculate it based on the terminal height                  */
+#var prefs[defPgLen]         50;
+
+/* When would you like to see vitals echoed in the buffer?
+   1 = Always echo vitals
+   0 = Echo Vitals only in Combat (Default)
+  -1 = Never Show Vitals in buffer                                           */
+#var prefs[echoVitals]        0;
+
+/* When would you like to see casting echoed in the buffer?
+   1 = Show casting messages only in Combat
+   0 = Always show casting messages (Default)
+  -1 = Never show casting messages in buffer                                 */
+#var prefs[echoCasting]       0;
+
+/* Should ticks be echoed?
+   3 = Echo 10 and 5 seconds tick warning & tick echo
+   2 = Echo 5 seconds to tick warning & tick echo
+   1 = Show tick echo only
+   0 = Ticks are tracked silently                                            */
+#var prefs[echoTicks]         0;
+
+/* Show automatic HINT channel hints, you will see manual hints
+   regardless.  NB: HINT channel should be ON for tick synching              */
+#var prefs[showHints]         0;
+
+
+/* Write Map out to tmp/map.$sessionName ?                                   */
+#var prefs[mapWrite]          1;
+
+/* Disable sounds from the _play_sound call                                  */
+#var prefs[mute]		      0;
+
+/*============================================================================
+	Capture/Logging/Records Config 
+ ============================================================================*/
+
+/* Select Base Capture/Logging Path
+     a good default is $stateClient[root]/char/$charName/log                */
+
+#var capPath[base]		{/home/will/.tt/char/$sessionName/log};
+
+/* First person CT/AllyTalk
+      You can choose how your clan/ally talk messages are logged
+      Values are:
+      	0 - Leave it "[2] clan members heard you say,"
+      	1 - Use "[CLAN] $charName: "
+      	2 - Use "[CLAN] ME: " 				(Default)	                     */
+#var prefs[firstP]	           2;
+
+/* Select chat relay capture behavior
+	0 - Capture Seperately in capPath[base]/relay_CHANNEL (default)
+	1 - Capture Seperately in capPath[base]/relay/CHANNEL
+	2 - Capture together in capPath[base]/relays
+		If 2, you may list channels to to be captured in thier
+		own files (capPath[base]/relay_CHANNEL)                              */
+
+#var prefs[relayCap]	{0};
+
+/* List any channels to be captured individually, seperate with 
+   a semi-colon.  Only used if above setting is 2.
+	eg {troll;mm;aochat}                                                     */
+#var prefs[relaySep]	{};
+
+/* Path to sound files (only used for local sounds
+   If using remote sound, you may leave un-set                               */
+#var prefs[soundsDir]		{/home/will/.tt/sounds};
+
+/*============================================================================
+	Navigation Config 
+ ============================================================================*/
+
+/* Put the keyword for whatever sextant or sextant-like item you use  
+   the two most likely values are clock and sextant                      */
+#var navigation[sextant]	    {'an antiquated clock'}; 
+/* If you contianer your sextant, enter a keyword for it here
+   There are two special values:
+   	1 - it will unlocker/relocker it on use
+   	0 - it will always assume its in your inventory (Default)            */
+#var navigation[sextantCont]	{0}; 
+
+/* Set to 1 if you want to automatically recall list post blinking       */
+#var navigation[blinkRecall]	{1};
+
+/*============================================================================
+	Speedwalk Config 
+ ============================================================================*/
+/* require levitation? 0 = no  1 = yes */
+#var prefs[speedWalk][needLevi]	    1;
+
+/* require haste?      0 = no  1 = yes */
+#var prefs[speedWalk][needHaste]    1;
+
+/* require invis?      0 = no  1 = yes */
+#var prefs[speedWalk][needInvis]    1;
+
+/*============================================================================
+	Reagent Config 
+ ============================================================================*/
+/* List all reagent producers here seperate entiries with semi-colons
+   Theoretically, any number of reagent producers can be supported.          */
+#var reagent[producer] {1.itemgenerator;2.itemgenerator;3.itemgenerator};
+
+/* If you re-string you bags list all names here,
+   again semi-color delienated                                               */
+#var reagent[producerName] {Vandemaar's Reagent Bag};
+
+/* These idicate where reagents should be stored
+   If you have multiple, enter them as a list.
+   An example if you used 2 gnome bags for holding gems:
+       #var reagent[store][gem] {gnome;2.gnome};
+   Theoretically an unlimited number of containers can be specified.         */
+#var reagent[store][fire]     {firereagents};
+#var reagent[store][water]    {waterreagents};
+#var reagent[store][air]      {airreagents};
+#var reagent[store][earth]    {earthreagents};
+#var reagent[store][gem]      {3.trunk};
+#var reagent[store][ethereal] {4.trunk};
+#var reagent[store][astral]   {4.trunk;1.trunk};
+#var reagent[store][hema]     {4.trunk};
+#var reagent[store][summon]   {3.trunk};
+#var reagent[store][focus]    {3.trunk};
+/* List any containers you may manually put reagents in here and
+   would still like counted by the ReagentSync alias                         */
+#var reagent[store][etc]      {};
+
+/* Set the max number of reagents to buy at one time
+   good values are probably between 10 and 25 (default = 20)                 */
+#var reagent[maxBuy]          10;
+
+/* Set this to however many you want to re-stock to if below 
+   Set Zero if you never want to auto-purchase any                           */
+#var reagent[max][fire]      250;
+#var reagent[max][water]     250;
+#var reagent[max][air]       250;
+#var reagent[max][earth]     250;
+#var reagent[max][gem]       100;
+#var reagent[max][ethereal]  100;	
+#var reagent[max][hema]        0;	
+#var reagent[max][summon]      0;	
+#var reagent[max][focus]       0;	
+
+/*  What string would you like to see when reagents are consumed?
+    0 = Supress "flares" message
+    1 = In-Game "flares" is displayed (Default)
+    2 = In-Game "flares" is supressed, but show the client display
+    3 = Display both in-game and client strings                              */
+#var prefs[echoReagentUse]     1;
+
+/*============================================================================
+	Bag of Tricks (aka BoT) Config 
+ ============================================================================*/
+
+/* How many bags of tricks do you use?                                       */
+#var prefs[bot][BoTcount]      1;
+/*
+	You can specify what to do with all items a Bag of Tricks can
+	make here. 
+
+	Valid Values:
+		0 - Keep in inventory (don't drop, don't container)
+		1 - Drop
+		otherwise name the container (eg: gnome, 3.trunk, etc)
+*/
+#var prefs[bot][a small bomb]              {1};
+#var prefs[bot][a small flash bomb]		   {2.trunk};
+#var prefs[bot][a small smoke bomb]		   {2.trunk};
+#var prefs[bot][a small acid bomb]         {1};
+#var prefs[bot][a small poison bomb]       {1};
+#var prefs[bot][a small ice bomb]          {1};
+#var prefs[bot][a potion of surprise]      {1};
+#var prefs[bot][a tarot card]              {1};
+#var prefs[bot][a jar full of angry bees]  {1};
+#var prefs[bot][a portion of onion rings]  {1};
+#var prefs[bot][an eight ball]             {1};
+#var prefs[bot][a lockpick]                {1};
+#var prefs[bot][a hat shaped hat]          {1};
+#var prefs[bot][a wood and iron spade]     {1};
+/* The following items get special treatment */
+/* 'a swirling black potion' becasue of their identical short descptions */
+#var prefs[bot][blindness]                 {trunk};
+#var prefs[bot][poison]                    {0};
+/* Action figures - You can treat your own and others seperately */
+#var prefs[bot][figureSelf]                {trunk};
+#var prefs[bot][figureOthers]              {0};
+/* Hangman Games */
+#var prefs[bot][hangman]                   {0};
+
+/* ========================================================================= */
+
+/* Don't list these equipment slots as vacant 
+	Valid Slots are:
+	light, finger1, finger2, neck1, neck2, neck3, neck4, onbody, head,
+	face, legs, feet, hands, arms, shield, shoulder1, shoulder2, abtbody, rndbody,
+	waist, wrist1, wrist2, rhand, lhand
+	
+	These slots are automatically omitted if you don't have them:
+	rwing, lwing, tail
+*/
+#var prefs[ignoredEquipmentSlots] {shoulder1;shoulder2;face};
+
+/* ===== END USER CONFIG =================================================== */

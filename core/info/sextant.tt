@@ -1,0 +1,58 @@
+#nop info/sextant.tt
+
+#if {$stateClient[muteLine]} {
+	#gag {^It is %d:%d %w on %w, %w the %S, year %d.};
+	#gag {^You are currently at position %*, %* in %*.};
+	#gag {^You are not in a mappable location.};
+	#gag {~^\e[1\;3{4|5}mTrigael: (\e[0m%D\e[1\;3{4|5}m)  Marabah: (\e[0m%D\e[1\;3{4|5}m)\e[0m};
+	#gag {Worldgates in %*.};
+}
+
+#gag {^Level %d item '}
+#gag {^You focus your powers of observation}
+#gag {^Item}
+#gag {^has keywords}
+#gag {^This}
+#gag {^*This}
+#gag {condition.$}
+
+#gag {^The twin moons represented on the clock are currently in the phases:}
+#gag {^This clock, while an antique, is in excellent working condition.  The case}
+#gag {^is crafted of a fine hardwood, possibly cherry, and is scuffed and battered}
+#gag {^from many years of service.  The clock hands are crafted of blackened bronze}
+#gag {^and are quite ornate, moving over the yellowing clock dial that seems to}
+#gag {^glow with an eerie incandescence.  A pair of stylized moons, representing}
+#gag {^Alyria's Trigael and Marabah, rotate ever-so-slowly in a cutout set above}
+#gag {^the center of the clock face.  Below the clock face is a clockwork flip card}
+#gag {^window.  The cards have ornate numbers inked on them and the cards flip when}
+
+#gag {^The sextant is a navigational tool used by the navigator of the Magencia}
+#gag {^to pinpoint the ships location on a map.  It is triangular and made of}
+#gag {^steel, with measurement notches on the bottom piece.  Considered a lucky}
+#gag {^charm by the navigator, the sextant glows and provides reading light for the}
+#gag {^navigator at night.  You smile as you feel that this sextant will help you}
+
+#gag {^The sextant is a navigational tool used by the navigator of the Magencia}
+#gag {^to pinpoint the ships location on a map.  It is triangular and made of}
+#gag {^pewter, with measurement notches on the bottom piece.  Considered a lucky}
+#gag {^charm by the navigator, he had the sextant enchanted by a sorcerer and it is}
+#gag {^rumored to enable the user to see invisible objects.  It also glows,}
+#gag {^providing reading light for the navigator at night.  You smile as you feel}
+
+#gag {^The sextant is a navigational tool used to pinpoint one's location on a map.}
+#gag {^It is triangular and crafted of an inferior metal alloy.  There are}
+#gag {^measurement notches on the bottom piece.  This one looks rather shoddily}
+
+#gag {^Made of polished mithril, this instrument is engraved with intricate}
+#gag {^carvings of celestial objects.  The eyepiece for aligning the crosshairs}
+#gag {^with the chosen star is edged in gold.  Travelers along the pathways of}
+#gag {^Alyria have long used such items to find their ways.  This is not only a}
+
+#act {^{you walk about, noting your general position within Alyria.|guide your way around when used.|that this sextant will help you guide your way around when used.|crafted, but it appears to serve its function.|useful piece of equipment, but a wonderful work of art.}} {
+	#class sextant kill;
+	#line gag;
+}
+ 
+#act {^You do not see that here.} {
+ #class sextant kill;
+}

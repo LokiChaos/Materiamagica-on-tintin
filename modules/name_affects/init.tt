@@ -1,0 +1,12 @@
+#nop
+
+_event_register {affect_change} {aff_namer} {_mod_name_affects_name};
+
+#alias {_mod_name_affects_name} {
+	
+	#if { "%3" == "1" } {
+		#echo {<174>Affect: %2 ON<099> \};
+	} {
+		#echo {<174>Affect: %2 OFF<099> \};
+	};
+}

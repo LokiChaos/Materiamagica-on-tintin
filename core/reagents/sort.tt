@@ -1,0 +1,4 @@
+#nop reagents/sort.tt
+
+#gag {^You aren't carrying anything that will fit into a};
+#gag {^$};

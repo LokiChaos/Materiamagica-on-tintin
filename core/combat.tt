@@ -1,0 +1,88 @@
+#showme {<aef>Loading: <faa>combat.tt}
+/*
+	Handles combat reformatting and parsing and use counts for
+	weapons/defenses/bash/kick/back stab/BR/etc.
+	Combat actions/macros should be defined by the user in $tt/user
+*/
+
+/* Called at the start of combat, initalizes variables */
+
+/* */
+_event_register {combat_start} {initcombat} {_startCombat %1;#nop};
+
+#alias {_startCombat}
+{
+	#var combat[RoundNumber]    0;
+	#var combat[Opponent]    {%1};
+	#var combat[mobHealth]    100;
+}
+
+#sub  {%*'s fireshield erupts at your strike! You are burned on the %* by %*'s flames causing %*.}
+	{%1's fireshield burns you on the %2 for %4.}
+
+
+
+/* Bash/Kick/Charge/Sweep */
+#act {^You bash %* over the head with %*.$} 
+{
+	_IncUses {bash};
+}
+
+#act {^You attempt to bash %* over the head with %*, but miss.$}
+{
+	_IncUses {bash};
+}
+
+/* Your defenses */
+#act {^You nimbly backflip out of the way %* attack.}$
+{
+	_IncUses {acrobatics};
+}
+
+#act {^You catch %* on %*.$}
+{
+	_IncUses {shield block};
+}
+
+#act {^You skillfully parry %* attack.$}
+{
+	_IncUses {parry};
+}
+
+#act {^You dodge out of the way of %* attack.$}
+{
+	_IncUses {dodge};
+}
+
+#act {^You slip between planes for a moment, evading %* attack.$}
+{
+	_IncUses {magical fade};
+}
+
+#act {^%* lunges towards you, but you dodge out of the way.$}
+{
+	_IncUses {evasion};
+}
+
+
+/* Master combat trigger! */
+#act {~^\e[1\;35m%* {is in perfect health|has several minor scratches|has several minor wounds and bruises|has some significant wounds|has some very significant wounds and scratches|looks pretty beaten up|is in terrible condition|is vomiting blood|screams in agony|pales visibly as death nears|is barely clinging to life}.}
+{
+	#var __HPTable {
+	{is in perfect health}{100}
+	{has several minor scratches}{95}
+	{has several minor wounds and bruises}{80}
+	{has some significant wounds}{70}
+	{has some very significant wounds and scratches}{50}
+	{looks pretty beaten up}{40}
+	{is in terrible condition}{30}
+	{is vomiting blood}{20}
+	{screams in agony}{15}
+	{pales visibly as death nears}{10}
+	{is barely clinging to life}{5}
+	};
+	#var combat[mobHealth] {${__HPTable[%2]}};
+	#unvar __HPTable;
+	#line gag;
+	#var stateChar[Combat]    2;
+}

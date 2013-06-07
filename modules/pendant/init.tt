@@ -1,0 +1,13 @@
+#nop
+
+#act {^The Pendant of Lord Maldra shines briefly with a soft %w light\!$} {
+	#var __pendColors = {
+                        {amber}{something is buried}
+	                    {indigo}{illusionary exit}
+	                    {ochre}{something is hidden}
+	                    {purple}{buried exit}
+	                    {violet}{hidden or pass-through exit}};
+	_event_raise {maldra_pendant} {${__pendColors[%2]}};
+	#echo {<149>%n.} {${__pendColors[%2]}};
+	#unvar __pendColors;
+}

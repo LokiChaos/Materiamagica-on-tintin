@@ -1,0 +1,53 @@
+#nop
+
+#alias {_buyReagents}
+{	
+	#switch {"$gmcp[Room][name]"} {
+		#case {"Samantha's Source of Power"} {
+			#var __rShop {Sigil};};
+		#case {"Underground Post"} {
+			#var __rShop {Keep};};
+		#case {"The Sorcerer's Muse"} {
+			#var __rShop {Vir};};
+		#case {"The Arcane Magic Shop"} {
+			#var __rShop {Arcane};};
+		#default {
+			#var __rShop {Other};};
+	};
+
+	#foreach {fire;water;earth;air;gem;ethereal;hema;summon;focus} {__rea} {
+		#math __need[${__rea}] {$reagent[max][${__rea}] - $reagent[count][${__rea}]};
+		#var  __need[${__rea}] {@std_math_max{{0} {${__need[${__rea}]}}}};
+#echo {Would buy %d of %s.} {${__need[${__rea}]}} {${__rea}};
+	};
+	#unvar __need;
+	#unvar __rea;
+}
+
+#alias {_BuyReag}
+{
+	#send {shop buy %1 '${__rItem[%1]}'};
+	#forall {$reagent[store][%1]} {
+	#if {%1 == "gem"}
+		#send {put all.reagent-%1 &0};
+	};
+}
+
+/*
+
+#var __rItem {{fire}{{default}{a pinch of sulfur}}
+              {air}{{default}{a feather from a roc}}
+              {earth}{{default}{a browning mandrake leaf}
+			    {sigil}{dried silverthorn leaves}}
+              {water}{{default}{a shimmering white fish scale}
+			    {sigil}{an iridescent fish scale}}
+              {gem}{{default}{a silver runestone}
+			    {sigil}{a petrified seed}}
+			  {ethereal}{{default}{a sunstone}
+			    {vir}{an essence of the source}
+			    {keep}{a ghost essence}
+			    {arcane}{a soun in a bottle}}
+			  {hema}{{default}{a small piece of hematite}}
+			  {focus}{{default}{a clear focusing crystal}}
+			  {summon}{{default}{a summoning stone}}};
+*/

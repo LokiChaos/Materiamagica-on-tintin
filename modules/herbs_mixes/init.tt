@@ -1,0 +1,78 @@
+#nop
+
+#var __mod_herbs_n_mixes_mixes {
+	{silvery}{awaken}
+	{reddish}{cause light}
+	{light blue}{detect invisibility}
+	{dark purple}{reveal}
+	{glimmering white}{cure light}
+	{warm brown}{refresh}
+	{pale blue}{levitation}
+	{dark red}{sense life}
+	{faint yellow}{calm}
+	{bright green}{cure poison}
+	{shimmering copper}{blindness}
+	{sticky magenta}{death grip}
+	{sparkling gold}{fatigue}
+	{bright yellow}{cure disease}
+	{warm blue}{charm}
+	{malevolent magenta}{flame wind}
+	{glittering black}{high explosive}
+	{pulsating orange}{magic bomb}
+	{verdant green}{alchemical attunement}
+	{soothing blue}{golem empathy}
+	{flourescing magenta}{battle prowess}
+	{effervescent white}{essence of youth}
+};
+
+#var __mod_herbs_n_mixes_sprigs {
+	{sedum rosea}{-1}
+	{celidonia}{ 1}
+	{centaures}{ 4}
+	{eliotropia}{ 8}
+	{jusquianus}{10}
+	{lillium}{14}
+	{lingua canis}{18}
+	{queri}{23}
+	{mepeta}{25}
+	{milisopholos}{32}
+	{verbena}{33}
+	{provinca}{41}
+	{rosa}{50}
+	{salvia}{64}
+	{virga pastoris}{72}
+	{serpentina}{88}
+	{urtica}{92}
+	{usicur}{ 9}
+};
+
+
+/* Mixture Affects */
+#func {mod_herbs_n_mixes_nameMix} {
+	#if {"${__mod_herbs_n_mixes_mixes[%2]}" != ""} {
+		#format result {%p (%s)} {%1} {${__mod_herbs_n_mixes_mixes[%2]}};
+	} {
+		#var result %1;
+	};
+}
+
+#sub {{A|a} %* mixture} {@mod_herbs_n_mixes_nameMix{ {%0} {%2} }};
+
+
+/* Sprig Powers */
+#func {mod_herbs_n_mixes_nameSprig} {
+	#if {${__mod_herbs_n_mixes_sprigs[%2]}} {
+		#format result {%p (%s)} {%1} {${__mod_herbs_n_mixes_sprigs[%2]}};
+	} {
+		#var result %1;
+	};
+}
+
+/* Shop Subs */
+#sub {A sprig of %w %w     } {@mod_herbs_n_mixes_nameSprig{ {%0} {%1 %2} }};
+#sub {A sprig of %w     }    {@mod_herbs_n_mixes_nameSprig{ {%0}{%1} }};
+
+/* Inventory drop/get Subs */
+#sub {a sprig of %w %w} {@mod_herbs_n_mixes_nameSprig{ {%0} {%1 %2} }} {5.9};
+#sub {a sprig of %w}    {@mod_herbs_n_mixes_nameSprig{ {%0} {%1} }} {6};
+

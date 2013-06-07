@@ -1,0 +1,14 @@
+#showme {<aef>Loading: <faa>char/events.tt}
+/*
+	Below are some examples of some custome events, some of these /do/ run
+	counter to the policy of triggers not sending commands to the game.
+*/
+
+/*  Classic auto-stand on slipping*/
+_register_event {state_slip} {autoS} {_AutoStand};
+
+#alias {_AutoStand}
+{
+	#nop %1;
+	stand;
+}

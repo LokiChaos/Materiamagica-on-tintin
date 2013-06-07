@@ -1,0 +1,23 @@
+#showme {<aef>Loading: <faa>bot.tt}
+/*
+	Handles tracking the state of your bag of trick.
+	Alias allows you to easily empty a BoT & auto-sort the contents.
+*/
+
+#act {^Your a bag of tricks glows white as it accumulates possessions from the ether.} {
+	#math stateChar[have_bot] {$stateChar[have_bot] + 1};
+	_event_raise {bot_produce};
+}
+
+#alias {BoTGet} {
+	#class mod_bag_of_tricks_get read module/bag_of_tricks/get.tt;
+	#loop {1} {$prefs[BoTcount]} {__c} {
+		queueCmd {open ${__c}.tricks} {0};
+		queueCmd {get all ${__c}.tricks} {0};
+		queueCmd {close ${__c}.tricks} {0};
+	};
+	#unvar __c;
+	_event_oneshot {cmdQueue_end} {botClean} {_CleanBot};
+	doQueue;
+	#var stateChar[have_bot] 0;
+}

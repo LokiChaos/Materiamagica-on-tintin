@@ -1,0 +1,369 @@
+Alyria::n::wilds:Alyria:-1:-1::::NA:
+Sigil Underground::n::underg:SUG:-1:-1::::NA:
+Great Alyrian Underground::n::underg:UG:-1:-1::::NA:
+Faerie Plane Wilderness::n::planar:FP:-1:-1::::NA:
+Ingenii Offices::n::office:Other:-1:-1::::NA:
+Ethereal Void::n::planar:Void:-1:-1::::16:
+Limbo Maze::n:Ethereal Void:planar:Void:0:0::::50:
+Complex d'Amour::n::isle:Other:-1:-1::::12:
+Chat Rooms::n::social:Other:-1:-1::::50:
+Verity Isle::n::isle:Verity:-1:-1::::NA:
+Tower of Riga:e:y::tower:Verity:69:32::::38:a tall, black tower surrounded by high mountains.
+Tower of Riga:Stables:n::tower:Verity:82:30:::::
+Curse of Xazra::n::planar:Other:-1:-1::::38:
+Worldgate::n::nil:nil:-1:-1::::NA:a rough circle formed of massive stone monoliths.
+Garbool Worldgate::n::wg:Alyria:2113:754:Island:::NA:
+CTF Worldgate::n::wg:Alyria:967:699:Island:::NA:
+Beltane Worldgate::n::wg:Alyria:1015:1116:Beltane:::NA:
+Maldra Keep Worldgate::n::wg:Alyria:1279:1053:Beltane:::NA:
+Kalywak Island Worldgate::n::wg:Alyria:118:28:Island:::NA:
+Lodge Island Worldgate::n::wg:Alyria:1301:-1:Island:::NA:
+Tellerium Worldgate::n::wg:Alyria:1674:541:Avros:::NA:
+Ethereal Void::n::wg:Void:-1:-1::::NA:
+Verity Isle Worldgate::n::wg:Verity:113:33::::NA:
+Rune Worldgate::n::wg:Alyria:662:746:Sepharia:::NA:
+Sigil Worldgate::n::wg:Alyria:502:1281:Auryn:::NA:
+Xaventry Worldgate::n::wg:Alryia:625:461:Sepharia:::NA:
+Decara Worldgate::n::wg:UG:1538:430::::NA:
+Vir Worldgate::n::wg:UG:1752:986::::NA:
+Island Worldgate::n::wg:UG:1234:865::::NA:
+Faerie Plane NE::n::wg:FP:389:81::::NA:
+Faerie Plane SW::n::wg:FP:76:301::::NA:
+Lowangen Worldgate::n::wg:Alyria:1177:384:Sepharia:::NA:
+Bandit Camp Worldgate::n::wg:SUG:990:1182::::NA:
+Ghost Town Worldgate::n::wg:SUG:569:1399::::NA:
+Genauras Worldgate::n::wg:SUG:488:1255::::NA:
+Gypsy Village Worldgate::n::wg:SUG:604:1308::::NA:
+The Airship Inconvenience::n::midair:Alyria:V:V::::30:
+The Wandering Sidhe::n::planar:Alyria/FP:V:V::::30:
+A Hydra's Den::n::dungn:Alyria:V:V:Sepharia/Avros:::39:a sloping tunnel, stinking of death and venom.
+Dungeon Odious::n::dungn:Alyria:V:V:Auryn:::25:a grime-covered hole, leading into darkness.
+Old Amaunet Clan Hall::n::keep:Alyria:824:1234:Auryn:::25:a crumbling, decrepit clanhall.
+The Saucy Wench Tavern::n::inn:Alyria:759:1303:Auryn:::25:NONE
+The Saucy Wench Tavern:Ex::::Alyria:760:1303:Auryn::::
+Palamire::y::villge:Alyria:705:1403:Auryn:::25:the burned, charred remains of a once-prosperous village.
+Palamire:North::::Alyria:705:1403:Auryn::::
+Palamire:South::::Alyria:705:1410:Auryn::::
+Shlarksh::y::villge:Alyria:813:1202:Auryn:::7:a poverty-stricken village full of orcish shanties.
+Shlarksh:Ex::::Alyria:813:1201:Auryn::::
+Glarshak::n::villge:Alyria:778:1280:Auryn:::25:an orc encampment in the foothills of Lleom.
+Glarshak:Ex::::Alyria:778:1281:Auryn::::
+The Mountain Village of Teolaven::y::villge:Alyria:609:1303:Auryn:::9:neat rows of crops dancing in the breeze, next to a series of small huts.
+Palace of Diocletian:e:y::castle:Alyria:553:1360:Auryn:20::32:the graceful stone towers of the Palace of Diocletian.
+Palace of Diocletian:SUG::::SUG:551:1354::61:239::
+Old Armageddon Clan Hall::n::keep:Alyria:515:1411:Auryn:61:135:25:a ruined fort constructed from felled cacao trees.
+Emperor's Crossroads::y::inn:Alyria:506:1308:Auryn:10::17:a well-lit, cheery inn, built along the side of the South Road.
+Emperor's Crossroads:EXIT::::Alyria:506:1308:Auryn::::
+Sigil::y::towne:Alyria:435:1226:Auryn:::15:the massive ironbound gates of the magical towne of Sigil.
+Sigil:North::::Alyria:435:1226:Auryn::::
+Sigil:South::::Alyria:436:1238:Auryn::::
+Sigil:West Shipwright::::Alyria:443:1253:Auryn::::
+Sigil:East Shipwright::::Alyria:451:1229:Auryn::::
+Sigil:SUG::::SUG:441:1299::61:120::
+The Sigilian Stronghold::n:Sigil:nowhere:Alyria:0:0:Auryn:::30:
+Sigilian Crossing::n:Sigil:suburb:Alyria:0:0:Auryn:::33:
+Sigil Reality::n:Sigil:suburb:Alyria:0:0:Auryn:::15:
+Mount Vesuvius::y::dungn:Alyria:295:1160:Auryn:::29:
+Vospire::y::towne:Alyria:312:1177:Auryn:::28:the looming presence of Mount Vesuvius, and beneath it, the towne of Vospire.
+Vospire:East::::Alyria:330:1176:Auryn::::
+Vospire:West::::Alyria:312:1177:Auryn::::
+A Rift Between Sigil and The Underside::n::underg:Alyra/SUG:-1:-1::::30:
+A Rift Between Sigil and The Underside:Manticore:n::underg:SUG:435:1232:::::
+A Rift Between Sigil and The Underside:Library:n::underg:SUG:428:1231::61:::
+A Natural Cave Between Alyria and the Sigil Underground::n::underg:Alyria/SUG:-1:-1:Auryn:::30:NONE
+A Natural Cave Between Alyria and the Sigil Underground:Topside::::Alyria:795:1205:Auryn::::
+A Natural Cave Between Alyria and the Sigil Underground:Bottomside::::SUG:796:1203:::::
+Mandrake Woods::y::forest:Alyria:654:365:Sepharia:::16:the ancient trees of Mandrake Woods.
+Shadow Castle::n:Mandrake Woods:castle:Alyria:0:0:Sepharia:::25:
+The Towne of Xaventry::y::towne:Alyria:607:437:Sepharia:::16:the large oak trees surrounding the heavily forested Towne of Xaventry.
+The Towne of Xaventry:North::::Alyria:607:437:Sepharia::::
+The Towne of Xaventry:South::::Alyria:602:454:Sepharia::::
+The Towne of Xaventry:West::::Alyria:593:446:Sepharia::::
+The Towne of Xaventry:East::::Alyria:613:445:Sepharia::::
+Xaventry Realty::n:The Towne of Xaventry:suburb:Alyria:0:0:Sepharia:::50:
+The Xaventry Stronghold::n:The Towne of Xaventry:nowhere:Alyria:0:0:Sepharia:::30:
+A Passage Beneath Xaventry::n:The Towne of Xaventry:underg:Alyra/SUG:0:0:Sepharia:::30:
+A Passage Beneath Xaventry:Bottomside:n:::SUG:?:?:::::
+The Lonely Dragon Inn::n::inn:Alyria:600:700:Sepharia:::25:small red brick building surrounded by several trees.
+A Hill Giant Refuge::n::villge:Alyria:590:670:Sepharia:::25:a series of tents in various colors nestled into the side of a hill.
+Towne of Rune::y::towne:Alyria:695:770:Sepharia:6::19:the graceful white marble towers and the walls of the towne of Rune
+Towne of Rune:West::::Alyria:648:760:Sepharia::::
+Towne of Rune:East::::Alyria:706:763:Sepharia::::
+Towne of Rune:South::::Alyria:695:770:Sepharia::::
+Towne of Rune:Shipright::::Alyria:698:773:Sepharia::::
+Towne of Rune:SUG::::SUG:696:770:::::
+Winterboune Mansion::n:Towne of Rune:nowhere:Alyria:0:0:Sepharia:15::16:
+Focault's Residence::n:Towne of Rune:nowhere:Alyria:0:0:Sepharia:::33:
+Runic Castle::n:Towne of Rune:castle:Alyria:0:0:Sephaira:::16:
+Temple of Sumpter::n:Towne of Rune:underg:Alyria:0:0:Sepharia:::21:
+Temple Crypt::n:Towne of Rune:underg:Alyria:0:0:Sepharia:50::38:
+Rune Realty::n:Towne of Rune:suburb:Alyria:0:0:Sepharia:::25:
+Rune Estates::n:Towne of Rune:suburb:Alyria:0:0:Sepharia:::38:
+Arena::n:Towne of Rune:arena:Alyria:0:0:Sepharia:25::25:
+The Housing Sandbox::n:Towne of Rune:towne:Alyria:0:0:Sepharia:::?:
+New Kovir::n::towne:Alyria:571:984:Sepharia:61::33:a vast city sitting amongst the crags of the Kolvir Mountains.
+Van Pelt's Emporium::n::nowhere:Alyria:669:758:Sepharia:::25:a small discrete building just off to the west of the Towne of Rune's farmlands
+The Village of Lasler::n::novice:Alyria:698:695:Sepharia::14:6:a small box canyon containing the novice towne of Lasler.
+Lasler Valley::n:The Village of Lasler:novice:Alyria:0:0:Sepharia::9:NA:
+Hall of Honor::n::tower:Alyria:697:741:Sepharia:::50:NONE
+Hall of Honor:North::::Alyria:697:737:Sepharia::::
+Hall of Honor:South::::Alyria:697:741:Sepharia::::
+Rune Forest::y::novice:Alyria:700:680:Sepharia:6::14:the beautiful evergreens of Rune Forest.
+Rune Forest:Ex::::Alyria:701:680:Sepharia::::
+Rune Graveyard::n:Rune Forest:nowhere:Alyria:0:0:Sepharia:::21:
+Dungeon Avarice::y::underg:Alyria:671:572:Sepharia:25::20:a mysterious dungeon entrance, beckoning you closer.
+Traveller's Retreat::y::inn:Alyria:776:651:Sepharia:::25:a cluster of small stone buildings, including what looks like a tent.
+The Towne of New Rigel::y::towne:Alyria:801:545:Sepharia:::18:the fortified granite walls of the towne of New Rigel.
+The Towne of New Rigel:North::::Alyria:801:545:Sepharia::::
+The Towne of New Rigel:South::::Alyria:798:564:Sepharia::::
+New Rigel Gardens::n:The Towne of New Rigel:suburb:Alyria:0:0:Sepharia:::38:
+New Rigel Realty::n:The Towne of New Rigel:suburb:Alyria:0:0:Sepharia:::101:
+Tavern of the Boars::y::inn:Alyria:797:445:Sepharia:::38:a small wooden structure well lit with burning torches.
+Dungeon Wroth::y::dungn:Alyria:736:391:Sepharia:::18:a sinister dungeon entrance forged into the side of the Callias mountains.
+A Disturbed Pyramid::n::dungn:Alyria:745:263:Sepharia:30:120*:30:a snow-covered pyramid protruding amidst the Callias Mountain Range.
+Bazaar::n::bazaar:Alyria:818:386:Sepharia:::42:a colorful open market, teeming with customers.
+Bazaar:West::::Alyria:818:386:Sepharia::::
+Bazaar:North::::Alyria:816:374:Sepharia::::
+Gilvery::y::villge:Alyria:951:356:Sepharia:::25:some pastoral, fenced-in farmland and a cluster of charmingly rural houses
+Gilvery:West::::Alyria:950:356:Sepharia::::
+Gilvery:East::::Alyria:962:356:Sepharia::::
+Inn of the Twin Moons::y::inn:Alyria:1007:306:Sepharia:::25:a small stone cottage with gray smoke rising from its chimney.
+Desert of Thorne::y::nowhere:Alyria:1031:316:Sepharia:::13:a vast desert circled by mountains.
+Desert of Thorne:West::::Alyria:1031:316:Sepharia::::
+Desert of Thorne:East::::Alyria:1048:324:Sepharia::::
+Lowangen:e:y::towne:Alyria:1159:421:Sepharia:::15:ancient, crumbling stone walls of the towne of Lowangen.
+Lowangen:Shipwright::::Alyria:1129:417:Sepharia::::
+Ofstadt Monastery::n::nowhere:Alyria:1120:330:Sepharia:::30:a serene-looking monastery overlooking the Annon.
+Tower of Art::y::tower:Alyria:1271:211:Sepharia:45::21:a sinister-looking stone tower silhouetted against the sky.
+Grimbold's Annex::n::nowhere:Alyria:1280:211:Sepharia:::300:NONE
+Old Federation Clan Hall::n::keep:Alyria:874:236:Sepharia:230::25:a half-buried earthen mound erupting from the tundra.
+An Abandoned Lighthouse::n::nowhere:Alyria:717:848:Sepharia:::25:a small stone lighthouse keeping vigilant watch over the sea.
+Pirate's Cove::y::towne:Alyria:1191:968:Beltane:::25:the seedy-looking wharf towne of Pirate's Cove.
+Pirate's Cove:West::::Alyria:1174:975:Beltane::::
+Pirate's Cove:North::::Alyria:1191:968:Beltane::::
+Pirate's Cove:Shipwright::::Alyria:1191:966:Beltane::::
+Pirate's Cove Realty::n:Pirate's Cove:suburb:Alyria:0:0:Beltane:::25:
+The Covian Stronghold::n:Pirate's Cove:nowhere:Alyria:0:0:Beltane:::30:
+Chanctonbury Woods::n::forest:Alyria:997:1092:Beltane:::30:a dark, menacing forest.
+Chanctonbury Woods:Ex::::Alyria:997:1091:Beltane::::
+Takhtin::y::villge:Alyria:1020:1208:Beltane:::20:an isolated mining village, almost lost in the surrounding forest.
+Takhtin:Ex::::Alyria:1020:1210:Beltane::::
+Dungeon Deceit::n::dungn:Alyria:1254:1071:Beltane:::55:a dungeon entrance, seemingly consuming everything within its darkness.
+Maldra's Keep::y::keep:Alyria:1304:1092:Beltane:90::21:the high, forboding granite walls of Maldra Keep.
+Old Empire Clan Hall::n::keep:Alyria:1385:1196:Beltane:::25:NONE
+Xalt, Unseelie Outpost::n::villge:Alyria:1453:1204:Beltane:::25:a shadowy outpost is set low in the jungle, in an old beholder lair.
+The Indestructible Cenotaphy::n::nowhere:Alyria:1430:1241:Beltane:241::?:a mithril crater, out of which rises numerous statues and memorials.
+The Village of Mulakanathos::y::villge:Alyria:1544:1234:Beltane:::25:a tiny coastal village combating the onslaught of sand and salt water.
+The Village of Mulakanathos:North::::Alyria:1544:1234:Beltane::::
+The Village of Mulakanathos:South::::Alyria:1556:1237:Beltane::::
+Gorth::y::villge:Alyria:1629:1223:Beltane:::25:
+Gorth:West::::Alyria:1629:1223:Beltane::::
+Gorth:East::::Alyria:1635:1227:Beltane::::
+The Village of Colyon::n::villge:Alyria:1383:1029:Beltane:::25:a waft of smoke trailing lazily above the Wampo Stream.
+The Village of Colyon:North::::Alyria:1374:1028:Beltane::::
+The Village of Colyon:South::::Alyria:1387:1036:Beltane::::
+The Angry Whale::n::?:Alyria:1234:1396:Beltane:::?:NONE
+A Mineshaft Between Alyria and the Sigil Underground::n::underg:Alyia/SUG:1041:1246:Beltane:::30:NONE
+A Mineshaft Between Alyria and the Sigil Underground:Topside::::Alyria:1041:1246:Beltane::::
+A Mineshaft Between Alyria and the Sigil Underground:Underside::::SUG:1041:1246:::::
+Begora's Sanctuary::y::villge:Alyria:1833:425:Avros:::30:a wizened man sits crosslegged on the plains.
+Ogre Village::y::villge:Alyria:1885:459:Avros:::28:curling smoke from a small village nestled in the mountaintops.
+Old Stargazer Clanhall::y::clanhall:Alyria:1707:438:Avros:50:145:38:a ruined keep crafted of mossy gray stones.
+Frost Gaint's Keep::y::keep:Alyria:1689:389:Avros:18::19:a deep, glacier-filled gorge
+Tower of Axora::n::tower:Alyria:1759:630:Avros::59:?:a medium-sized gray stone tower surrounded by a small overgrown forest.
+The Fishing Village Dorathon::y::villge:Alyria:1682:469:Avros:::25:a tiny hamlet settled against the shore of Lake Martoon
+The Fishing Village Dorathon:West::::Alyria:1691:470:Avros::::
+The Fishing Village Dorathon:South::::Alyria:1695:474:Avros::::
+The Fishing Village Dorathon:East::::Alyria:1699:471:Avros::::
+Templeton::y::towne:Alyria:1619:540:Avros:::17:the shimmering walls and rooftops of the towne of Templeton
+Templeton:South::::Alyria:1620:542:Avros::::
+Templeton:West::::Alyria:1619:540:Avros::::
+Catacombs of Shame::n:Tempelton:dungn:Alyria:0:0:Avros:::25:
+The Tempeltonian Stronghold::n:Tempelton:nowhere:Alyria:0:0:Avros:::30:
+Tellerium::y::towne:Alyria:1724:685:Avros:::14:the formidable stone walls of the warrior towne of Tellerium.
+Tellerium:North::::Alyria:1724:685:Avros::::
+Tellerium:South::::Alyria:1716:693:Avros::::
+Tellerium Realty::n:Tellerium:suburb:Alyria:0:0:Avros:::50:
+The Hamlet of Winton::y::villge:Alyria:1581:396:Avros:::?:a small camp resting atop a mountain of debris.
+Jalor Lumber Camp::y::villge:Alyria:1814:255:Avros:::25:a small group of log buildings bunched together on the icy plain.
+Lair of the Ice Witch::n::dungn:Alyria:1754:266:Avros:::30:a low-hanging cave rises out of the frozen tundra.
+The Village of Muldar Lohk Mulvar::y::villge:Alyria:1652:182:Avros:::25:a small gray castle tucked into the snowy terrain.
+Cavhfail::n::planar:FP:350:284::::22:a small town of modest cottages and means lays nestled in the light forest.
+Cavhfail:West::::FP:::::::
+Cavhfail:East::::FP:::::::
+Rahdiyr::n::planar:FP:105:69::::23:a town ringed by protective marble monoliths rises out of the wasteland.
+Rahdiyr:South::::FP:::::::
+Rahdiyr:West::::FP:::::::
+Rahdiyr:East::::FP:::::::
+Seelie Castle::y::planar:FP:43:55::::33:a gigantic white castle that shines like a beacon,
+Unseelie Castle::y::planar:FP:438:299::::33:the numerous sharp spires of a massive black castle.
+Unseelie Castle:West::::FP:::::::
+Unseelie Castle:South::::FP:::::::
+Eanoss Azelmar::n::inn:FP:130:65::::8:a steep, luminous spire, stretching hundreds of yards upward.
+Human Outpost::n::planar:FP:306:134::::25:what looks to be a small outpost, crafted of fresh timber.
+Wizard's Hut::n::?:SUG:V:V::::25:?
+Gourevitch's Hideaway::n::?:SUG:V:V::::30:?
+Bandit Camp::y::underg:SUG:1017:1177::::25:the largest building in a village full of watchtowers.
+Bandit Camp:Main::::SUG:1017:1178:::::
+Bandit Camp:Prison::::SUG:1023:1179:::::
+Bandit Camp:Simple Cottage::::SUG:1023:1185:::::
+Bandit Camp:Modest Home::::SUG:1020:1184:::::
+Bandit Camp:Small Home::::SUG:1017:1183:::::
+Bandit Camp:Small Shack::::SUG:1019:1186:::::
+Bandit Camp:Small House::::SUG:1023:1188:::::
+Bandit Camp:Guard Tower, East::::SUG:1020:1191:::::
+Bandit Camp:Comfortable Home::::SUG:1017:1189:::::
+Bandit Camp:Cozy Home::::SUG:1014:1189:::::
+Bandit Camp:Guard Tower, West::::SUG:1011:1189:::::
+Bandit Camp:Guard Tower, South::::SUG:1014:1193:::::
+A Ghost Town::y::underg:SUG:591:1400::::25:the largest building in a deserted town.
+A Ghost Town:Main::::SUG:591:1401:::::
+A Ghost Town:Ruined Temple::::SUG:585:1399:::::
+A Ghost Town:Dusty Shack::::SUG:588:1396:::::
+A Ghost Town:Decripit Ruin::::SUG:589:1393:::::
+A Ghost Town:Quaint Shack::::SUG:592:1392:::::
+A Ghost Town:Rotting Ruin::::SUG:596:1394:::::
+A Ghost Town:Dilapitated Cottage::::SUG:594:1397:::::
+A Ghost Town:Ore Wearhouse::::SUG:601:1395:::::
+A Ghost Town:Empty Warehouse::::SUG:601:1392:::::
+A Ghost Town:Warm Kitchen::::SUG:600:1390:::::
+A Ghost Town:Ore Refinery::::SUG:603:1397:::::
+A Ghost Town:Decaying Shop::::SUG:599:1399:::::
+A Ghost Town:Ransacked Cottage::::SUG:600:1402:::::
+A Ghost Town:Destroyed Ruins::::SUG:595:1404:::::
+A Ghost Town:Small Shack::::SUG:588:1406:::::
+A Ghost Town:Collapsed Ruins::::SUG:583:1406:::::
+A Ghost Town:Tavern::::SUG:585:1403:::::
+A Ghost Town:Destroyed Ruins::::SUG:582:1401:::::
+Troglodyte Village::::underg:SUG:479:1395::::25:several yurts in a circle, a Troglodyte camp.
+Troglodyte Village:Main::::SUG:479:1396:::::
+Troglodyte Village:Bazaar::::SUG:476:1396:::::
+Troglodyte Village:Bogga Oog::::SUG:476:1393:::::
+Troglodyte Village:Gate::::SUG:480:1392:::::
+Troglodyte Village:Abandoned Hut::::SUG:483:1393:::::
+Troglodyte Village:Gloomy Den::::SUG:475:1398:::::
+Troglodyte Village:Brothel::::SUG:475:1403:::::
+Troglodyte Village:Cave of Oogoff::::SUG:481:1403:::::
+Troglodyte Village:Moggo's Cavern::::SUG:478:1401:::::
+Troglodyte Village:Damp Cavern::::SUG:483:1400:::::
+Troglodyte Village:Messy Nook::::SUG:484:1402:::::
+Troglodyte Village:Ogadina's Clubs::::SUG:484:1397:::::
+Troglodyte Village:Mine::::SUG:488:1396:::::
+Shrine of Vandyne::n::shrine:SUG:501:1330::::25:NONE
+Shrine of Vandyne (North):North::::SUG:489:1282:::::is the northentrance of the Shrine of Vandyne.
+Shrine of Vandyne (East):East::::SUG:590:1365:::::is the east entrance of the Shrine of Vandyne.
+Shrine of Vandyne (South):South::::SUG:501:1373:::::is the south entrance of the Shrine of Vandyne.
+Shrine of Vandyne (West):West::::SUG:424:1301:::::is the west entrance of the Shrine of Vandyne.
+Gypsy Village::y::underg:SUG:621:1263::::25:a Gypsy caravan.
+Gypsy Village:Main::::SUG:627:1265:::::
+Gypsy Village:Colorful Trailer::::SUG:621:1264:::::
+Gypsy Village:A Storage Caravan::::SUG:618:1266:::::
+Gypsy Village:The Caboose::::SUG:619:1261:::::
+Gypsy Village:Covered Wagon::::SUG:624:1261:::::
+Gypsy Village:Hut near Bandit Gate::::SUG:987:1179:::::
+A Labyrinthine Molehill::n::underg:Alyria/SUG:537:1258:Auryn:::30:NONE
+A Labyrinthine Molehill:Topside:n:::Alyria:536:1258:Auryn::::
+A Labyrinthine Molehill:Underside:n:::SUG:537:1257:::::
+Genauras::y::underg:SUG:538:1252::::25:the main settlers' outpost, Fort Genauras.
+Genauras:Main::::SUG:538:1253:::::
+Genauras:A Meager Cottage::::SUG:545:1254:::::
+Genauras:A Small Tent::::SUG:541:1258:::::
+Genauras:Inn::::SUG:535:1256:::::
+Genauras:A Shanty::::SUG:531:1258:::::
+Genauras:A Dirty House::::SUG:533:1261:::::
+Genauras:A Shanty (#2)::::SUG:536:1264:::::
+Genauras:A Well-kept House::::SUG:525:1251:::::
+Genauras:A Snug Cottage::::SUG:540:1266:::::
+Genauras:A Humble Cabin::::SUG:541:1262:::::
+Genauras:A House Tent::::SUG:545:1262:::::
+Genauras:A Meager Cottage (#2)::::SUG:526:1256:::::
+Genauras:A Small Tent (#2)::::SUG:530:1253:::::
+Genauras:A Humble Cabin (#2)::::SUG:529:1248:::::
+Genauras:A House Tent (#2)::::SUG:533:1248:::::
+Genauras:Large Tent::::SUG:544:1249:::::
+Genauras:Barn::::SUG:538:1246:::::
+Genauras:Guard Barracks::::SUG:524:1244:::::
+A Fiery Catwalk::n::?:SUG:291:1159::::30:NONE
+Darksea::y::underw:SUG:919:1232::::?:there is an odd-looking whirlpool in the Well of Sorrows.
+Shrine of Ithrilis::n::shrine:SUG:551:1300:::::the Shrine of Ithrilis dominates the lake deeps.
+Shrine of Ithrilis:North::::SUG:553:1294:::::
+Shrine of Ithrilis:Northeast::::SUG:557:1298:::::
+Shrine of Ithrilis:East::::SUG:557:1303:::::
+Shrine of Ithrilis:West::::SUG:543:1301:::::
+Shrine of Dira::n::shrine:SUG:628:1382::::25:the Shrine of Dira floating in the fog.
+Shrine of Dira:Northwest::::SUG:622:1377:::::
+Shrine of Dira:Southwest::::SUG:620:1368:::::
+Shrine of Dira:Southeast::::SUG:632:1387:::::
+Shrine of Dira:East::::SUG:634:1382:::::
+A Dwarven Passage Between Sigil and the Underside::::underg:Alyria/SUG:-1:-1:Auryn:::30:NONE
+A Dwarven Passage Between Sigil and the Underside:Topside::::Alyria:477:1426:Auryn::::
+A Dwarven Passage Between Sigil and the Underside:Underside::::SUG:475:1426:::::
+Shrine of Gath::n::shrine:SUG:460:1402::::25:the Shrine of Gath lies submerged in lava.
+Shrine of Gath:East::::SUG:468:1401:::::
+Shrine of Gath:Northeast::::SUG:466:1396:::::
+Shrine of Gath:Northwest::::SUG:457:1395:::::
+Shrine of Gath:West::::SUG:454:1399:::::
+Shrine of Maradas::n::shrine:SUG:413:1260::::25:the Shrine of Maradas is tucked into the cavern walls.
+Shrine of Maradas:South::::SUG:413:1268:::::
+Shrine of Maradas:Southwest::::SUG:410:1267:::::
+Shrine of Maradas:East::::SUG:421:1260:::::
+Shrine of Maradas:North::::SUG:413:1253:::::
+Irda Isle Reef Entrance::n::wilds:Alyria:1280:740:Island:::NA:NONE
+Irda Isle::n::isle:Alyria:1300:688:Island:::25:some dangerous looking reefs surrounding a mountainous island.
+Irda Isle Caverns:::Irda Isle:underg:Alyria:0:0:Island:::34:
+The Proving Grounds:::Irda Isle:dungn:Alyria:0:0:Island:::45:
+Domain or Arbaces:::Irda Isle:underg:Alyria:0:0:Island:::16:
+Maelstrom::n::wilds:Alyria:1540:742:Island:::NA:?
+Maelstrom::n::underg:UG:?:?::::NA:?
+Strange Ruins::n::nowhere:Alyria:1804:924:Island:::50:NONE
+Atlantis::n::underw:Alyria:1988:1305:Island:::29:an unusual swirling of water and some large bubbles.
+Aequtus::n::underw:Alyria:385:636:Island:::25:a scarcely-visible signpost partially obscured by jungle flora.
+An Abandoned Oil Well::n::at sea:Alyria:1753:824:Island:::30:a partially-constructed oil derrick on a desert island.
+A Forsaken Oil Well::n::at sea:Alyria:1729:842:Island:::30:a large oil derrick established on a desert island.
+Capture the Flag Arena::n::ctf:Alyria:993:893:Island:::6:two small keeps, one red and one blue, on a forested island.
+Arcane Archipelago::n::nowhere:Alyria:926:816:Island:::25:a temple almost overgrown by jungle.
+Magencia::n::at sea:Alyria:856:834:Island:::29:the ruins of a great wooden ship.
+The Wreck of the Fiesty Wench::n::at sea:Alyria:1889:957:Island:::25:a damaged vessel jammed up onto the beach of a small island, its forward hull ripped apart.
+The Wreck of the Fiesty Wench:North::::Alyria:::::::
+The Wreck of the Fiesty Wench:South::::Alyria:::::::
+The Black Lodge::n::isle:Alyria:1290:1499:Island:::30:an island containing a worldgate and a lodge swirled in darkness.
+Naulitas::n::villge:Alyria:1968:1336:Island:::25:a trading post for humans and merfolk awaits a new shipment of goods.
+The Coven of Kalywak::n::isle:Alyria:120:271:Island:::30:an island containing a worldgate and a small one-story building.
+The Coven of Kalywak:Entrance::::Alyria:121:273:::::
+The Coven of Kalywak:Exit::::Alyria:121:273:::::
+Stronghold of the Garbool Tribe::n::villge:Alyria:2117:757:Island:::30:?
+Stronghold of the Garbool Tribe:West::::Alyria:?:?:::::
+Stronghold of the Garbool Tribe:North::::Alyria:?:?:::::
+Stronghold of the Garbool Tribe:East::::Alyria:?:?:::::
+Daggerwind Reef::n::?:Alyria:2089:1387:Island:::25:NONE
+Palican's Demise::n::?:Alyria:1579:937:Island:::25:NONE
+Frigate's End::n::?:Alyria:264:592:Island:::25:NONE
+Hellbent Mountain::n::underg:Alyria/SUG/UG::::::30:
+Hellbent Mountain:Alyria::::Alyria:1341:395:Island::::the towering spires and rocky crags of Hellbent Mountain.
+Hellbent Mountain:Faerie Plane::::FP:255:162:::::the towering spires and rocky crags of Hellbent Mountain.
+Hellbent Mountain:Underground::::UG:1341:365:::::?
+Arien'dyth::n::?:UG:731:255::::?:?
+Hotell Hello::::isle:UG:1228:768::::?:a magnificent marble structure on a lush, manicured island locale.
+Isle of the Sea Hag::::isle:UG:1116:874::::29:a desolate-looking island featuring a crumbling white tower.
+Towne of Decara::y::towne:UG:1570:487::::38:the heavily-guarded stone walls of the towne of Decara.
+Decara Realty::n:Towne of Decara:suburb:UG:0:0::::254:
+Vir::y::towne:UG:1439:1052::::33:rising plumes of smoke from a series of chimneys chiseled into the rocky hillside.
+The Chattering Skull Tavern::n::?:UG:804:767::::30:?
+Kessarian's Dungeon::n::dungn:UG:?:?::::152:numerous pipes and scattered alchemical devices disappear down a stairwell.
+The Sacred Temple of the Tentacle Cult of Metonychoseuthis, with Swiveling Hooks::n::underw:UG:V:V::::30:NONE
+Smuggler's Cave::n::?:UG:1599:838::::25:NONE
+Smuggler's Gulch::y::villge:UG:1189:529::::?:a dusty little town perches in the middle of a dry gulch.
+Three-Bearded Jake's::n::?:UG:906:823::::25:NONE
+Lair of the Death Slaadi::n::underg:UG:V:V::::12:NONE
+Bleeding Ogre Tavern::?::?:?:?:?:?:::50:?
+Vallara::?::?:?:?:?:?:::25:?
+The Seeress Fogchamber::?::?:?:?:?:?:::30:?
+The Lambs Pasture::?::?:?:?:?:?:::16:?
+Ranger's Retreat::?::?:?:?:?:?:::25:?
+Laklat::?::?:?:?:?:?:::25:?
+A Remote Location::?::?:?:?:?:?:::25:?
+New Valor Realty::?::?:?:?:?:?:::25:?
+Vir Realty::?::?:?:?:?:?:::42:?
+Rimeward::n::?:FP:165:118::::?:a small hamlet of icicles and packed snow rises from the meadowland.
+Frosthold::n::keep:FP:179:235::::?:a brutalist citadel hewn from icicles and permafrost.
+Engineers Exclave::n::nowhere:FP:451:238::::?:an array of geometric solids of ice and hangs on the edge of the Chaotic Void.

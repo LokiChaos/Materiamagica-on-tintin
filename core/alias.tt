@@ -1,0 +1,66 @@
+#showme {<aef>Loading: <faa>alias.tt}
+/*
+	Defines core alias.
+	Mostly wrappers to in-game commands to limits the scope of triggers
+	that collect information on thier output.
+	
+	I would advise agaist modifying them
+*/
+
+/* One shot (sync) command to initialize many client variables {{{ */
+#alias {sync} {
+	queueCmd {set page_length 120} {0};
+	queueCmd {look}           {0};
+	queueCmd {score}          {0};
+	queueCmd {inventory}      {0};
+	queueCmd {equipment}      {0};
+	queueCmd {affect}         {0};
+	queueCmd {set page_length $prefs[defPgLen]} {0};
+	queueCmd {ReagentDo Sync} {0.5};
+	doQueue;
+	#unalias {sync};	
+}
+/* }}} */
+
+/*
+	Alias of directional commands allows tracking of coordinates and
+	the last direction command you entered.
+*/
+
+#alias {^{n|s|e|w|ne|nw|se|sw}$}{
+	#var navigation[lastDir] {%0};
+	#send {%0};
+} {3}
+
+#alias {^hin{|t}} {
+	#var stateClient[manualHint] {1};
+	#send {hint};
+}
+
+/* LOOKing, OPENing, CLOSEing, and [UN]LOCKing. {{{ 
+	I prefer that exits/directions be given priority over all else
+
+	lets conditional triggers know you're just LOOKing
+	prevents most incorrect triggering behavior        */
+
+#alias {^l %*} {
+   look %1;
+}
+
+#alias {^{look|open|close|lock|unlock} %*} {
+	#if     {"%1" == "look"} {
+		#var stateChar[justLooking] {1};
+	};
+
+	#regex {%2} {^{n|s|e|w|u|d|ne|nw|se|sw|ne}$} {
+		#send {%1 @std_dir_full{%2}};
+	} {
+		#send {%0};
+	};
+	#if {$stateChar[is_onSpeedWalk]} {
+		#if {"%1" == "{open|close|unlock|lock}"} {
+			_event_raise {speedStep};
+		};
+	};
+} {4}
+/* }}} */

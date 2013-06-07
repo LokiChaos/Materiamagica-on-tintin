@@ -1,0 +1,46 @@
+#nop map/commands.tt
+
+#var __mapperLegend {
+	{shop}{<cfa>S}
+	{recall}{<179>R}
+	{postoffice}{<cfa>P}
+	{bank}{$}
+	{locker}{L}
+	{clanmaster}{C}
+	{water}{<acf>w}
+	{blood}{<fbc>b}
+	{trainer}{<add>t}
+	{deathtrap}{<101>!}
+};
+
+#alias {_mapper} {
+	#switch {"%1"} {
+		#case {"setroom"} {
+			#switch {"%2"} {
+					#case {"shop"} {
+						#map set {roomsymbol} {$};
+						#map set {roomcolor} {<cfa>};
+					};
+					#default {
+						#echo {syntax: mapper setroom <<cfa>shop<090>/<fec>clergy<090>/<add>trainer<090>/<acf>water<090>/<fbc>blood<090>/<cba>donation<090>/<eea>bank<090>>};
+					};
+			};
+		};
+		#case {"avoid"} {
+			#map roomflag avoid;
+			#echo {Mark room as 'to avoid'};
+		};
+		#case {"remap"} {
+			#echo {<149>Forcibly updating room to GMCP data...};
+			#class mapperSub read core/map/mapper.tt;
+			#map goto {$gmcp[Room][num]} {dig};
+			_mapperAddRoom;
+			_mapperLinkExits;
+			#class mapperSub kill;
+		};
+		#default {
+			#echo {Need to Do help};
+		};	
+	};
+};
+

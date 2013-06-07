@@ -1,0 +1,32 @@
+#showme {<aef>Loading: <faa>etc/coreSettings.tt}
+
+/* 
+	This is the FULL path to your tintin++ directory
+		Default: /home/USER/.tt/                                       */
+
+#var stateClient[root] {/home/will/.tt/};
+
+
+/*
+	How long should the inital login menu wait for you to make a selection
+	before auto-connecting to the first entry.
+*/
+#var prefs[loginTimeOut] {30};
+
+/*
+	Auto-Response to Server Login Menu
+	-1 - Send nothing
+	 0 - Quit (Why would you want this?)
+	 1 - Alyria
+	 2 - Social
+*/
+
+#var prefs[loginChoice]    {1};
+
+/*
+	Maximum number of login attempts.
+	Special values:
+	 0 = Never automatically reconnect.
+	-1 = Always try to reconnect, no limit.
+*/
+#var _reconnect[attMax] {-1};

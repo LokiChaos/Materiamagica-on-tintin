@@ -1,0 +1,12 @@
+#nop A Scroll IDer
+
+#function {mod_scrollid_id} {
+	#if {"@scroll2spell{%1}" != "" } {
+		#var result  { [@scroll2spell{%1}]};
+	} {
+		#return;
+	};
+}
+
+#sub {{A|An|a|an} %* scroll} {%0@mod_scrollid_id{@std_str_toLower{%0}}};
+#sub {{A|a} scroll %* {hide|skin}} {%0@mod_scrollid_id{@std_str_toLower{%0}}};

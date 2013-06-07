@@ -1,0 +1,103 @@
+#nop Handles printing the formation in the grpahical way
+/*  Notes {{{
+     default                       shield
+     [fl ][fc ][fr ][   ][   ]     [ffl][fl ][fc  ][fr ][ffr]
+     [cl ][cc ][cr ][   ][   ]     [   ][cl ][cc  ][cr ][   ]
+     [bl ][bc ][br ][   ][   ]     [   ][   ][bc  ][   ][   ]
+     [   ][   ][   ][   ][   ]     [   ][   ][    ][   ][   ]
+     [   ][   ][   ][   ][   ]     [   ][   ][    ][   ][   ]
+
+     delta                         snare
+     [   ][   ][fc ][   ][   ]     [ffl][   ][   ][   ][ffr] 
+     [   ][cl ][cc ][cr ][   ]     [fl ][   ][   ][   ][fr ]
+     [fbl][bl ][bc ][br ][fbr]     [   ][cl ][cc ][cr ][   ]
+     [   ][   ][   ][   ][   ]     [   ][   ][bc ][   ][   ]
+     [   ][   ][   ][   ][   ]     [   ][   ][   ][   ][   ]
+
+     bow
+     [   ][fl ][fc ][fr ][   ]
+     [ffl][   ][cf ][   ][ffr]
+     [   ][   ][cc ][   ][   ]
+     [   ][   ][cb ][   ][   ]
+     [   ][   ][cfb][   ][   ]
+ }}} */
+
+/* Colors to Use: Braces, Me, NPC, PC, vacant */
+#var __formColor {{b}{<179>}{m}{<169>}{n}{<239>}{p}{<269>}{v}{<109>}};
+
+/* Form Position Mapping Table {{{ */
+#var __formTable {
+	{Default}{
+	{1}{{2}{FL}{3}{FC}{4}{FR}}
+	{2}{{2}{CL}{3}{CC}{4}{CR}}
+	{3}{{2}{BL}{3}{BC}{4}{BR}}
+	}
+	{Shield}{
+	{1}{{1}{FFL}{2}{FL}{3}{FC}{4}{FR}{5}{FFR}}
+	{2}{{2}{CL}{3}{CC}{4}{CR}}
+	{3}{{3}{BC}}
+	}
+	{Delta}{
+	{1}{{3}{FC}}
+	{2}{{2}{CL}{3}{CC}{4}{CR}}
+	{3}{{1}{FBL}{2}{BL}{3}{BC}{4}{BR}{5}{FBR}}
+	}
+	{Snare}{
+	{1}{{1}{FFL}{5}{FFR}}
+	{2}{{2}{FL}{4}{FR}}
+	{3}{{2}{CL}{3}{CC}{4}{CR}}
+	{4}{{3}{BC}}
+	}
+	{Bow}{
+	{1}{{2}{FL}{3}{FC}{4}{FR}}
+	{2}{{1}{FFL}{3}{CF}{5}{FFR}}
+	{3}{{3}{CC}}
+	{4}{{3}{CB}}
+	{5}{{3}{CFB}}
+	}
+}
+/* }}} */
+
+/* Generate String for a Given Form Posistion {{{ */
+#function {FormPos} {
+	#regex {$form[%1]} {^NPC %*} {
+		#nop A formed NPC;
+		#format result {${__formColor[n]}%-14s} {&1};
+	} {
+		#regex {$form[%1]} {^Player %*} {
+			#nop Other player's;
+			#format result {${__formColor[p]}%-14s} {&1};
+		} {
+			#regex {$form[%1]} {^$charName} {
+				#format result {${__formColor[m]}%-14s} {$form[%1]};
+			} {
+				#format result {${__formColor[v]}     %-3l     } {%1};
+			};
+		};
+	};
+	#format result {%s[%.13s%s] } {${__formColor[b]}} {$result} {${__formColor[b]}};
+}
+/* }}} */
+
+/* Print Formation {{{ */
+#alias {_PrintForm} {
+
+	#loop {1} {5} {__row} {
+		#var __formRow {};
+		#loop {1} {5} {__col} {
+			#if {"${__formTable[$form[type]][${__row}][${__col}]}" != ""} {
+				#var __formRow ${__formRow}@FormPos{${__formTable[$form[type]][${__row}][${__col}]}};
+			} {
+				#var __formRow {${__formRow}	        };
+			};
+		};
+		#if {"${__formRow}" != "%s"} {
+			#echo {%.80s} {${__formRow}};
+		};
+	};
+	#unvar __row;
+	#unvar __col;
+	#unvar __formColor;
+	#unvar __formRow;
+}
+/* }}} */

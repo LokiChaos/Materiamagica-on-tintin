@@ -1,0 +1,101 @@
+#alias {_gotBounty}
+{
+	#var stateChar[onBounty] 1;
+	#var bounty[MobName]	{%1};
+	#var bounty[AreaName]	{%2};
+	_CaptureLog {<119>Looking For: '%1' located at '%2'} {$capPath[act]};
+	#format {bounty[IssuedTime]} {%t} {{%Y-%m-%d %H:%M:%S}};
+	#var lastBounty {{type}{request} {mob}{$bounty[MobName]} {loc}{$bounty[AreaName]}};
+	#format {lastBounty[time]} {%T};
+	std_value_save lastBounty;
+	#unvar lastBounty;
+	#delay {bounty_Expire} 
+	{
+		#showme {<119>Bounty Exipred!};
+		_CaptureLog {<119>Bounty Expired!} {$capPath[act]};
+		#unvar {bounty};
+		#var stateChar[onBounty]	0;
+	} {2700};
+}
+
+#alias {_rewBounty}
+{
+	#var stateChar[onBounty] 0;
+	#unvar {bounty};
+	#undelay {bounty_Expire};
+	_CaptureLog {<119>Bounty Reward: %1. <099>} {$capPath[act]};
+	#undelay bounty_CoolDown;
+	
+	#if {"${_bountyLimiter}" == ""} {
+		#var lastBounty {{type}{complete} {mob}{} {loc}{}};
+		#format {lastBounty[time]} {%T};
+		std_value_save lastBounty;
+		#unvar lastBounty;
+	};
+	#var _bountyLimiter 1;
+	#delay {limiter} {
+		#unvar _bountyLimiter
+	} {1};
+
+	#delay {bounty_CoolDown} 
+	{
+		#echo {<119>You can now request another bounty.<099>};
+		_CaptureLog {<119>You can now request another bounty.} {$capPath[act]};
+	} {7200};
+}
+
+#alias {_doBounty}
+{
+	#if {"%1"=="{s|st|sta|stat|status}"}
+	{
+		_bountyStatus;
+	};
+	#elseif {"%1"=="{r|re|req|request}"}
+	{
+		_bountyRequest;
+	};
+	#else
+	{
+		#echo {<149>Usage:\n     <149>bounty s[tatus] - check current bounty status.<099>};
+		#echo {     <149>bounty r[equest] - request a bounty from the orc persuer.<099>};
+	};
+}
+
+#alias {_bountyRequest}
+{
+	#if {$stateChar[onBounty]} {
+		#echo {<119>Error: You are already on a bounty.<099>};
+	} {
+		#if {"$gmcp[Room][name]" == "A Stable Room"} {
+			sayto orc yes; nod orc;
+		} {
+			#echo {<119>Error: You cannot request a bounty here.<099>};
+		};
+	};
+}
+
+#alias {_bountyStatus}
+{
+	std_value_restore lastBounty;
+	#format __timeNow {%T};
+	#math __deltaTime {$lastBounty[time] - ${__timeNow}};
+	#if {$stateChar[onBounty]} {
+		#math __deltaMin {(${__deltaTime} + 2700) / 60};
+		#echo {<149>You are currently charged with a bounty from the orc persuer:};
+		#echo {<139> * <149>Your target is '<099>%s<149>' from '<099>%s<149>'}
+		      {$bounty[MobName]} {$bounty[AreaName]};
+		#echo {<139> * <149>You have <099>%d<149> more mintues to return with a limb.<099>}
+			  {${__deltaMin}};
+	}{
+		#math __deltaMin {(${__deltaTime} + 7200) / 60};	
+		#if {"${__deltaMin}" > "0"} {
+			#echo {<149>You have <099>%d<149> more minutes before you can request another bounty.<099>} {${__deltaMin}};
+		} {
+			#echo {<149>You can request another bounty from the orc persuer now.<099>};
+		};
+	};
+	#unvar __deltaMin;
+	#unvar lastBounty;
+	#unvar __timeNow;
+	#unvar __deltaTime;
+}

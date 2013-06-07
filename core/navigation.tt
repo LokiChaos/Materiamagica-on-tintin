@@ -1,0 +1,132 @@
+#showme {<aef>Loading: <faa>navigation.tt}
+/*
+	Contians the majority of the actions and aliases associated
+	with tracking the character's in-game location, the time in-game,
+	the moon, and navitation assitance.
+	
+	Also handles navigation on a transport item (eg: broom, horse, carpet)
+*/
+
+
+/* Displayes worldgates in a readable form when moon status is shown {{{ */
+#act {~^\e[1\;3{4|5}mTrigael: (\e[0m%D\e[1\;3{4|5}m)  Marabah: (\e[0m%D\e[1\;3{4|5}m)\e[0m} {
+	#var gtime[Trigael] {%2};
+	#var gtime[Marabah] {%4};
+	_MoonCalc;
+	#if {$stateClient[muteLine]} {
+		#nop;
+	} {
+		#echo {<1%s9>Current Worldgates:<099> %s<099>} {%1} {$gtime[Gates]};
+	};
+}
+/* }}} */
+
+/* Internal - Performs calculation & lookups for moon data {{{  */
+_event_register {sysinfo} {moons} {_MoonCalc};
+
+#alias {_MoonCalc} {
+	#nop %1;
+	#class moons read data/moon.tt;
+	#script {__world_gates} {awk -F : '$1 ~ /$gtime[Trigael]/ && $2 ~ /$gtime[Marabah]/ {print $3}' data/worldgate.tbl};
+	#var gtime[Gates] {${__world_gates[1]}};
+	#format gtime[printMoon] {[%s %s<099>]} {${__phaseHash[$gtime[Trigael]]}} {${__phaseHash[$gtime[Marabah]]}};
+	#math __moonIndex {1 + 8 * ${__regenHash[$gtime[Trigael]]} + ${__regenHash[$gtime[Marabah]]}};
+	#var gtime[regen] {${__regenArray[${__moonIndex}]}};
+	#unvar __world_gates;
+	#unvar __moonIndex;
+	#class moons kill;
+}
+/* }}} */
+
+/* Grabs In-Game Time whenever displayed  {{{ */
+#act {^It is %d:%d %w on %w, %w the %S, year %d.} {
+	#math gtime[time] { %2 + (( %1 != 12 ) * ( %1 * 60 )) + (( "%3" == "pm" ) * 720)};
+}
+/* }}} */
+
+/* Solar Posistion Strings {{{
+   These echos allow syncing the ticker and Alyrian time */
+#act {^The land becomes alive as the sun breaks free of the horizon.$} {
+	#var gtime[time] 299;
+	_event_raise {time_sunrise};
+	_event_raise {tick_sync};
+}
+
+#act {^The sun rises in the east, sending molten light across the land.$} {
+	#var gtime[time] 359;
+	_event_raise {time_morning};
+	_event_raise {tick_sync};
+}
+
+#act {^The sun has reached its zenith directly overhead.$} {
+	#var gtime[time] 719;
+	_event_raise {time_noon};
+	_event_raise {tick_sync};
+}
+
+#act {^Light begins to dim as the sun sets in the west.$} {
+	#var gtime[time] 1079;
+	_event_raise {time_evening};
+	_event_raise {tick_sync};
+}
+
+#act {^The last glimmer of sunlight fades, and the land is dark.$} {
+	#var gtime[time] 1139;
+	_event_raise {time_sunset};
+	_event_raise {tick_sync};
+}
+/* }}} */
+
+/* Grabs recall room & zone based on "recall list" output {{{ */
+#act {^[%?%?] Nearest area recall point (%D in %D)} {
+	#var navigation[recall_Room] {%3};
+	#var navigation[recall_Area] {%4};
+}
+/* }}} */
+
+/* Flight Tracking {{{ */
+#act {%* begins to make a humming sound.$} {
+	#var navigation[click] 0;
+}
+
+#act {%* slows its movement, then stops.$} {
+	#var stateChar[Flying] 1;
+	#var navigation[click] 0;
+}
+
+#act {%* hums louder for a moment, then fades back to normal.$} {
+	#var stateChar[Flying] 1;
+	#var navigation[click] 0;
+}
+
+#act {%* glows with magic, then slowly quiets down.$} {
+	#var stateChar[Flying] 1;
+}
+
+#act {^You fly {north|south|east|west|northeast|northwest|southwest|southeast} on %*} {
+	#var stateChar[Flying] 1;
+	#var navigation[flightBearing] {%1};
+	#math navigation[click] {$navigation[click] + 1};
+	_event_raise {nav_fly_click};
+}
+/* }}} */
+
+/* Update ZoneType and Repop Time For new Zone {{{ */
+_event_register {nav_changezone} {updateNav} {_UpdateZone};
+
+#alias {_UpdateZone} {
+	#var navigation[repop] {@repopTime{%2}};
+	#var navigation[zoneType] {@zoneType{%2}};
+}
+/* }}} */
+
+/* TODO MOVE THESE */
+/* Automated "recall list" after a sucessful blink, teleport, or invoke vacuum */
+#act {^Your magic twists time and space to momentarily pop you out of the plane with an ear-splitting BANG!$}
+	{#if {$navigation[blinkRecall]} {recall where};};
+#act {^Your magic twists time and space to pop you out of existence with an ear-splitting BANG!$}
+	{#if {$navigation[blinkRecall]} {recall where};};
+#act {^VACUUM INVOKE STRING$}
+	{#if {$navigation[blinkRecall]} {recall where};};
+#act {^You feel a rushing sense of motion...$}
+	{_event_raise {cast} {word of recall};}

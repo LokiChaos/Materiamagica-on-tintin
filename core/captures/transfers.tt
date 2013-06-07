@@ -1,0 +1,66 @@
+#nop captures/transfers.tt
+
+/* Mail High-Magenta {{{ */
+#act {~^You receive %* in the mail, sent by %*}{
+	_ChannelLog {<159>%0} {$capPath[transfers]};
+	_event_raise {mail_received} {%2} {%1};
+} {3}
+
+#act {~^You have successfully mailed %* to %*.$}{
+	_ChannelLog {<159>%0} {$capPath[transfers]};
+	_event_raise {mail_sent} {%2} {%1};
+} {3}
+/* }}} */
+
+/* Items given to you Base-Color, level 6 as this is a fallback {{{ */
+#act {~^%* gives you %*.$} {
+	_ChannelLog {<099>%0} {$capPath[transfers]};
+	_event_raise {given_item} {%1} {%2};
+} {6}
+/* }}} */
+
+/* Bank/Gold Transfers & Auction Profits High-Yellow {{{ */
+#act {^You transfer [%S] gp to %w for a transaction fee of [%S] gp.$} {
+	_ChannelLog {<139>%0} {$capPath[transfers]};
+	_event_raise {gold_transfer_to} {%2} {%1} {%3};
+} {3}
+
+#act {^The imp tells you, '%w has transferred %S gold into your %* account.'$} {
+	_ChannelLog {<139>%1 has transferred [%2] gold into your %3 account.} {$capPath[transfers]};
+	_event_raise {gold_transfer_from} {%1} {%2} {%3};
+} {2.8}
+
+#act {^The imp tells you, 'Your bank account has been credited for the amount of %S.$} {
+	_ChannelLog {<139>Your bank account has been credited for the amount of %1.} {$capPath[transfers]};
+} {2.8}
+/* }}} */
+
+/* Fallback trigger to gag auction refunds and other insignificant Imp messages {{{ */
+#act {^The imp tells you%*} {
+	#nop;
+} {2.9}
+/* }}} */
+
+/* Reward Unit Transfers High-Red {{{ */
+#act {^You transfer [%S] ru to %w. Your new balance is [%S] ru.$} {
+	_ChannelLog {<119>%0} {$capPath[transfers]};
+	_event_raise {ru_transfer_to} {%2} {%1} {%3};
+} {3}
+
+#act {^The imp tells you, '%w has transferred %S reward units to you. Reason: %*'$} {
+	_ChannelLog {<119>%1 has transferred %2 reward units to you. Reason: %3} {$capPath[transfers]};
+	_event_raise {ru_transfer_from} {%1} {%2} {%3};
+} {2.8}
+/* }}} */
+
+/* Class Gemstone transfers High-Black {{{ */
+#act {^%w has transferred %S gemstones into your account.$} {
+	_ChannelLog {<109>%0} {$capPath[transfers]};
+	_event_raise {classgems_transfer_from} {%1} {%2};
+} {3}
+
+#act {^You have transferred %S gemstones into %S's account.$} {
+	_ChannelLog {<109>%0} {$capPath[transfers]};
+	_event_raise {classgems_transfer_to} {%2} {%1};
+} {3}
+/* }}} */

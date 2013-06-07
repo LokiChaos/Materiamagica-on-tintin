@@ -1,0 +1,26 @@
+Requirements you will likely have to install yourself:
+	tintin++ 2.00.9 or newer
+	tmux 1.8 or newer
+
+For installing tintin, consult:
+	http://tintin.sourceforge.net/install.php
+
+For installing tmux, consult:
+	http://tmux.sourceforge.net/
+	Download the .tar.bz via the download link, and install instructions are
+	in the README.
+
+These are standard on most *nix systems:
+	curl
+	awk (preferably GNU awk, but BSD awks should be fine)
+	tail (ideally one that support inotify or equivilent)
+	bash (should work with any sh compatable shell)
+	perl
+
+These should all already be installed.  If you are missing these, I suggest
+searching "installing $package on $distro".
+
+I DO NOT SUPPORT TinTin++ UNDER MS WINDOWS EITHER VIA THE WinTin++ or TinTin++
+UNDER CYGWIN OPTIONS.  I suggest running a minimal virtual machine with a
+lightweight X-less Linux install and run tintin++ in that and connect via
+puTTY.  

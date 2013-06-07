@@ -1,0 +1,44 @@
+#showme {<aef>Loading: <faa>reagents.tt}
+/*
+	Reagent Subsytem
+	Tracks usage, purchase, and counting all types of reagents
+*/
+
+/* Action for Reagent Use {{{  */
+#act {%1 {flare|flares} brightly and {vanish|vanishes}!$} {
+	_event_raise {reagent_use} {%1};
+    #class reagentUse read core/reagents/use.tt;
+    _reagentUse {%1};
+    #class reagentUse kill;
+} 
+/* }}} */
+
+/* Wrapper Alias for Reagent{Buy|Sync|Get|Sort} {{{ */
+#alias {ReagentDo} {
+	#if {$stateChar[inSocial]} {
+		#echo {<149>You cannot do that here.};
+	} {
+		#class reagentAct read core/reagents/actions.tt;
+		_Reagent%1;
+	};
+}
+/* }}} */
+
+/* Make Acetions for Each Reagent Producer {{{  */
+#foreach {$reagent[producerName]} {__reagentProdName} {
+	#act {^Your ${__reagentProdName} glows white as it accumulates possessions from the ether.} {
+		_event_raise {reagent_produced};
+		#math stateChar[have_reagents] {$stateChar[have_reagents] + 1};
+	}
+}
+
+#unvar __reagentProdName;
+/* }}} */
+
+/* Initalize Reagent counts if undefined {{{ */
+#if {&reagent[count][] == 0} {
+	#var reagent[count] {{fire}{255}{water}{255}{air}{255}{earth}{255}
+	                     {gem}{255}{ethereal}{255}{astral}{0}{summon}{0}
+						 {hema}{0}{focus}{0}};
+}
+/* }}} */

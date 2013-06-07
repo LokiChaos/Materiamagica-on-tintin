@@ -1,0 +1,107 @@
+#nop state/roomstate.tt
+/*
+	Room State Tracking and Display
+*/
+
+/* Parse Room Information {{{
+	Converts GMCP.room and .terrain info into stateRoom array
+*/
+#alias {_parseRoomInfo} {
+	#if {"$gmcp[Room][coord][sym]" == ""} {
+		#var stateRoom[Vmap] 0;
+	} {
+		#var stateRoom[Vmap] 1;
+	};
+
+	#var __rf {$gmcp[Room][flags]};
+	#replace __rf {, } {;};
+	#foreach {${__rf}} {__i} {
+		#var stateRoom[${__i}] {1};
+	};
+	#var __rf {$gmcp[Room][terraininfo]};
+	#replace __rf { } {;};
+	#foreach {${__rf}} {__i} {
+		#var stateRoom[${__i}] {1};
+	};
+	#unvar __rf;
+	#unvar __i;
+}
+/* }}} */
+
+/* Make Printable Bar {{{ */
+#function {makeRoomBar} {
+	#var result {<149>-};
+	#if {$stateRoom[indoors]} {
+		#var result {${result}<279>IN<149>--};
+	} {
+	    #var result {${result}<169>OUT<149>-}
+	};
+	#if {$stateRoom[wooded]} {
+		#var result {${result}<129>Forest<149>-}
+	};
+	#if {$stateRoom[underwater]} {
+		#var result {${result}<169>UnderW<149>-}
+	};
+	#if {$stateRoom[no-recall]} {
+		#var result {${result}<119>!Recall<149>-}
+	};
+	#if {$stateRoom[no-regen]} {
+		#var result {${result}<119>NoRgn<149>-}
+	};
+	#elseif {$stateRoom[high-regen]} {
+		#var result {${result}<179>HiRgn<149>-}
+	};
+	#elseif {$stateRoom[low-regen]} {
+		#var result {${result}<119>LoRgn<149>-}
+	};
+	#if {$stateRoom[no-magic]} {
+		#var result {${result}<119>!Magic<149>-}
+	};
+	#if {$stateRoom[no-trap]} {
+		#var result {${result}<119>!Trap<149>-}
+	};
+	#if {$stateRoom[silence]} {
+		#var result {${result}<119>Silence<149>-}
+	};
+	#if {$stateRoom[no-mount]} {
+	    #var result {${result}<119>!Mount<149>-}
+	};
+	#if {$stateRoom[no-form]} {
+	    #var result {${result}<119>!Form<149>-}
+	};
+	#if {$stateRoom[vanishing-items]} {
+		#var result {${result}<119>!Items<149>-}
+	};
+	#if {$stateRoom[diggable]} {
+		#if {$stateRoom[hard]} {
+			#var result {${result}<099>Dig (Hard)<149>-};
+		} {
+			#var result {${result}<099>Dig<149>-}
+		};
+	};
+
+	#format result {%.50s} {${result}};
+	#format result {%-50s} {${result}};
+	#replace result { } {-};
+}
+/* }}} */
+
+/* Print Extra Access Limit Info {{{ */
+#function {makeAuxRoomBar} {
+	#var result {};
+	#if {$gmcp[Room][minlevel]} {
+		#var result {Levels $gmcp[Room][minlevel]+};
+	};
+	#if {$gmcp[Room][maxlevel]} {
+		#var result {Levels -$gmcp[Room][maxlevel]};
+	};
+	#if {$gmcp[Room][maxlevel] && $gmcp[Room][minlevel]} {
+		#var result {Levels $gmcp[Room][minlevel]-$gmcp[Room][maxlevel]};};
+	#if {$stateRoom[private]} {
+		#var result {${__result} Private};
+	};
+	#if {$stateRoom[solitary]} {
+		#var result {${__result} Solitary};
+	};
+}
+/* }}} */

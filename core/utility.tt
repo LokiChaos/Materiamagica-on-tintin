@@ -1,0 +1,399 @@
+#showme {<aef>Loading: <faa>utility.tt}
+/* 
+	Defines several interally used concepts & provides alises to utilize them.
+
+	See doc/utility.txt for documentation on how to use these.
+
+	Todo:
+		Move _Notify
+		Move _PlaySound
+*/
+
+/* Load Other Utility */
+#read core/utility/cmdqueue.tt;
+#read core/utility/handler.tt;
+#read core/utility/sql.tt;
+#read core/utility/module.tt;
+
+/* Queue Functions {{{ */
+
+#alias {std_queue_push} {
+	#list {%1} {insert} {-1} {%2};
+}
+
+#function {std_queue_pop} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+		#list {%1} {delete} {1};
+	};
+}
+
+#function {std_queue_peek} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+	};
+}
+
+#alias {std_queue_purge} {
+	#var {%1} {};
+}
+
+#alias {std_queue_delete} {
+	#unvar {%1};
+}
+
+#function {std_queue_depth} {
+	#return &{%1[]};
+}
+/* }}} */
+
+/* Stack Functions {{{ */
+#alias {std_stack_push} {
+	#list {%1} {insert} {1} {%2};
+}
+
+#function {std_stack_pop} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+		#list {%1} {delete} {1};
+	};
+}
+
+#function {std_stack_peek} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+	};
+}
+
+#alias {std_stack_purge} {
+	#var {%1} {};
+}
+
+#alias {std_stack_delete} {
+	#unvar {%1};
+}
+
+#function {std_stack_depth} {
+	#return &{%1[]};
+}
+/* }}} */
+
+/* Persistent value saving {{{ */
+#alias {std_value_save} {
+	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#class persistent kill;
+	#class persistent read {${__persistPath}};
+	#class persistent open;
+	#var   {:%1} ${%1};
+	#class persistent close;
+	#class persistent write {${__persistPath}};
+	#class persistent kill;
+	#unvar __persistPath;
+}
+
+#function {std_value_get} {
+	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#class persistent kill;
+	#class persistent read {${__persistPath}};
+	#var result ${:%1};
+	#class persistent kill;
+	#unvar __persistPath;	
+}
+
+#alias {std_value_restore} {
+	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#class persistent kill;
+	#class persistent read {${__persistPath}};
+	#var %1 ${:%1};
+	#class persistent kill;
+	#unvar __persistPath;
+}
+
+#alias {std_value_clear} {
+	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#class persistent kill;
+	#class persistent read {${__persistPath}};
+	#unvar {:%1};
+	#class persistent write {${__persistPath}};
+	#class persistent kill;
+	#unvar __persistPath;
+}
+
+/* Automatically save and restore "remembered" values on session disconnect/connect */
+#alias {std_remember} {
+	#list _remember add {%1};
+}
+
+#alias {std_unremember} {
+	#list _remember del {@std_list_findMember{ {%1} {_remember} }};
+	std_value_clear {%1};
+}
+
+_event_register {session_connect}    {remember} {_std_remember_load};
+_event_register {session_disconnect} {remember} {_std_remember_save};
+
+/* Internal Remeber System Helpers {{{ */
+#alias {_std_remember_save} {
+	#nop %1;
+	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#class persistent kill;
+	#class persistent read {${__persistPath}};
+	#class persistent open;
+	#var {:_remember} {${_remember}};
+	#echo {<139>Saving %d variable[s].} {&{_remember[]}};
+	#foreach {${_remember[]}} {__idx} {
+		#if { &{${_remember[${__idx}]}} } {
+			#var {:${_remember[${__idx}]}} ${${_remember[${__idx}]}};
+		};
+	};
+	#unvar __idx;
+	#class persistent close;
+	#class persistent write {${__persistPath}};
+	#class persistent kill;
+	#unvar __persistPath;
+}
+
+#alias {_std_remember_load} {
+	#nop %1;
+	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#class persistent kill;
+	#class persistent read {${__persistPath}};
+	#var {_remember} {${:_remember}};
+	#echo {<139>Restoring %d saved variable[s].} {&{_remember[]}};
+	#foreach {${_remember[]}} {__idx} {
+		#var {${_remember[${__idx}]}} ${:${_remember[${__idx}]}};
+	};
+	#unvar __idx;
+	#class persistent kill;
+	#unvar __persistPath;
+}
+/* }}} */
+/* }}} */
+
+/* Notify system {{{ */
+#alias {std_Notice} {
+	#format {__noTemp} {%t %s<099>} {{%H:%M:%S}} {%1};
+	#line log {$stateClient[root]tmp/notices.$sessionName} {${__noTemp]}};
+	#unvar __noTemp;
+}
+/* }}} */
+
+/* TODO - add remote and local sound abilities */
+#alias {std_playSound} {
+	#if {$stateClient[mute] == 0} {
+		#format {__soundtemp} {%s/%s} {$prefs[soundsDir]} {%1};
+		#system {playsound --volume 0.4 ${__soundtemp} >/dev/null 2>&1 &};
+		#unvar __soundtemp;
+	};
+}
+
+/* Shell/Env/File functions  {{{*/
+#function {std_file_exists} {
+	#script {result} {if [ -f %0 ];then echo 1;else echo 0;fi};
+	#return $result[1];
+}
+
+#function {std_file_type} {
+#nop TODO- returns dir/file/fifo
+}
+
+#function {std_envget} {
+	#script result {echo $%1};
+	#return $result[1];
+}
+
+#function {std_uuidgen} {
+	#script result {uuidgen};
+	#return $result[1];
+}
+
+#function {std_mktemp} {
+	#script result {mktemp};
+	#return $result[1];
+}
+/* }}} */
+
+#function {std_unixToTime} {
+	#if {"%2" != ""} {
+		#format result {%t} {{%2} {%1}};
+	} {
+		#format result {%t} {{%c} {%1}};
+	};
+}
+
+/* List/Array functions {{{ */
+#function {std_list_findKey} {
+	#list __tmpList create ${%2[]};
+	#list __tmpList find {%1} {result};
+	#unvar __tmpList;
+}
+
+#function {std_list_findMember} {
+	#list {%2} {find} {%1} {result};
+}
+
+#function {std_list_isMember} {
+	#math result { 0 != @std_list_findMember{{%1}{%2}} || "${%2[0]}" == "%1" };
+}
+/* }}} */
+
+/* Numeric/Math functions {{{ */
+#function {std_math_eval} {
+	#math result {%0};
+}
+
+#function {std_math_max} {
+	#if {%1 > %2} {
+		#return %1;
+	} {
+		#return %2;
+	};
+}
+
+#function {std_math_min} {
+	#if {%1 > %2} {
+		#return %2;
+	} {
+		#return %1;
+	};
+}
+
+#function {std_math_abs} {
+	#if { (%0) >= 0} {
+		#return %0;
+	} {
+		#math result { -1 * %0};
+	};
+}
+
+#function {std_decrement} {
+	#math result {%1 - 1};
+}
+
+#function {std_dec2zero} {
+	#var result @std_math_max{ {0} {@std_decrement{%1}} };
+}
+/* }}} */
+
+/* String functions  {{{ */
+#function {std_str_sanitize} {
+	#var result {%0};
+	#replace {result} {'} {\047};
+}
+
+#func {std_str_escape} {
+	#var result %1;
+	#var __esctmp[aidx] 0;
+	#foreach {%0} {__esctmp[arg]} {
+		#math __esctmp[aidx] {1 + ${__esctmp[aidx]}};
+		#if {${__esctmp[aidx]} > 1 } {
+			#var __esctmp[asidx] 0;
+			#var __esctmp[a][2] {};
+			#foreach {${__esctmp[arg]}} {__esctmp[argsub]} {
+				#math __esctmp[asidx] {1 + ${__esctmp[asidx]}};
+				#var __esctmp[a][${__esctmp[asidx]}] {${__esctmp[argsub]}};
+			};
+			#line sub var #replace {result} {${__esctmp[a][1]}} {${__esctmp[a][2]}};
+			#unvar __esctmp[a];
+		};
+	};
+	#unvar __esctmp;
+};
+
+/* Escape Un-safe for sh/awk/sed*/
+#function {std_str_escape_shell} {
+	#var result @std_str_escape{ {%0} {\';\047} {\";\\"} };
+};
+
+/* Escaped URI */
+#function {std_str_escape_uri} {
+	#var result @std_str_escape{ {%0}
+	{\{;\0457B} {\};\0457D}
+	{\ ;\04520} {\=;\0453D} {\&;\04526}
+	{\:;\0453A} {\\\;;\0453B} {\/;\0452F} {\\;\0455C}
+	{\<;\0453C} {\>;\0453E} {\[;\0455B} {\];\0455D}
+	{\$;\04524}	{\#;\04523} {\|;\0457C} {\^;\0455E}
+	{\~;\0457E} {\`;\04560} {\?;\0453F} {\@;\04540}
+	};
+};
+
+#function {std_str_strip} {
+	#line strip {#var result {%0}};
+	#replace result {<%.%.%.>} {};
+}
+
+#function {std_str_len} {
+	#format result {%L} {%0};
+}
+
+#function {std_str_trim} {
+	#format result {%p} {%0};
+}
+
+#function {std_str_toLower} {
+	#format result {%l} {%0};
+}
+
+#function {std_str_toUpper} {
+	#format result {%u} {%0};
+}
+
+#function {std_str_tokenize} {
+	#list result create %0;
+}
+/* }}} */
+
+/* Direction functions {{{ */
+#function {std_dir_reverse} {
+	#var __dirTable {{n}{s}{s}{n}{e}{w}{w}{e}{u}{d}{d}{u}{ne}{sw}{sw}{ne}{nw}{se}{se}{nw}};
+	#var result ${__dirTable[%0]};
+	#unvar __dirTable;
+}
+
+#function {std_dir_full} {
+	#var result %0;
+	#replace result {^n} {north};
+	#replace result {^s} {south};
+	#replace result {e$} {east};
+	#replace result {w$} {west};
+	#replace result {^u$} {up};
+	#replace result {^d$} {down};
+}
+
+#function {std_dir_short} {
+	#var result %0;
+	#replace result {north} {n};
+	#replace result {south} {s};
+	#replace result {east}  {e};
+	#replace result {west}  {w};
+	#replace result {up}    {u};
+	#replace result {down}  {d};
+}
+/* }}} */
+
+/* One-Shot Alias/Action Def {{{*/
+#alias {std_action_oneshot} {
+	#act {%1} {
+		%2;#unact {%1};
+	};
+}
+
+#alias {std_alias_oneshot} {
+	#alias {%1} {
+		%2;#unalias {%1};
+	};
+}
+/* }}} */
+
+
+/*	Catch bad _Alias and .Alias calls and report them rather than shout them {{{
+	If you see this message, an error had occured.
+*/
+#alias {.%*} {
+	#echo {<119>ERROR, DEPRECIATED: '<099>%0<119>'};
+} {10};
+
+#alias {_%*} {
+	#echo {<119>ERROR: '<099>%0<119>'};
+} {10};
+/* }}} */

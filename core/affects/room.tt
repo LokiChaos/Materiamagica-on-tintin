@@ -1,0 +1,34 @@
+#nop affects/room.tt;
+
+/*
+	Generate and Add a TON of triggers from the table of strings
+		1 = Start String   Called when a room affect starts
+		2 = Affect Active  This can get called a LOT
+		0 = Affect Ends    Called when a room affect ends
+*/
+#script {awk -F : '{print "#act {^"$1"$}{_roomAffect {"$2"} {"$3"};} {4};"}' data/affects_room.tbl};
+
+/*
+	Base Status Event Handler, it will raise affect-specific events
+*/
+
+#alias {_roomAffect} {
+	#if {$stateChar[justLooking] != 1 || "%2" == "2"} {
+		#var stateRoom[%1] {@std_math_eval{"%2" != "0"}};
+	};
+	#var __affName {%1};
+	#replace {__affName} { } {_};
+	#if {"%2" == "0"} {
+		_event_raise {affect_room_off_${__affName}};
+	};
+	#elseif {"%2" == "1" } {
+		_event_raise {affect_room_on_${__affName}};
+	};
+	#elseif {"%2" == "2" } {
+		#if {$stateChar[justLooking] != 1} {
+			_event_raise {affect_room_active_${__affName}};
+		};
+	};
+	#unvar __affName;
+}
+

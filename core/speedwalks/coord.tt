@@ -1,0 +1,51 @@
+#nop speedwalks/coord.tt
+
+#alias {_goto_coord} {
+	#math __goto[X] { (%1 % 2300 ) - $navigation[X] };
+	#math __goto[Y] { (%2 % 1500 ) - $navigation[Y] };
+	#nop Intelligent Wrap-Around the toroidal world;
+	#if { @std_math_abs{${__goto[X]}} > 1150 } {
+		#math __goto[X] { (${__goto[X]} + 2300) % 2300 };
+	};
+	#if { @std_math_abs{${__goto[Y]}} > 750 } {
+		#math __goto[Y] { (${__goto[Y]} + 1500) % 1500 };
+	};
+	#nop sign determines direction;
+	#if { ${__goto[X]} > 0 } {
+		#var __goto[dirX] {e};
+	} {
+		#var __goto[dirX] {w};
+	};
+	#if { ${__goto[Y]} > 0 } {
+		#var __goto[dirY] {s};
+	} {
+		#var __goto[dirY] {n};
+	};
+	#var __goto[dirC] {${__goto[dirY]}${__goto[dirX]}};
+
+	#nop strip sign;
+	#math __goto[X] { @std_math_abs{${__goto[X]}} };
+	#math __goto[Y] { @std_math_abs{${__goto[Y]}} };
+	#nop stack n/s+e/w into nw/se/ne/sw;
+	#math __goto[C] { @std_math_min{ {${__goto[Y]}} {${__goto[X]}} } };
+	#math __goto[X] { ${__goto[X]} - ${__goto[C]} };
+	#math __goto[Y] { ${__goto[Y]} - ${__goto[C]} };
+	
+	#var __goto[Path] {};
+	#var __goto[Print] {};
+	#foreach {C;Y;X} {__goto[D]} {
+		#if {${__goto[${__goto[D]}]} > 0 } {
+			#loop {1} {${__goto[${__goto[D]}]}} {__goto[i]} {
+				#var __goto[Path] {${__goto[Path]};${__goto[dir${__goto[D]}]}};
+			};
+			#var __goto[Print] { ${__goto[Print]}${__goto[${__goto[D]}]}${__goto[dir${__goto[D]}]} }
+		};
+	};
+	#if { "${__goto[Path]}" != "" } {
+		#path load ${__goto[Path]};
+		#echo {<149>Path loaded to (%d, %d):<099>%s} {%1} {%2} {${__goto[Print]}};
+	} {
+		#echo {<199>Error: Failed to generate a path.};
+	};
+	#unvar __goto;
+}

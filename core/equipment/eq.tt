@@ -1,0 +1,135 @@
+#nop equipment/eq.tt
+
+/* Equipment Slot Tables {{{ */
+#var __eq[PrintList]  {light, finger1, finger2, neck1, neck2, neck3, neck4, onbody, head, face, legs, feet, hands, arms, shield, shoulder1, shoulder2, abtbody, rndbody, waist, wrist1, wrist2, rhand, lhand, END};
+#var __eq[RaceSlotTable] { {dracon}{rwing, lwing, tail, END}
+                       {fey}{rwing, lwing, END}
+                       {sidhe}{rwing, lwing, END}
+                       {minotaur}{tail, END}
+                       {sahuagin}{tail, END}};
+
+#var __eq[PrintListRace] {${__eq[RaceSlotTable][$charScore[race]]}};
+
+#var __eq[Count] {{ring}{0}{neck}{0}{shoulder}{0}{wrist}{0}{wing}{0}};
+/* }}} */
+
+/* Action to Parse Worn Equipment {{{ */
+#act {^<%D>} {
+	#if {"%1" == "used as light"} { 
+		#replace {__eq[PrintList]} {light, } {};
+	};
+	#elseif {"%1" == "worn on finger"} {
+		#math __eq[Count][ring] {1 + ${__eq[Count][ring]}};
+		#format __eq[Temp] {finger%d, } {${__eq[Count][ring]}};
+		#replace {__eq[PrintList]} {${__eq[Temp]}} {};
+	};
+	#elseif {"%1" == "worn around neck"} { 
+		#math __eq[Count][neck] {1 + ${__eq[Count][neck]}};
+		#format __eq[Temp] {neck%d, } {${__eq[Count][neck]}};
+		#replace {__eq[PrintList]} {${__eq[Temp]}} {};
+	};
+	#elseif {"%1" == "worn on body"} { 
+		#replace {__eq[PrintList]} {onbody, } {};
+	};
+	#elseif {"%1" == "worn about body"} { 
+		#replace {__eq[PrintList]} {abtbody, } {};
+	};
+	#elseif {"%1" == "worn around body"} { 
+		#replace {__eq[PrintList]} {rndbody, } {};
+	};
+	#elseif {"%1" == "worn on head"} { 
+		#replace {__eq[PrintList]} {head, } {};
+	};
+	#elseif {"%1" == "worn on face"} { 
+		#replace {__eq[PrintList]} {face, } {};
+	};
+	#elseif {"%1" == "worn on legs"} { 
+		#replace {__eq[PrintList]} {legs, } {};
+	};
+	#elseif {"%1" == "worn on feet"} { 
+		#replace {__eq[PrintList]} {feet, } {};
+	};
+	#elseif {"%1" == "worn on hands"} { 
+		#replace {__eq[PrintList]} {hands, } {};
+	};
+	#elseif {"%1" == "worn on arms"} { 
+		#replace {__eq[PrintList]} {arms, } {};
+	};
+	#elseif {"%1" == "worn as shield"} { 
+		#replace {__eq[PrintList]} {shield, } {};
+	};
+	#elseif {"%1" == "worn about waist"} { 
+		#replace {__eq[PrintList]} {waist, } {};
+	};
+	#elseif {"%1" == "worn around wrist"} { 
+		#math __eq[Count][wrist] {1 + ${__eq[Count][wrist]}};
+		#format __eq[Temp] {wrist%d, } {${__eq[Count][wrist]}};
+		#replace {__eq[PrintList]} {${__eq[Temp]}} {};
+	};
+	#elseif {"%1" == "right hand"} { 
+		#replace {__eq[PrintList]} {rhand, } {};
+	};
+	#elseif {"%1" == "left hand"} { 
+		#replace {__eq[PrintList]} {lhand, } {};
+	};
+	#elseif {"%1" == "worn on right wing"} { 
+		#replace {__eq[PrintListRace]} {rwing, } {};
+	};
+	#elseif {"%1" == "worn on left wing"} { 
+		#replace {__eq[PrintListRace]} {lwing, } {};
+	};
+	#elseif {"%1" == "worn on tail"} { 
+		#replace {__eq[PrintListRace]} {tail, } {};
+	};
+}
+/* }}} */
+
+/* Armor Info {{{ */
+#act {^Current Armor Resistance (AR):$} {
+	#nop Strip slots marks to be ignored;
+	#foreach {$prefs[ignoredEquipmentSlots]} {__eq[Slot]} {
+		#replace {__eq[PrintList]} {${__eq[Slot]}, } {};
+		#replace {__eq[PrintListRace]} {${__eq[Slot]}, } {};
+	};
+	#replace {__eq[PrintList]} {, END} {};
+	#replace {__eq[PrintListRace]} {, END} {};
+	
+	#regex {${__eq[PrintListRace]}} {^$} {
+		#nop;
+	} {
+		#format __eq[PrintList] {%s, %s} {${__eq[PrintList]}} {${__eq[PrintListRace]}}
+	};
+	#if {$stateClient[muteLine] == 0} {
+		#regex {${__eq[PrintList]}} {^$} {
+			#nop;
+		} {
+			#echo {<149>Vacant slots: <099>%s\n} {${__eq[PrintList]}};
+		};
+	};
+	#unvar __eq;
+}
+
+#act {^(%D) Pierce: %d%s Bash: %d%s Slash: %d%s Exotic: %d} {
+	#var charScore[ar][@std_str_trim{%1}][pierce]  {%2};
+	#var charScore[ar][@std_str_trim{%1}][bash]    {%4};
+	#var charScore[ar][@std_str_trim{%1}][slash]   {%6};
+	#var charScore[ar][@std_str_trim{%1}][exotic]  {%8};
+}
+/* }}} */
+
+/* Weapon Info {{{ */
+#act {^With your knowledge of '%D', %* can cause up to %d points of damage against 0 ar.} {
+	#var charScore[weapon][Type] {%1};
+	#var charScore[weapon][Name] {%2};
+	#var charScore[weapon][Dmg]  {%3};
+}
+
+#act {^Excepting defenses and dynamic modifiers, you will hit %d% of the time.} {
+	#var charScore[toHit]      {%1};
+	#class equipinfo kill;	
+	#class silentEq kill;		
+	#if {$stateClient[muteLine]} {
+		#line {gag};
+	};
+}
+/* }}} */

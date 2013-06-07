@@ -1,0 +1,41 @@
+#nop tick/ontick.tt;
+
+/* One Second ticker {{{
+   Restarted on each tick to ensure it's synced with the main one
+   Incriments Idle times and decriments the tillTick
+*/
+#var stateClient[tillTick] {15};
+
+#tick {oneSecond} {
+	#math stateClient[tillTick] {$stateClient[tillTick] - 1};
+	#math stateClient[gameIdle] {$stateClient[gameIdle] + 1};
+	#math stateClient[clientIdle] {$stateClient[clientIdle] + 1};
+} {1};
+/* }}} */
+
+/* Update in-game time {{{ */
+#math gtime[time] {($gtime[time] + 1) % 1440};
+
+#format gtime[print] {[<%m39>%+2m:%+2m<099>]} {($gtime[time] >= 500) && ($gtime[time] < 1140)} {$gtime[time]/60} {$gtime[time] % 60};
+#replace gtime[print] { } {0};
+/* }}} */
+
+/* Clear Sync-Block */
+#unvar _syncLimit;
+
+/* Echo Tick indicator {{{ */
+#if {$prefs[echoTick]} {
+	#echo {<119>---TICK---<099>};
+};
+
+/*
+#var tiltick {15};
+#echo {{%+80s}{5}} {TICK};
+
+#ticker {onesec} 
+{
+	#math tiltick {$tiltick - 1};
+} {1};
+
+*/
+/* }}} */

@@ -1,0 +1,56 @@
+#showme {<aef>Loading: <faa>captures.tt}
+/*
+	Handles all channel captures.
+	Level 3 - Very High Priority to avoid missing messages. 
+*/
+
+/* Capture File Names {{{
+	You can edit these to suit your file-name preferences */
+#var capPath[clanTalk] 		  {clantalk};
+#var capPath[allianceTalk] 	  {allytalk};
+#var capPath[allianceEvents]  {alliance};
+#var capPath[archonTalk] 	  {archontalk};
+#var capPath[guideTalk] 	  {guidetalk};
+#var capPath[auction] 		  {auction};
+#var capPath[hints] 		  {hints};
+#var capPath[pkTalk]		  {pktalk};
+#var capPath[tells]	    	  {tells};
+#var capPath[formTalk]		  {formtalk};
+#var capPath[relayBase]		  {relay};
+#var capPath[transfers]		  {transfers};
+#var capPath[shout]		      {shout};
+#var capPath[yell]		      {yell};
+#var capPath[guideTalk]       {guide};
+#var capPath[novice]          {novice};
+#var capPath[say]             {says};
+#var capPath[announce]        {announcements};
+/* }}} */
+
+/* Logging Helper Subroutines {{{ 
+	Main Helper, just pre-pends a time stamp and add the line to the file:
+	Syntax:
+		_ChannelLog {%0} {$cappath[<CHANNEL>]};
+		_CaptureLog {%0} {<path to file>};
+	TODO: You can set alternate timestamp formats in
+	$prefs[timeStamp]
+*/
+
+#alias {_ChannelLog} {
+	_CaptureLog {%1} {$capPath[base]/%2};
+	#regex {%1} {%i$charName} {
+	_event_raise {soft_page};};
+	_event_raise {channel} {%2};
+} {2}
+
+/* More Generic, for general timestamp logging */
+#alias {_CaptureLog} {
+	#format {__captemp} {%t %s <099>} {{%Y-%m-%d %H:%M:%S}} {%1};
+	#line log {%2} {${__captemp}};
+	#unvar __captemp;
+} {2}
+/* }}} */
+
+/* Load the capture triggers */
+#read core/captures/channels.tt
+#read core/captures/transfers.tt
+#read core/captures/auction.tt

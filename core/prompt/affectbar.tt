@@ -1,0 +1,66 @@
+#nop prompt/affectbar.tt
+
+#alias {_PromptAffectBar} {
+	#format {prompt[2]} {<098>%s%s%s} {@affectBar{pos;26}} {@affectBar{neg;25}} {@affectBar{util;23}}; 
+}
+
+/* Affects Table to build the Bars off Of {{{ */
+#var _affectBar {
+{pos}{
+	{1}{{aff}{sanctuary}{1}{<179>Sc}{0}{<119>Sc<179>}}
+	{2}{{aff}{spellshield}{1}{Ss}{0}{  }}
+	{3}{{aff}{bless}{1}{Bl}{0}{  }}
+	{4}{{aff}{armor}{1}{Ar}{0}{  }}
+	{5}{{aff}{shield}{1}{Sh}{0}{  }}
+	{6}{{aff}{stone skin}{1}{St}{0}{  }}
+	{7}{{aff}{fireshield}{1}{Fs}{0}{  }}
+	{8}{{aff}{lightning shroud}{1}{Ls}{0}{  }}
+	{9}{{aff}{augment aura}{1}{Aa}{0}{  }}
+	{10}{{aff}{haste}{1}{Hs}{0}{  }}
+	{11}{{aff}{unnatural strength}{1}{Us}{0}{  }}
+	{12}{{aff}{death grip}{1}{Dg}{0}{  }}
+	{13}{{aff}{awaken}{1}{Aw}{0}{  }}
+}
+{neg}{
+	{1}{{aff}{paralysis}{1}{<119>Pa}{0}{<119>}}
+	{2}{{aff}{blindness}{1}{Bl}{0}{}}
+	{3}{{aff}{silence}{1}{Si}{0}{}}
+	{4}{{aff}{slow}{1}{Sl}{0}{}}
+	{5}{{aff}{slow magic}{1}{Sm}{0}{}}
+	{6}{{aff}{web}{1}{Wb}{0}{}}
+	{7}{{aff}{poison}{1}{Po}{0}{}}
+	{8}{{aff}{plague}{1}{Pl}{0}{}}
+	{9}{{aff}{curse}{1}{Cu}{0}{}}
+	{10}{{aff}{condemn}{1}{Cn}{0}{}}
+	{11}{{aff}{excomminicate}{1}{Ex}{0}{}}
+	{12}{{aff}{farie fire}{1}{Ff}{0}{}}
+	{13}{{aff}{weaken}{1}{Wk}{0}{}}
+}
+{util}{
+	{1}{{aff}{levitation}{1}{<129>Lv}{0}{<029>Lv<129>}}
+	{2}{{aff}{pass door}{1}{Pd}{0}{  }}
+	{3}{{aff}{underwater breathing}{1}{Uw}{0}{  }}
+	{4}{{aff}{bubble cluster}{1}{Bc}{0}{  }}
+	{5}{{aff}{lava walk}{1}{Lw}{0}{  }}
+	{6}{{aff}{detect invisibility}{1}{<149>Dn}{0}{<109>Dn<149>}}
+	{7}{{aff}{hide}{1}{Hi}{0}{  }}
+}
+};
+/* }}} */
+
+/* Dynamically Generate Affect Flag Bar {{{ */
+#function {affectBar}
+{
+	#var result {};
+	#foreach {${_affectBar[%1][]}} {__aff} {
+		#if { $stateAffects[${_affectBar[%1][${__aff}][aff]}] } {
+			#var result {${result}${_affectBar[%1][${__aff}][1]}};
+		} {
+			#var result {${result}${_affectBar[%1][${__aff}][0]}}; 
+		};
+	};
+	#format {result} {%.%2s} {${result}};
+	#format {result} {[%-%2s<099>]} {${result}};
+	#unvar __aff;
+}
+/* }}} */

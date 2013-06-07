@@ -1,0 +1,27 @@
+#nop Form command info triggers;
+#act {^A total of [%d] of [%d] members in formation.$} {
+	#var form[num] {%1};
+	#var form[max] {%2};
+	#class printform read core/forms/print.tt;
+	#if {$stateClient[muteLine]} {
+		#line gag
+	} {
+		_PrintForm
+	};
+	#class printform kill;
+	#class forminfo kill;
+}
+
+#act {^You are at position %w.$} {
+	#var form[%1] {$charName};
+	#line gag;
+}
+
+#act {^%* is {at|in} position %w.$} {
+	#if {"%1"=="No one"} {
+		#unvar form[%3];
+	} {
+		#var form[%3] {%1};
+	};
+	#line gag;
+};

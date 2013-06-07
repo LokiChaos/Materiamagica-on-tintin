@@ -1,0 +1,189 @@
+A PARTIAL list of features.
+
+Features:
+	Crystals Guilds
+		Command: crystal <request|status> [planar]
+					Requests a map from the crystal guild.
+					Reports remaining time or time until next map.
+		Logs:
+			Requesting Map
+			Turning in Crystal.
+			Rewards Granted.
+	Daily Rewards
+		Command: daily <request|status>
+					Reports when you can next collect rewards for each town.
+		Logs:
+			Requesting Rewards.
+			Rewards given.
+		Duplicate Rewards are stacked & the bind messages are gagged.
+	Orc Bounties:
+		Command: bounty <request|status>
+					Requests a bounty from the orc pursuer.
+					Reports current bounty and time remaining or time until next bounty.
+		Logs:
+			Requested bounties.
+			Rewards received.
+	Questing:
+		Command: quest <check>
+					Reports the status of the 5 or 7 per 6 hour limit and the 2 per 2hr limit.
+		Logs:
+			Quest Request w/ Quest Master, Name, and Number
+			Quest Timeout
+			Quest Rejection
+			Quest Partial Completion w/ Rewards
+			Quest Completion w/ Rewards
+	Misc Activity-Related Events:
+		Logs:
+			Practices, Quest Points, Build Points, Exp, Piety rewards from ANY source.
+			Mark Granting
+			Folklore Rewards
+			Faction Standing Changes
+			Post-reboot Login Practice Reward
+			Collection of Birthday Rewards
+			Boss Kills (w/ boss name)
+			Level Up Rewards
+				HP/SP/ST
+				Skill betters
+				Stat betters
+			Skill betters via usage
+			Skill mastery
+			Skill Practicing
+			Manual usage
+			Stat/Vital Training
+			Clan Rank Changes
+
+	Affects Tracking:
+		Keeps note of all status affects, syncs with the output of the affect command.
+		The affect command's output is reformatted to better fit 80-col width.
+		All changes raise events for the user to hook too to either implement
+		an extra notification, sounds, or other responses.
+
+	Augmented Commands:
+		open/close/lock/unlock are aliased to favor directions over items
+		More forthcoming...
+
+	Captures:
+		Channel logging in FULL color and timestamped to persistent, per-channel log files.
+			Clan Talk
+			Alliance Talk
+			PK Talk
+			Tells/Pages
+			Form Talk
+			Chat Relays (individual files per channel by default)
+			Archon Talk (needs testing)
+			Guild Talk (needs testing)
+			Novice Talk
+			Shouts/Yells
+			Says
+			Hints (Local & Area hints are stamped with zone name)
+			
+	Logging of various transfers of wealth:
+		Bank transfers to/from
+		Auction profits
+		Sending/Receiving Mail
+		Tourmaline Transfers
+		Reward Unit Transfers
+		Being given items
+
+	Combat:
+		Tracks in-combat state.
+		Tracks & displays opponents hp-%
+		Tracks uses (TODO)
+		Tracks combat statistics (TODO)
+
+	Forms:
+		Keeps track of formation internally.
+		Colorized output of 'form' command.
+		Captures 'form status' to external file, has a silent option (suppresses output in mail window)
+		
+	GMCP:
+		Support room.* and char.* 
+		room.info used for state tracking, and mapping.
+
+	Informational Commands:
+		Parsed output from score/equipment/inventory/alignment & saves data.
+		Equipment command output augmented with "vacant slots" listing
+		Mem command displays individual spell complexities and total complexity memorized.
+		New Commands:
+			ar - displays just your AR
+			weapon - displays just weapon info
+			roominfo - displays extended room information (from GMCP)
+			repop - displays repop time of current or named zone(s)
+	
+	Mapper:
+		Auto-maps areas with GMCP & tintin's #map system
+		A lot TODO.
+
+	Navigation Assistance:
+		Tracks coordinates/zone/room name/plane.
+		Tracks game time and moon phases.
+		Displays current worldgates as part of time command output (or quest clock)	
+		whereis command allows you to search a listing of all locations for coordinates and other information.
+		whereis can also locate the ferries and airship based on sysinfo.txt
+
+	Prompt:
+		A whole lot...
+			Vitals w/ colors based on % (more than the default game colorizing)
+			Vital delta's
+			Room Exits (color coded, CPK differentiated from LPK/NPK)
+			Current Room status (Safe, *PK, vMap, and room spells)
+			Reagent Stock
+			Current Coordinates (via GMCP)
+			Current Alyrian Time (colored based on shift time status)
+			Current Moon Phases (and sp-regen % based on that)
+			Abbreviated affects bar
+			Opponents HP% (when in combat)
+			Mount's Stamina (when mounted)
+			Lowest form members HP (when in combat & formed)
+			State flags: 
+				Casting/Playing
+				Lagged
+				Hunger/Thirst
+				Encumbered
+				Panicked
+				Reagent Producers full
+				Bag of Tricks full
+				Mail Waiting
+				Tagged
+				Invisible
+				Away
+				Quiet Status
+				Searching/Digging
+				Questing/On bounty/On Crystal
+				News Flag
+				Sitting/Resting/Sleeping
+				On a Speedwalk
+				More to come (TODO)
+			Zone Name & Repop time (top of client)
+
+	Reagents:
+		Tracks reagent usage for almost all types (including exotic ones).
+		Supports any number of reagent producers.
+		Supports sorting reagents into any number of containers.
+		Supports updating reagent totals.
+		Supports reagent buying based on set totals (and auto-sorts).
+		Tracks usage totals.
+
+	Speedwalks:
+		goto command determines you current location and matches the given destination and enqueues speedwalks based on a path finding system.
+		run/stop - start and about speedwalk, run checks for haste/levi/invis status
+		speedwalks auto-abort on combat, slipping and falling, etc.
+		speedwalks are auto-throttling and do not block entry of other commands.
+
+	State Tracking:
+		Mostly related to above, but the client attempts to track various play states.
+
+	Tab Completion:
+		For all in-game commands and new client commands, supports per-char entires too.
+
+	Tick Tracking:
+		Tracks game time, and auto-syncs the ticker.  Keeps track of seconds
+		until next tick, idle time since last command to the game and idle
+		time since last input from the user.
+
+	Standard Library & API:
+		A standard utility library is provided that supplies several
+		Event Handler that allows the user to hook their own actions to
+		existing triggers without having to alter the core scripts code.
+
+Note: All logging is timestamped with local time and is a persistent log file.

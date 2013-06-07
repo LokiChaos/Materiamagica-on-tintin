@@ -1,0 +1,8 @@
+Several basic functions and subroutines have been defined for both internal
+use and for you to use in your own custom scripts.  They are mostly defined
+in core/utility.tt and core/utility/*.tt  This file documents their usage
+and provides examples.  If you examine the code, most of these are quite
+simple, often only one or two lines, but by wrapping them in an alias or a
+function it gives them context that makes understanding the code easier.
+
+TODO

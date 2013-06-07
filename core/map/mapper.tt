@@ -1,0 +1,76 @@
+#nop map/mapper.tt
+
+/* Mapper Subroutines {{{ */
+#alias {_mapperAddRoom} {
+	#map set roomname $gmcp[Room][name];
+	#map set roomarea $gmcp[Room][zone];
+	#map set roomterrain {{terrain}{$gmcp[Room][terrain]}
+	                      {terraininfo}{$gmcp[Room][terrainfo]}
+					      {flags}{$gmcp[Room][flags]}
+						  {size}{$gmcp[Room][size]}
+						  {shape}{$gmcp[Room][shape]}};
+	#if { @std_str_len{$gmcp[Room][coord][sym]} != 0} {
+		_mapperVMapRoomSymbol;
+	};
+	_mapperZoneRoomColor;
+}
+
+#alias {_mapperVMapRoomSymbol} {
+	#map set roomsymbol
+	     {@mmcolor2tt{$gmcp[Room][coord][color]}$gmcp[Room][coord][sym]};
+};
+
+#alias {_mapperZoneRoomColor} {
+	#if {"$gmcp[Room][flags]" == "%*player-kill-chaotic%*"} {
+		#map set roomcolor {$mapper[colors][cpk]};
+	};
+	#elseif {"$gmcp[Room][flags]" == "%*player-kill-neutral%*"} {
+		#map set roomcolor {$mapper[colors][npk]};
+	};
+	#elseif {"$gmcp[Room][flags]" == "%*player-kill-lawful%*"} {
+		#map set roomcolor {$mapper[colors][lpk]};
+	};
+	#elseif {"$gmcp[Room][flags]" == "%*safe%*"} {
+		#map set roomcolor {$mapper[colors][safe]};
+	};
+	#elseif {"$gmcp[Room][flags]" == "%*dark%*" } {
+		#map set roomcolor {$mapper[colors][dark]};
+	};
+	#else {
+		#map set roomcolor {$mapper[colors][norm]};
+	};
+};
+
+#alias {_mapperLinkExits} {
+	#foreach {$gmcp[Room][exits]} {__exit} {
+		#if {"${__exit}" == "{n|s|e|w|u|d|nw|ne|sw|se}"} {
+			#map get {roomexit} {__roomExits}; 
+			#if {&{__roomExits[${__exit}]} == 0} {
+				#map get {roomvnum} {__roomExits} {$gmcp[Room][exits][${__exit}]}; 
+				#map dig {${__exit}} {$gmcp[Room][exits][${__exit}]}; 
+				#if {${__roomExits} == 0} {
+					#map set {roomcolor} {<fca>} {$gmcp[Room][exits][${__exit}]}
+				};
+			};
+		};
+	};
+	#unvar __exit;
+	#unvar __roomExits;
+}
+
+#alias {_mapperWriteOut} {
+	#var __mapName {%1};
+	#replace {__mapName} {'} {};
+	#replace {__mapName} { } {_};
+	#map write {$mapper[path]/${__mapName}.map};
+	#unvar __mapName;
+}
+
+#alias {_mapperReadIn} {
+	#var __mapName {%1};
+	#replace {__mapName} {'} {};
+	#replace {__mapName} { } {_};
+	#map read {$mapper[path]/${__mapName}.map};
+	#unvar __mapName;
+}
+/* }}} */

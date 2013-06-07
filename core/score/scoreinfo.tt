@@ -1,0 +1,118 @@
+#nop score/scoreinfo.tt 
+
+/* Triggers for collecting info from the score command. {{{ */
+#act {^  Hours Played:%*Age:%* years (Born %d/%d/%d)} {
+	#format charScore[hoursPlayed] {%p} {%1};
+	#format charScore[age] {%p}	{%2};
+	#format charScore[birthday] {%s/%s/%s} {%3} {%4} {%5};
+	#var stateChar[Questing] 0;
+}
+
+#act {^  Class Level:%s%d%s Total Level:%s%*} {
+	#var charScore[classLvl] 	{%2};
+	#format charScore[totalLvl] {%p} 	{%5};
+}
+
+#act {^  Race:%s%w%sGender:%s%*} {
+	#var charScore[race] 	{%2};
+	#format charScore[gender] {%p}	{%5};
+}
+
+#act {^  Class:%s%w%sAlignment:%s{\-|}%d (%*)} {
+	#var charScore[class] 	{%2};
+	#format charScore[alignment] {%s%s} {%5} {%6};
+}
+
+#act {^  Hit Points:%s%d/%d%sPractices:      %d} {
+	#var	vitals[max][hp] {%3};
+	#var	charScore[practices] {%5};
+
+}
+
+#act {^  Spell Points:%s%d/%d%sQuest Points:%s%S (%d quests, %d failed)} {
+	#var	vitals[max][sp] {%3};
+	#var	charScore[questPoints] {%6};
+	#var	charScore[quest] {%7};
+	#var	charScore[questFailed] {%8};
+}
+
+#act {^  Stamina:%s%d/%d%sReputation:%s%d (%w)} {
+	#var	vitals[max][st] {%3};
+	#var	charScore[reputation] {%6};
+	#var	charScore[reputationClass] {%7};
+}
+
+#act {^  Strength:%s%d/%d%sVitality:%s%d/%d} {
+	#var	charScore[strength]	{%2};
+	#var	charScore[strengthMax]	{%3};
+	#var	charScore[vitality]	{%6};
+	#var	charScore[vitalityMax]	{%7};
+}
+
+#act {^  Knowledge:%s%d/%d%sLuck:%s%d/%d} {
+	#var	charScore[knowledge]	{%2};
+	#var	charScore[knowledgeMax]	{%3};
+	#var	charScore[luck]		{%6};
+	#var	charScore[luckMax]	{%7};
+}
+
+#act {^  Wisdom:%s%d/%d%sCourage:%s%d/%d} {
+	#var	charScore[wisdom]	{%2};
+	#var	charScore[wisdomMax]	{%3};
+	#var	charScore[courage]	{%6};
+	#var	charScore[courageMax]	{%7};
+}
+
+#act {^  Agility:%s%d/%d%sSanity:%s%d/%d} {
+	#var	charScore[agility]	{%2};
+	#var	charScore[agilityMax]	{%3};
+	#var	charScore[sanity]	{%6};
+	#var	charScore[sanityMax]	{%7};
+}
+
+#act {^  Personality:%s%d/%d} {
+	#var	charScore[personality]	{%2};
+	#var	charScore[personalityMax] {%3};
+}
+
+#act {^  Spell Complexity Comprehension (SCC):%s%d%} {
+	#var	charScore[scc] {%2};
+}
+
+#act {^    Wea:%s%d%%  Def:%s%d%%  Com:%s%d%%  Tek:%s%d%%  Mys:%s%d%%} {
+	#var	charScore[pccWea]	{%2};
+	#var	charScore[pccDef]	{%4};
+	#var	charScore[pccCom]	{%6};
+	#var	charScore[pccTek]	{%8};
+	#var	charScore[pccMys]	{%10};
+}
+
+#act {^* You have %S experience points and need %S to advance.} {
+	#var	charScore[experience]	{%1};
+	#var	charScore[expToNext]	{%2};
+}
+
+#act {^* You have killed %S creatures and %S players in combat.} {
+	#var	charScore[npcKills]	{%1};
+	#var	charScore[pcKills]	{%2};
+}
+
+#act {^* You have been killed %S times, %S in player kill combat.} {
+	#var	charScore[deaths]	{%1};
+	#var	charScore[pcDeaths]	{%2};
+}
+
+#act {^* You have defeated %S players and lost %S times in arena combat.} {
+	#var	charScore[arenaWins]	{%1};
+	#var	charScore[arenaLoss]	{%2};
+}
+#act {^* You have attained %d marks, %d honors, and %d relationship.} {
+	#var	charScore[marks]		{%1};
+	#var	charScore[honors]		{%2};	
+	#var	charScore[relationships]	{%3};	
+}
+
+#act {^* * You are currently %*.} {
+	#nop TODO sit/sleep/stand;
+}
+/* }}} */

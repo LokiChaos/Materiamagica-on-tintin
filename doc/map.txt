@@ -1,0 +1,23 @@
+
+
+
+mapper setroom <type>
+cpk/npk/lpk/safe
+bank
+water/blood
+shop
+po (post office)
+locker
+recall
+qm (quest master)
+dark
+
+
+mapper setexit <dir> <flag>
+door
+locked
+passproof
+bashproof
+magic-res
+
+mapper set

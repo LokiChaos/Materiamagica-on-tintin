@@ -1,0 +1,38 @@
+#nop login/login.tt
+
+/* Auto-Send Character Name, if it fails twice abort the auto-login & clean up */
+#act {^By what name shall we know thee?} {
+	#send {$charName};
+	#math __nameTry {${__nameTry} + 1 };
+	#if {${__nameTry} > 2} {
+		#class login kill;
+	};
+}
+
+/* tt++ never knows your password, it only reads it in
+   from a file and kills the action for safety */
+#act {^Password:} {
+	#unvar __nameTry;
+	#textin char/$sessionName/pass;
+	#unact {^Password:$};
+}
+
+/* Enter the world and Cleanup this class to negate any chance of abuse */
+#act {^Your choice?} {
+	#if {$prefs[loginChoice] >= 0 && $prefs[loginChoice]} {
+		#send {$prefs[loginChoice]};
+	};
+}
+
+
+/* */
+#act {^I-MOTION Engine v%d.%d (build %d)$} {
+	#class login kill;
+	_event_raise {session_login} {login};
+}
+
+/* Cleanup this class to negate any chance of abuse */
+#act {^Welcome back to Materia Magica.} {
+	#class login kill;
+	_event_raise {session_login} {reconnect};
+}

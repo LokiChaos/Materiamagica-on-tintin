@@ -1,0 +1,109 @@
+#showme {<aef>Loading: <faa>utility/handler.tt}
+
+/* Define events array iff it's not an array */
+#if {&{_events[]} == 0} {
+	#var _events {};
+}
+
+#alias {_event_tmp_ali} {#nop;}
+
+/*
+	event_register eventName handlerName action {{{
+	adds action to the eventName event under the tag handlerName.
+*/
+
+#alias {_event_register} {
+	#var _events[%1][%2] {%3};
+}
+/* }}} */
+
+/*
+	event_oneshot eventName handlerName action {{{
+	adds action to the eventName event under the tag handlerName.
+
+	Like the above, but it only fires on the next call of the event and then
+	removes itself.
+*/
+
+#alias {_event_oneshot} {
+	#var _events[%1][%2] {_event_remove_specific {%1} {%2};%3};
+}
+/* }}} */
+
+/*
+	event_remove_event eventName {{{
+	removes eventName completely
+*/
+#alias {_event_remove_event} {
+	#line substitute {variable} #unvar _events[%1];
+}
+/* }}} */
+
+/*
+	event_remove_handler handlerName {{{
+	removes handlerName from all events
+*/
+#alias {_event_remove_handler} {
+	#foreach {${_events[]}} {sublist} {
+		#line substitute {variable} #unvar _events[$sublist][%1];
+		#if {"${_events[$sublist]}" == ""} {
+			#line substitute {variable} #unvar _events[$sublist];
+		};
+	}
+}
+/* }}} */
+
+/*
+	event_remove_specific eventName handlerName {{{
+	removes handlerName from eventName
+*/
+
+#alias {_event_remove_specific} {
+	#line substitute {variable} #unvar _events[%1][%2];
+	#if {"${_events[%1]}" == ""} {
+		#line substitute {variable} #unvar _events[%1];
+	};
+}
+/* }}} */
+
+/*
+	event_eval is a helper function {{{
+	that allows dynamic alias definitions.
+*/
+#alias {event_eval} {
+	#alias _event_tmp_ali {%1};
+	_event_tmp_ali %2;
+	#alias _event_tmp_ali #nop;
+}
+/* }}} */
+
+/*
+	event_raise eventName args {{{
+	calls all actions for eventName with args
+*/
+/* TODO: Remove */
+#alias {_event_raise} {
+	_CaptureLog {Event %0} {tmp/event_$sessionName.log};
+	#foreach {${_events[%1][]}} {__handler} {
+	_CaptureLog {    Handler '${__handler}' called for '%1'} {tmp/event_$sessionName.log};
+		#if {&{_events[%1][${__handler}]} != 0} {
+			event_eval {${_events[%1][${__handler}]}} {%0};
+		};
+	};
+	#unvar __handler;
+};
+/* }}} */
+
+
+/* Debuging */
+#alias {events} {
+	#echo {Registered Handlers:};
+	#foreach {${_events[]}} {__Event} {
+		#echo { %s} {${__Event}};
+		#foreach {${_events[${__Event}][]}} {__Handler} {
+			#echo {  -%s} {${__Handler}};
+		};
+	};
+	#unvar __Event;
+	#unvar __Handler;
+}

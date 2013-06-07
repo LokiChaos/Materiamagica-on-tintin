@@ -1,0 +1,4 @@
+#nop
+
+#class _mod_navpad_pad kill;
+#unvar _mod_navpad%*;

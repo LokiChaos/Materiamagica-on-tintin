@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Log Tailer for MateriaMagica on tintin++
+
+if [ -z "$1" ]; then
+	echo "Usage:"
+	echo "captureTail path/to/file"
+	echo "captureTail path/to/dir"
+	echo "captureTail SessionName"
+	echo "captureTail SessionName channel"
+	exit 1
+fi
+
+# if argument is a valid file, just use it
+if [ -f "$1" ]; then
+	LOGF="$1"
+
+# if argument is a valid directory, prompt user for a file from within it
+elif [ -d "$1" ]; then
+	LOGPATH="$1"
+	clear
+	ls $LOGPATH
+	echo -e "\033[01;32mPlease Select a log file to follow from above (blank to exit):\033[01;35m"
+	cd $LOGPATH
+	read -e LF
+	echo -e "\033[00;00m"
+	if [ -n "$LF" ];then
+		LOGF=${LOGPATH}/$LF
+	else
+		exit 0
+	fi
+
+# if two argument were given and the first was neither tailable file nor a directory
+# Assume it was a Session and a channel and build a path off of that
+elif [ -n "$2" ]; then
+	SESSNAME=$1
+	LOGPATH=~/.tt/char/${SESSNAME}/log
+	LOGF=${LOGPATH}/$2
+
+# if only one non-tailable file or directory was given, assume it was a Session name
+# prompt the user for what file to tail from that Session's log directory
+else
+	SESSNAME=$1
+	LOGPATH=~/.tt/char/${SESSNAME}/log
+	clear
+	ls $LOGPATH
+	echo -e "\033[01;32mPlease Select a log file to follow from above (blank to exit):\033[01;35m"
+	cd $LOGPATH
+	read -e LF
+	echo -e "\033[00;00m"
+	if [ -n "$LF" ];then
+		LOGF=${LOGPATH}/$LF
+	else
+		exit 0
+	fi
+fi
+
+if [ -f "$LOGF" ]; then
+	# Suppress Local Echo of keypresses
+	stty -echo
+	clear
+	# -F follow & retry, -q no headers, -n 100 by default last 100 lines
+	tail -F -q -n 100 $LOGF 2>/dev/null
+	# Re-enable Local Echo in terminal
+	stty echo
+else
+	echo "File \"$LOGF\" does not exist!"
+	exit 1
+fi
+

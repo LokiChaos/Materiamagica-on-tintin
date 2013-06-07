@@ -1,0 +1,262 @@
+#nop captures/channels.tt
+
+/* Clan Talk {{{ */
+#act {~^\e[1\;33m[CLAN] %*} {
+	_ChannelLog {%0} {$capPath[clanTalk]};
+	#regex {%0} {[CLAN] %w has entered Materia Magica.} {
+		_event_raise {clan_login} {&1};
+	};
+	#regex {%0} {[CLAN] %w has recalled to the clan hall!} {
+		_event_raise {clan_gohall} {&1};
+	};
+	#regex {%0} {[CLAN] %w has left Materia Magica} {
+		_event_raise {clan_logout} {&1};
+	};
+	#regex {%0} {[CLAN] %w is now away.%*} {
+		_event_raise {clan_away} {&1} {<139>&2};
+	};
+	#regex {%0} {[CLAN] %w is no longer away.} {
+		_event_raise {clan_return} {&1};
+	};
+	
+} {3}
+
+#act {~^\e[1\;33m[CLAN NOTICE] %*} {
+	_ChannelLog {%0} {$capPath[clanTalk]};
+	_event_raise {clan_notice} {%0};
+} {3}
+
+#act {~^\e[1\;33m[%d] clan member%? heard you say, %*} {
+	#switch {$prefs[firstP]} {
+		#case {0} {
+			#format {__clancap} {<139>[%d] clan member%s heard you say, %s <099>} {%1} {%2} {%3};
+		};
+		#case {1} {
+			#format {__clancap} {<139>[CLAN] $charName: %s <099>} {%3};
+		};
+		#default  {
+			#format {__clancap} {<139>[CLAN] Me: %s <099>} {%3};
+		};
+	};
+	_ChannelLog {${__clancap}} {$capPath[clanTalk]};
+	#unvar __clancap;
+} {3}
+/* }}} */
+
+/* Alliance Talk {{{ */
+#act {~^\e[1\;33m[ALLIED %d] %*} {
+	_ChannelLog {%0} {$capPath[allianceTalk]};
+} {3}
+
+#act {~^\e[1\;33m[%d] alliance member%? heard you say, %*} {
+	#switch {$prefs[firstP]} {
+		#case {0} {
+			#format {__allycap} {<139>[%d] alliance member%s heard you say, %s} {%1} {%2} {%3};
+		};
+		#case {1} {
+			#format {__allycap} {<139>[ALLIED] $charName: %s} {%3};
+		};
+		#case {2} {
+			#format {__allycap} {<139>[ALLIED] Me: %s} {%3};
+		};
+	};
+	_ChannelLog {${__allycap}} {$capPath[allianceTalk]};
+	#unvar __allycap;
+} {3}
+
+#act {~^\e[1\;33m[ALLIED NOTICE] %*} {
+	_ChannelLog {%0} {$capPath[allianceTalk]};
+	_ChannelLog {%0} {$capPath[allianceEvents]};
+	_event_raise {alliance_notice} {%0};
+} {3}
+/* }}} */
+
+/* PK Talk {{{ */ 
+#act {~^\e[1\;30m[PKTALK\e[0m %w\e[1\;30m] %*} {
+	_ChannelLog {%0} {$capPath[pkTalk]};
+} {3}
+/* }}} */
+
+/* Tells + Pages + Prays {{{ */ 
+#act {~^\e[1\;31m%* tells you %*} {
+	#nop Filters out shopkeepers, far from perfect;
+	#regex {%2} {'I can {sell|trade} you this item for %W {gold|reward units}.'} {
+		#nop Stupid Shopkeeps;
+	}{
+		_ChannelLog {%0} {$capPath[tells]};
+		_event_raise {tell_recieved} {%1} {<119>%2};
+	};
+} {3}
+
+#act {~^\e[1\;31mYou tell %*} {
+	_ChannelLog {%0} {$capPath[tells]};
+} {3}
+
+#act {~^\e[1\;31m%w is {away|AWAY} and may not see your tell.} {
+	_ChannelLog {%0} {$capPath[tells]};
+} {3}
+
+#act {~^\e[1\;31mMessage: %*} {
+	_ChannelLog {%0} {$capPath[tells]};
+} {3}
+
+#act {~^\a\e[1;31m%* is paging you...\e[0m$} {
+	_ChannelLog {<119>%1 is paging you...} {$capPath[tells]};
+	#var _chanPager {%1};
+} {3}
+
+#act {~^\e[1\;31mReason: %*} {
+	_ChannelLog {%0} {$capPath[tells]};
+	_event_raise {page_recieved} {${_chanPager}} {<119>%1};
+	#unvar _chanPager;
+} {3}
+
+#act {^You have paged %*.} {
+	_ChannelLog {<099>%0} {$capPath[tells]};
+} {3}
+
+#act {~^Reason: %*}	{
+	_ChannelLog {%0} {$capPath[tells]};
+} {3}
+
+#act {~^\e[1\;31m[%d] active Guides and [%d] visible Immortals heard you pray '%*'} {
+	_ChannelLog {%0} {$capPath[tells]};
+} {3}
+/* }}} */
+
+/*Form Talk {{{ */
+#act {~^\e[1\;36m%* tells the formation %*} {
+	_ChannelLog {%0} {$capPath[formTalk]};
+} {3}
+
+#act {~^\e[1\;36mYou tell the formation %*}	{
+	_ChannelLog {%0} {$capPath[formTalk]};
+} {3}
+/* }}} */
+
+/* Archon Talk {{{ */ 
+#act {~^\e[0m\e[1\;34\;49m[\e[22\;37\;49m%d\e[1\;34\;49m]%*} {
+	_ChannelLog {%0} {$capPath[archonTalk]};
+} {3}
+
+#act {~^\e[0m\e[1\;34\;49m[\e[22\;37\;49mARCHON\e[1\;34\;49m]%*} {
+	_ChannelLog {%0} {$capPath[archonTalk]};
+} {3}
+/* }}} */
+
+/* Notify {{{ */
+#act {^Sign{off|on} at %* for %w detected.}
+{
+	#if {"%1" == "on"} {
+		_event_raise {notify_signon} {%3};
+	}{
+		_event_raise {notify_signoff} {%3};	
+	};
+} {3}
+/* }}} */
+
+/* Guide Talk / Novice Channel TODO: Test, add pray {{{ */
+#act {~^\e[1;37m[GUIDE] %*} {
+	_ChannelLog {%0} {$capPath[guide]};
+}
+
+#act {~^[%S] guide{|s} head you say, '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[guide]};
+}
+
+#nop {^(%*) [%*] prays '%*'$};
+
+#act {~^\e[1;33m[CLAN Novice Adventurers%*] %*: '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[novice]};
+}
+
+#act {~^\e[1;33m[%d] Novice clan memeber{|s} heard you say, '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[novice]};
+}
+/* }}} */
+
+/* Shouts & Yells {{{ */
+#act {~^\e[1\;35m%* {shouts|SHOUTS} '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[shout]};
+} {3}
+
+#act {~^\e[1\;35m[%S] people heard you shout '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[shout]};
+} {3}
+
+#act {~^\e[1\;33m%* yells '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[yell]};
+} {3}
+
+#act {~^\e[1\;33mYou yell '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[yell]};
+} {3}
+/* }}} */
+
+/* Say/Sayto/Wisper TODO: Test & Chat > Relay {{{ */
+/* Level 5.5 To let most other triggers take priority*/
+#act {~^{|\e\[0m}\e[1;36m{You|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|(say|whisper)(| to .+)|(says|whispers)(| to you)}, '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[say]};
+	#if {"$stateChar[inChatRoom]" != ""} {
+		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
+	};
+} {5.5}
+
+#act {~^{|\e\[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}. '%*'\e[0m$} {
+	_ChannelLog {%0} {$capPath[say]};
+	#if {"$stateChar[inChatRoom]" != ""} {
+		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
+	};
+} {5.5}
+
+#act {~^{|\e\[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}.\e[0m$} {
+	_ChannelLog {%0} {$capPath[say]};
+	#if {"$stateChar[inChatRoom]" != ""} {
+		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
+	};
+} {5.5}
+/* }}} */
+
+/* Chat Relay {{{ */
+#function {relayPath} {
+	#switch {"$prefs[relayCap]"} {
+		#case {"2"} {
+			#var    result {relays};
+		};
+		#case {"1"} {
+			#format result {relay/%s}  {%1};
+		};
+		#default {
+			#format result {%s_%s} {$capPath[relayBase]} {%1};
+		};
+	};
+}
+
+#act {~^\e[1\;33m[%d] people in #%* heard you relay '%*} {
+	_ChannelLog {%0} {@relayPath{%2}};
+} {3}
+
+#act {~^\e[1\;33m%*@#%w is now relaying messages from this chat room.} {
+	_ChannelLog {%0} {@relayPath{%2}};
+} {3}
+
+#act {~^\e[1\;33m%*@#%w is no longer relaying from this chat room.%*} {
+	_ChannelLog {%0} {@relayPath{%2}};
+} {3}
+
+#act {~^\e[1\;33m%w@#%w: %*} {
+	_ChannelLog {%0} {@relayPath{%2}};
+} {3}
+
+#act {^You are now relaying messages from chat room #%*.} {
+	_ChannelLog {%0} {@relayPath{%1}};
+} {3}
+
+#act {~^You are no longer relaying from chat room #%*.%*} {
+	_ChannelLog {%0} {@relayPath{%1}};
+} {3}
+
+#act {^You are banned from chat room #%*.} {
+	_ChannelLog {%0} {@relayPath{%1}};
+} {3}
+/* }}} */

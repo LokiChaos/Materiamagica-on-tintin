@@ -1,0 +1,34 @@
+#nop
+
+#act {^{Lord|Lady|Baron} %w tells you, 'You didn't complete any parts of your quest, I'm sorry.'$} {
+	_event_raise {activity_quest_reject} {${_questComplete[name]}};
+}
+
+#act {^{Lord|Lady|Baron} %w tells you, 'As a reward for thy valor, I am awarding you %d quest points.'} {
+	_event_raise {activity_quest_complete} {partial} {${_questComplete[name]}};
+
+}
+
+#act {^{Lord|Lady|Baron} %w tells you, 'As a reward for thy valor, I am awarding you %d quest points, %*.'} {
+	_event_raise {activity_quest_complete} {complete} {${_questComplete[name]}};
+}
+
+#alias {_questRecord}
+{
+	.restoreValue lastQuest;
+	#format timeNow {%T};
+	#var lastQuest[%1][2] {$lastQuest[%1][1]};
+	#var lastQuest[%1][1] {$timeNow};
+	#list lastQuest[Main]  {insert} {1} {$timeNow};
+	#if {&lastQuest[Main] > 7} {
+		#list lastQuest[Main]  {delete} {8};
+	}
+	.saveValue lastQuest;
+	#unvar timeNow;
+};
+
+#alias {_questCompelteFin} {
+	#nop %1;
+	#class questComplete kill;
+
+}

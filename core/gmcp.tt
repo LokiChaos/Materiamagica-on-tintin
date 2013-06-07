@@ -1,0 +1,59 @@
+#showme {<aef>Loading: <faa>gmcp.tt}
+
+/* GMCP room.info event {{{ */
+#event {IAC SB GMCP room.info IAC SE} {
+	#var gmcp[Room] {%0};
+	#var navigation[X] {$gmcp[Room][coord][x]};
+	#var navigation[Y] {$gmcp[Room][coord][y]};
+	#var navigation[roomName] {$gmcp[Room][name]};
+	#var navigation[Plane] {$gmcp[Room][coord][name]};
+	#if {"$navigation[Zone]" != "$gmcp[Room][zone]"} {
+		#var navigation[ChangedZones] 1;
+		#var navigation[OldZone] {$navigation[Zone]};
+		_event_raise {nav_changezone} {$gmcp[Room][zone]} {$navigation[Zone]};
+	} {
+		#var navigation[ChangedZones] 0;
+		#unvar navigation[OldZone];
+	};
+	#var navigation[Zone] {$gmcp[Room][zone]};
+	_event_raise {gmcp_room};
+}
+/* }}} */
+
+/* GMCP room.wrongdir {{{ */
+#event {IAC SB GMCP room.wrongdir IAC SE} {
+	_event_raise {gmcp_wrongdir};
+}
+/* }}} */
+
+/*  GMCP char.* {{{
+	Current all of these can only be invoked manually, still stub events will capture data to $gmcp */
+
+#event {IAC SB GMCP char.base IAC SE} {
+  #var gmcp[Char][Base] {%0};
+}
+
+#event {IAC SB GMCP char.status IAC SE} {
+  #var gmcp[Char][Status] {%0};
+}
+
+#event {IAC SB GMCP char.stats IAC SE} {
+  #var gmcp[Char][Stats] {%0};
+}
+
+#event {IAC SB GMCP char.maxstats IAC SE} {
+  #var gmcp[Char][MaxStats] {%0};
+}
+
+#event {IAC SB GMCP char.worth IAC SE} {
+  #var gmcp[Char][Worth] {%0};
+}
+
+#event {IAC SB GMCP char.form IAC SE} {
+  #var gmcp[Char][Form] {%0};
+}
+
+#event {IAC SB GMCP char.clan IAC SE} {
+  #var gmcp[Char][Clan] {%0};
+}
+/* }}} */

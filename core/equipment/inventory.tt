@@ -1,0 +1,23 @@
+#nop Inventory Command
+
+/* Alignment of inventory */
+#sub {^     } {      };
+
+#act {^A total of %d items weighing %d stones, %d pebbles (%dpb gold weight)}
+{
+	#var charScore[ItemCount]  {%1};
+	#var charScore[WeightSt]   {%2};
+	#var charScore[WeightPb]   {%3};
+	#var charScore[GoldWeight] {%4};
+}
+
+#act {^You may carry a maximum of %d items weighing up to %d st, 0 pb.}
+{
+	#var charScore[carryNumber] {%1};
+	#var charScore[carryStone]  {%2};
+	#var stateChar[Encumbered]  {0};
+	#if {$charScore[WeightSt] >= $charScore[carryStone]}
+		{#var stateChar[Overweight] 1}
+		{#var stateChar[Overweight] 0};         
+	#class invinfo kill;
+}

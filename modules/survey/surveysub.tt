@@ -1,0 +1,199 @@
+#nop survey module
+
+
+#act {~^\e[1;37m  %* to the %*, you see %*.\e[0m$} {
+	#line gag;
+	#echo {  <179>%s %s steps to the %s.}
+	      {@mod_survey_lookup{%3}} 
+	      {${_mod_survey_dist_table[%1]}} 
+		  @std_str_toUpper{@std_dir_short{%2}};
+}
+
+#alias {_mod_survey_clean} {
+	#nop %1;
+	#class mod_surveyHelp kill;
+}
+
+#var _mod_survey_dist_table {
+  {Right here}{0-3}
+  {Close by}{4-11}
+  {Not far off}{12-26}
+  {A brief walk away}{27-41}
+  {Rather far off}{42-61}
+  {In the distance}{62-81}
+  {Almost out of sight}{82-101}
+}
+
+#function {mod_survey_lookup} {
+	#script result {awk -F: '$13 == "%0." {print $1}' data/locations.txt};
+	#if {&result[]} {
+		#var result {$result[1]};
+	} {
+		#format result {%n}  {%0};
+	};
+}
+
+/*
+survey_strings = {
+--Alyria
+--  Auryn
+  ["the graceful stone towers of the Palace of Diocletian"] = "Palace of Diocletian",
+  ["-"] = "A Dwarven Passage Between Sigil and the Underside",
+  ["a well-lit, cheery inn, built along the side of the South Road"] = "Emperor's Crossroads",
+  ["an orc encampment in the foothills of Lleom"] = "Glarshak",
+  ["-"] = "A Labyrinthine Molehill",
+  ["a grime-covered hole, leading into darkness"] = "Dungeon Odious",
+  ["the burned, charred remains of a once-prosperous village"] = "Palamire",
+  ["neat rows of crops dancing in the breeze, next to a series of small huts"] = "The Mountain Village of Teolaven",
+  ["-"] = "The Saucy Wench Tavern",
+  ["a poverty-stricken village full of orcish shanties"] = "Shlarksh",
+  ["the massive ironbound gates of the magical towne of Sigil"] = "Sigil",
+  ["-"] = "Mount Vesuvius",
+  ["the looming presence of Mount Vesuvius, and beneath it, the towne of Vospire"] = "Vospire",
+  ["-"] = "A Natural Cave Between Alyria and the Sigil Underground",
+  ["a crumbling, decrepit clanhall"] = "Old Amaunet Clan Hall",
+  ["a ruined fort constructed from felled cacao trees"] = "Old Armageddon Clan Hall",
+  ["-"] = "Old Separatists Clan Hall",
+  ["-"] = "Old Spira Devexa Clan Hall",
+  ["-"] = "Old Vampire's Mask Clan Hall",
+
+--  Avros
+  ["-"] = "Althaman",
+  ["a medium-sized gray stone tower surrounded by a small overgrown forest"] = "Tower of Aroxa",
+  ["a wizened man sits crosslegged on the plains"] = "Begora's Sanctuary",
+  ["a tiny hamlet settled against the shore of Lake Martoon"] = "The Fishing Village of Dorathon",
+  ["a deep, glacier-filled gorge"] = "Frost Giant's Keep",
+  ["a small camp resting atop a mountain of debris"] = "The Hamlet of Winton",
+  ["a small group of log buildings bunched together on the icy plain"] = "Jalur Lumber Camp",
+  ["a low-hanging cave rises out of the frozen tundra"] = "Lair of the Ice Witch",
+  ["a small gray castle tucked into the snowy terrain"] = "The Village of Muldar Lohk Mulvar",
+  ["curling smoke from a small village nestled in the mountaintops"] = "Ogre Village",
+  ["the formidable stone walls of the warrior towne of Tellerium"] = "Tellerium",
+  ["the shimmering walls and rooftops of the towne of Templeton"] = "Templeton",
+  ["-"] = "Old Aceldama Clan Hall",
+  ["-"] = "Old Dark Order Clan Hall",
+  ["a ruined keep crafted of mossy gray stones"] = "Old Stargazer Clan Hall",
+
+--  Beltane
+  ["-"] = "The Angry Whale",
+  ["a mithril crater, out of which rises numerous statues and memorials"] = "The Indestructible Cenotaphy",
+  ["a dark, menacing forest"] = "Chanctonbury Woods",
+  ["a black dungeon"] = "The Cruelty of Miannas",
+  ["a waft of smoke trailing lazily above the Wampo Stream"] = "The Village of Colyon",
+  ["a dungeon entrance, seemingly consuming everything within its darkness"] = "Dungeon Deceit",
+  ["a narrow strip of trail peeking out of the mountainside"] = "Gorth",
+  ["the high, forboding granite walls of Maldra Keep"] = "Maldra Keep",
+  ["-"] = "A Mineshaft Between Alyria and the Sigil Underground",
+  ["a tiny coastal village combating the onslaught of sand and salt water"] = "The Village of Mulakanathos",
+  ["the seedy-looking wharf towne of Pirate's Cove"] = "Pirate's Cove",
+  ["an isolated mining village, almost lost in the surrounding forest"] = "Takhtin",
+  ["a shadowy outpost is set low in the jungle, in an old beholder lair"] = "Xalt, Unseelie Outpost",
+  ["-"] = "Old Empire Clan Hall",
+  ["-"] = "Old Transcend Clan Hall",
+
+--  Sepharia
+  ["a sinister-looking stone tower silhouetted against the sky"] = "Tower of Art",
+  ["a mysterious dungeon entrance, beckoning you closer"] = "Dungeon Avarice",
+  ["a colorful open market, teeming with customers"] = "Bazaar",
+  ["a small wooden structure well lit with burning torches"] = "Tavern of the Boars",
+  ["a snow-covered pyramid protruding amidst the Callias Mountain Range"] = "A Disturbed Pyramid",
+  ["some pastoral, fenced-in farmland and a cluster of charmingly rural houses"] = "Gilvery",
+  ["-"] = "Hall of Honor",
+  ["a series of tents in various colors nestled into the side of a hill"] = "A Hill Giant Refuge",
+  ["a small stone lighthouse keeping vigilant watch over the sea"] = "An Abandoned Lighthouse",
+  ["a small box canyon containing the novice towne of Lasler"] = "The Village of Lasler",
+  ["a small red brick building surrounded by several trees"] = "Lonely Dragon Inn",
+  ["the ancient, crumbling stone walls of the towne of Lowangen"] = "Lowangen",
+  ["the ancient trees of Mandrake Woods"] = "Mandrake Woods",
+  ["a vast city sitting amongst the crags of the Kolvir Mountains"] = "New Kolvir",
+  ["the fortified granite walls of the towne of New Rigel"] = "The Towne of New Rigel",
+  ["the beat up wooden walls of an old barn"] = "New Rigel stables",
+  ["a serene-looking monastery overlooking the Annon"] = "Ofstadt Monastery",
+  ["the graceful white marble towers and the walls of the towne of Rune"] = "Towne of Rune",
+  ["the beautiful evergreens of Rune Forest"] = "Rune Forest",
+  ["a vast desert circled by mountains"] = "Desert of Thorn",
+  ["a cluster of small stone buildings, including what looks like a tent"] = "Traveler's Retreat",
+  ["a small stone cottage with gray smoke rising from its chimney"] = "Inn of the Twin Moons",
+  ["a small discrete building just off to the west of the Towne of Rune's farmlands"] = "Van Pelt's Emporium",
+  ["a sinister dungeon entrance forged into the side of the Callias mountains"] = "Dungeon Wroth",
+  ["the large oak trees surrounding the heavily forested Towne of Xaventry"] = "The Towne of Xaventry",
+  ["a cairnstone tomb made of megaliths"] = "Old Degenerates Clan Hall",
+  ["-"] = "Old Eclipse Clan Hall",
+  ["a half-buried earthen mound erupting from the tundra"] = "Old Federation Clan Hall",
+  ["-"] = "Old Revelations Clan Hall",
+
+--  Other (islands, etc.)
+  ["a rough circle formed of massive stone monoliths"] = "a worldgate",
+  ["a rainbow shines as it arches overhead"] = "rainbow",
+  ["a partially-constructed oil derrick on a desert island"] = "An Abandoned Oil Well",
+  ["a scarcely-visible signpost partially obscured by jungle flora"] = "Aequtus",
+  ["what appears to be a temple almost overgrown by jungle"] = "Arcane Archipelago",
+  ["an unusual swirling of water and some large bubbles"] = "Atlantis",
+  ["an island containing a worldgate and a lodge swirled in darkness"] = "The Black Lodge",
+  ["two small keeps, one red and one blue, on a forested island"] = "Capture the Flag Arena",
+  ["an island containing a worldgate and a small one-story building"] = "The Coven of Kalywak",
+  ["-"] = "Daggerwind Reef",
+  ["-"] = "Frigate's End",
+  ["a large oil derrick established on a desert island"] = "A Forsaken Oil Well",
+  ["an island containing a worldgate and three small huts"] = "Stronghold of the Garbool Tribe",
+  ["the towering spires and rocky crags of Hellbent Mountain"] = "Hellbent Mountain",
+  ["a sloping tunnel, stinking of death and venom"] = "A Hydra's Den",
+  ["?"] = "The Airship Inconvenience",
+  ["some dangerous looking reefs surrounding a mountainous island"] = "Irda Isle",
+  ["the ruins of a great wooden ship"] = "Magencia",
+  ["a trading post for humans and merfolk awaits a new shipment of goods"] = "Naulitas",
+  ["-"] = "Pelican's Demise",
+  ["-"] = "Strange Ruins",
+  ["a damaged vessel jammed up onto the beach of a small island, its forward hull ripped apart"] = "The Wreck of the Feisty Wench",
+
+--Faerie Plane
+  ["a small town of modest cottages and means lays nestled in the light forest"] = "Cavhfail",
+  ["a steep, luminous spire, stretching hundreds of yards upward"] = "Eanoss Azelmar",
+  ["an array of geometric solids of ice and hangs on the edge of the Chaotic Void"] = "Engineers Exclave",
+  ["a brutalist citadel hewn from icicles and permafrost"] = "Frosthold",
+  ["what looks to be a small outpost, crafted of fresh timber"] = "Human Outpost",
+  ["a town ringed by protective marble monoliths rises out of the wasteland"] = "Rahdiyr",
+  ["a small hamlet of icicles and packed snow rises from the meadowland"] = "Rimeward",
+  ["a gigantic white castle that shines like a beacon"] = "Seelie Castle",
+  ["the numerous sharp spires of a massive black castle"] = "Unseelie Castle",
+
+--Great Alyrian Underground
+  ["a rough pentagram formed of massive stone monoliths"] = "a worldgate",
+  ["a dark city surrounded by flaming rivers of lava"] = "Arien'Dyth",
+  ["-"] = "Bartlett's Summer Retreat",
+  ["?"] = "Chattering Skull Tavern",
+  ["the heavily-guarded stone walls of the towne of Decara"] = "Towne of Decara",
+  ["a magnificent marble structure on a lush, manicured island locale"] = "Hotel Hello",
+  ["a desolate-looking island featuring a crumbling white tower"] = "Isle of the Sea Hag",
+  ["-"] = "Kessarian's Dungeon",
+  ["?"] = "Lair of the Death Slaadi",
+  ["a small black pool indicates shallows"] = "The Sacred Temple of the Tentacle Cult of Metonychoseuthis, with Swiveling Hooks",
+  ["?"] = "Smuggler's Cave",
+  ["a dusty little town perches in the middle of a dry gulch"] = "Smuggler's Gulch",
+  ["?"] = "Three-Bearded Jake's",
+  ["rising plumes of smoke from a series of chimneys chiseled into the rocky hillside"] = "Vir",
+
+--Sigil Underground
+  ["a curious-looking array of stones"] = "a worldgate",
+  ["the largest building in a village full of watchtowers"] = "Bandit Camp",
+  ["there is an odd-looking whirlpool in the Well of Sorrows"] = "Darksea",
+  ["-"] = "A Fiery Catwalk",
+  ["the main settlers' outpost, Fort Genauras"] = "Genauras",
+  ["the largest building in a deserted town"] = "A Ghost Town",
+  ["?"] = "Gourevitch's Hideaway",
+  ["a Gypsy caravan"] = "Gypsy Village",
+  ["several yurts in a circle, a Troglodyte camp"] = "Troglodyte Village",
+  ["the Shrine of Dira floating in the fog"] = "Shrine of Dira",
+  ["the Shrine of Gath lies submerged in lava"] = "Shrine of Gath",
+  ["the Shrine of Ithrilis dominates the lake deeps"] = "Shrine of Ithrilis",
+  ["the Shrine of Maradas is tucked into the cavern walls"] = "Shrine of Maradas",
+  ["is the north entrance of the Shrine of Vandyne"] = "Shrine of Vandyne N",
+  ["is the east entrance of the Shrine of Vandyne"] = "Shrine of Vandyne E",
+  ["is the south entrance of the Shrine of Vandyne"] = "Shrine of Vandyne S",
+  ["is the west entrance of the Shrine of Vandyne"] = "Shrine of Vandyne W",
+
+--Verity Isle
+  ["a tall, black tower surrounded by high mountains"] = "Tower of Riga",
+*/
+
+

@@ -1,0 +1,248 @@
+C 1000
+
+CE <078>
+CH <118>
+CP <138>
+CR <178>
+
+F 73
+
+I 1
+
+L * # # # | # x          
+
+
+R {    1} {0} {} {mandrake} { } {} {} {} {} {} {1.000}
+E {    2} {Path_Mandrake_to_XavN} {Path_Mandrake_to_XavN} {4} {0} {}
+
+R {    2} {0} {} {xaventry_north} { } {} {} {} {} {} {1.000}
+E {    1} {Path_XavN_to_Mandrake} {Path_XavN_to_Mandrake} {1} {0} {}
+E {    3} {Path_XavN_to_XavS} {Path_XavN_to_XavS} {4} {0} {}
+
+R {    3} {0} {} {xavnetry_south} { } {} {} {} {} {} {1.000}
+E {    2} {Path_XavS_to_XavN} {Path_XavS_to_XavN} {1} {0} {}
+E {    4} {Path_XavS_to_XavWG} {Path_XavS_to_XavWG} {2} {0} {}
+E {    5} {Path_XavS_to_LoneD} {Path_XavS_to_LoneD} {4} {0} {}
+
+R {    4} {0} {} {xaventry_gate} { } {} {} {} {} {} {1.000}
+E {    3} {Path_XavWG_to_XavS} {Path_XavWG_to_XavS} {8} {0} {}
+
+R {    5} {0} {} {lonely_dragon} { } {} {} {} {} {} {1.000}
+E {    3} {Path_LoneD_to_XavS} {Path_LoneD_to_XavS} {1} {0} {}
+E {    6} {Path_LoneD_to_SephWP0} {Path_LoneD_to_SephWP0} {2} {0} {}
+
+R {    6} {0} {} {sepahira_wp0} { } {} {} {} {} {} {1.000}
+E {    5} {Path_SephWP0_to_LoneD} {Path_SephWP0_to_LoneD} {8} {0} {}
+E {    7} {Path_SephWP0_to_NK} {Path_SephWP0_to_NK} {4} {0} {}
+E {    8} {Path_SephWP0_to_Hero} {Path_SephWP0_to_Hero} {2} {0} {}
+
+R {    7} {0} {} {new_kovir} { } {} {} {} {} {} {1.000}
+E {    6} {Path_NK_to_SephWP0} {Path_NK_to_SephWP0} {1} {0} {}
+
+R {    8} {0} {} {hall_of_heroes} { } {} {} {} {} {} {1.000}
+E {    6} {Path_Hero_to_SephWP0} {Path_Hero_to_SephWP0} {8} {0} {}
+E {    9} {Path_Hero_to_RuneW} {Path_Hero_to_RuneW} {4} {0} {}
+E {   10} {Path_Hero_to_RuneE} {Path_Hero_to_RuneE} {6} {0} {}
+E {   11} {Path_Hero_to_Lasler} {Path_Hero_to_Lasler} {1} {0} {}
+E {   14} {Path_Hero_to_TravR} {Path_Hero_to_TravR} {3} {0} {}
+
+R {    9} {0} {} {rune_west} { } {} {} {} {} {} {1.000}
+E {    8} {Path_RuneW_to_Hero} {Path_RuneW_to_Hero} {1} {0} {}
+E {   29} {Path_RuneW_to_RuneWG} {Path_RuneW_to_RuneWG} {9} {0} {}
+E {   30} {Path_RuneW_to_Empor} {Path_RuneW_to_Empor} {8} {0} {}
+
+R {   10} {0} {} {rune_east} { } {} {} {} {} {} {1.000}
+E {    8} {Path_RuneE_to_Hero} {Path_RuneE_to_Hero} {9} {0} {}
+
+R {   11} {0} {} {lasler} { } {} {} {} {} {} {1.000}
+E {    8} {Path_Lasler_to_Hero} {Path_Lasler_to_Hero} {4} {0} {}
+E {   12} {Path_Lasler_to_RuneF} {Path_Lasler_to_RuneF} {1} {0} {}
+
+R {   12} {0} {} {rune_forest} { } {} {} {} {} {} {1.000}
+E {   11} {Path_RuneF_to_Lasler} {Path_RuneF_to_Lasler} {4} {0} {}
+E {   13} {Path_RuneF_to_Avarice} {Path_RuneF_to_Avarice} {1} {0} {}
+
+R {   13} {0} {} {dungeon_avarice} { } {} {} {} {} {} {1.000}
+E {   12} {Path_Avarice_to_RuneF} {Path_Avarice_to_RuneF} {4} {0} {}
+
+R {   14} {0} {} {travelers_retreat} { } {} {} {} {} {} {1.000}
+E {    8} {Path_TravR_to_Hero} {Path_TravR_to_Hero} {12} {0} {}
+E {   15} {Path_TravR_to_SephWP3} {Path_TravR_to_SephWP3} {1} {0} {}
+
+R {   15} {0} {} {sepharia_wp3} { } {} {} {} {} {} {1.000}
+E {   14} {Path_SephWP3_to_TravR} {Path_SephWP3_to_TravR} {4} {0} {}
+E {   16} {Path_SephWP3_to_NewRigelN} {Path_SephWP3_to_NewRigelN} {1} {0} {}
+E {   28} {Path_SephWP3_to_NewRigelS} {Path_SephWP3_to_NewRigelS} {8} {0} {}
+
+R {   16} {0} {} {new_rigel_north} { } {} {} {} {} {} {1.000}
+E {   15} {Path_NewRigelN_to_SephWP3} {Path_NewRigelN_to_SephWP3} {4} {0} {}
+E {   17} {Path_NewRigelN_to_ToB} {Path_NewRigelN_to_ToB} {9} {0} {}
+E {   19} {Path_NewRigelN_to_Baz} {Path_NewRigelN_to_Baz} {1} {0} {}
+
+R {   17} {0} {} {tavern_of_boars} { } {} {} {} {} {} {1.000}
+E {   16} {Path_ToB_to_NewRigelN} {Path_ToB_to_NewRigelN} {6} {0} {}
+E {   18} {Path_ToB_to_Wroth} {Path_ToB_to_Wroth} {9} {0} {}
+
+R {   18} {0} {} {dungeon_wroth} { } {} {} {} {} {} {1.000}
+E {   17} {Path_Wroth_to_ToB} {Path_Wroth_to_ToB} {6} {0} {}
+
+R {   19} {0} {} {bazzar} { } {} {} {} {} {} {1.000}
+E {   16} {Path_Baz_to_NewRigelN} {Path_Baz_to_NewRigelN} {4} {0} {}
+E {   20} {Path_Baz_to_SephWP4} {Path_Baz_to_SephWP4} {2} {0} {}
+
+R {   20} {0} {} {sepharia_wp4} { } {} {} {} {} {} {1.000}
+E {   19} {Path_SephWP4_to_Baz} {Path_SephWP4_to_Baz} {8} {0} {}
+E {   21} {Path_SephWP4_to_SephWP5} {Path_SephWP4_to_ToA} {1} {0} {}
+E {   22} {Path_SephWP4_to_Gilv} {Path_SephWP4_to_Gilv} {4} {0} {}
+
+R {   32} {0} {} {sepharia_wp5} { } {} {} {} {} {} {1.000}
+E {   20} {Path_SephWP5_to_SephWP4} {Path_SephWP5_to_SephWP4} {4} {0} {}
+E {   21} {Path_SephWP5_to_ToA} {Path_SephWP5_to_ToA} {1} {0} {}
+
+R {   21} {0} {} {tower_of_art} { } {} {} {} {} {} {1.000}
+E {   20} {Path_ToA_to_SephWP5} {Path_ToA_to_SephWP5} {4} {0} {}
+
+R {   22} {0} {} {gilvery} { } {} {} {} {} {} {1.000}
+E {   20} {Path_Gilv_to_SephWP4} {Path_Gilv_to_SephWP4} {1} {0} {}
+E {   23} {Path_Gilv_to_TwinM} {Path_Gilv_to_TwinM} {2} {0} {}
+
+R {   23} {0} {} {twin_moons_inn} { } {} {} {} {} {} {1.000}
+E {   22} {Path_TwinM_to_Gilv} {Path_TwinM_to_Gilv} {8} {0} {}
+E {   24} {Path_TwinM_to_ThornW} {Path_TwinM_to_ThronW} {2} {0} {}
+
+R {   24} {0} {} {desert_thorn_west} { } {} {} {} {} {} {1.000}
+E {   23} {Path_ThornW_to_TwinM} {Path_ThornW_to_TwinM} {8} {0} {}
+E {   25} {Path_ThornW_to_ThornE} {Path_ThornW_to_ThornE} {2} {0} {}
+
+R {   25} {0} {} {desert_thorn_east} { } {} {} {} {} {} {1.000}
+E {   24} {Path_ThornE_to_ThornW} {Path_ThornE_to_ThornW} {8} {0} {}
+E {   26} {Path_ThornE_to_Low} {Path_ThornE_to_Low} {2} {0} {}
+
+R {   26} {0} {} {lowangen} { } {} {} {} {} {} {1.000}
+E {   25} {Path_Low_to_ThornE} {Path_Low_to_ThornE} {8} {0} {}
+E {   27} {Path_Low_to_LowWG} {Path_Low_to_LowWG} {4} {0} {}
+E {   31} {Path_Low_to_LowD} {Path_Low_to_LowWG} {8} {0} {}
+
+R {   27} {0} {} {lowangen_gate} { } {} {} {} {} {} {1.000}
+E {   26} {Path_LowWG_to_Low} {LowWG_to_Low} {1} {0} {}
+
+R {   28} {0} {} {new_rigel_south} { } {} {} {} {} {} {1.000}
+E {   15} {Path_NewRigelS_to_SephWP3} {Path_NewRigelS_to_SephWP3} {4} {0} {}
+
+R {   29} {0} {} {rune_worldgate} { } {} {} {} {} {} {1.000}
+E {    9} {Path_RuneWG_to_RuneW} {Path_RuneWG_to_RuneW} {6} {0} {}
+
+R {   30} {0} {} {rune_emporium} { } {} {} {} {} {} {1.000}
+E {    9} {Path_Empor_to_RuneW} {Path_Empor_to_RuneW} {2} {0} {}
+
+R {   31} {0} {} {lowangen_dock} { } {} {} {} {} {} {1.000}
+E {   26} {Path_LowD_to_Low} {Path_LowD_to_Low} {2} {0} {}
+
+R {   50} {0} {} {vesuvius} { } {} {} {} {} {} {1.000}
+E {   51} {Path_Vesu_to_VosW} {Path_Vesu_to_VosW} {4} {0} {}
+
+R {   51} {0} {} {vospire_west} { } {} {} {} {} {} {1.000}
+E {   50} {Path_VosW_to_Vesu} {Path_VosW_to_Vesu} {1} {0} {}
+E {   52} {Path_VosW_to_VosE} {Path_VosW_to_VosE} {2} {0} {}
+
+R {   52} {0} {} {vospire_east} { } {} {} {} {} {} {1.000}
+E {   51} {Path_VosE_to_VosW} {Path_VosE_to_VosW} {8} {0} {}
+E {   53} {Path_VosE_to_SigilN} {Path_VosE_to_SigilN} {4} {0} {}
+
+R {   53} {0} {} {sigil_north} { } {} {} {} {} {} {1.000}
+E {   52} {Path_SigilN_to_VosE} {Path_SigilN_to_VosE} {1} {0} {}
+E {   54} {Path_SigilN_to_SigilS} {Path_SigilN_to_SigilS} {4} {0} {}
+E {   58} {Path_SigilN_to_SigilDE} {Path_SigilN_to_SigilDE} {2} {0} {}
+
+R {   54} {0} {} {sigil_south} { } {} {} {} {} {} {1.000}
+E {   53} {Path_SigilS_to_SigilN} {Path_SigilS_to_SigilN} {1} {0} {}
+E {   55} {Path_SigilS_to_EmpCr} {Path_SigilS_to_EmpCr} {4} {0} {}
+E {   59} {Path_SigilS_to_SigilDW} {Path_SigilS_to_SigilDW} {8} {0} {}
+
+R {   55} {0} {} {emporers_crossroads} { } {} {} {} {} {} {1.000}
+E {   54} {Path_EmpCr_to_SigilS} {Path_EmpCr_to_SigilS} {1} {0} {}
+E {   56} {Path_EmpCr_to_Dio} {Path_EmpCr_to_Dio} {4} {0} {}
+E {   57} {Path_EmpCr_to_SigilWG} {Path_EmpCr_to_SigilWG} {2} {0} {}
+
+R {   56} {0} {} {diocletian} { } {} {} {} {} {} {1.000}
+E {   55} {Path_Dio_to_EmpCr} {Path_Dio_to_EmpCr} {1} {0} {}
+
+R {   57} {0} {} {sigil_gate} { } {} {} {} {} {} {1.000}
+E {   55} {Path_SigilWG_to_EmpCr} {Path_SigilWG_to_EmpCr} {8} {0} {}
+
+R {   58} {0} {} {sigil_dock_east} { } {} {} {} {} {} {1.000}
+E {   53} {Path_SigilDE_to_SigilN} {Path_SigilDE_to_SigilN} {8} {0} {}
+
+R {   59} {0} {} {sigil_dock_west} { } {} {} {} {} {} {1.000}
+E {   54} {Path_SigilDW_to_SigilS} {Path_SigilDW_to_SigilS} {2} {0} {}
+
+R {   100} {0} {} {pirates_cove} { } {} {} {} {} {} {1.000}
+E {   101} {Path_PC_to_BeltWP1} {Path_PC_to_BeltWP1} {4} {0} {}
+
+R {   101} {0} {} {beltane_wp1} { } {} {} {} {} {} {1.000}
+E {   100} {Path_BeltWP1_to_PC} {Path_BeltWP1_to_PC} {1} {0} {}
+E {   102} {Path_BeltWP1_to_Keep} {Path_BeltWP1_to_Keep} {8} {0} {}
+E {   103} {Path_BeltWP1_to_BeltWP0} {Path_BeltWP1_to_BeltWP0} {4} {0} {}
+E {   110} {Path_BeltWP1_to_Coy} {Path_BeltWP1_to_Coy} {2} {0} {}
+
+R {   102} {0} {} {maldras_keep} { } {} {} {} {} {} {1.000}
+E {   101} {Path_Keep_to_BeltWP1} {Path_Keep_to_BeltWP1} {2} {0} {}
+
+R {   110} {0} {} {Colyon} { } {} {} {} {} {} {1.000}
+E {   101} {Path_Coy_to_BeltWP1} {Path_Coy_to_BeltWP1} {8} {0} {}
+
+R {   103} {0} {} {beltane_wp0} { } {} {} {} {} {} {1.000}
+E {   101} {Path_BeltWP0_to_BeltWP1} {Path_BeltWP0_to_BeltWP1} {1} {0} {}
+E {   104} {Path_BeltWP0_to_Deceit} {Path_BeltWP0_to_Deceit} {8} {0} {}
+E {   105} {Path_BeltWP0_to_BeltWP2} {Path_BeltWP0_to_BeltWP2} {4} {0} {}
+
+R {   104} {0} {} {dungeon_deciet} { } {} {} {} {} {} {1.000}
+E {   103} {Path_Deceit_to_BeltWP0} {Path_Deceit_to_BeltWP0} {2} {0} {}
+
+R {   105} {0} {} {beltane_wp2} { } {} {} {} {} {} {1.000}
+E {   103} {Path_BeltWP2_to_BeltWP0} {Path_BeltWP2_to_BeltWP0} {1} {0} {}
+E {   106} {Path_BeltWP2_to_OldEmp} {Path_BeltWP2_to_OldEmp} {3} {0} {}
+E {   107} {Path_BeltWP2_to_ImmV} {Path_BeltWP2_to_ImmV} {4} {0} {}
+
+R {   106} {0} {} {old_empire_clanhall} { } {} {} {} {} {} {1.000}
+E {   105} {Path_OldEmp_to_BeltWP2} {Path_OldEmp_to_BeltWP2} {12} {0} {}
+
+R {   107} {0} {} {immortal_village} { } {} {} {} {} {} {1.000}
+E {   105} {Path_ImmV_to_BeltWP2} {Path_ImmV_to_BeltWP2} {1} {0} {}
+E {   108} {Path_ImmV_to_Ceno} {Path_ImmV_to_Ceno} {2} {0} {}
+
+R {   108} {0} {} {centoaphy} { } {} {} {} {} {} {1.000}
+E {   107} {Path_Ceno_to_ImmV} {Path_Ceno_to_ImmV} {8} {0} {}
+E {   109} {Path_Ceno_to_Xalt} {Path_Ceno_to_Xalt} {1} {0} {}
+
+R {   109} {0} {} {xalt} { } {} {} {} {} {} {1.000}
+E {   108} {Path_Xalt_to_Ceno} {Path_Xalt_to_Ceno} {4} {0} {}
+
+
+R {   150} {0} {} {tellerium} { } {} {} {} {} {} {1.000}
+E {   151} {Path_Telli_to_Axora} {Path_Telli_to_Axora} {3} {0} {}
+E {   152} {Path_Telli_to_Temp} {Path_Telli_to_Temp} {1} {0} {}
+
+R {   151} {0} {} {tower_of_axora} { } {} {} {} {} {} {1.000}
+E {   150} {Path_Axora_to_Telli} {Path_Axora_to_Telli} {12} {0} {}
+
+R {   152} {0} {} {tempelton} { } {} {} {} {} {} {1.000}
+E {   150} {Path_Temp_to_Telli} {Path_Temp_to_Telli} {4} {0} {}
+E {   153} {Path_Temp_to_TempWG} {Path_Temp_to_TempWG} {2} {0} {}
+E {   154} {Path_Temp_to_Dora} {Path_Temp_to_Dora} {3} {0} {}
+
+R {   153} {0} {} {tempelton_gate} { } {} {} {} {} {} {1.000}
+E {   152} {Path_TempWG_to_Temp} {Path_TempWG_to_Temp} {8} {0} {}
+
+R {   154} {0} {} {dorathon} { } {} {} {} {} {} {1.000}
+E {   152} {Path_Dora_to_Temp} {Path_Dora_to_Temp} {12} {0} {}
+E {   155} {Path_Dora_to_FGK} {Path_Dora_to_FGK} {1} {0} {}
+E {   156} {Path_Dora_to_Stargaze} {Path_Dora_to_Stargaze} {3} {0} {}
+
+R {   155} {0} {} {fgk} { } {} {} {} {} {} {1.000}
+E {   154} {Path_FGK_to_Dora} {Path_FGK_to_Dora} {4} {0} {}
+E {   156} {Path_FGK_to_Stargaze} {Path_FGK_to_Stargaze} {6} {0} {}
+
+R {   156} {0} {} {stargazer_clanhall} { } {} {} {} {} {} {1.000}
+E {   155} {Path_Stargaze_to_FGK} {Path_Stargaze_to_FGK} {9} {0} {}
+E {   154} {Path_Stargaze_to_Dora} {Path_Stargaze_to_Dora} {12} {0} {}

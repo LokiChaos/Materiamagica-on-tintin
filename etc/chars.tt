@@ -1,0 +1,4 @@
+#var charList[1] {{name}{Shinde}{cname}{Shinde}{server}{materiamagica.com}{port}{8000}}
+#var charList[2] {{name}{Kamiko}{cname}{Kamiko}{server}{materiamagica.com}{port}{8000}}
+#var charList[3] {{name}{Shinde-Dev}{cname}{Shinde}{server}{dev.ingenii.com}{port}{4444}}
+#var charList[4] {{name}{Testing}{cname}{Noconnect}{server}{materiamagica.com}{port}{4445}}

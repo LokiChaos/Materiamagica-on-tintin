@@ -1,0 +1,14 @@
+#showme {<aef>Loading: <faa>score.tt}
+
+/* Collect info from score command */
+#act {^Player Information for: %*} {
+	#class scoreinfo read core/score/scoreinfo.tt;
+	_event_oneshot {prompt_post} {scoreClean} {#class scoreinfo kill; #nop};
+}
+
+/* Collect info from the alignment command */
+#act {^Your alignment is %W (%D) and you are trending %w.} {
+	#var charScore[alignment] {%1};
+	#var charScore[alignentLong] {%2};
+	#var charScore[alignmentTrend] {%3};
+}

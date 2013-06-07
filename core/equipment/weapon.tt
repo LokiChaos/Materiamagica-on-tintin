@@ -1,0 +1,7 @@
+#nop equipment/weapon.tt
+
+#gag {^You are using:}
+#gag {^<}
+#gag {^$}
+#gag {Current Armor Resistance (AR):}
+#gag {^(}

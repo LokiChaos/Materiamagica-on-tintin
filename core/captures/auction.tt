@@ -1,0 +1,75 @@
+#nop captures/auction.tt
+
+/* Auctions {{{ */
+#act {^AUCTION: %*} {
+	_ChannelLog {<159>%0} {$capPath[auction]};
+
+	#regex {%1} {%w has put %* up for auction. Minimum bid is %S gp.} {
+		_event_raise {auction_up} {&1} {&2} {&3};
+	};
+	#regex {%1} {%* has been sold to %w for %S gp.} {
+		_event_raise {auction_sold} {&2} {&1} {&3};
+	};
+	#regex {%1} {No bids received for %*. Item has been removed.} {
+		_event_raise {auction_timeout} {&1};
+	};
+} {3}
+/* }}} */
+
+/* AUCTION TODO NOTES {{{
+Start*:
+AUCTION: %w has put %* up for auction. Minimum bid is %S gp.
+Ends*:
+AUCTION: No bids received for %*. Item has been removed.
+AUCTION: %* has been sold to %w for %S gp.
+
+Bid:
+AUCTION: %w bids %S gp on %*.
+
+Going*:
+AUCTION: %*: going once for %S gp to %w.
+AUCTION: %*: going twice for %S gp to %w.
+AUCTION: %*: going once (no bid received yet).
+AUCTION: %*: going twice (no bid received yet).
+
+Stopped:
+AUCTION: The sale of %* has been stopped by %w.
+                        has been stopped by the Immortals.
+Removed From Queue:
+AUCTION: %w has removed %* from the auction queue.
+}}} */
+
+#act {~^\e[1\;35m%* announces, '%*'\e[0m$} {
+	_ChannelLog {<159>%0} {$capPath[announce]};
+}
+
+/* accouncements notes
+#act {^A sepulchral voice announces, '%*'
+{A (sepulchral|jovial) voice|(The casino tournament|A Capture The Flag) coordinator|Lord Maldra|The wedding cleric} announces, '%*'
+The wedding cleric announces, ''
+The casino tournament coordinator announces, ''
+A jovial voice announces, ''
+Lord Maldra announces, ''
+A Capture The Flag coordinator announces, ''
+*/
+
+/* Hints {{{ */
+#act {^{Global|Local|Area} Hint: %*} {
+	#if {"%1" == "Global"} {
+		_ChannelLog {<159>%0} {$capPath[hints]};} {
+		_ChannelLog {<159>%1 <099>($navigation[Zone])<159> Hint: %2} {$capPath[hints]};
+	};
+	#if {"$prefs[showHints]" == "0" && "$stateClient[manualHint]" != "1"} {
+		#line gag;
+	};
+	#if {"$stateClient[manualHint]" != "1"} {
+		_event_raise {tick_sync};
+	};
+	#var stateClient[manualHint] {0};
+} {3}
+
+#act {^You will be able to get another hint in %*.}
+{
+	#var stateClient[manualHint] 0;
+} {3}
+/* }}} */

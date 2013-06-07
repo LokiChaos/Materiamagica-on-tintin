@@ -1,0 +1,10 @@
+#nop equipmnet/silentEquip.tt
+
+#gag {^You are using:}
+#gag {^<}
+#gag {^$}
+#gag {^Current Armor Resistance (AR)}
+#gag {^({H|T|A|L|W}}
+#gag {^Equipped weapon damage:}
+#gag {^With your knowledge}
+#gag {Excepting defenses and dynamic modifiers, you will hit %d% of the time.}

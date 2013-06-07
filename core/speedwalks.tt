@@ -1,0 +1,108 @@
+#showme {<aef>Loading: <faa>speedwalks.tt}
+/* 
+	Sets up Speedwalk Sub-System
+*/
+
+/* Player Commands {{{ */
+#alias {^run$} {
+	#class runSpeedWalk read core/speedwalks/run.tt;
+	_RunSpeedWalk;
+	#class runSpeedWalk kill;
+}
+
+#alias {^stop$} {
+	#if {$stateChar[is_onSpeedWalk]} {
+		#nop TODO Save coordinates here;
+		#echo {<110>Stop: Aborting Speedwalk.\n<099>Resume with 'run'};
+		_SpeedWalkCleanup;
+		_event_raise {speedwalk_aborted};
+	} {
+		#echo {<110>Stop: You're not on a speedwalk.};
+	};
+}
+
+#alias {^goto$} {
+	#class swgoto read core/speedwalks/goto.tt;
+	_gotoHelp;
+	#class swgoto kill;
+}
+
+#alias {^goto %*} {
+	#if {"%1" != ""} {
+		#regex {%1} {%d %d} {
+			#class swgoto read core/speedwalks/coord.tt;
+			_goto_coord {&1} {&2};
+		} {
+			#class swgoto read core/speedwalks/goto.tt;
+			_realgoto {%0};
+		};
+	} {
+		_gotoHelp;
+	};
+	#class swgoto kill;
+}
+
+#alias {v{|e|en|end|endo|endor} go %*} {
+	#class vendorgo read core/speedwalks/vendorwalk.tt;
+	_vendorwalk %2;
+}
+/* }}} */
+
+/* Internal Subroutines {{{ */
+/* Chain paths on the speedwalk queue or cleanup if queue is empty */
+#event {END OF PATH}
+{
+	#if {@std_queue_depth{_pathQueue}} {
+		#echo {<159>Loading next state of speedwalk...<099>};
+		_event_raise {speedwalk_loadnext};
+		_loadPathQueue;
+	} {
+		_SpeedWalkCleanup;
+		_event_raise {speedwalk_finished};
+	};
+}
+
+/* Cleanup if aborting or finished with speedwalking */
+#alias {_SpeedWalkCleanup}
+{
+    #var stateChar[is_onSpeedWalk] {0};
+    #send {set superbrief off};  
+}
+
+/* Setup called before starting speedwalking */
+#alias {_SpeedWalkRun}
+{
+	_event_raise {speedwalk_start};
+	#var stateChar[is_onSpeedWalk] {1};
+    #send {set superbrief on};
+    #path walk;
+    #unvar __ready;
+} 
+
+/* Check to see if you should take the next step
+   if you've been attacked, or fell abort
+*/
+_event_register {speedStep} {sw_walker} {_SpeedWalkStep};
+
+#alias {_SpeedWalkStep}
+{
+	#nop %1;
+	#if {$stateChar[Combat]}
+	{
+	 #echo {<110>You have been attacked! Aborting Speedwalk!\n<099>Resume with 'run'};
+		_SpeedWalkCleanup;
+		_event_raise {speedwalk_aborted};
+	} {
+		#path walk;
+	};
+}
+
+
+#alias {_loadPathQueue} {
+	#if {@std_queue_depth{_pathQueue}} {
+		#class paths read data/paths.tt;
+		#path load @std_queue_pop{_pathQueue};
+		#class paths kill;
+	};
+}
+/* }}} */

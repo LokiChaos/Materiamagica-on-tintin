@@ -1,0 +1,62 @@
+#showme {<aef>Loading: <faa>mems.tt}
+/*
+	Does Augmented Output for mem command and actions
+	to raise mem related events
+
+	mems_mem <spells(s)> - raised on memorizing spells
+	mems_purge <all>|<spell> - raised on purging memory
+	mems_expire - raises when a memorized spell expires
+*/
+
+/* Process memorize command output {{{ */
+#act {^You have the following spells memorized, of a maximum of %d and %d complexity:} {
+	#line gag;
+	#echo {<149>You have the following spells memorized:};
+	#var __mem[Temp][maxNum] {%1};
+	#var __mem[Temp][maxCpx] {%2};
+	#var __mem[Temp][Cpx] {0};
+	#class memInfo read core/mems/memsub.tt;
+	_GenerateMemTable;
+	_event_oneshot {prompt_post} {memClean} {#class memInfo kill; #nop};
+}
+
+#act {^You don't currently have any spells memorized.} {
+	#class memInfo read core/mems/memsub.tt;
+	_NoMem;
+	#class memInfo kill;
+}
+/* }}} */
+
+/* Mem Events {{{ */
+#act {^You have successfully memorized the spell '%*'.$} {
+	_event_raise {mems_mem} {%1};
+}
+
+#act {^You study %* for a few long moments, committing the spells '%*' to memory.} {
+	_event_raise {mems_mem} {%2};
+}
+
+#act {^Using the appropriate meditation techniques, you purge %d memorized magical spells from your conscious memory.$} {
+	_event_raise {mems_purge} {all};
+}
+
+#act {^The memory of how to cast the spell '%*' has faded from your mind.} {
+	_event_raise {mems_expire} {%1};
+}
+
+#act {^Using the appropriate meditation techniques, you purge all thoughts of '%*' from your conscious memory.$} {
+	_event_raise {mems_purge} {%1};
+}
+
+#act {^You study %* for a few long moments before realizing it's doing no good.$} {
+	_event_raise {mems_fail} {unknown};
+}
+
+#act {^You have too many other spells swimming around in your head to memorize another.$} {
+	_event_raise {mems_fail} {count};
+}
+
+#act {^You have too many other complex spells swimming around in your head.$} {
+	_event_raise {mems_fail} {complexity};
+}
+/* }}} */

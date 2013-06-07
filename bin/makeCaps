@@ -1,0 +1,23 @@
+#!/bin/bash
+
+TSESSION="Captures"
+TSERVER="ttCaps"
+
+cd ~/.tt
+
+if [ -z $1 ]; then
+	exit 1
+else
+	SESSION="${1}"
+	if [ $(tmux -L ${TSERVER} list-windows -F "#W" |grep -c "^${SESSION}") != 0 ] ;then
+		exit 0
+	else
+		TWINDOW=$(tmux -L ${TSERVER} new-window -n "${SESSION}" -P -F "#I")
+		if [ -f char/${SESSION}/caps.sh ]; then
+			char/${SESSION}/caps.sh ${TSERVER} ${TSESSION} ${TWINDOW} ${SESSION}
+		else
+			etc/caps.sh ${TSERVER} ${TSESSION} ${TWINDOW} ${SESSION}
+		fi
+		tmux -L ${TSERVER} kill-window -t dummy 1>/dev/null 2>&1
+	fi
+fi

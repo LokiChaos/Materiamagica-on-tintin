@@ -1,0 +1,91 @@
+#nop login/menu.tt
+
+/* Print Welcome Message {{{ */
+#alias {_printWelcome} {
+	#if {&lastSession == 0} {
+		#100 {
+			#echo {};
+		};
+	};
+	#echo {<149>tintin version: <099>$version[tt]};
+	#echo {<149>Materiamagica for tintin++ system by Shinde. Version: <099>$version[c]<149>.};
+	#echo {<149>Please see readme.txt for more information.};
+	#echo {<149>Distributed under the BSD-like ISC License See doc/license.txt for details.}; 
+	#echo {<179>    ,-,-,-.       .          .     };
+	#echo {<179>    `,| | |   ,-. |- ,-. ,-. . ,-. };
+	#echo {<179>      | ; | . ,-| |  |-' |   | ,-| };
+	#echo {<179>      '   `-' `-^ `' `-' '   ' `-^ };
+	#echo {<179>         ,-,-,-.           .         };
+	#echo {<179>         `,| | |   ,-. ,-. . ,-. ,-. };
+	#echo {<179>           | ; | . ,-| | | | |   ,-| };
+	#echo {<179>           '   `-' `-^ `-| ' `-' `-^ };
+	#echo {<179>                        ,|           };
+	#echo {<179>                        `'           };
+	#echo {                           <099>ON};
+	#echo {<149>                  _______    _______      <169>   __    __    };
+	#echo {<149>                 /_  __(_)__/_  __(_)__   <169>__/ /___/ /_   };
+	#echo {<149>                  / / / / _ \\/ / / / _ \\ <169>/_  __/_  __/ };
+	#echo {<149>                 /_/ /_/_//_/_/ /_/_//_/  <169>/_/   /_/      \n\n};
+}
+/* }}} */
+
+#alias {_printMenu} {
+	_printWelcome;
+	#echo {<149>Please Select a character with <099>1<149> to <099>&charList[]<149> or <099>q<149> to quit or <099>n<149> for new!<099>};
+	#loop {1} {&charList[]} {__idx} {
+		#echo {<119>   %d<099> - <129>%-25s<099> (<179>%s\@%s:%s<099>)}
+			  {${__idx}} {$charList[${__idx}][name]} {$charList[${__idx}][cname]}
+			  {$charList[${__idx}][server]} {$charList[${__idx}][port]};
+	};
+	#unvar __idx;
+	#if {&lastSession == 0} {
+		_AutoLogin;
+	};
+}
+
+/* Menu Subroutines {{{ */
+#alias {_AutoLogin} {
+	#echo {<149>Will Auto-Connect to first entry "<099>$charList[1][name]<149>" in 30 seconds...<099>};
+	#delay {autoLogin} {
+	#echo {<149> Menu timeout: Auto Connecting};
+		_loginAuto;
+	} {30};
+}
+
+#alias {_AutoLogin} {#echo {Disabled for now...}}
+
+#alias {_loginMM}
+{
+	#var _reconnect[attMade] {0};
+	#var charName {%2};
+	#unvar charList;
+	#undelay autoLogin;
+	#class loginMenu kill;
+	#session {%1} {%3} {%4};
+}
+
+#alias {{q|quit}} {
+	#undelay autoLogin;
+	#gts {#cursor exit};
+}
+/* }}} */
+
+#read etc/chars.tt;
+
+/* Load Sessions and generate alises for connection {{{ */
+#foreach {$charList[]} {__idx} {
+	#line substitute variables {
+		#alias {${__idx}} {_loginMM {$charList[${__idx}][name]} {$charList[${__idx}][cname]} {$charList[${__idx}][server]} {$charList[${__idx}][port]}};
+	};
+};
+/* Create Autologin Alias */
+#line substitute variables {#alias {_loginAuto} {_loginMM  {$charList[1][name]} {$charList[1][cname]} {$charList[1][server]} {$charList[1][port]};}};
+#unvar __idx;
+/* }}} */
+
+#var _reconnect[attMade] {0};
+
+/* Let things Settle Down before we show the menu...*/
+#split 1 1;
+
+#delay {1} {_printMenu};

@@ -1,0 +1,63 @@
+#showme {<aef>Loading: <faa>utility/cmdqueue.tt}
+/*
+	This is a simple command queue system based off the generic queue.
+	Usage:
+		ququeCmd {command} {delay}
+			Enqueues {command} and will wait delay (in seconds) before
+			executing the next command.
+			If delay == 0 then it will call the command on the next REAL prompt.
+
+		doQueue
+			Pops the first command, and executed it immeidately, then waits
+			the delay value before continuing down the queue.
+
+		abortCmdQueue
+			Stop progression down the command queue.
+			You may resume with doQueue.
+
+		clearCmdQueue
+			Purges the command queue
+*/
+
+/* Provided Alises {{{ */
+#alias {doQueue} {
+	_PopQueue;
+}
+
+#alias {queueCmd} {
+	std_queue_push cmdQueue {{cmd}{%1}{delay}{%2}};
+}
+
+#alias {clearCmdQueue} {
+	std_queue_delete cmdQueue;
+}
+
+#alias {abortCmdQueue} {
+	#undelay {queueWait};
+	_event_remove_specific {prompt} {quickQueue};
+	_event_raise {cmdQueue_abort};
+}
+/* }}} */
+
+/* _PopQueue Helper {{{  */
+#alias {_PopQueue} {
+	#nop %1;
+	#if {&{cmdQueue[]}} {
+		#var __poppedCmd {@std_queue_pop{cmdQueue}};
+		${__poppedCmd[cmd]};
+		#if {&{cmdQueue[]} > 1} {
+			#if {"${__poppedCmd[delay]}" != "0" } {
+				_event_remove_specific {prompt} {quickQueue};
+				#delay {queueWait} {_PopQueue} {${__poppedCmd[delay]}}
+			} {
+				_event_register {prompt_post} {quickQueue} {_PopQueue};
+			};
+		};
+		#unvar __poppedCmd;
+	} {
+		std_queue_delete cmdQueue;
+		_event_remove_specific {prompt_post} {quickQueue};
+		_event_raise {cmdQueue_end};
+	};
+}
+/* }}} */

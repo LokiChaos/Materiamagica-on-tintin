@@ -1,0 +1,145 @@
+#showme {<aef>Loading: <faa>equipment.tt}
+
+/* Player Commands {{{ */
+/* Displays just AR output from eq command */
+#alias {ar}
+{
+	#class silentEq read core/equipment/armor.tt;
+	equipment;
+	#var stateClient[muteLine] 1;
+}
+
+#alias {weapon}
+{
+	#class silentEq read core/equipment/weapon.tt;
+	equipment;
+	#var stateClient[muteLine] 1;
+}
+/* }}} */
+
+/* Collect info from eq[ipment] command {{{ */
+#act {^You are using:}
+{
+	#class equipinfo read core/equipment/eq.tt;
+	_event_oneshot {prompt_post} {eqClean} {#class equipinfo kill; #nop};
+}
+/* }}} */
+
+/* Internal Helper - executes equipment command & gags output {{{ */
+#alias {_equipSilent}
+{
+	_event_oneshot {prompt_post} {clearAutoCont} {#var stateClient[autoContinue] 0; #nop};
+	#class silentEq read core/equipment/silentEquip.tt;
+	equipment;
+	#var stateClient[muteLine] 1;
+	#var stateClient[autoContinue] 1;
+}
+/* }}} */
+
+/* Equipping and Removing items {{{ */
+/* When you hold a weapon it updates info with a silent equipment command */
+#act {^You wield %* in your %w hand.$} {
+	_equipSilent;
+	#var stateClient[muteLine] 2;
+	#echo {<149>Updating weapon info...};
+	_event_raise {equip_weild} {%1} {%2 hand};
+}
+
+#act {^You hold %* in your %w hand.$} {
+	_event_raise {equip_equip} {%1} {%2 hand};
+} {4.9}
+
+#act {^You hold %*.$} {
+	_event_raise {equip_equip} {%1} {used as light};
+}
+
+#act {^You stop using %*.} {
+	_event_raise {equip_remove} {%1};
+}
+
+#act {%* sparks and sputters, and a thin trail of smoke dissipates into the air.$} {
+	_event_raise {equip_spark} {%1};
+}
+
+#act {^You wear %*.$} {
+	#regex {%1} {%* on your %*} {
+		_event_raise {equip_equip} {&1} {worn on &2};
+	};
+	#regex {%1} {%* about your %*} {
+		_event_raise {equip_equip} {&1} {worn about &2};
+	};
+	#regex {%1} {%* around your %*} {
+		_event_raise {equip_equip} {&1} {worn around &2};
+	};
+	#regex {%1} {%* as a shield.} {
+		_event_raise {equip_equip} {&1} {worn as shield};
+	};
+}
+/* }}} */
+
+/* Hide/Find Bury/Unearth Items {{{ */
+#act {^You found a hidden item, %*!$} {
+	_event_raise {item_found} {%1};
+}
+
+#act {^You have unearthed %*!$} {
+	_event_raise {item_dugup} {%1};
+}
+
+#act {^You successfully hide %*.$} {
+	_event_raise {item_hide} {%1};
+}
+
+#act {^You have successfully buried %*.$} {
+	_event_raise {item_bury} {%1};
+}
+/* }}} */
+
+/* Out of weight or count carry capacity {{{ */
+#act {^%*: there's not enough room in your inventory.$} {
+	_event_raise {item_inv_noroom};
+}
+
+#act {^%*: you cannot carry that much weight.$} {
+	_event_raise {item_inv_noweight};
+}
+
+#act {^%* can hold a maximum of %d items, and is already full.$} {
+	_event_raise {item_container_noroom};
+}
+
+/* }}} */
+
+/* Item Binding (both on take and on wear) {{{ */
+#act {%* emits a bright flare of white light as it binds with you.$} {
+	_event_raise {item_bound} {%1};
+}
+/* }}} */
+
+/* Collect info from inventory command {{{ */
+#act {^You are carrying:$} {
+	#class invinfo read core/equipment/inventory.tt;
+	_event_oneshot {prompt_post} {invClean} {#class invinfo kill; #nop};
+}
+
+#act {^{\* |}You are currently encumbered. You may move slower than normal.} {
+		#var stateChar[Encumbered] {1};
+}
+/* }}} */
+
+/* Disarmed */
+#act {^%* knocks %* from your grip.$} {
+	_event_raise {equip_disarmed};
+	_Notice {<119>DISARMED<099> - %3};
+};
+
+/* TODO add? {{{
+#act {^You get %* from your locker.$}
+#act {^You put %* in your locker.$}
+#act {^You close %*.$}
+#act {^You open %*.$}
+#act {^You drop %*.$}
+#act {^You take %*.$}
+#act {^You take %* from %*.$}
+#act {^You put %* in %*.$}
+ }}} */

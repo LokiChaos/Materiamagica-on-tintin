@@ -1,0 +1,99 @@
+#showme {<aef>Loading: <faa>events.tt};
+
+/*  Program Start Event {{{
+	- Save tintin++ version info
+*/
+#event {PROGRAM START}
+{
+	#format version[tt] {%p} {%1};
+	#var version[tt_name] {%0};
+}
+/* }}} */
+
+/* Screen Resize Event {{{ */
+#event {SCREEN RESIZE} {
+	#if {"$sessionName" == "gts"} {
+		#return
+	};
+	#var stateClient[Rows] {%0};
+	#var stateClient[Cols] {%1};
+	#if {$stateClient[Rows] != $stateClient[OldRows] || $stateClient[Cols] != $stateClient[OldCols]} {
+		_event_raise {screen_resize} {$stateClient[Rows]} {$stateClient[Cols]} {$stateClient[OldRows]}  {$stateClient[OldCols]}
+	};
+	#var stateClient[OldRows] {$stateClient[Rows]};
+	#var stateClient[OldCols] {$stateClient[Cols]};
+}
+/* }}} */
+
+/* Connect & Disconnect Events {{{ */
+/*
+	Called when connected sucessfully to the game server
+	- Ensure $sessionName is defined and accurate
+	- Read in saved Command history
+	- Read in Core Config script & User scripts
+	- Rename tmux session to match
+	- Load Login lib to handle sign in
+*/
+#event {SESSION CONNECTED} {
+	#var sessionName {%0};
+	#gts {#var lastSession {}; #var _reconnect[attMade] 0;};
+	#history read char/$sessionName/var/cmdhistory.hist;
+	#read core/core.tt;
+	_event_raise {session_connect};
+	#nop system {make_caps $charName 2>/dev/null};
+	#showme {\033k${sessionName}\033\\};
+	#system {makeCaps ${sessionName}};
+	#class login read core/login/login.tt;
+}
+
+/*
+	Called when disconnected from the game server
+	- Save Command History
+	- Make an emegency backup of the session
+	- Dump the buffer to a temp log
+	- Start reconnect process
+*/
+#event {SESSION DISCONNECTED} {
+	_event_raise {session_disconnect};
+	#history write char/%0/var/cmdhistory.hist;
+	#write char/%0/var/lastSessionBackup.tt;
+	#showme {\033ktt++\033\\};
+	#gts {#var lastSession {{sessionName}{%0}{charName}{$charName}{server}{%1}{port}{%3}};};
+	#gts {#class reconnect read core/login/reconnect.tt;};
+}
+
+#event {SESSION TIMED OUT} {
+	#gts {#var lastSession {{sessionName}{%0}{charName}{$charName}{server}{%1}{port}{%3}};};
+	#gts {#class reconnect read core/login/reconnect.tt;};
+}
+/* }}} */
+
+/* Events to track entered and sent commands {{{ */
+/* Sent %0 to the game, reset gameIdle time */
+#event {SEND OUTPUT} {
+	#if {"$sessionName" == "gts"} {
+		#return
+	};
+	#if {$stateClient[debug]} {
+		#var __debugTemp {%0};
+		#replace __debugTemp {\cm\n} {};
+		#format {__debugTemp} {%t SENT: %s} {{%Y-%m-%d %H:%M:%S}} {${__debugTemp}};
+		#line log {tmp/debug.$sessionName} {${__debugTemp}};
+		#unvar __debugTemp;
+	};
+	#var stateClient[gameIdle] 0;
+}
+
+/* Recieved a command from the user, reset clientIdle time */
+#event {RECEIVED INPUT} {
+	#if {"$sessionName" == "gts"} {
+		#return
+	};
+	#if {$stateClient[debug]} {
+		#format {__debugTemp} {%t RCVD: %s} {{%Y-%m-%d %H:%M:%S}} {%0};
+		#line log {tmp/debug.$sessionName} {${__debugTemp}};
+		#unvar __debugTemp;
+	};
+	#var stateClient[clientIdle] 0;
+}
+/* }}} */

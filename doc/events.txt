@@ -1,0 +1,342 @@
+Events
+
+The core system provides many events for you to hook to, the user is discouraged
+from creating actions/triggers for events already handled by the core
+configuration. Rather the user should add their own handler to a supplied event.
+One "Limitation" of tintin++ is that only one action may be triggered per line,
+the event system gets around this by having the #act simply raise and event and
+have the event system call any handlers that may exist.  This allows you to
+hook as many actions to a single line as the user wishes.
+
+The user can create the own triggers to raise either these events
+(WARNING: this COULD break something in the core system) or their own custom
+events.
+
+The user is encouraged to hook to these events for their own custom actions,
+this is ultimate strength of the event system. The "correct" way to hook to an
+event is to define an alias and then register it as a handler.
+
+Example:
+	#alias {MyHandler} {#nop %1;say It Worked!}
+	_event_register {equip_equip} {exampleHandler} {MyHandler};
+
+	MyHandler is just an alias, since it's intended to be called by other code,
+	pick something you're not likely to enter as a game command.
+	exampleHandler is just an arbitrary name, pick something brief. 
+
+These are the events that are supplied by the core configuration:
+
+Session:
+	session_connect
+		Called when connected to the game server.
+	session_login {login|reconnect}
+		Called when logged into the game.
+			login - when logging in to a previously off-line character.
+			reconnect - when logging in to an already on-line character.
+	session_disconnect
+		Called when a session disconnects
+
+Activity:
+	activity_crystal_start
+		Raised when you receive a crystal guild map and have begun a treasure hunt.
+	activity_crystal_return {<crystal short desc>}
+		Raised when you turn in a crystal.
+	activity_daily_collected {<town name>}
+		Raised when you collect daily rewards.
+	activity_bounty_start {<area name>} {<mob name>}
+		Raised when you are given a bounty from the orc pursuer.
+	*activity_bounty_return
+		Raised when you successfully return a bounty.
+	*activity_quest_receive {<quest#>} {<quest name>}
+		Raised when you receive a quest.
+	*activity_quest_fail {<quest#>} {<quest name>}
+		Raised when you fail a quest.
+	*activity_quest_timeout {<quest#>} {<quest name>}
+		Raised when you run out of time on a quest.
+	*activity_quest_turnin {<completion>} {<quest#>} {<quest name>} {<quest master>}
+		Raised when you turn in a quest.
+		Possible Values for Completion: none, partial, full
+	*activity_quest_phaseComplete
+		Raised when you complete a phase of a quest.
+	*activity_quest_complete
+		Raised when you have completed all phases of a quest.
+
+	activity_reward {<type>} {<amount>}
+		Raised when you gain practices, quest points, experience points,
+		or built points.  This does NOT include quest reward lines only the:
+			"You gain # <reward>!"
+	activity_bosskill {<boss>}
+		Raised when you kill a new boss and receive boss kill credit.
+	activity_levelup
+		Raised when you level up.
+	activity_better {<skill name>} {<percent>}
+		Raised when you get a skill better or master a skill.
+
+Affects:
+	affect_refresh
+		Raised when client parses the affects command output.
+	affect_change {<affect name>} {<bool>}
+		Raised when any affect is applied or removed, before the affect specific
+		events are raised. It is called BEFORE the specific affect events.
+	affect_on_*
+		Raised when affect %* is applied.  The affect name will use _'s
+			eg: 'stone skin' would be affect_on_stone_skin
+	affect_off_*
+		Raised when affect %* is applied.  The affect name will use _'s
+			eg: 'stone skin' would be affect_off_stone_skin
+	affect_room_on_*
+		Raised when a room affect BEGINS.  It will only fire once.	
+	affect_room_off_*
+		Raised when a room affect ENDS.  It will only fire once.
+	affect_room_active_*
+		Raised when a room affect is noticed in current room. It filters out when you
+		look into other rooms.
+		NB: this will fire EVERY time you look in the room!	
+		
+
+Capture:
+	clan_login {<who>}
+		Raised when a clan member signs on.
+	clan_logout {<who>}
+		Raised when a clam member signs off.
+	clan_gohall {<who>}
+		Raised when a clan member gohalls.
+	clan_notice {<full line>}
+		Raised when a CLAN NOTICE is received.
+	alliance_notice {<full line>}
+		Raised when a ALLIED NOTICE is received.	
+	page_received {<who>} {<reason>}
+		Raised when a page is received.
+	tell_received {<who>} {<message>}
+		Raised when a tell is received.
+	notify_signon {<who>}
+		Raised when a character on notify signs of.
+	notify_signoff {<who>}
+		Raised when a character on notify signs off.
+	*soft_page {<channel>} {<line>}
+		Raised whenever $charName is named in a captured channel.
+
+	mail_received {<sender>} {<item>}
+		Raised when you receive mail.
+	mail_sent {<recipient>} {<item>}
+		Raised when you send mail.
+	given_item {<giver>} {<item>}
+		Raised when you are given an item.
+	gold_transfer_to {<who>} {<amount>} {<fee>}
+		Raised when you transfer gold TO someone.
+	gold_transfer_from {<who>} {<amount>} {<account>}
+		Raised when you are transfered gold FROM someone.
+	ru_transfer_to {<who>} {<amount>} {<new balance>}
+		Raised when you transfer reward units TO someone.
+	ru_transfer_from {<who>} {<amount>} {<reason>}
+		Raised when you are transfered reward units FROM someone.
+	classgems_transfer_to {<who>} {<amount>}
+		Raised when you transfer class gemstones TO someone.
+	classgems_transfer_from {<who>} {<amount>}
+		Raised when you are transfered class gemstones FROM someone.
+
+	auction_up {<who>} {<item>} {<min bid>}
+		Raised when an item is put up for auction.
+	auction_sold {<who>} {<item>} {<winning bid>}
+		Raised when an item is sold on auction.
+	auction_timeout {<item>}
+		Raised when an item is removed with no bids.
+
+Combat:
+	combat_start {} {}
+		Raised when combat is initiated.
+
+Equipment:
+	equip_disarmed
+		Raised when you are successfully disarmed.
+	equip_wield {<item>}
+		Raised when you equip a weapon.
+	equip_equip {<item>} {<slot>}
+		Raised when you equip an item.
+	equip_remove {<item>}
+		Raised when you de-equip an item.
+	equip_spark {<item>}
+		Raised when a piece of equipment sparks.
+
+	item_inv_noroom
+		Raised on can't carry more items message.
+	item_inv_noweight
+		Raised on can't carry more weight message.
+	item_container_noroom
+		Raised on message a container is full.
+
+	item_bound {<item>}
+		Raised when an item binds to you.
+	item_found {<item>}
+		Raised when you find a hidden item.
+	item_dugup {<item>}
+		Raised when you unearth a buried item.
+	item_hide {<item>}
+		Raised when you sucessfully hide an item.
+	item_bury {<item>}
+		Raised when you sucessfully bury an item.
+
+form_disband
+form_left
+form_restruct
+form_join
+
+Memorization:
+	mems_mem {<spell>|<spells>}
+		Raised when you memorize one or more spells.  If multiple spells were
+		memorized the format is a comma-delineated list, eg:
+			"stone skin, armor, word of recall, magic dart"
+	mems_expire {<spell>}
+		Raised when a memorized spell fades from your memory.
+	mems_purge {<spell>|all}
+		Raised when you purge a single spell, or all spells. Argument will either be
+		the purged spell name, or simply 'all' if 'purge all' was used.
+	mems_fail {<reason>}
+		Raised when you fail to memorize a spell.  Reason can be:
+			complexity - you lack the additional complexity to mem the spell
+			count - you have reached the max number of spell you can memorize
+			unknown - 'mem all' failed for one of the above reasons, 
+			          but no way to know which one.
+
+Navigation:
+	nav_fly_click {<bearing>} {<count>}
+		Raised on flying furniture motion.
+	nav_change_zone {<new zone>} {<old zone>}
+		Raised when moving to a new zone/area.
+	*nav_transport_spell {<spell>}
+		Raised on transport spells taking affect:
+			blink, teleport, gate travel, plane travel, warp,
+			vacuum invoke, word of recall, summon (target).
+	*nav_recall
+		Raised on recalling
+
+Prompt Events:
+	prompt_pre {<type>} {<prompt string>}
+		Raised FIRST on EVERY prompt.
+	prompt_Default {<prompt string>}
+		Raised when a normal game prompt is received.
+	prompt_Ship {<prompt string>}
+		Raised when a Ship/Sailing game prompt is received.
+	prompt_Social {<prompt string>}
+		Raised when a Social game prompt is received.
+	prompt_Continue {<prompt string>}
+		Raised when a Continue prompt is received.
+	prompt_Unknown {<prompt string>}
+		Raised when a Unknown type of prompt is received.
+	prompt_post {<type>} {<prompt string>}
+		Raised LAST on ALL EXCEPT Continue-Type prompts.
+
+Reagents:
+	reagent_used
+		Raised each time reagents are consumed.
+	reagent_produced
+		Raised each time a reagent producer pops reagents.
+	bot_produce
+		Raised when a bag of tricks pops items.
+
+State:
+	state_death
+		Raised on character death.
+	state_alive
+		Raised on character revival.
+
+	state_hunger_nag
+		Raised on hunger message, every time.
+	state_thirst_nag
+		Raised on thirst message, every time.
+	state_hunger_end
+		Raised on hunger satiation, every time.
+	state_thirst_end
+		Raised on thirst quenching, every time.
+
+	state_casting
+		Raised on casting start message.
+	state_casted
+		Raised on casting completion message.
+	state_fumble
+		Raised on fumbling message.
+	state_playing
+		Raised on song playing message.
+	state_played
+		Raised on song completion message.
+
+	state_stand
+		Raised when standing.
+	state_sit
+		Raised when sitting.
+	state_rest
+		Raised when resting.
+	state_sleep
+		Raised when sleeping.
+	state_slip
+		Raised when slipping and falling.
+	state_blown
+		Raised when blown to the ground.
+	state_buffeted {<direction>}
+		Raised when you are buffeted by the wind into another room.
+
+	state_mount {<mount short desc>}
+		Raised when you mount.
+	state_dismount {<mount short desc>}
+		Raised when you dismount.
+	state_hitch {<mount short desc>} {<hitching item>}
+		Raised when you hitch a mount.
+	state_unhitch {<mount short desc>} {<hitching item>}
+		Raised when you unhitch a mount.
+	state_mount_nost
+		Raised on "Mount out of Stamina" message.
+
+	state_lagged
+		Raised on lagged message.
+
+	state_away {<bool>}
+		Raised on setting/unsetting away.
+	state_quiet {<bool>}
+		Raised on setting/unsetting quiet.
+	
+Social:
+	social_enter
+		Raised when you enter social.
+	social_exit
+		Raised when you leave social.
+
+Ship:
+	ship_board
+		Raised when you board a ship.
+	ship_disembark
+		Raised when you disembark from a ship.
+
+Speedwalk:
+	speedStep
+		INTERNAL - tells speedwalk to take next step.
+	speedwalk_finished
+	speedwalk_aborted
+	*speedwalk_start
+	*speedwalk_loadnext
+
+Tick Events:
+	tick
+		Raised every 15 seconds, on the game's tick (or as close as it is possible
+		to keep it synced to it).
+	*tick_syc
+		Raised when a known event that only occurs on a tick happens.
+		Be default this is raised on non manually invoked hints and items being
+		put up for auction.  You may add other actions to raise it, but be certain
+		that it will only fire on an actual tick.
+
+Command Queue:
+	cmgQueue_end
+		Raised when the command queue is emptied
+	cmdQueue_abort
+		Raised when the command queue is aborted
+	*cmdQueue_start
+		Raised when the command queue is about to start.
+
+
+	screen_resize {<rows>} {<cols>} {<old rows>} {<old col>}
+		Raised on tintin #event {SCREEN RESIZE} it is only called if there was
+		an and actual change
+
+Misc, Internal:
+	visExits
+		Raised on the "Visible Exits:" line.

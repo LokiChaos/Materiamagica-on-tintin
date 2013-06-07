@@ -1,0 +1,104 @@
+#nop reagents/actions.tt
+
+/* Buy Reagents {{{ */
+#alias {_ReagentBuy} {
+	#class reagentBuy read core/reagents/buy.tt;
+	_buyReagents;
+	#class reagentBuy kill;
+}
+/* }}} */
+
+/* Get Reagents from Producers {{{ */
+#alias {_ReagentGet} {
+	#echo {Getting Reagents...};
+	#var stateChar[have_reagents] 0;
+	#class reagentGet read core/reagents/get.tt;
+	_event_oneshot {cmdQueue_end} {getReag} {_cleanReagGet};
+	#forall {$reagent[producer]} {
+	  queueCmd {open &0} {0};
+	  queueCmd {get all.reagent &0} {0};
+	  queueCmd {close &0} {0};
+	};
+	doQueue;
+	#class reagentAct kill;
+}
+/* }}} */
+
+/* Sort Reagents Into Containers {{{ */
+#alias {_ReagentSort} {
+	_event_oneshot {cmdQueue_end} {sortReag} {#class reagentSort kill};
+	#class reagentSort read core/reagents/sort.tt;
+	#forall {fire;water;earth;air;astral;ethereal} {
+		#forall {$reagent[store][&0]} {
+			queueCmd {put all.reagent-&0  &&0} {0};
+		};
+	};
+	#forall {gem;hema;summon;focus} {
+		#forall {$reagent[store][&0]} {
+			queueCmd {put all.&0 &&0} {0};
+		};
+	};
+	queueCmd {drop all.reagent} {0};
+	doQueue;
+	#class reagentAct kill;
+}
+/* }}} */
+
+/* Print Record of Used Reagents {{{ */
+#alias {_ReagentUsed} {
+	#echo {You have used since %s:} {@std_unixToTime{$reagent[used][since]}};
+	#echo {               <118>%+3s fire <168>%+3s water <128>%+3s earth <138>%+3s air}
+	      {$reagent[used][fire]} {$reagent[used][water]} {$reagent[used][earth]} {$reagent[used][air]};
+	#echo {               <178>%+3s gem  <108>%+3s ethereal<098>}
+	      {$reagent[used][gem]} {$reagent[used][ethereal]};
+	#if {$reagent[used][summon]} {
+		#echo {              <278>%+3s summoning stone}  {$reagent[used][summon]};
+	};
+	#if {$reagent[used][hema]}    {
+		#echo {              <108>%+3s black hematite} {$reagent[used][hema]};
+	};
+	#if {$reagent[used][astral]} {
+		#echo {              <178>%+3s astral<198>}  {$reagent[used][astral]};
+	};
+	#if {$reagent[used][focus]}  {
+		#echo {              <178>%+3s focusing crystal<198>}  {$reagent[used][focus]};
+	};
+	#class reagentAct kill;
+}
+/* }}} */
+
+/* Reset Reagent Use counts {{{ */
+#alias {_ReagentUsedClear} {
+	#unvar {reagent[used]};
+	#format {reagent[used][since]} {%T};
+	#class reagentAct kill;
+}
+/* }}} */
+
+/* Check Containers and sync Reagent counts {{{ */
+/*  This looks in every container that is used to store reagents,
+	It will gracefully skip empty lists.
+	Note: it only looks in a given contianer ONCE as to avoid re-counting */
+
+#alias {_ReagentSync} {
+	#class rcheck read core/reagents/check.tt;
+	#echo {Checking Reagents...};
+	queueCmd {set page_length 120} {0};
+	#forall {{fire}{water}{earth}{air}{gem}{ethereal}{astral}{hema}{summon}{focus}{etc}} {
+		#if {"$reagent[store][&0]" != "{}"} {
+			#forall {$reagent[store][&0]} {
+				#list {__reag[Checked]} {find} {&&0} {__reag[idx]};
+				#if {!${__reag[idx]}} {
+					queueCmd {look in &&0} {0};
+					#list {__reag[Checked]} {add} {&&0}
+				};
+			};
+		};
+	};
+	#unvar __reag;
+	queueCmd {set page_length $prefs[defPgLen]} {0};	
+	queueCmd {score st} {0};
+	doQueue;
+	#class reagentAct kill;
+}
+/* }}} */

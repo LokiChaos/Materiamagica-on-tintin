@@ -1,0 +1,41 @@
+#showme {<aef>Loading: <faa>affects.tt}
+/*
+	Handles tracking the char's status affects
+	Lvl 3 - Higher than other's affects so self takes priority
+*/
+
+/* Purge All affects, we'll re-sync it with the affects lines */
+#act {^You are affected by the following:} {
+	#unvar stateAffects;
+} {3}
+
+/* I like to reformat the lines, makes them fit a width of 80 */
+#act {^{Spell:|Prof: } %*- Level%s%d, modifies%*by%s%*.} {
+	#var stateAffects[@std_str_trim{%2}] 1;
+	#echo {<159>%s<099> %s<149>Lvl <099>%+3s<149>, mods<099>%s<149>by<099>%s<149>.} {%1} {%2} {%4} {%5} {%7};
+	#line gag;
+} {3}
+
+#act {^{Spell:|Prof: } %*- Level%s%d, modifies%*by%s%* for%*minute{s|}.} {
+	#var stateAffects[@std_str_trim{%2}] 1;
+	#echo {<159>%s<099> %s<149>Lvl <099>%+3s<149>, mods<099>%s<149>by<099>%s<149> for<099>%s<149>min.} {%1} {%2} {%4} {%5} {%7} {%8};
+	#line gag;
+} {3}
+
+#act {^Total of %d magical%*affects.} {
+	_event_raise {affect_refresh};
+} {3}
+
+#act {^Magic: %*- Level%s%d, grants  %*at%s%S$} {
+	#echo {<129>Magic: <099>%s<149>Lvl <099>%+3s<149>, grants<099>%s<149>at <099>%s<149>.} {%1} {%3} {%4} {%6};
+	#line gag;	
+} {3}
+
+/* First Person Affects Tracking */
+#class affSelf read core/affects/self.tt
+
+/* Room Affects Tracking */
+#class affRoom read core/affects/room.tt
+
+/* Other's Affects Tracking */
+/*#class affOther read core/affects/others.tt */

@@ -1,0 +1,5 @@
+#showme {<aef>Loading: <faa>user/macros.tt}
+
+/* General Macros*/
+#macro {\cs} {score}
+#macro {\cw} {auction info}

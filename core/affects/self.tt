@@ -1,0 +1,25 @@
+#nop affects/self.tt;
+
+/*
+	Generate and Add a TON of triggers from the table of strings
+*/
+#script {awk -F : '{print "#act {^"$1"$}{_affectChange {"$2"} {"$3"};} {3};"}' data/affects_self.tbl};
+
+/*
+	Base Status Event Handler
+		Update stateAffect and raises affect-specific events
+*/
+
+#alias {_affectChange} {
+	#var stateAffects[%1] {%2};
+	_event_raise affect_change {%1} {%2};
+	#var __affName {%1};
+	#replace {__affName} { } {_};
+	#if {"%2" == "0"} {
+		_event_raise {affect_off_${__affName}};
+	} {
+		_event_raise {affect_on_${__affName}};
+	};
+	#unvar __affName;
+}
+

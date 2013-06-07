@@ -1,0 +1,53 @@
+#showme {<aef>Loading: <faa>tick.tt}
+
+/* Master Tick Timer {{{ */
+
+/*
+	To Sync the tick timer:
+		_event_raise {tick_sync};
+	By default, this is tied to some Auction Events and Hints
+*/
+
+/* Event to trigger tick syncing */
+_event_register {tick_sync} {sync} {_SyncTick};
+
+#alias {_SyncTick} {
+	#nop %1;
+	#read core/tick/sync.tt;
+};
+
+/* Main 15 second timer to track ticks, incriment game timer, etc. 
+	Calls other subroutines defined in other files, each should
+	have an associated #nop describing where it is defined
+*/
+#tick {master} {
+	_OnTick
+} {15};
+
+#alias {_OnTick} {
+	_event_raise {tick};
+	#read core/tick/ontick.tt;
+};
+/* }}} */
+
+/* sysinfo.txt updating {{{ */
+
+/* Every 10 minutes re-sync sysinfo.txt w/ iota */
+#tick {sysinfo} {
+	_UpdateSysInfo
+} {600};
+
+/* Downloads sysinfo.txt and parses the information into tintin */
+#alias {_UpdateSysInfo} {
+	#class sysinfo read core/tick/sysinfo.tt;
+	_UpdateSystemInfo;
+	#class sysinfo kill;
+}
+
+/* Prevents spamming iota with requests */
+#alias {_GetSysinfo} {
+	#class sysinfo read core/tick/sysinfo.tt;
+	_GetSysteminfo;
+	#class sysinfo kill;
+}
+/* }}} */

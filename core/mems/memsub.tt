@@ -1,0 +1,91 @@
+#nop mems/memsub.tt
+
+/*  Builds array ofif of spell data {{{
+	spell name:school:complexity:scroll  */
+#alias {_GenerateMemTable} {
+	#unvar __memSpellTable;
+	#script {awk -F \: '{print "#var __mem[SpellTable]["$1"] {"$3"}"}' data/spells.txt};
+}
+/* }}} */
+
+/* Process mem lines {{{ */
+#act {%s%* (expires: %* m)%s%* (expires: %* m)} {
+	#nop highlight expire times < 60 minutes;
+	#format {__mem[spellName][1]} {%p} {%2};
+	#format {__mem[spellName][2]} {%p} {%5};
+
+	#if {${__mem[SpellTable][${__mem[spellName][1]}]}} {
+		#math __mem[Temp][Cpx] {${__mem[Temp][Cpx]} + ${__mem[SpellTable][${__mem[spellName][1]}]}};
+	};
+	#if {${__mem[SpellTable][${__mem[spellName][2]}]}} {
+		#math __mem[Temp][Cpx] {${__mem[Temp][Cpx]} + ${__mem[SpellTable][${__mem[spellName][2]}]}};
+	};
+
+	#if {%3 < 100} {
+		#var __mem[exc][1] {<119>};
+	} {
+		#var __mem[exc][1] {<099>};
+	};
+	#if {%6 < 100} {
+		#var __mem[exc][2] {<119>};
+	} {
+		#var __mem[exc][2] {<099>};
+	};
+
+	#echo { <149>%+19s [<099>%+2s\x25<149>] (exp:%s%s <149>m) %+19s [<099>%+2s\x25<149>] (exp:%s%s <149>m)}
+	      {%2} {${__mem[SpellTable][${__mem[spellName][1]}]}} {${__mem[exc][1]}} {%3} {%5}
+		       {${__mem[SpellTable][${__mem[spellName][2]}]}} {${__mem[exc][2]}} {%6};
+	#line gag;
+} {4.9}
+
+
+#act {%s%* (expires: %* m)$} {
+	#nop highlight expire times < 60 minutes;
+	#format {__mem[spellName][1]} {%p} {%2};
+	#if {${__mem[SpellTable][${__mem[spellName][1]}]}} {
+		#math __mem[Temp][Cpx] {${__mem[Temp][Cpx]} + ${__mem[SpellTable][${__mem[spellName][1]}]}};
+	};
+	#if {%3 < 100} {
+		#var __mem[exc][1] {<119>};
+	} {
+		#var __mem[exc][1] {<099>};
+	};
+	#echo { <149>%+19s [<099>%+2s\x25<149>] (exp:%s%s <149>m)} {%2} {${__mem[SpellTable][${__mem[spellName][1]}]}} {${__mem[exc][1]}} {%3};
+	#line gag;
+}
+/* }}} */
+
+#gag {^$};
+
+/* Replace Final line with upgraded summary {{{ */
+#act {^A total of %d spell{s|}.} {
+	#var __mem[Temp][num] {%1};
+	#echo {<149>A total of <099>${__mem[Temp][num]}/${__mem[Temp][maxNum]}<149> spells and <099>${__mem[Temp][Cpx]}/${__mem[Temp][maxCpx]}<149> complexity.<099>};
+	#line gag;
+	#unvar __mem;
+	#class memInfo kill;
+}
+/* }}} */
+
+/* Handle nothing memoirized case {{{ */
+#alias {_NoMem} {
+	#math __mem[Temp][maxNum] {3 + ($charScore[totalLvl] / 26) + ($charScore[scc] * ($charScore[knowledge]/4 + $charScore[sanity]/4)) / 100 };
+	#math __mem[Temp][maxCpx] {100 + ($charScore[totalLvl] * 2) + ($charScore[scc] * ($charScore[knowledge]*4 + $charScore[sanity]*4))/100 };
+
+	#echo {<149>You have no spells memorized. \nYou may memorize up to <099>${__mem[Temp][maxNum]}<149> spells and <099>${__mem[Temp][maxCpx]}<149> total complexity.<099>};
+	#line gag;
+	#unvar __mem;
+}
+/* }}} */
+
+/*  Mem Formulas {{{
+max spell memorize complexity:
+100 + (level * 2) + ((SCC / 100.0) * ((knowledge *4) + (sanity * 4)))
+
+min of 50, capped at 1500
+
+max memorize amount:
+3 + (level / 26) + ((SCC / 100.0) * ((knowledge / 4) + (sanity / 4)))
+
+min of 3, max of 25
+}}} */

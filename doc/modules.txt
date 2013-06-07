@@ -1,0 +1,67 @@
+This system supports dynamically loadable and unloadable modules.  Modules can
+hook to the core scripts though the event system and the "public" variables.  
+They are intended to be self-contained, though they do support a rudimentary
+"dependency" system.
+
+This document explains the structures and correct format for a module to have
+in order for the module system to properly manage it.  It will also ensure that
+modules should not interfere with the core scripts or other modules, at least
+to the extent it's possible to minimize it.
+
+Modules install to ./modules/<module name>/  They should expect all of thier
+files to be under this directory.  Module names should consist of [a-zA-Z0-9_]
+only.  Modules should pre-pend ALL variables they use with:
+	_mod_<module name>
+
+Eg:
+	_mod_myModule_myVar
+
+This avoids name collisions and makes it easier for a module to clean itself
+up.  One exception is the __ variable namespace is permitted for local
+variables.  Again, it is good practice to clean those as soon as possible.
+
+Module's internal file structure within its directory is left open, the only
+required files are:
+	modules/<mod name>/init.tt
+	modules/<mod name>/cleanup.tt
+	modules/<mod name>/desc
+
+The following OPTIONAL files have special meanings:
+	modules/<mod name>/deps
+	modules/<mod name>/help
+
+Aside from the above files a module is free to have any other files for it's
+use within its directory.  It may even have subdirectories, binaries, 
+external script files, data tables, or additional tintin script files.  
+
+Formats:
+	init.tt - A tintin++ script file, is called when loading a module.
+	cleanup.tt - A tintin++ script file, it is called with removing a module.
+	desc - a single plaintext line that describes the module in 50-chars or
+	        less.
+	help - a plaintext file that will be echoed when helpmod <mod name> is
+	        called.
+	deps - a plaintext file that contains all dependencies, one per line, just
+	        the module name.
+
+LOADING A MODULE:
+When a module is loaded the modules/<mod name>/init.tt Will be read in
+via #class, the modules class will be mod_<mod name>.  If there is a deps file,
+it will load those modules in the order listed in the file iff they are not
+already, it will also intelligently load any dependencies of those as well.
+
+The modules MAY #read other files from the base <mod name>.tt or even use
+#class * read to read in other files, however, it is up to the module to
+clean up any other classes it might make.
+
+UNLOADING A MODULE:
+When a module is unloaded it will call modules/<mod name>/cleanup.tt this file
+should clean up any delays, tickers, macros, aliases, functions, classes or 
+variables the module creates that won't be purged by the next two steps. It
+should account for any possible state the module could be in.  This file MAY
+be used to save values that are persistent, via the provided utility.
+
+After cleanup.tt is run, #var _mod_<modname>%* will be called to remove all
+variables.  It will then run #class mod_<mod name> kill to remove whatever the
+module may have created.  At this point a compliant module should leave no
+trace.  (Aside from files in tmp/ and any persistent variables.)

@@ -1,0 +1,54 @@
+#showme {<aef>Loading: <faa>tab.tt}
+/*
+	Adds tab-completions based on keyword lists
+*/
+
+/* Materia Magica Command List {{{ */
+#var _mmCmdTabList {
+away;affects;affected;auction;align;alias;alliance;bury;build;backstab;bash;
+breathe;bank;cast;channels;combat;ctf;clear;cls;commands;consider;chat;clan;
+clantalk;ct;close;charge;chess;changes;credits;class;challenge;check;description;
+donate;dream;dig;drink;drop;disarm;dismount;effects;evoke;equipment;examine;
+enter;extinguish;emote;eat;empty;equip;fill;feed;flee;friends;faction;
+formation;ft;feign;get;gold;give;grab;grapple;guide;gohome;hitch;help;hold;
+herald;hint;hide;history;home;inventory;invoke;ignore;kill;kick;knock;look;
+light;levels;lock;locker;lay;mix;memorize;mail;marks;mount;news;novice;
+notify;order;open;practice;pktalk;pray;pick;put;pull;push;play;protocols;
+page;quest;quit;rest;read;report;rules;relay;reply;remove;run;recall;
+rewardunit;religion;raise;snare;sit;stand;sweep;score;socials;skills;scan;
+survey;say;sayto;shop;shout;search;sacrifice;set;sleep;sneak;ship;steal;
+shift;slit;strike;tell;tag;time;termreset;typo;title;turn;take;throw;track;
+train;unhitch;use;unequip;unlock;vendor;visible;version;wield;who;whisper;
+weather;wimpy;wear;write;wake;where;yell 
+};
+/* }}} */
+
+/* Client Alises Commands {{{ */
+#var _ttCmdTabList {
+whereis;idscroll;sync;ar;locate;
+goto;stop;
+insmod;rmmod;lsmod;
+bounty;daily;crystal
+};
+/* }}} */
+
+/* Add Commands to Tabl Listing {{{ */
+#forall {${_mmCmdTabList}} {
+	#tab {&0};
+};
+
+#forall {${_ttCmdTabList}} {
+	#tab {&0};
+};
+
+/* charCmdTabList is defined in the coreConfig.tt for each char */
+#forall {$charCmdTabList} {
+	#tab {&0};
+};
+/* }}} */
+
+/* Cleanup all variables {{{ */
+#unvar _mmCmdTabList;
+#unvar _ttCmdTabList;
+#unvar charCmdTabList;
+/* }}} */

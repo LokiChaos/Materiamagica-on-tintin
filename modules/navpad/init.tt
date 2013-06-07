@@ -1,0 +1,29 @@
+#nop;
+/*
+ 	Navigation pad, uses vi directions for laptops.
+
+	    y       k       u
+	     Nw     N     Ne
+	   h W <-U-(M)-D-> E l
+	     Sw     S     Se
+	    b       j       n
+
+	Up = i
+	Down = o
+*/
+
+#echo {<149>Press F12 to enable/disble NavPad.};
+
+#var _mod_navpad[state] 0;
+
+#macro {\e[24~} {
+	#if { ${_mod_navpad[state]} } {
+		#echo {<149>NavPad Disabled};
+		#class _mod_navpad_pad kill;
+		#var _mod_navpad[state] 0;
+	} {
+		#echo {<149>NavPad Enabled};
+		#var _mod_navpad[state] 1;
+		#class _mod_navpad_pad read modules/navpad/navpad2.tt;
+	};
+};

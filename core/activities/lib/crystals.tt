@@ -1,0 +1,87 @@
+#nop activities/lib/crystals.tt
+
+/* Helpers For (crystal) command {{{ */
+#alias {_crystalAction}
+{
+	#if {"%1" == "r{|e|eq|equest}"}
+	{
+		#if {"$gmcp[Room][name]" == "Headquarters of the Crystal Guild"} {
+			#if {$stateChar[onCrystal]} {
+				#echo {<149>You are already on a crystal hunt!<099>};
+			} {
+				#if {"%2" == "p{l|la|lan|lane|lanar}"} {
+					#send {give 50000 gold Tadamir};
+				} {
+					#send {give 20000 gold Tadamir};
+				};
+			};
+		} {
+			#echo {<149>You may only request a crystal map from the Crystal Guild's headquarters in Rune.<099>};
+		};
+	};
+	#elseif {"%1" == "s{|t|ta|tat|tatus}"} {
+		_crystalStatus;
+	};
+	#else {
+		#echo {<149>Usage:\n     crystal s[tatus] - get current crystal guild hunt status.<099>};
+		#echo {<149>     crystal r[equest] [planar] - request a map from the guild.<099>};
+	};
+};
+
+
+#alias {_crystalStatus}
+{
+	std_value_restore lastCrystal;
+	#format __timeNow {%T};
+	#math __deltaTime {$lastCrystal[time] - ${__timeNow}};
+	#if {"$lastCrystal[type]" == "request"} {
+		#math __deltaTime {${__deltaTime} + 18000};
+		#if {"$deltaTime" > "0"} {
+			#math __deltaMin   {${__deltaTime} / 60};
+			#echo {<149>You have approximately <099>%d <149>minutes before your current crystal decays.<099>} {${__deltaMin}};
+		} {
+			#echo {<149>Your last crystal has decayed, you can request another map from the guild now.<099>};
+		};
+		#unvar __deltaMin;
+	};
+	#elseif {"$lastCrystal[type]" == "complete"} {
+		#math __deltaTime {${__deltaTime} + 3600};
+		#if {"${__deltaTime}" > "0"} {
+			#math __deltaMin   {${__deltaTime} / 60};
+			#echo {<149>You must still wait <099>%d <149>minutes before you may request a new map.<099>} {${__deltaMin}};
+		} {
+			#echo {<149>You can reqeast another map from the guild now.<099>};
+		};
+		#unvar __deltaMin;
+	};
+	#else {
+		#echo {<149>No record of you ever requesting a crystal map, you can request one now.};
+	};
+	#unvar lastCrystal;
+	#unvar __deltaTime;
+	#unvar __timeNow;
+}
+/* }}} */
+
+/* Helpers for Crystal Hunt Actions {{{ */
+#alias {_startCrystal}
+{
+	#var stateChar[onCrystal] 1;
+	#format {crystal[IssuedTime]} {%t} {{%Y-%m-%d %H:%M:%S}};
+	_CaptureLog {<169>Requested Crystal Guild Map.} {$capPath[act]};
+	#format {lastCrystal[time]} {%T};
+	#var lastCrystal[type] {request};
+	std_value_save lastCrystal;
+	#unvar lastCrystal;
+}
+
+#alias {_turnCrystal}
+{
+	_CaptureLog {<169>Completed Crystal Guild Treasure Hunt (%s Crystal).<099>} {$capPath[act]};
+	#var stateChar[onCrystal] 0;
+	std_value_restore lastCrystal;
+	#var lastCrystal[type] {complete};
+	std_value_save lastCrystal;
+	#unvar lastCrystal;
+}
+/* }}} */

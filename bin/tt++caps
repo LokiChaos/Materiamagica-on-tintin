@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# tmux Session Name for Captures
+TSESSION="Captures"
+# tmux Server Name for captures
+TSERVER="ttCaps"
+
+TINTINDIR=~/.tt
+
+# Base dimensions for Capture Window
+TCOL=147
+TROW=61
+
+# Check if the Session exists: if so attach it, else make ttCaps - Caps
+if [ $(tmux -L ${TSERVER} ls 2> /dev/null |grep -c "^${TSESSION}:") != 0 ]; then
+	# Session Caps exists, attach it
+	echo "Session ${TSESSION} already exists. Attaching."
+	tmux -L ${TSERVER} att -t ${TSESSION}
+	exit 0;
+else
+	# Session Caps does not exist, create it
+	echo "Session ${TSESSION} does not exist. Creating."
+
+	cd ${TINTINDIR}
+
+	tmux -L ${TSERVER} new -d -s ${TSESSION} -x ${TCOL} -y ${TROW} -n dummy
+	# Source shared settings
+	tmux -L ${TSERVER} source-file etc/tmux.conf
+	# Source capture-specific settings
+	tmux -L ${TSERVER} source-file etc/tmux.caps.conf
+	# Attach Created Session
+	if [ -z ${1} ];then
+		tmux -L ${TSERVER} -q att -t ${TSESSION}
+	fi
+fi

@@ -1,0 +1,59 @@
+#showme {<aef>Loading: <faa>utility/sql.tt}
+/*
+  Generic SQLite Database Connector 
+  Brief Help {{{
+  db_submit works the same way as #format
+  NB: You must enclose each argument in {}
+
+  _db_submit {returnvar} {db file} {sql expression} [{format-style args}]
+       {select * from tablename where fieldname = '%s'} {match text}
+
+  Parses the output and puts it into an associative array:
+       $returnvar[recordnumber][fieldname]
+   E.G. to get the data from HP field of the first record returned:
+       #var {varname} {$returnvar[1][HP]}
+	}}}
+*/
+
+#alias {std_db_submit} {
+	#if {"%0" != ""} {
+		#nop generate #format command and execute it;
+		#var __dbFormat {#format {__db[Command]} {%3}};
+		#var __db[argc] 0;
+		#foreach {%0} {__db[Temp]} {
+			#math __db[argc] {${__db[argc]} + 1};
+			#if {${__db[argc]} > 3} {
+				#replace {__db[Temp]} {"} {'}; 
+				#replace {__db[Temp]} {'} {''}; 
+				#if {"${__db[Temp]}" != ""} { 
+					#var {__dbFormat} {${__dbFormat} {${__db[Temp]}}}; 
+				}; 
+			};
+		};
+		${__dbFormat};
+		#unvar __dbFormat;
+
+		#nop Call sqlite3 and make actual DB call;
+		#var __db[Call] {sqlite3 -header %2 "${__db[Command]}"};
+		#script {__db[Res]} {${__db[Call]}};
+		#nop Replace pipe | field serpeators with semicolons for the #list command;
+		#forall {${__db[Res]}} {
+			#replace __db[Res][&0] {|} {;};
+		};
+		#nop build array off of __dbRes;
+		#var __db[Out] {};
+		#nop Build list of fields off the header;
+		#list __db[fields] create {${__db[Res][1]}};
+		#list __db[Res] delete 1;
+		#nop Process each returned record;
+		#foreach {${__db[Res][]}} {__db[recordIdx]} {
+			#list __db[record] create {${__db[Res][${__db[recordIdx]}]}};
+			#forall {${__db[fields][]}} {
+				#var __db[Out][${__db[recordIdx]}][${__db[fields][&0]}] {${__db[record][&0]}};
+			};
+		};
+		#nop Save results in the desired var and cleanup local vars;
+		#var {%1} {${__db[Out]}};
+		#unvar __db;
+	};
+};

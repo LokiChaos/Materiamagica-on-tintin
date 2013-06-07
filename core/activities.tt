@@ -1,0 +1,19 @@
+#showme {<aef>Loading: <faa>activities.tt}
+/*
+	Handles all triggers for tracking various game activites
+	eg: quests, orc presuer bounties, crystal guild hunts
+	And logging of  marks, mini rewards, leveling, betters, stat training, 
+	vitals training, skill practicing, completion of manuals, and other
+	noteworthy events.
+*/
+
+/* Set logging paths for activites and noteworthy events */
+#var capPath[act] 	    {$capPath[base]/activities};
+#var capPath[important] {$capPath[base]/noteworthy};
+
+/* Load actual activity & noteworth event triggers */
+#read core/activities/questing.tt
+#read core/activities/orcbounty.tt
+#read core/activities/dailyrew.tt
+#read core/activities/crystals.tt
+#read core/activities/misc.tt

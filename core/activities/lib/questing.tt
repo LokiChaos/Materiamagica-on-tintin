@@ -1,0 +1,59 @@
+#nop activities/questing.tt
+
+#alias {questCheckLimit}
+{
+	.restoreValue lastQuest;
+	#format timeNow {%T};
+	#math lastTwo {$timeNow - 7200};
+	#math lastSix {$timeNow - 21600};
+	#if {$charScore[totalLvl] > 60} {
+		#echo {<149>Current questing status:<099>};
+		#foreach {Agrippa;Undya;Vashir;Vendredi;Telleri;Templeton;Maldra;Nezak} {qMaster}
+		{
+			#var qCount 0;
+			#foreach {1;2} {num}
+			{#math qCount {$qCount + ("$lastQuest[$qMaster][$num]" > "$lastTwo")};};
+			#if {"$qCount" < "2"} {
+				#echo {<139> * <099>%s<149> now.<099>} {$qMaster};
+			} {
+				#math qMin {($lastQuest[$qMaster][1] + 7200 - $timeNow) /60};
+				#echo {<139> * <099>%s<149> at <099>%s<149> (<099>%d<149> min).<099>} 
+				      {$qMaster} {@std_unixToTime{$lastQuest[$qMaster][1]}} {$qMin};
+				#unvar qMin;
+			};
+			#unvar qCount;
+		};
+		#var qCount 0;
+		#foreach {1;2;3;4;5;6;7} {num} {
+			#math qCount {$qCount + ("$lastQuest[Main][$num]" > "$lastSix")};};
+		#if {"$qCount" < "7"} {
+			#math qRem {7 - $qCount};
+			#echo {<149>You are able to request <099>%d<149> more quests before the 7 per 6 hour limit.<099>} {$qRem};
+			#unvar qRem;	
+		} {
+			#echo {<149>You are over the 7 per 6 hour limit.};
+
+			#math qMin {($lastQuest[Main][7] + 21600 - $timeNow) / 60};
+			#echo {<149>You will be able to quest again at <099>%s<149> (<099>%d<149> min).<099>}
+			      {@std_unixToTime{$lastQuest[Main][6]}} {$qMin};
+		};
+		#unvar qCount;
+	} {
+		#var qCount 0;
+		#foreach {1;2;3;4;5;6;7} {num} {
+			#math qCount {$qCount + ("$lastQuest[Main][$num]" > "$lastSix")};};
+		#if {"$qCount" < "5"} {
+			#math qRem {5 - $qCount};
+			#echo {<149>You are able to request <099>%d<149> more quests before the 7 per 6 hour limit.<099>} {$qRem};
+			#unvar qRem;	
+		} {
+			#echo {<149>You are over the 5 per 6 hour limit.};
+
+			#math qMin {($lastQuest[Main][5] + 21600 - $timeNow) / 60};
+			#echo {<149>You will be able to quest again at <099>%s<149> (<099>%d<149> min).<099>}
+			      {@std_unixToTime{$lastQuest[Main][6]}} {$qMin};
+		};
+		#unvar qCount;
+	};
+	#unvar qMaster;#unvar lastQuest; #unvar timeNow; #unvar lastTwo; #unvar lastSix; #unvar num;
+}

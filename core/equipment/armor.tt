@@ -1,0 +1,8 @@
+#nop equipment/ar.tt
+
+#gag {^You are using:}
+#gag {^<}
+#gag {^$}
+#gag {^Equipped weapon damage:}
+#gag {points of damage against}
+#gag {Excepting defenses and dynamic modifiers, you will hit %d% of the time.}

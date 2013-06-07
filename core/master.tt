@@ -1,0 +1,61 @@
+#showme {<aef>Loading Master Config: <faa>master.tt}
+/* Sets up the tt++ enviroment for the mud and loads all other config files */
+
+/* Set TinTin Config {{{ */
+#config           {AUTO TAB}      {5000}
+#config           {BUFFER SIZE}   {20000}
+#config           {COMMAND COLOR} {<028>}
+#config           {COMMAND ECHO}  {ON}
+#config           {CONNECT RETRY} {15}
+#config           {HISTORY SIZE}  {1000}
+#config           {LOG}  	      {RAW}
+#config           {PACKET PATCH}  {0}
+#config           {REPEAT CHAR}	  {!}
+#config           {REPEAT ENTER}  {ON}
+#config           {SCROLL LOCK}	  {ON}
+#config           {SPEEDWALK}  	  {OFF}
+#config           {TINTIN CHAR}   {#}
+#config           {VERBATIM}  	  {OFF}
+#config           {VERBATIM CHAR} {\}
+#config           {VERBOSE}  	  {OFF}
+#config           {WORDWRAP}  	  {ON}
+#pathdir          {d}  	{u}  	  {32}
+#pathdir          {e}  	{w}  	  {2}
+#pathdir          {n}  	{s}  	  {1}
+#pathdir          {ne}  {sw}  	  {3}
+#pathdir          {nw}  {se}  	  {9}
+#pathdir          {s}  	{n}  	  {4}
+#pathdir          {se}  {nw}  	  {6}
+#pathdir          {sw}  {ne}  	  {12}
+#pathdir          {u}  	{d}  	  {16}
+#pathdir          {w}  	{e}  	  {8}
+/* }}} */
+
+/* Script Version */
+#var version[c] {0.2.0b};
+
+/* Inialize Session Name to default tt++ Session*/
+#var sessionName {gts};
+
+/* Read Global Settings and Preferences */
+#read etc/coreSettings.tt
+
+/* Load Telopt stuff before we connect */
+#class telopt read core/login/telopt.tt
+
+/* Load #event handlers
+   Needs to be loaded in #gts as it handles conncet/disconnect events */
+#class events read core/login/events.tt
+
+/* Prevents accadental quitting with CTRL+D and Backgroudning with CTRL+Z {{{ */
+#macro {\cd} {
+	#nop;
+};
+
+#macro {\cz} {
+	#nop
+};
+/* }}} */
+
+/* Login Menu and Welcome Screen */
+#class loginMenu read core/login/menu.tt

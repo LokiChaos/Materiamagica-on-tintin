@@ -1,0 +1,144 @@
+#nop Location Related Sub functions
+
+/* Wandering Sidhe {{{ */
+#alias {_LocWanderingSidhe} {
+
+	#var __sidheTable {{0}{Irda Isle} {1}{Rahdiyr} {2}{Arcane Archipelago} {3}{Lowangen} {4}{Rune} {5}{Sigil} {6}{Irda Isle}};
+	#math __sd {$gtime[time] / 240};
+	#var __sidhe {${__sidheTable[${__sd}]}};
+	#math __sd {${__sd} + 1};
+	#var __sidheNext {${__sidheTable[${__sd}]}};
+	#math __sidheRem {((${__sd} * 240) - $gtime[time])/4};
+	#echo {<140>The Wandering Sidhe is Currently at <099>%s<140> for <099>%s<140> more minutes.<099>} {${__sidhe}} {${__sidheRem}};
+	#if {${__sidheRem} < 15} {
+		#echo {<140>The Wandering Sidhe will visit <099>%s<140> next.<099>} {${__sidheNext}}
+	};
+	#unvar __sidhe;
+	#unvar __sidheRem;
+	#unvar __sidheNext;
+	#unvar __sidheTable;
+	#unvar __sd;
+}
+/* }}} */
+
+/* Airship INCONVIENCE {{{ */
+#alias {_LocAirship} {
+	#echo {<149>The Airship Inconvienience is at [<099>%d<149>,<099>%d<149>] (Over <099>%s<149>).<099>} {$navigation[airship][X]} {$navigation[airship][Y]} {$navigation[airship][Terrain]};
+}
+/* }}} */
+
+/* Ferries {{{ */
+#alias {_LocHallowhold} {
+	#echo {<149>The Hallowhold is <099>%s<149>.<099>} {$navigation[ferry][Hallowhold][LocColor]};
+}
+
+#alias {_LocMerdraco} {
+	#echo {<149>The Merdraco is <099>%s<149>.<099>} {$navigation[ferry][Merdraco][LocColor]};
+}
+
+#alias {_LocRiddenmast} {
+	#echo {<149>The Riddenmast is <099>%s<149>.<099>} {$navigation[ferry][Riddenmast][LocColor]};
+}
+/* }}} */
+
+/* Clanhall Locator {{{ */
+#alias {_LocClanHall} {
+	#echo {<118>Warning this Clan Hall DB is still not complete!<099>};
+	
+	#regex {%2} {^%d$} {
+		#echo {<148>Looking up matches to <098>Clan #%2<148>...};
+		#script {__results} {awk -F : '$1 ~ /%2/ {print "Clan Hall of "$2" ["$1"]<140> is located at <099>("$3","$4")<148> on <098>"$5"<148>."}' data/clans.tbl};
+		#if {&{__results[]}} {
+			#foreach {${__results[]}} {__idx} {
+				#echo {  ${__results[${__idx}]}};
+			};
+			#echo {<148>Returned <098>&{__results[]}<148> matches.};
+		} {
+			#echo {<118>No matches to '%2'!<099>};
+		};
+	} {
+		#echo {<148>Looking up matches to '<098>%2<148>'...};
+		#script {__results} {awk -F : 'tolower($2) ~ /%2/ {print "Clan Hall of "$2" ["$1"]<140> is located at <099>("$3","$4")<148> on <098>"$5"<148>."}' data/clans.tbl};
+		#if {&{__results[]}} {
+			#foreach {${__results[]}} {__idx} {
+				#echo {  ${__results[${__idx}]}}
+			};
+			#echo {<148>Returned <098>&{__results[]}<148> matches.};
+		} {
+			#echo {<118>No matches to '%2'!<099>}
+		};
+	}
+	#unvar __results;
+	#unvar __idx;
+}
+/* }}} */
+
+/* Area Locator {{{ */
+#alias {_LocArea} {
+	#format __arg {%l} {%1 };
+	#regex {"${__arg}"} {exits } {
+		#replace {__arg} {exits } {};
+		#format __query {$2 ~ /../ &&};
+	} {
+		#format __query {$2 !~ /../ &&};
+	};
+	#regex {"${__arg}"} {wg } {
+		#replace {__arg} {wg } {};
+		#format __query {%s $5 == "wg" &&} {${__query}};}
+		{#format __query {%s $5 != "wg" &&} {${__query}};};
+	#regex {"${__arg}"} {{arena|at sea|bazaar|castle|clanhall|ctf|dungn|forest|inn|isle|keep|midair|novice|nowhere|office|planar|shrine|social|suburb|tower|towne|underg|villge|wilds} } {
+		#replace {__arg} {&1 } {};
+		#format __query {%s $5 == "%p" &&} {${__query}} {&1};};
+	#regex {"${__arg}"} {{alyria|sug|ug|fp|sigilundergound|underground|faerieplane} } {
+		#var __plane {&1};
+		#replace {__arg} {&1 } {};
+		#replace {__plane} {sigil}  {s};
+		#replace {__plane} {under}  {u};
+		#replace {__plane} {ground} {g};
+		#replace {__plane} {faerie} {f};
+		#replace {__plane} {plane}  {p};
+		#format __query {%s tolower($6) ~ /%p/ &&} {${__query}} {${__plane}};
+		#unvar __plane;};
+	#regex {"${__arg}"} {{sepharia|beltane|avros|auryn|island} } {
+		#replace {__arg} {&1 } {};
+		#format __query {%s tolower($9) == "%p" &&} {${__query}} {&1};};
+	#if {"${__arg}" != "%s" || "${__arg}" != ""} {
+		#format __query {tolower($1) ~ /%p/ &&%s} {${__arg}} {${__query}};};
+	#var __query {${__query} FIN};
+	#replace {__query} {&& FIN} {};
+	#script {__results} {awk -F: '${__query} {print "<099>"$1"<149> is located at (<099>"$7"<149>,<099>"$8"<149>) in <099>"$6"<149>.<099>"}' data/locations.txt};
+	#echo {<149>Search for locations matching '<099>%1<149>':<099>};
+	#if {&{__results[]}} {
+		#foreach {${__results[]}} {__idx} {
+			#echo {  ${__results[${__idx}]}}
+		};
+		#echo {<148>Returned <098>&{__results[]}<148> matches.};
+		} {
+			#echo {<118>No matches to '%p'!<099>} {${__arg}}
+		};
+	#unvar __results;
+	#unvar __idx;
+	#unvar __query;
+	#unvar __arg;
+}
+/* }}} */
+
+/* In-Game Help {{{ */
+#alias {_LocHelp}
+{
+	#echo {<149>Usage:<099> whereis <location/keyword>\n
+       <149>Valid Keywords:\n
+       <149> Ferries:<099> rid[denmast], merd[raco], hallow[hold], ferry, ferries\n
+       <149> Airships:<099> airship\n
+       <149> Wandering Sidhe:<099> wandering[ sidhe], sidhe,\n
+       <149> Planes:<099> alyria, ug, underground, fp, farieplane, sug, sigilunderground\n
+       <149> Continents:<099> sepharia, beltane, avros, auryn, island\n
+       <149> Zones:<099> towne, villge, dungn, keep, tower, nowhere, forest, novice, underg,\n
+       <099>        ctf, midair, planar, tavern, isle, castle\n
+       <149> Clanhalls:<099> clan #/name\n
+       <149> Worldgates:<099> wg <loc>\n\n
+       <149>Other terms will be used in a regex match of area names.\n
+       All matches will be returned.\n\n
+       Example:<099> whereis ^A <149>will return all that start with an A<099>};
+}
+/* }}} */

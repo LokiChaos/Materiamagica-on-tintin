@@ -1,0 +1,33 @@
+#showme {<aef>Loading: <faa>uses.tt}
+/*
+	Handles tracking uses
+	Triggers are set up for tracking attacks (and attempting to match them to weapon skills),
+	defenses, bash, kick, backstab, and other common skills.
+
+	Spells you will need to impliment the tracking yourself, ideally via skilluse event.
+		eg: 
+			_event_raise {skilluse} {<spell name>};
+
+*/
+
+/*_event_register {skilluse} {useCounter} {_IncUses %1;#nop}; */
+
+#alias {_IncUses} {
+	std_value_restore uses;
+	#math uses[%1] {$uses[%1] + 1};	
+	std_value__save uses;
+	#unvar uses;
+};
+
+#alias {_ResetUses} {
+	std_value_restore uses;
+	#var uses[%1] {0};	
+	std_value_save uses;
+	#unvar uses;
+}
+
+#function {getUses} {
+	std_value_restore uses;
+	#var result {uses[%1]};
+	#unvar uses;
+}

@@ -1,0 +1,114 @@
+#nop bot/get.tt
+
+/* Action Figures {{{ */
+#act {^You take an action figure of the legendary %* from a bag of tricks.} {
+	#if {"%1"=="$charName"} {
+		#if {$prefs[bot][figureSelf] == 1} {
+			drop all.$charName
+		};
+		#elseif {$prefs[bot][figureSelf] == 0} {
+			#nop;
+		};
+		#else {
+			put all.$charName $prefs[bot][figureSelf];
+		};
+	} {
+		#if {$prefs[bot][figureOthers] == 1} {
+			drop all.%1
+		};
+		#elseif {$prefs[bot][figureOthers] == 0} {
+			#nop;
+		};
+		#else {
+			put all.%1 $prefs[bot][figureOthers];
+		};
+	};
+} {4.8};
+/* }}} */
+
+/* Multiple of an Item {{{ */
+#act {^You take %d of %* from a bag of tricks.} {
+	#if {"$prefs[bot][%2]"=="0"} {
+		#nop;
+	};
+	#elseif {"$prefs[bot][%2]"=="1"} {
+		drop all.'%2';
+	};
+	#elseif {"%2" == "a swirling black potion"} {
+		#if {$prefs[bot][blindness] == 1} {
+			drop all.blindness;
+		};
+		#elseif {$prefs[bot][blindness] == 0} {
+			#nop;
+		};
+		#else {
+			put all.blindness $prefs[bot][blindness];
+		};
+		#if {$prefs[bot][poison] == 1} {
+			drop all.poison;
+		};
+		#elseif {$prefs[bot][poison] == 0} {
+			#nop;
+		};
+		#else {
+			put all.poison $prefs[bot][poison];
+		};
+	};
+	#else {
+		put all.'%2' $prefs[bot][%2];
+	};
+} {4.9}
+/* }}} */
+
+/* Single Item {{{ */
+#act {^You take %D from a bag of tricks.} {
+	#if {"$prefs[bot][%1]"=="0"} {
+		#nop;
+	};
+	#elseif {"$prefs[bot][%1]"=="1"} {
+		drop all.'%1';
+	};
+	#elseif {"%1" == "a swirling black potion"}	{
+		#if {$prefs[bot][blindness] == 1} {
+			drop all.blindness;
+		};
+		#elseif {$prefs[bot][blindness] == 0} {
+			#nop;
+		};
+		#else {
+			put all.blindness $prefs[bot][blindness];
+		};
+		#if {$prefs[bot][poison] == 1} {
+			drop all.poison;
+		};
+		#elseif {$prefs[bot][poison] == 0} {
+			#nop;
+		};
+		#else {
+			put all.poison $prefs[bot][poison];
+		};
+	};
+	#else {
+		put all.'%1' $prefs[bot][%1];
+	};	
+}
+/* }}} */
+
+/* Hangman Game {{{ */
+#act {^You take a game of hangman.} {
+	#if {$prefs[bot][hangman] == 1} {
+		drop hangman;
+	};
+	#elseif {$prefs[bot][hangman] == 0} {
+		#nop;
+	};
+	#else {
+		put hangman $prefs[bot][hangman];
+	};
+}
+/* }}} */
+
+#alias {_CleanBot} {
+	#nop %1;
+	#class mod_bag_of_trick_get kill;
+}

@@ -1,0 +1,120 @@
+#nop reagents/check.tt
+
+/* Start with a count of Zero */
+#var __rcount  {{fire}{0}{water}{0}{air}{0}{earth}{0}{gem}{0}{ethereal}{0}{astral}{0}{summon}{0}{focus}{0}{hema}{0}};
+
+/* Counting Actions {{{ */
+#act {^(%W) {a chunk of red volcanic rock|a limestone|a bit of foxfire|a fine cigar|a charred brick|a charred branch|a dragon tooth|a volcanic rock|a pinch of sulfur|a volcanic rock|a piece of dragon gizzard|a fire stick|a small pile of volcanic ash|a charred sliver of wood|an acidic leaf|some firepowder|a glowing ember}} {
+	#math __rcount[fire] {${__rcount[fire]} +%1};
+}
+
+#act {^     {a chunk of red volcanic rock|a limestone|a bit of foxfire|a fine cigar|a charred brick|a charred branch|a dragon tooth|a volcanic rock|a pinch of sulfur|a volcanic rock|a piece of dragon gizzard|a fire stick|a small pile of volcanic ash|a charred sliver of wood|an acidic leaf|some firepowder|a glowing ember}} {
+	#math __rcount[fire] {${__rcount[fire]} +1};
+}
+
+#act {^(%W) {a shimmering white fish scale|a piece of dried seaweed|an eye of a tubeworm|a pinch of sea salt|a clump of dried seaweed|a small guppy|a bottle of mermaids tears|a dolphin eye|an iridescent fish scale|a jar of frog eggs|a sea monkey|a blob of llama spit|a large pearl|a vial of rose water|a cracked seashell|a bag of ice|a smooth river rock|a small puka shell|raindrops in a bottle}} {
+	#math __rcount[water] {${__rcount[water]} +%1};
+}
+
+#act {^     {a shimmering white fish scale|a piece of dried seaweed|an eye of a tubeworm|a pinch of sea salt|a clump of dried seaweed|a small guppy|a bottle of mermaids tears|a dolphin eye|an iridescent fish scale|a jar of frog eggs|a sea monkey|a blob of llama spit|a large pearl|a vial of rose water|a cracked seashell|a bag of ice|a smooth river rock|a small puka shell|raindrops in a bottle}} {
+	#math __rcount[water] {${__rcount[water]} +1};
+}
+
+#act {^(%W) {a wisp of fog|a sylph in a bottle|a bat's wing|a phoenix egg|a bottle of air bubbles|a toucan feather|a cloud fragment|a feather from a roc|a raven feather|a bit of condensed cloud|a pile of seagull droppings|a fragment of coconut husk|a vial of neon|an angel feather|a stiff brown feather|frozen wind|a broken wing|a flask of tornado essence|a cattail}} {
+	#math __rcount[air] {${__rcount[air]} +%1};
+}
+
+#act {^     {a wisp of fog|a sylph in a bottle|a bat's wing|a phoenix egg|a bottle of air bubbles|a toucan feather|a cloud fragment|a feather from a roc|a raven feather|a bit of condensed cloud|a pile of seagull droppings|a fragment of coconut husk|a vial of neon|an angel feather|a stiff brown feather|frozen wind|a broken wing|a flask of tornado essence|a cattail}} {
+	#math __rcount[air] {${__rcount[air]} +1};
+}
+
+#act {^(%W) {a few pine needles|a piece of petrified wood|a tail of a dead mole|a handful of goldstone dust|a purple flower|a quartz stone|a fern leaf|an underground fungus|a single seashell|a clump of crimson moss|a browning mandrake leaf|dried silverthorn leaves|a piece of bark|a piece of dry guano|a palm frond|some earthworm innards|an empty bird's nest|a mandrake leaf|a lazy snail|a daemon heart|a twig|the claws of a dungeon rat|an oak leaf|a huge boulder|eye of newt|a ginseng root|a small pebble|a bluebell flower}} {
+	#math __rcount[earth] {${__rcount[earth]} +%1};
+}
+
+#act {^     {a few pine needles|a piece of petrified wood|a tail of a dead mole|a handful of goldstone dust|a purple flower|a quartz stone|a fern leaf|an underground fungus|a single seashell|a clump of crimson moss|a browning mandrake leaf|dried silverthorn leaves|a piece of bark|a piece of dry guano|a palm frond|some earthworm innards|an empty bird's nest|a mandrake leaf|a lazy snail|a daemon heart|a twig|the claws of a dungeon rat|an oak leaf|a huge boulder|eye of newt|a ginseng root|a small pebble|a bluebell flower}} {
+	#math __rcount[earth] {${__rcount[earth]} +1};
+}
+
+#act {^(%W) {a glowing piece of black moss|a white sapphire|an essence of the source|the horn from a unicorn|a sunstone|a lightning bolt|a sphere of ethereal energy|a bit of shadow|a midnight pearl|a soul in a bottle|a wayward spirit|a bone from a gravedancer|a ghost essence|a small misshapen pearl|a sparkling stone|a silver scale}} {
+	#math __rcount[ethereal] {${__rcount[ethereal]} +%1};
+}
+
+#act {^     {a glowing piece of black moss|a white sapphire|an essence of the source|the horn from a unicorn|a sunstone|a lightning bolt|a sphere of ethereal energy|a bit of shadow|a midnight pearl|a soul in a bottle|a wayward spirit|a bone from a gravedancer|a ghost essence|a small misshapen pearl|a sparkling stone|a silver scale}} {
+	#math __rcount[ethereal] {${__rcount[ethereal]} +1};
+}
+
+#act {^(%W) {a rose-colored shard|an opal gem|a petrified seed|a splinter of mithril|a magician's ruby|a fire opal|a small quartz crystal|an opal gemstone|a hunk of crystal|a small sparkling diamond|a roughly hewn gem|a fragment of amethyst|a silver runestone}} {
+	#math __rcount[gem] {${__rcount[gem]} +%1};
+}
+#act {^     {a rose-colored shard|an opal gem|a petrified seed|a splinter of mithril|a magician's ruby|a fire opal|a small quartz crystal|an opal gemstone|a hunk of crystal|a small sparkling diamond|a roughly hewn gem|a fragment of amethyst|a silver runestone}} {
+	#math __rcount[gem] {${__rcount[gem]} +1};
+}
+
+#act {^(%W) {a small meteorite|a crystal figurine|an astral bauble|a large black pearl|a beautiful crystal prism|an ivory marble|a crystallized lava rock|Vyst's heart|a carefully polished burl|a small crystal skull|a small pouch of lich bone dust|a turkey's wishbone|a small golden feather|a small indicolite|a diamond stud|a buleva crystal|a cold flame|a dracolich eye|an extradimensional sludge|a meteorite|a pegakorn tear|a large quartz crystal}} {
+	#math __rcount[astral] {${__rcount[astral]} +%1};
+}
+
+#act {^     {a small meteorite|a crystal figurine|an astral bauble|a large black pearl|a beautiful crystal prism|an ivory marble|a crystallized lava rock|Vyst's heart|a carefully polished burl|a small crystal skull|a small pouch of lich bone dust|a turkey's wishbone|a small golden feather|a small indicolite|a diamond stud|a buleva crystal|a cold flame|a dracolich eye|an extradimensional sludge|a meteorite|a pegakorn tear|a large quartz crystal}} {
+	#math __rcount[astral] {${__rcount[astral]} +1};
+}
+
+#act {^(%W) a small piece of hematite} {
+	#math __rcount[hema] {${__rcount[hema]} +%1};
+}
+
+#act {^     a small piece of hematite} {
+	#math __rcount[hema] {${__rcount[hema]} +1};
+}
+
+#act {^(%W) a summoning stone (new)} {
+	#math __rcount[summon] {${__rcount[summon]} +%1};
+}
+
+#act {^     a summoning stone (new)} {
+	#math __rcount[summon] {${__rcount[summon]} +1};
+}
+
+#act {^(%W) a clear focusing crystal} {
+	#math __rcount[focus] {${__rcount[focus]} +%1};
+}
+
+#act {^     a clear focusing crystal} {
+	#math __rcount[focus] {${__rcount[focus]} +1};
+}
+/* }}} */
+
+/* Print Summary When Finished {{{ */
+#act {^%d%% %S / %S ST.$} {
+	#line gag;
+	#nop Save totals in perm vars;
+	#var reagent[count] {${__rcount}};
+	#echo {You have: <118>%+3s fire <168>%+3s water <128>%+3s earth <138>%+3s air}
+	      {$reagent[count][fire]} {$reagent[count][water]} {$reagent[count][earth]} {$reagent[count][air]};
+	#echo {          <178>%+3s gem  <108>%+3s ethereal<098>}  {$reagent[count][gem]} {$reagent[count][ethereal]};
+	#if {$reagent[count][summon]} {
+		#echo {          <278>%+3s summoning stone}  {$reagent[count][summon]};
+	};
+	#if {$reagent[count][hema]}    {
+		#echo {          <108>%+3s black hematite} {$reagent[count][hema]};
+	};
+	#if {$reagent[count][astral]} {
+		#echo {          <178>%+3s astral<198>}  {$reagent[count][astral]};
+	};
+	#if {$reagent[count][focus]}  {
+		#echo {          <178>%+3s focusing crystal<198>}  {$reagent[count][focus]};
+	};
+	#unvar __rcount;
+	#unvar __ridx;
+	#class rcheck kill;		
+};
+/* }}} */
+
+/* Gag Spam from checking containers {{{  */
+#gag {^A total of %*};
+#gag {^     };
+#gag {^(%*) %w};
+#gag { contains:$};
+#gag {^PAGE_LENGTH}
+#gag {^$};
+/* }}} */

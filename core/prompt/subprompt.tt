@@ -1,5 +1,16 @@
 #nop prompt/subprompt.tt
 
+/* Echo out prompt lines {{{ */
+#alias {_PromptEcho} {
+	#loop {-$prefs[split][top]} {$prefs[split][bot]} {__pLine} {
+		#if {${__pLine} != 0 } {
+			#echo { {%.80s} {${__pLine}} } {$prompt[${__pLine}]};
+		};
+	};
+	#unvar __pLine;
+}
+/* }}} */
+
 /* Top Status Bar {{{ */
 
 #function {topBarColor} {
@@ -117,7 +128,7 @@
 	It also pads the string to fit with the vitals subunit.
 */
 
-#var promptFlagTable {
+#var __promptFlagTable {
 	{1} {{v}{stateChar[Dead]}       {flag}{<159>Shade}{a}{1}}
 	{2} {{v}{stateChar[Hungry]}     {flag}{<039>H}    {a}{0}}
 	{3} {{v}{stateChar[Thirsty]}    {flag}{<149>T}    {a}{0}}
@@ -153,84 +164,17 @@
 */
 
 #function {promptFlagsBar} {
-	#var __pFlags {<098>};		
-	#if {$stateChar[Dead]} {
-		#var {__pFlags} {${__pFlags}<099>[<159>Shade<099>]};
-	} {
-		#if {$stateChar[Hungry]} {
-			#var {__pFlags} {${__pFlags}<099>[<039>H<099>]};
+	#var __pFlags {};
+	#foreach {${__promptFlagTable[]}} {__flg} {
+		#if { ${${__promptFlagTable[${__flg}][v]}} } {
+			#format __pFlags {%s[%s<099>]} {${__pFlags}} {${__promptFlagTable[${__flg}][flag]}};
 		};
-		#if {$stateChar[Thirsty]} {
-			#var {__pFlags} {${__pFlags}<099>[<149>T<099>]};
-		};
-		#if {$stateChar[Encumbered]} {
-			#var {__pFlags} {${__pFlags}<099>[<019>Enc<099>]};
-		};
-		#if {$stateChar[Paniced]} {
-			#var {__pFlags} {${__pFlags}<099>[<119>PANIC<099>]};
-		};
-		#if {$stateChar[have_reagents]} {
-			#format {__pFlags} {${__pFlags}<099>[<169>Rx%d<099>]} {$stateChar[have_reagents]};
-		};
-		#if {$stateChar[have_bot]} {
-			#var {__pFlags} {${__pFlags}<099>[<169>BoT<099>]};
-		};	
 	};
-	#if {$stateChar[Search]} {
-		#var {__pFlags} {${__pFlags}<099>[<129>Search<099>]};
-	};
-	#if {$stateChar[Dig]} {
-		#var {__pFlags} {${__pFlags}<099>[<129>Dig<099>]};
-	};
-	#if {$stateChar[Questing]} {
-		#var {__pFlags} {${__pFlags}<099>[<149>Q<099>]};
-	};
-	#if {$stateChar[onBounty]} {
-		#var {__pFlags} {${__pFlags}<099>[<219>B<099>]};
-	};
-	#if {$stateChar[onCrystal]} {
-		#var {__pFlags} {${__pFlags}<099>[<169>C<099>]};
-	};
-	#if {$stateChar[tracking]} {
-		#var {__pFlags} {${__pFlags}<099>[<129>T<099>]};
-	};
-	#if {$stateChar[is_onSpeedWalk]} {
-		#var {__pFlags} {${__pFlags}<099>[<139>SW<099>]};
-	};
-	#if {$stateChar[Sitting]} {
-		#var {__pFlags} {${__pFlags}<099>[<129>s<099>]};
-	};
-	#elseif {$stateChar[Resting]} {
-		#var {__pFlags} {${__pFlags}<099>[<129>R<099>]};
-	};
-	#elseif {$stateChar[Sleeping]} {
-		#var {__pFlags} {${__pFlags}<099>[<129>S<099>]};
-	};
-	#if {$stateChar[Quiet]} {
-		#var {__pFlags} {${__pFlags}<099>[<119>Q<099>]};
-	};
-	#if {$stateChar[Away]} {
-		#var {__pFlags} {${__pFlags}<099>[<159>A<099>]};
-	};
-	#if {$stateChar[have_mail]} {
-		#var {__pFlags} {${__pFlags}<099>[<119>Mail<099>]};
-	};
-	#if {$stateChar[have_news]} {
-		#var {__pFlags} {${__pFlags}<099>[<129>News<099>]};
-	};
-	#if {$stateChar[tagged]} {
-		#var {__pFlags} {${__pFlags}<099>[<119>TAG!<099>]};
-	};
-	#if {$stateChar[invis]} {
-		#var {__pFlags} {${__pFlags}<099>[<149>I<099>]};
-	};
-	
-	#format {result} {%.40s} {${__pFlags}};
+	#unvar __flg;
+	#var result ${__pFlags};
 	#unvar __pFlags;
 }
 /* }}} */
-
-
 
 /* Return First or Second String based on if first arg is true {{{ */
 #function {pickstr} {

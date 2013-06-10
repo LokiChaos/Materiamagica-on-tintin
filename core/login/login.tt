@@ -14,7 +14,7 @@
 #act {^Password:} {
 	#unvar __nameTry;
 	#textin char/$sessionName/pass;
-	#unact {^Password:$};
+	#unact {^Password:};
 }
 
 /* Enter the world and Cleanup this class to negate any chance of abuse */
@@ -23,7 +23,6 @@
 		#send {$prefs[loginChoice]};
 	};
 }
-
 
 /* */
 #act {^I-MOTION Engine v%d.%d (build %d)$} {

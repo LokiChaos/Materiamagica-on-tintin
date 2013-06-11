@@ -118,31 +118,23 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 	_calcVitals;
 	#var vitals[print] @promptVitalsBar{};	
-	#nop format {prompt[1]} {%-40s%+40s} {$vitals[print]} {@promptFlagsBar{}};
+
 	#var prompt[1] {@left_right{ {$vitals[print]} {@promptFlagsBar{}} }};
 
 	_PromptExtrasBar;
+
 	#var prompt[-1] {@PromptTop{}};
+
+	_PromptNavBar;
 
 	_PromptEcho;
 
-	_PromptNavBar;
 	_PromptTick;
 
 	#line gag;
 	#var stateChar[justLooking] 0;
 	#math stateChar[muteLine] @std_dec2zero{$stateClient[muteLine]};
 	#class promptLines kill;
-}
-/* }}} */
-
-/* Hook to Tick Event to Update Prompt Clock {{{ */
-_event_register {tick} {promptTick} {_PromptTick #nop};
-
-/* To be called whenever the time is updated */
-#alias {_PromptTick} {
-	#format prompt[$prefs[split][bot]] {%s%s} {$prompt[b]} {$gtime[print]};
-	#echo {{%.80s}{$prefs[split][bot]}} {$prompt[$prefs[split][bot]]};
 }
 /* }}} */
 
@@ -159,11 +151,9 @@ _event_register {tick} {promptTick} {_PromptTick #nop};
 	} {
 		#var prompt[1] {${prompt[1]}><099>};
 	};
-	#format {prompt[1]} {%-40s} {$prompt[1]};
 	#var stateChar[OnShip] 1;
 	#class promptLines read core/prompt/subprompt.tt;
-	#var promptFlags @promptFlagsBar{};
-	#format {prompt[1]} {%-40s%+40s} {$prompt[1]} {$promptFlags};
+	#var prompt[1] {@left_right{ {$prompt[1]} {@promptFlagsBar{}} }};
 	#var prompt[-1] {@PromptTop{}};
 
 	_PromptEcho;
@@ -171,6 +161,8 @@ _event_register {tick} {promptTick} {_PromptTick #nop};
 	_PromptNavBar;
 	_PromptTick;
 	#line gag;
+	#var stateChar[justLooking] 0;
+	#math stateChar[muteLine] @std_dec2zero{$stateClient[muteLine]};
 	#class promptLines kill;
 }
 /* }}} */
@@ -191,15 +183,26 @@ _event_register {tick} {promptTick} {_PromptTick #nop};
 	#class promptLines read core/prompt/subprompt.tt;
 
 	#format prompt[1] {%-40s} {$prompt[1]};
-	#var promptFlags @promptFlagsBar{};
-	#format {prompt[1]} {%-40s%+40s} {$prompt[1]} {$promptFlags};
+	#var prompt[1] {@left_right{ {$prompt[1]} {@promptFlagsBar{}} }};
 	#var prompt[-1] {@PromptTop{}};
 	#var prompt[3] @blankPrompt{};
 	_PromptEcho;
 	_PromptNavBar;
 	_PromptTick;
-	#class promptLines kill;
 	#line gag;
+	#var stateChar[justLooking] 0;
+	#math stateChar[muteLine] @std_dec2zero{$stateClient[muteLine]};
+	#class promptLines kill;
+}
+/* }}} */
+
+/* Hook to Tick Event to Update Prompt Clock {{{ */
+_event_register {tick} {promptTick} {_PromptTick #nop};
+
+/* To be called whenever the time is updated */
+#alias {_PromptTick} {
+	#format prompt[$prefs[split][bot]] {%s%s} {$prompt[b]} {$gtime[print]};
+	#echo {{%.80s}{$prefs[split][bot]}} {$prompt[$prefs[split][bot]]};
 }
 /* }}} */
 

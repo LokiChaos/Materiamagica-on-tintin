@@ -1,5 +1,7 @@
 A tintin script for playing the MUD MateriaMagica.
 
+![Screenshot](http://i.imgur.com/pDymPHS.png)
+
 This is still under heavy development, but is stable and has no known major bugs.
 
 As I have more time, I will update and expand the documentation.  If you are having trouble you can contact me in-game, message me on the MM website, or create an issue here.

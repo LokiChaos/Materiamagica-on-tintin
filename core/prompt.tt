@@ -107,13 +107,8 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	#var stateChar[OnShip]   0;
 
 	_calcVitals;
-
 	#var vitals[print] @promptVitalsBar{};	
-
-	_CombatEcho;
-
 	#format {prompt[1]} {%-40s%+40s} {$vitals[print]} {@promptFlagsBar{}};
-	#unvar vitals[print];
 
 	_PromptExtrasBar;
 	_PromptTop;

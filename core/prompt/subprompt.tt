@@ -50,40 +50,26 @@
 #alias {_PromptExtrasBar}
 {
 	#var prompt[3] {};
-	#if {$stateChar[mounted]}
-		{#format {prompt[3]} {<148>M:<098>%s<148>st<098>][%s}
-			{$mount[stamina]} {$prompt[3]}};
-	#if {$stateChar[Combat]}
-		{#format {prompt[3]} {<158>%s%a<098>][%s}
-			{$combat[mobHealth]} {37} {$prompt[3]}};
-	#if {$stateChar[Flying]}
-		{#format {prompt[3]} {%s<138>Flying %-2n (%+2s)<098>][}
-			{$prompt[3]} {@std_dir_short{$navigation[flightBearing]}} {$navigation[click]}};
-	#regex {$promptFlagsB} {([%d\x25]%w)%*} {
-		#format {prompt[3]} {%s%s\x25<168> %s<098>][%s}
-			{@vitalcolscale{&1 100}} {&1} {&2} {$prompt[3]};
+	#if {$stateChar[mounted]} {
+		#format {prompt[3]} {<148>M:<098>%s<148>st<098>][%s}
+		        {$mount[stamina]} {$prompt[3]};
 	};
+	#if {$stateChar[Combat]} {
+		#format {prompt[3]} {<158>%s%a<098>][%s}
+			    {$combat[mobHealth]} {37} {$prompt[3]};
+		#if {&combat[formHP][]} {
+			#format {prompt[3]} {<168>%s<098>][%s}
+			    {$combat[formHP][print]} {$prompt[3]};
+		};
+	};
+	#if {$stateChar[Flying]} {
+		#format {prompt[3]} {%s<138>Flying %-2n (%+2s)<098>][}
+			   {$prompt[3]} {@std_dir_short{$navigation[flightBearing]}} {$navigation[click]}
+	};
+
 
 	#format {prompt[3]} {<098>[%s%-53s]} {} {$prompt[3]};
 	#format {prompt[3]} {%s%s} {$prompt[3]} {@reagentBarMake{}};
-}
-/* }}} */
-
-/* Echo Vitals Line In place of prompt  {{{ */
-#alias {_CombatEcho} {
-	#if {$stateChar[Combat]} {
-		#regex {$promptFlagsB} {([%d%%]%w)%*} {
-			#format {combat[formHP]} {[%s%% <168>%s<098>]} 
-					{@vitalcolscale{&1 100}} {&1} {&2};
-		} {
-			#var combat[formHP] {};
-		};
-	    #echo {%s [<158>%s%a<198>] %s<099>}
-		      {$vitals[print]} {$combat[mobHealth]} {37} {$combat[formHP]};
-	    #if {(0 - $vitals[dhp]) > $vitals[hp]} {
-			#echo {<719>>> Damage exceeded half of remaing HP! <<<<099>};
-		};
-	};
 }
 /* }}} */
 

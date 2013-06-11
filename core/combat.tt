@@ -8,14 +8,41 @@
 /* Called at the start of combat, initalizes variables */
 
 /* */
-_event_register {combat_start} {initcombat} {_startCombat %1;#nop};
+_event_register {combat_start} {initcombat} {_startCombat};
+_event_register {prompt_post}  {combatecho} {_combatEcho};
+_event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 
 #alias {_startCombat}
 {
+	#nop %1;
 	#var combat[RoundNumber]    0;
-	#var combat[Opponent]    {%1};
+	#var combat[Opponent]    {%2};
 	#var combat[mobHealth]    100;
 }
+
+#alias {_combatGetFormHP} {
+	#if { "%2" == "Default" } {
+		#var combat[formHP] {};
+		#regex {%3} {([%d%%]%w)%*<} {
+			#var combat[formHP][p] {&1}
+			#var combat[formHP][name] {&2};
+			#format combat[formHP][print] {%s%a} {&1} {37};
+		};
+	}
+}
+
+/* Echo Vitals Line In place of prompt  {{{ */
+#alias {_combatEcho} {
+	#if { "%2" == "Default" && $stateChar[Combat]} {
+	    #echo {%s [<158>%s%a<198>] %s<099>}
+		      {$vitals[print]} {$combat[mobHealth]} {37}
+			  {<169>$combat[formHP][print]};
+	    #if {(0 - $vitals[dhp]) > $vitals[hp]} {
+			#echo {<719>>> Damage exceeded half of remaing HP! <<<<099>};
+		};
+	};
+}
+/* }}} */
 
 #sub  {%*'s fireshield erupts at your strike! You are burned on the %* by %*'s flames causing %*.}
 	{%1's fireshield burns you on the %2 for %4.}

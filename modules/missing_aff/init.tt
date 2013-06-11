@@ -17,7 +17,7 @@ _event_register {affect_refresh} {missingAff} {_mod_missing_aff_missing};
 			#var __missing_str {${__missing_str}, ${__i}};
 		};
 	};
-	#replace __missing_str {START%.} {};
+	#replace __missing_str {START%?} {};
 	#if {"${__missing_str}" != ""} {
 		#echo {<159>Missing:<139>%s} {${__missing_str}};	
 	};

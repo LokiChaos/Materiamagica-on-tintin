@@ -4,12 +4,20 @@
 #alias {_PromptEcho} {
 	#loop {-$prefs[split][top]} {$prefs[split][bot]} {__pLine} {
 		#if {${__pLine} != 0 } {
-			#echo { {%.80s} {${__pLine}} } {$prompt[${__pLine}]};
+			#echo { {%.${stateClient[Cols]}s} {${__pLine}} } {$prompt[${__pLine}]};
 		};
 	};
 	#unvar __pLine;
 }
 /* }}} */
+
+#function {left_right} {
+	#math __pad[c] {$stateClient[Cols] - @std_str_len{%1}};
+	#format __pad[r] {%.${__pad[c]}s} {%2};
+	#format result {%s%+${__pad[c]}s} {%1} {${__pad[r]}};
+	#unvar __pad;
+}
+
 
 /* Top Status Bar {{{ */
 
@@ -25,15 +33,13 @@
 	};
 }
 
-#alias {_PromptTop} {
+#function {PromptTop} {
 	#if {$navigation[repop] > 0} {
 		#format __topB {[%d][%s} {$navigation[repop]} {$navigation[Zone]};
 	}{
 		#format __topB {[%s} {$navigation[Zone]};
 	};	
-	#format __topB {%.64s} {${__topB}};
-
-	#format prompt[-1] {%s[%-12s  %+64s]<099>} {@topBarColor{}} {$charName]} {${__topB}};	
+	#format result {%s%s<099>} {@topBarColor{}} {@left_right{ {[$charName]} {${__topB}]} }};	
 	#unvar __topB;
 }
 /* }}} */

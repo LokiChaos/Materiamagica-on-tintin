@@ -386,14 +386,9 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 }
 /* }}} */
 
-
-/*	Catch bad _Alias and .Alias calls and report them rather than shout them {{{
+/*	Catch bad _Alias calls and report them {{{
 	If you see this message, an error had occured.
 */
-#alias {.%*} {
-	#echo {<119>ERROR, DEPRECIATED: '<099>%0<119>'};
-} {10};
-
 #alias {_%*} {
 	#echo {<119>ERROR: '<099>%0<119>'};
 } {10};

@@ -12,12 +12,9 @@
 
 /* Screen Resize Event {{{ */
 #event {SCREEN RESIZE} {
-	#if {"$sessionName" == "gts"} {
-		#return
-	};
-	#var stateClient[Rows] {%0};
-	#var stateClient[Cols] {%1};
-	#if {$stateClient[Rows] != $stateClient[OldRows] || $stateClient[Cols] != $stateClient[OldCols]} {
+	#var stateClient[Rows] {%1};
+	#var stateClient[Cols] {%0};
+	#if {"$sessionName" != "gts" && $stateClient[Rows] != $stateClient[OldRows] || $stateClient[Cols] != $stateClient[OldCols]} {
 		_event_raise {screen_resize} {$stateClient[Rows]} {$stateClient[Cols]} {$stateClient[OldRows]}  {$stateClient[OldCols]}
 	};
 	#var stateClient[OldRows] {$stateClient[Rows]};

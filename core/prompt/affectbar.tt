@@ -1,7 +1,9 @@
 #nop prompt/affectbar.tt
 
-#alias {_PromptAffectBar} {
-	#format {prompt[2]} {<098>%s%s%s} {@affectBar{pos;26}} {@affectBar{neg;25}} {@affectBar{util;23}}; 
+#function {PromptAffectBar} {
+	#format __prompt {<098>%s%s%s} {@affectBar{pos;26}} {@affectBar{neg;25}} {@affectBar{util;23}};
+	#var result {${__prompt}};
+	#unvar __prompt;
 }
 
 /* Affects Table to build the Bars off Of {{{ */

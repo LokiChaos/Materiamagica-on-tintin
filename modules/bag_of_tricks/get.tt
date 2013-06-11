@@ -110,5 +110,5 @@
 
 #alias {_CleanBot} {
 	#nop %1;
-	#class mod_bag_of_trick_get kill;
+	#class mod_bag_of_tricks_get kill;
 }

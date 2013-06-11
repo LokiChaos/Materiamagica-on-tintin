@@ -139,23 +139,21 @@
 	{22}{{v}{stateChar[invis]}      {flag}{<149>I}    {a}{1}}
 };
 
-/*
-	foreach {flagsImp}
-	foreach {flagsDef}
-	foreach {flagsLow}
-	low/def/imp -> one string
-	cutoff
-	_prompt_flag_add {value} {string}
-	_prompt_flag_del {value}
-*/
-
 #function {promptFlagsBar} {
 	#var __pFlags {};
+
+	#foreach {${prompt[modFlags][]}} {__flg} {
+		#if { ${${prompt[modFlags][${__flg}][v]}} } {
+			#format __pFlags {%s[%s<099>]} {${__pFlags}} {${prompt[modFlags][${__flg}][flag]}};
+		};
+	};
+
 	#foreach {${__promptFlagTable[]}} {__flg} {
 		#if { ${${__promptFlagTable[${__flg}][v]}} } {
 			#format __pFlags {%s[%s<099>]} {${__pFlags}} {${__promptFlagTable[${__flg}][flag]}};
 		};
 	};
+
 	#unvar __flg;
 	#var result ${__pFlags};
 	#unvar __pFlags;

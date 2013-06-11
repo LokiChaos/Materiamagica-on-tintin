@@ -10,7 +10,7 @@
 }
 
 #alias {BoTGet} {
-	#class mod_bag_of_tricks_get read module/bag_of_tricks/get.tt;
+	#class mod_bag_of_tricks_get read modules/bag_of_tricks/get.tt;
 	#loop {1} {$prefs[BoTcount]} {__c} {
 		queueCmd {open ${__c}.tricks} {0};
 		queueCmd {get all ${__c}.tricks} {0};
@@ -21,3 +21,5 @@
 	doQueue;
 	#var stateChar[have_bot] 0;
 }
+
+_promptFlagAdd {BOT} {stateChar[have_bot]} {<169>BoT} {0};

@@ -38,6 +38,16 @@ Other tags: [Search][Dig][Q][B][C][T][SW][S][Q][A][News][TAG!]
 /* Reserve area for the status bar, and set the prompt's format */
 #split  {$prefs[split][top]} {$prefs[split][bot]};
 
+/* Add/Remove Prompt Flags {{{ */
+#alias {_promptFlagAdd} {
+	#var prompt[modFlags][%1] {{v}{%2} {flag}{%3} {a}{%3}};
+}
+
+#alias {_promptFlagDel} {
+	#unvar prompt[modFlags][%1];
+}
+/* }}} */
+
 /* Extracts mounts stamina and gags the line {{{ */
 #act {^(Mount: %dst)} {
 	#var mount[stamina]  {%1};

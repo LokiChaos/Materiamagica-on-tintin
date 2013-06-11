@@ -31,8 +31,6 @@
 #pathdir          {w}  	{e}  	  {8}
 /* }}} */
 
-#var stateClient[debug] 1;
-
 /* Script Version */
 #var version[c] {0.2.0b};
 

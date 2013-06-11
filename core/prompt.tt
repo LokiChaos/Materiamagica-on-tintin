@@ -47,10 +47,11 @@ Other tags: [Search][Dig][Q][B][C][T][SW][S][Q][A][News][TAG!]
 /* }}} */
 
 /* Only Update Affects Bar On Affects Changes {{{ */
-_event_register {affect_change}  {updatePrompt} {_UpdatePromptAffects #nop};
-_event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects #nop};
+_event_register {affect_change}  {updatePrompt} {_UpdatePromptAffects};
+_event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 #alias {_UpdatePromptAffects} {
+	#nop %1;
 	#class affBar read core/prompt/affectbar.tt;
 	_PromptAffectBar;
 	#class affBar kill;
@@ -111,10 +112,8 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects #nop};
 
 	_CombatEcho;
 
-	#var promptFlags @promptFlagsBar{};
-	#format {prompt[1]} {%-40s%+40s} {$vitals[print]} {$promptFlags};
+	#format {prompt[1]} {%-40s%+40s} {$vitals[print]} {@promptFlagsBar{}};
 	#unvar vitals[print];
-	#unvar promtFlags;
 
 	_PromptExtrasBar;
 	_PromptTop;
@@ -154,9 +153,9 @@ _event_register {tick} {promptTick} {_PromptTick #nop};
 	} {
 		#var prompt[1] {${prompt[1]}><099>};
 	};
+	#format {prompt[1]} {%-40s} {$prompt[1]};
 	#var stateChar[OnShip] 1;
 	#class promptLines read core/prompt/subprompt.tt;
-	#format {prompt[1]} {%-40s} {$prompt[1]};
 	#var promptFlags @promptFlagsBar{};
 	#format {prompt[1]} {%-40s%+40s} {$prompt[1]} {$promptFlags};
 	_PromptTop;

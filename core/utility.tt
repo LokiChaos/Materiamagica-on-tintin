@@ -14,6 +14,7 @@
 #read core/utility/handler.tt;
 #read core/utility/sql.tt;
 #read core/utility/module.tt;
+#read core/utility/zmudsw.tt;
 
 /* Queue Functions {{{ */
 

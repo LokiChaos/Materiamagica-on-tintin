@@ -1,0 +1,54 @@
+#function {std_zmudsw_parse} {
+	#var __zpath[path] {};
+	#var __zpath[count] {};
+	#var __zpath[mode] 1;
+	#var __zpath[dirTbl] {{j}{ne}{h}{nw}{k}{sw}{l}{se}};
+
+	#parse {%1} {__zpath[step]} {
+		#if { ${__zpath[mode]} == 1 } {
+			#switch {"${__zpath[step]}"} {
+				#case {"%d"} {
+					#var __zpath[count] {${__zpath[count]}${__zpath[step]}};	
+				};
+				#case {"{n|s|e|w|u|d}"} {
+					#if { "${__zpath[count]}" != "" } {
+						#${__zpath[count]} #var __zpath[path] {${__zpath[path]};${__zpath[step]}};
+						#var __zpath[count] {};
+					} {
+						#var __zpath[path] {${__zpath[path]};${__zpath[step]}};
+					};
+				};
+				#case {"{h|j|k|l}"} {
+					#if { "${__zpath[count]}" != "" } {
+						#${__zpath[count]} #var __zpath[path] {${__zpath[path]};${__zpath[dirTbl][${__zpath[step]}]}};
+						#var __zpath[count] {};
+					} {
+						#var __zpath[path] {${__zpath[path]};${__zpath[dirTbl][${__zpath[step]}]}};
+					};	
+				};
+				#case {"("} {
+					#var __zpath[mode] 2;
+
+				};
+			};
+		} {
+			#switch {"${__zpath[step]}"} {
+				#case {")"} {
+					#if { "${__zpath[count]}" != "" } {
+						#${__zpath[count]} #var __zpath[path] {${__zpath[path]};${__zpath[cmd]}};
+						#var __zpath[count] {};
+					} {
+						#var __zpath[path] {${__zpath[path]};${__zpath[cmd]}};
+					};	
+					#var __zpath[cmd] {};
+					#var __zpath[mode] 1;
+				};
+				#default {
+					#var __zpath[cmd] {${__zpath[cmd]}${__zpath[step]}};
+				};
+			};
+		};
+	};
+	#var result {${__zpath[path]}};
+	#unvar __zpath;
+}

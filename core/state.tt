@@ -95,14 +95,20 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 			#line gag;
 			#echo {<149>(%s<149>)    %s}  {@makeRoomBar{}} {%2};
 			#var _roomExtraStr {@makeAuxRoomBar{}};
-			#if { @std_str_len{${_roomExtraStr}} } 
-				{_event_oneshot {visExits} {roomAux} {#echo { <149>Access restrictions:<099> %s<099>} {${_roomExtraStr}}; #unvar _roomExtraStr;#nop }
+			#if { @std_str_len{${_roomExtraStr}} } {
+				_event_oneshot {visExits} {roomAux} {_EchoAccess};
 			} {
 				#unvar _roomExtraStr;
 			};
 			#class roomState kill;
 		};
 	};
+}
+
+#alias {_EchoAccess} {
+	#nop %1;
+	#echo { <149>Access restrictions:<099> %s<099>} {${_roomExtraStr}};
+	#unvar _roomExtraStr;
 }
 
 #act {^  Visible Exits: %1}

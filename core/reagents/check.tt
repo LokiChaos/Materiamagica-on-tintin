@@ -113,7 +113,7 @@
 /* Gag Spam from checking containers {{{  */
 #gag {^A total of %*};
 #gag {^     };
-#gag {^(%*) %w};
+#gag {^(%.%.%.) %w};
 #gag { contains:$};
 #gag {^PAGE_LENGTH}
 #gag {^$};

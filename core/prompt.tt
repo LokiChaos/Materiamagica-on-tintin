@@ -197,10 +197,11 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 /* }}} */
 
 /* Hook to Tick Event to Update Prompt Clock {{{ */
-_event_register {tick} {promptTick} {_PromptTick #nop};
+_event_register {tick} {promptTick} {_PromptTick};
 
 /* To be called whenever the time is updated */
 #alias {_PromptTick} {
+	#nop %1;
 	#format prompt[$prefs[split][bot]] {%s%s} {$prompt[b]} {$gtime[print]};
 	#echo {{%.80s}{$prefs[split][bot]}} {$prompt[$prefs[split][bot]]};
 }

@@ -18,7 +18,6 @@
 	#unvar __pad;
 }
 
-
 /* Top Status Bar {{{ */
 
 #function {topBarColor} {
@@ -38,8 +37,8 @@
 		#format __topB {[%d][%s} {$navigation[repop]} {$navigation[Zone]};
 	}{
 		#format __topB {[%s} {$navigation[Zone]};
-	};	
-	#format result {%s%s<099>} {@topBarColor{}} {@left_right{ {[$charName]} {${__topB}]} }};	
+	};
+	#format result {%s%s<099>} {@topBarColor{}} {@left_right{ {[$charName]} {${__topB}]} }};
 	#unvar __topB;
 }
 /* }}} */
@@ -74,8 +73,7 @@
 	};
 
 
-	#format {prompt[3]} {<098>[%s%-53s]} {} {$prompt[3]};
-	#format {prompt[3]} {%s%s} {$prompt[3]} {@reagentBarMake{}};
+	#var {prompt[3]} {@left_right{ {[$prompt[3]} {]@reagentBarMake{}} }};
 }
 /* }}} */
 

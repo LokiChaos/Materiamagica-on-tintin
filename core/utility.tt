@@ -285,7 +285,7 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 #func {std_str_escape} {
 	#var result %1;
 	#var __esctmp[aidx] 0;
-	#foreach {%0} {__esctmp[arg]} {
+	#foreach {%0} {__esctmpZQ[arg]} {
 		#math __esctmp[aidx] {1 + ${__esctmp[aidx]}};
 		#if {${__esctmp[aidx]} > 1 } {
 			#var __esctmp[asidx] 0;
@@ -353,10 +353,10 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 
 #function {std_dir_full} {
 	#var result %0;
-	#replace result {^n} {north};
-	#replace result {^s} {south};
-	#replace result {e$} {east};
-	#replace result {w$} {west};
+	#replace result {^n}  {north};
+	#replace result {^s}  {south};
+	#replace result {e$}  {east};
+	#replace result {w$}  {west};
 	#replace result {^u$} {up};
 	#replace result {^d$} {down};
 }

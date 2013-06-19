@@ -21,14 +21,16 @@
 #act {^You are using:}
 {
 	#class equipinfo read core/equipment/eq.tt;
-	_event_oneshot {prompt_post} {eqClean} {#class equipinfo kill; #nop};
+	_event_oneshot {prompt_post} {eqClean} {#class equipinfo kill; #nop
+	};
 }
 /* }}} */
 
 /* Internal Helper - executes equipment command & gags output {{{ */
 #alias {_equipSilent}
 {
-	_event_oneshot {prompt_post} {clearAutoCont} {#var stateClient[autoContinue] 0; #nop};
+	_event_oneshot {prompt_post} {clearAutoCont} {#var stateClient[autoContinue] 0; #nop
+	};
 	#class silentEq read core/equipment/silentEquip.tt;
 	equipment;
 	#var stateClient[muteLine] 1;
@@ -119,7 +121,8 @@
 /* Collect info from inventory command {{{ */
 #act {^You are carrying:$} {
 	#class invinfo read core/equipment/inventory.tt;
-	_event_oneshot {prompt_post} {invClean} {#class invinfo kill; #nop};
+	_event_oneshot {prompt_post} {invClean} {#class invinfo kill; #nop
+	};
 }
 
 #act {^{\* |}You are currently encumbered. You may move slower than normal.} {

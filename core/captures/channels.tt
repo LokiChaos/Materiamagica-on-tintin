@@ -18,7 +18,7 @@
 	#regex {%0} {[CLAN] %w is no longer away.} {
 		_event_raise {clan_return} {&1};
 	};
-	
+
 } {3}
 
 #act {~^\e[1\;33m[CLAN NOTICE] %*} {
@@ -195,21 +195,21 @@
 
 /* Say/Sayto/Wisper TODO: Test & Chat > Relay {{{ */
 /* Level 5.5 To let most other triggers take priority*/
-#act {~^{|\e\[0m}\e[1;36m{You|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|(say|whisper)(| to .+)|(says|whispers)(| to you)}, '%*'\e[0m$} {
+#act {~^{|\e[0m}\e[1;36m{You|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|(say|whisper)(| to .+)|(says|whispers)(| to you)}, '%*'\e[0m$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
 } {5.5}
 
-#act {~^{|\e\[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}. '%*'\e[0m$} {
+#act {~^{|\e[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}. '%*'\e[0m$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
 } {5.5}
 
-#act {~^{|\e\[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}.\e[0m$} {
+#act {~^{|\e[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}.\e[0m$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};

@@ -17,7 +17,11 @@
 #alias {ReagentDo} {
 	#if {$stateChar[inSocial]} {
 		#echo {<149>You cannot do that here.};
-	} {
+	};
+	#elseif {$stateChar[Dead]} {
+		#echo {<149>You cannot do that as a shade.};
+	};
+	#else {
 		#class reagentAct read core/reagents/actions.tt;
 		_Reagent%1;
 	};

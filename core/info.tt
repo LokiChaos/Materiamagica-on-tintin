@@ -15,7 +15,8 @@
 #alias {tnl} {
 	#class tnlInfo read core/info/tnl.tt;
 	#send {score exp};
-	_event_oneshot {prompt_post} {cleanTnl} {#class tnlInfo kill; #nop};
+	_event_oneshot {prompt_post} {cleanTnl} {#class tnlInfo kill; #nop
+	};
 }
 /* }}} */
 

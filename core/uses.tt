@@ -28,6 +28,6 @@
 
 #function {getUses} {
 	std_value_restore uses;
-	#var result {uses[%1]};
+	#var result {$uses[%1]};
 	#unvar uses;
 }

@@ -133,7 +133,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math stateChar[muteLine] @std_dec2zero{$stateClient[muteLine]};
+	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
 	#class promptLines kill;
 }
 /* }}} */
@@ -162,7 +162,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	_PromptTick;
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math stateChar[muteLine] @std_dec2zero{$stateClient[muteLine]};
+	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
 	#class promptLines kill;
 }
 /* }}} */
@@ -191,7 +191,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	_PromptTick;
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math stateChar[muteLine] @std_dec2zero{$stateClient[muteLine]};
+	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
 	#class promptLines kill;
 }
 /* }}} */

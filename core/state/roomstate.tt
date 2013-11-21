@@ -63,6 +63,9 @@
 	#if {$stateRoom[silence]} {
 		#var result {${result}<119>Silence<149>-}
 	};
+	#if {$stateRoom[anti-magic]} {
+		#var result {${result}<119>!Magic<149>-}
+	};
 	#if {$stateRoom[no-mount]} {
 	    #var result {${result}<119>!Mount<149>-}
 	};

@@ -6,19 +6,23 @@
 	_event_raise {activity_rewards} {practices} {%1};
 }
 
-#act {^You gain %W experience points!} {
+#act {^You gain %W experience point{s|}!} {
 	_CaptureLog {<179>%0} {$capPath[act]};
 	_event_raise {activity_rewards} {experience points} {%1};
 }
 
-#act {^You gain %d quest points!} {
+#act {^You gain %d quest point{s|}!} {
 	_CaptureLog {<179>%0} {$capPath[act]};
 	_event_raise {activity_rewards} {quest points} {%1};
 }
 
-#act {^You gain %d building points!} {
+#act {^You gain %d building point{s|}!} {
 	_CaptureLog {<179>%0} {$capPath[act]};
 	_event_raise {activity_rewards} {build points} {%1};
+}
+
+#act {^Your alignment {in|de}creases by %d.} {
+	_CaptureLog {<179>%0} {$capPath[act]};
 }
 
 #act {^Your Folklore has been increased by %d to %d.} {

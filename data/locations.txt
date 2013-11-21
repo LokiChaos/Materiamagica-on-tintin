@@ -86,7 +86,7 @@ A Passage Beneath Xaventry::n:The Towne of Xaventry:underg:Alyra/SUG:0:0:Sephari
 A Passage Beneath Xaventry:Bottomside:n:::SUG:?:?:::::
 The Lonely Dragon Inn::n::inn:Alyria:600:700:Sepharia:::25:small red brick building surrounded by several trees.
 A Hill Giant Refuge::n::villge:Alyria:590:670:Sepharia:::25:a series of tents in various colors nestled into the side of a hill.
-Towne of Rune::y::towne:Alyria:695:770:Sepharia:6::19:the graceful white marble towers and the walls of the towne of Rune
+Towne of Rune::y::towne:Alyria:695:770:Sepharia:6::19:the graceful white marble towers and the walls of the towne of Rune.
 Towne of Rune:West::::Alyria:648:760:Sepharia::::
 Towne of Rune:East::::Alyria:706:763:Sepharia::::
 Towne of Rune:South::::Alyria:695:770:Sepharia::::
@@ -171,7 +171,7 @@ Ogre Village::y::villge:Alyria:1885:459:Avros:::28:curling smoke from a small vi
 Old Stargazer Clanhall::y::clanhall:Alyria:1707:438:Avros:50:145:38:a ruined keep crafted of mossy gray stones.
 Frost Gaint's Keep::y::keep:Alyria:1689:389:Avros:18::19:a deep, glacier-filled gorge
 Tower of Axora::n::tower:Alyria:1759:630:Avros::59:?:a medium-sized gray stone tower surrounded by a small overgrown forest.
-The Fishing Village Dorathon::y::villge:Alyria:1682:469:Avros:::25:a tiny hamlet settled against the shore of Lake Martoon
+The Fishing Village Dorathon::y::villge:Alyria:1682:469:Avros:::25:a tiny hamlet settled against the shore of Lake Martoon.
 The Fishing Village Dorathon:West::::Alyria:1691:470:Avros::::
 The Fishing Village Dorathon:South::::Alyria:1695:474:Avros::::
 The Fishing Village Dorathon:East::::Alyria:1699:471:Avros::::
@@ -283,7 +283,7 @@ Genauras:A House Tent (#2)::::SUG:533:1248:::::
 Genauras:Large Tent::::SUG:544:1249:::::
 Genauras:Barn::::SUG:538:1246:::::
 Genauras:Guard Barracks::::SUG:524:1244:::::
-A Fiery Catwalk::n::?:SUG:291:1159::::30:NONE
+A Fiery Catwalk::n::?:SUG:291:1159::121::30:NONE
 Darksea::y::underw:SUG:919:1232::::?:there is an odd-looking whirlpool in the Well of Sorrows.
 Shrine of Ithrilis::n::shrine:SUG:551:1300:::::the Shrine of Ithrilis dominates the lake deeps.
 Shrine of Ithrilis:North::::SUG:553:1294:::::

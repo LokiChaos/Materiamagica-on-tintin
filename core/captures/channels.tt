@@ -75,6 +75,11 @@
 #act {~^\e[1\;30m[PKTALK\e[0m %w\e[1\;30m] %*} {
 	_ChannelLog {%0} {$capPath[pkTalk]};
 } {3}
+
+#act {~^\e[1\;30m[PKTALK\e[0m\e[1\;30m] %*} {
+	_ChannelLog {%0} {$capPath[pkTalk]};
+} {3}
+
 /* }}} */
 
 /* Tells + Pages + Prays {{{ */ 

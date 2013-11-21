@@ -15,7 +15,7 @@
 #alias {_IncUses} {
 	std_value_restore uses;
 	#math uses[%1] {$uses[%1] + 1};	
-	std_value__save uses;
+	std_value_save uses;
 	#unvar uses;
 };
 

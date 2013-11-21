@@ -29,7 +29,7 @@
 
 }
 
-#act {^  Spell Points:%s%d/%d%sQuest Points:%s%S (%d quests, %d failed)} {
+#act {^  Spell Points:%s%d/%d%sQuest Points:%s%S (%d quests)} {
 	#var	vitals[max][sp] {%3};
 	#var	charScore[questPoints] {%6};
 	#var	charScore[quest] {%7};

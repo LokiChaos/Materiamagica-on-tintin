@@ -285,7 +285,7 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 #func {std_str_escape} {
 	#var result %1;
 	#var __esctmp[aidx] 0;
-	#foreach {%0} {__esctmpZQ[arg]} {
+	#foreach {%0} {__esctmp[arg]} {
 		#math __esctmp[aidx] {1 + ${__esctmp[aidx]}};
 		#if {${__esctmp[aidx]} > 1 } {
 			#var __esctmp[asidx] 0;
@@ -341,6 +341,14 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 
 #function {std_str_tokenize} {
 	#list result create %0;
+}
+
+#function {std_str_substr} {
+	#regex {%1} {^{.{%2}}{.{%3}}%*} {
+		#var result {&2};
+	} {
+		#var result {};
+	};
 }
 /* }}} */
 

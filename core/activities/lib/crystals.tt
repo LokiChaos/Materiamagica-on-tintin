@@ -77,7 +77,7 @@
 
 #alias {_turnCrystal}
 {
-	_CaptureLog {<169>Completed Crystal Guild Treasure Hunt (%s Crystal).<099>} {$capPath[act]};
+	_CaptureLog {<169>Completed Crystal Guild Treasure Hunt (%1 Crystal).<099>} {$capPath[act]};
 	#var stateChar[onCrystal] 0;
 	std_value_restore lastCrystal;
 	#var lastCrystal[type] {complete};

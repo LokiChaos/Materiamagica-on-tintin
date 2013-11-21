@@ -1,4 +1,4 @@
-A tintin script for playing the MUD MateriaMagica.
+A tintin (http://tintin.sourceforge.net/) script for playing the MUD MateriaMagica (http://www.materiamagica.com/).
 
 ![Screenshot](http://i.imgur.com/pDymPHS.png)
 

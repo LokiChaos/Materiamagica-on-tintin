@@ -32,10 +32,10 @@
 } {3}
 
 /* First Person Affects Tracking */
-#class affSelf read core/affects/self.tt
+#class core_aff_self read core/affects/self.tt
 
 /* Room Affects Tracking */
-#class affRoom read core/affects/room.tt
+#class core_aff_room read core/affects/room.tt
 
 /* Other's Affects Tracking */
-/*#class affOther read core/affects/others.tt */
+/*#class core_aff_other read core/affects/others.tt */

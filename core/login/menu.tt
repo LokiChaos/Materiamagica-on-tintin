@@ -60,7 +60,8 @@
 	#var charName {%2};
 	#unvar charList;
 	#undelay autoLogin;
-	#class loginMenu kill;
+	#class login_menu kill;
+	#class telopt read core/login/telopt.tt;
 	#session {%1} {%3} {%4};
 }
 

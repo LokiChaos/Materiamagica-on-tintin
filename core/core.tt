@@ -14,7 +14,7 @@
 #class utility read core/utility.tt
 
 /* MM-specific Utility Library */
-#class mmutility read core/mmutility.tt
+#class utility_mm read core/mmutility.tt
 
 /*  Load the Core System {{{
 	It is pretty tightly intrgrated, it handles the prompt
@@ -22,15 +22,15 @@
 */
 
 /* GMCP Support */
-#class gmcp read core/gmcp.tt
+#class core_gmcp read core/gmcp.tt
 /* Auto-Mapping */
-#class map read core/map.tt
+#class core_map read core/map.tt
 /* Setup Prompt/HUD vars, triggers, etc. */
-#class core read core/prompt.tt
+#class core_prompt read core/prompt.tt
 /* Tick Timer for rounds & 15s Tick */
-#class core read core/tick.tt
+#class core_tick read core/tick.tt
 /* Keeping track of charater state */
-#class core read core/state.tt
+#class core_state read core/state.tt
 
 /* Triggers that Extract info from game commands {{{ */
 #class core read core/info.tt
@@ -40,49 +40,49 @@
 /* }}} */
 
 /* Formation info and Ally tracking */
-#class core read core/forms.tt
+#class core_forms read core/forms.tt
 /* Core System Command Alias */
-#class core read core/alias.tt
+#class core_alias read core/alias.tt
 /* Usage counter back-end */
-#class core read core/uses.tt
+#class core_uses read core/uses.tt
 
 /* Handles Channel Captures and Logging of Specific Activities */
 /* Channel Captures + Non-Activity Related Logging */
-#class caps read core/captures.tt
+#class core_caps read core/captures.tt
 /*  Records of Quests, Marks, Bounties, Crystal Guilds, etc. */
-#class caps read core/activities.tt
+#class core_caps read core/activities.tt
 
 /* Combat Display & Stat Tracking */
-#class combat read core/combat.tt
+#class core_combat read core/combat.tt
 
 /* Triggers that Track/Highlight/Log Status Affects */
-#class affects read core/affects.tt
+#class core_affects read core/affects.tt
 
 /* Navigation related triggers and alias */
-#class locate read core/navigation.tt;
+#class core_locate read core/navigation.tt;
 
 /* Reagent traking triggers and aliases */
-#class reagents read core/reagents.tt
+#class core_reagents read core/reagents.tt
 
 /* Speedwalk Functions + Tables */
-#class speedwalks read  core/speedwalks.tt
+#class core_speedwalks read  core/speedwalks.tt
 
 /* Basic Static Reformatting of Game test (gag, highlight, subbing) */
-#class coreSubs read core/substitute.tt
+#class core_subs read core/substitute.tt
 
 /* Common tab-completion wordlist */
-#class coreTabs read core/tab.tt
+#class core_tabs read core/tab.tt
 /* }}} */
 
 /* Per-Session Congig {{{  */
 #showme {<aef>Loading User Config: <faa>char/\$sessionName/\*.tt}
-#class userActions read char/$sessionName/actions.tt
+#class user_actions read char/$sessionName/actions.tt
 /* Handles User-Defined Keyboard Macros */
-#class userMacros read char/$sessionName/macros.tt
+#class user_macros read char/$sessionName/macros.tt
 /* Handles User-Defined Command Alias */
-#class userAlias read char/$sessionName/alias.tt
+#class user_alias read char/$sessionName/alias.tt
 /* Handels User-Defined Subs/Highlights */
-#class userSubs read char/$sessionName/subs.tt
+#class user_subs read char/$sessionName/subs.tt
 /* }}} */
 
 /* Update sysinfo.txt & vars (REQ Alias from core/tick.tt 

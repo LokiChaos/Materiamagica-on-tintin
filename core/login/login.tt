@@ -2,6 +2,7 @@
 
 /* Auto-Send Character Name, if it fails twice abort the auto-login & clean up */
 #act {^By what name shall we know thee?} {
+	#class telopt kill;
 	#send {$charName};
 	#math __nameTry {${__nameTry} + 1 };
 	#if {${__nameTry} > 2} {

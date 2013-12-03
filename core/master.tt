@@ -19,6 +19,7 @@
 #config           {VERBATIM CHAR} {\}
 #config           {VERBOSE}  	  {OFF}
 #config           {WORDWRAP}  	  {ON}
+#config           {DEBUG}         {OFF}
 #pathdir          {d}  	{u}  	  {32}
 #pathdir          {e}  	{w}  	  {2}
 #pathdir          {n}  	{s}  	  {1}
@@ -40,9 +41,6 @@
 /* Read Global Settings and Preferences */
 #read etc/coreSettings.tt
 
-/* Load Telopt stuff before we connect */
-#class telopt read core/login/telopt.tt
-
 /* Load #event handlers
    Needs to be loaded in #gts as it handles conncet/disconnect events */
 #class events read core/login/events.tt
@@ -58,4 +56,4 @@
 /* }}} */
 
 /* Login Menu and Welcome Screen */
-#class loginMenu read core/login/menu.tt
+#class login_menu read core/login/menu.tt

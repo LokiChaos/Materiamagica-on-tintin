@@ -51,6 +51,7 @@
 	#unvar __delay;	
 	#class reconnect kill;
 	#unalias _Reconnect;
+	#class telopt read core/login/telopt.tt;
 	#session {$sessionName} {$lastSession[server]} {$lastSession[port]};
 }
 
@@ -61,5 +62,5 @@
 	#var sessionName {gts};
 	#unvar __delay;
 	#class reconnect kill;
-	#class loginMenu read core/login/menu.tt;
+	#class login_menu read core/login/menu.tt;
 }

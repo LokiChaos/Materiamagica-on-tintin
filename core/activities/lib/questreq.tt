@@ -64,5 +64,5 @@
 	};
 	#unvar _questInfo;
 	#unvar __questEcho;
-	#class questRequest kill;
+	#class tmp_questRequest kill;
 }

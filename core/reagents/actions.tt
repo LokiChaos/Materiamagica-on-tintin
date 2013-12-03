@@ -2,9 +2,9 @@
 
 /* Buy Reagents {{{ */
 #alias {_ReagentBuy} {
-	#class reagentBuy read core/reagents/buy.tt;
+	#class tmp_reagent_buy read core/reagents/buy.tt;
 	_buyReagents;
-	#class reagentBuy kill;
+	#class tmp_reagent_buy kill;
 }
 /* }}} */
 
@@ -12,7 +12,7 @@
 #alias {_ReagentGet} {
 	#echo {Getting Reagents...};
 	#var stateChar[have_reagents] 0;
-	#class reagentGet read core/reagents/get.tt;
+	#class tmp_reagent_get read core/reagents/get.tt;
 	_event_oneshot {cmdQueue_end} {getReag} {_cleanReagGet};
 	#forall {$reagent[producer]} {
 	  queueCmd {open &0} {0};
@@ -20,14 +20,14 @@
 	  queueCmd {close &0} {0};
 	};
 	doQueue;
-	#class reagentAct kill;
+	#class tmp_reagent_act kill;
 }
 /* }}} */
 
 /* Sort Reagents Into Containers {{{ */
 #alias {_ReagentSort} {
-	_event_oneshot {cmdQueue_end} {sortReag} {#class reagentSort kill};
-	#class reagentSort read core/reagents/sort.tt;
+	_event_oneshot {cmdQueue_end} {sortReag} {#class tmp_reagent_sort kill};
+	#class tmp_reagent_sort read core/reagents/sort.tt;
 	#forall {fire;water;earth;air;astral;ethereal} {
 		#forall {$reagent[store][&0]} {
 			queueCmd {put all.reagent-&0  &&0} {0};
@@ -40,7 +40,7 @@
 	};
 	queueCmd {drop all.reagent} {0};
 	doQueue;
-	#class reagentAct kill;
+	#class tmp_reagent_act kill;
 }
 /* }}} */
 
@@ -63,7 +63,7 @@
 	#if {$reagent[used][focus]}  {
 		#echo {              <178>%+3s focusing crystal<198>}  {$reagent[used][focus]};
 	};
-	#class reagentAct kill;
+	#class tmp_reagent_act kill;
 }
 /* }}} */
 
@@ -71,7 +71,7 @@
 #alias {_ReagentUsedClear} {
 	#unvar {reagent[used]};
 	#format {reagent[used][since]} {%T};
-	#class reagentAct kill;
+	#class tmp_reagent_act kill;
 }
 /* }}} */
 
@@ -81,7 +81,7 @@
 	Note: it only looks in a given contianer ONCE as to avoid re-counting */
 
 #alias {_ReagentSync} {
-	#class rcheck read core/reagents/check.tt;
+	#class tmp_reagent_check read core/reagents/check.tt;
 	#echo {Checking Reagents...};
 	queueCmd {set page_length 120} {0};
 	#forall {{fire}{water}{earth}{air}{gem}{ethereal}{astral}{hema}{summon}{focus}{etc}} {
@@ -99,6 +99,6 @@
 	queueCmd {set page_length $prefs[defPgLen]} {0};	
 	queueCmd {score st} {0};
 	doQueue;
-	#class reagentAct kill;
+	#class tmp_reagent_act kill;
 }
 /* }}} */

@@ -19,5 +19,5 @@
 	#if {$charScore[WeightSt] >= $charScore[carryStone]}
 		{#var stateChar[Overweight] 1}
 		{#var stateChar[Overweight] 0};         
-	#class invinfo kill;
+	#class tmp_info_inv kill;
 }

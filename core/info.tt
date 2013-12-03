@@ -13,16 +13,16 @@
 
 /* Kills To Next Level {{{ */
 #alias {tnl} {
-	#class tnlInfo read core/info/tnl.tt;
+	#class tmp_info_tnl read core/info/tnl.tt;
 	#send {score exp};
-	_event_oneshot {prompt_post} {cleanTnl} {#class tnlInfo kill; #nop
+	_event_oneshot {prompt_post} {cleanTnl} {#class tmp_info_tnl kill; #nop
 	};
 }
 /* }}} */
 
 /* Recall Where Augmentation {{{ */
 #alias {recall where} {
-	#class infoRecall open;
+	#class tmp_info_recall open;
 	#gag {^Available recall points:$};
 	#act {[1 ] Nearest area recall point (%* in %*)$} {
 		#echo {<149>You are in the recall zone for <099>%%2<149>.<099>};
@@ -33,9 +33,9 @@
 	#gag {^* Your default recall point is:};
 	#act {^* It will cost [%*] gp to change your default recall point.} {
 		#line gag;
-		#class infoRecall kill;
+		#class tmp_info_recall kill;
 	};
-	#class infoRecall close;
+	#class tmp_info_recall close;
 	#send {recall list}
 }
 /* }}} */
@@ -72,7 +72,7 @@
 	#if {"%1" == "%*silence%*"} {
 		#var stateClient[muteLine] 1;
 	};
-	#class sextant read core/info/sextant.tt;
+	#class tmp_info_sextant read core/info/sextant.tt;
 	
 	#switch {$navigation[sextantCont]}
 	{
@@ -116,7 +116,7 @@
 		You can also lookup the coordinates of worldgates and clanhalls
 */
 #alias {whereis} {
-	#class loc read core/info/locate.tt;
+	#class tmp_info_loc read core/info/locate.tt;
 	#format {__cmdStr} {%l} {%0};	
 	#switch {"${__cmdStr}"} {
 		#case {"{wadering|sidhe|wandering sidhe}"} {
@@ -149,7 +149,7 @@
 			_LocArea {%0};
 		};
 	};
-	#class loc kill;
+	#class tmp_info_loc kill;
 	#unvar __cmdStr;
 }
 /* }}} */

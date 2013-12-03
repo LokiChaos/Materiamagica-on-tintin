@@ -2,14 +2,14 @@
 #act {^A total of [%d] of [%d] members in formation.$} {
 	#var form[num] {%1};
 	#var form[max] {%2};
-	#class printform read core/forms/print.tt;
+	#class tmp_printform read core/forms/print.tt;
 	#if {$stateClient[muteLine]} {
 		#line gag
 	} {
 		_PrintForm
 	};
-	#class printform kill;
-	#class forminfo kill;
+	#class tmp_printform kill;
+	#class tmp_info_form kill;
 }
 
 #act {^You are at position %w.$} {

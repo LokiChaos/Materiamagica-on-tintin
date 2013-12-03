@@ -2,8 +2,8 @@
 
 /* Collect info from score command */
 #act {^Player Information for: %*} {
-	#class scoreinfo read core/score/scoreinfo.tt;
-	_event_oneshot {prompt_post} {scoreClean} {#class scoreinfo kill; #nop};
+	#class tmp_info_score read core/score/scoreinfo.tt;
+	_event_oneshot {prompt_post} {scoreClean} {#class tmp_info_score kill; #nop};
 }
 
 /* Collect info from the alignment command */

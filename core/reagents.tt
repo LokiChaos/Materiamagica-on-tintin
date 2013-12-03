@@ -7,9 +7,9 @@
 /* Action for Reagent Use {{{  */
 #act {%1 {flare|flares} brightly and {vanish|vanishes}!$} {
 	_event_raise {reagent_use} {%1};
-    #class reagentUse read core/reagents/use.tt;
+    #class tmp_reagent_use read core/reagents/use.tt;
     _reagentUse {%1};
-    #class reagentUse kill;
+    #class tmp_reagent_use kill;
 } 
 /* }}} */
 
@@ -22,7 +22,7 @@
 		#echo {<149>You cannot do that as a shade.};
 	};
 	#else {
-		#class reagentAct read core/reagents/actions.tt;
+		#class tmp_reagent_act read core/reagents/actions.tt;
 		_Reagent%1;
 	};
 }

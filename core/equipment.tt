@@ -4,14 +4,14 @@
 /* Displays just AR output from eq command */
 #alias {ar}
 {
-	#class silentEq read core/equipment/armor.tt;
+	#class tmp_silentEq read core/equipment/armor.tt;
 	equipment;
 	#var stateClient[muteLine] 1;
 }
 
 #alias {weapon}
 {
-	#class silentEq read core/equipment/weapon.tt;
+	#class tmp_silentEq read core/equipment/weapon.tt;
 	equipment;
 	#var stateClient[muteLine] 1;
 }
@@ -20,8 +20,8 @@
 /* Collect info from eq[ipment] command {{{ */
 #act {^You are using:}
 {
-	#class equipinfo read core/equipment/eq.tt;
-	_event_oneshot {prompt_post} {eqClean} {#class equipinfo kill; #nop
+	#class tmp_info_eq read core/equipment/eq.tt;
+	_event_oneshot {prompt_post} {eqClean} {#class tmp_info_eq kill; #nop
 	};
 }
 /* }}} */
@@ -31,7 +31,7 @@
 {
 	_event_oneshot {prompt_post} {clearAutoCont} {#var stateClient[autoContinue] 0; #nop
 	};
-	#class silentEq read core/equipment/silentEquip.tt;
+	#class tmp_silentEq read core/equipment/silentEquip.tt;
 	equipment;
 	#var stateClient[muteLine] 1;
 	#var stateClient[autoContinue] 1;
@@ -120,9 +120,9 @@
 
 /* Collect info from inventory command {{{ */
 #act {^You are carrying:$} {
-	#class invinfo read core/equipment/inventory.tt;
+	#class tmp_info_inv read core/equipment/inventory.tt;
 	#var stateChar[Encumbered] {0};
-	_event_oneshot {prompt_post} {invClean} {#class invinfo kill; #nop
+	_event_oneshot {prompt_post} {invClean} {#class tmp_info_inv kill; #nop
 	};
 }
 

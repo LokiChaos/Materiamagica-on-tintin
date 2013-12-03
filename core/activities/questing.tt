@@ -70,7 +70,12 @@ Type QUEST STATUS <#> for complete information on that quest.
 /* Phase Completions {{{ */
 #act {^All parts of your quest are complete. Return to your quest master in time to receive your reward!$} {
 	_CaptureLog {<049>All Quest Phases Completed!} {$capPath[act]};
-	_event_raise {activity_quest_phase} {complete};
+	_event_raise {activity_quest_phase} {complete} {unknown};
+}
+
+#act {^All parts of your quest '%*' are complete.$} {
+	_CaptureLog {<049>All Quest Phases Completed! (%1)} {$capPath[act]};
+	_event_raise {activity_quest_phase} {complete} {%1};
 }
 
 #act {^You have completed a part of your quest!$} {
@@ -88,14 +93,14 @@ Type QUEST STATUS <#> for complete information on that quest.
 
 /* Requesting a Quest {{{ */
 #act {^You ask %* for a quest.$} {
-	#class questRequest read core/activities/lib/questreq.tt;
+	#class tmp_questRequest read core/activities/lib/questreq.tt;
 	_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
 }
 /* }}} */
 
 /* Turning in a Quest {{{ */
 #act {^You inform %* you have completed your quest '%*'.$} {
-	#class questComplete read core/activities/lib/questcom.tt;
+	#class tmp_questComplete read core/activities/lib/questcom.tt;
 	#var _questComplete[master] {%1};
 	#var _questComplete[name] {%2};
 	#unvar _quests[@quest_name_to_num{%2}];
@@ -126,7 +131,7 @@ Type QUEST STATUS <#> for complete information on that quest.
 /* }}} */
 
 #alias {quest} {
-	#class questCmd read core/activities/lib/questing.tt;
+	#class tmp_questCmd read core/activities/lib/questing.tt;
 	_quest %0;
-	#class questCmd kill;
+	#class tmp_questCmd kill;
 }

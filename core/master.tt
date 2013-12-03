@@ -43,7 +43,7 @@
 
 /* Load #event handlers
    Needs to be loaded in #gts as it handles conncet/disconnect events */
-#class events read core/login/events.tt
+#class gts_events read core/login/events.tt
 
 /* Prevents accadental quitting with CTRL+D and Backgroudning with CTRL+Z {{{ */
 #macro {\cd} {
@@ -56,4 +56,4 @@
 /* }}} */
 
 /* Login Menu and Welcome Screen */
-#class login_menu read core/login/menu.tt
+#class gts_login_menu read core/login/menu.tt

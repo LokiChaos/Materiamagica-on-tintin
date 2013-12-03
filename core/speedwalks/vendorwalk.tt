@@ -15,16 +15,16 @@
 		  #path load {${__vendorpath}};
 		  #unvar __vendorpath;
 		  #echo {<149>Path to shop '%s' owned by %s has been loaded. Loaded path... } {%%1} {%%2}; 
-		  #class vendorgo kill;
+		  #class tmp_sw_vendor kill;
 	};
 	#act {^There is no vendor leased by a character matching that name.} {
-		#class vendorgo kill;
+		#class tmp_sw_vendor kill;
 	};
 	#act {^There is no vendor leased by a clan of that number.} {
-		#class vendorgo kill;
+		#class tmp_sw_vendor kill;
 	};
 	#act {^You are not able to sense the direction of that vendor from your current location.$} {
-		#class vendorgo kill;
+		#class tmp_sw_vendor kill;
 	};
 	#send {vendor where %1};
 }

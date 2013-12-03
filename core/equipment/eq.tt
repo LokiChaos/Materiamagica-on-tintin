@@ -126,8 +126,8 @@
 
 #act {^Excepting defenses and dynamic modifiers, you will hit %d% of the time.} {
 	#var charScore[toHit]      {%1};
-	#class equipinfo kill;	
-	#class silentEq kill;		
+	#class tmp_info_eq kill;	
+	#class tmp_silentEq kill;		
 	#if {$stateClient[muteLine]} {
 		#line {gag};
 	};

@@ -33,10 +33,10 @@
 #class core_state read core/state.tt
 
 /* Triggers that Extract info from game commands {{{ */
-#class core read core/info.tt
-#class core read core/score.tt
-#class core read core/equipment.tt
-#class core read core/mems.tt
+#class core_info read core/info.tt
+#class core_info read core/score.tt
+#class core_info read core/equipment.tt
+#class core_info read core/mems.tt
 /* }}} */
 
 /* Formation info and Ally tracking */

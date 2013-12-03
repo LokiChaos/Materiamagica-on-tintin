@@ -2,7 +2,7 @@
 
 #act {^%* tells you, 'You didn't complete any parts of your quest, I'm sorry.'$} {
 	_event_raise {activity_quest_reject} {${_questComplete[name]}};
-	#format {__questEcho} {<049>Rejected Quest '%d' from %s} {${_questComplete[name]}} {${_questComplete[master]}};
+	#format {__questEcho} {<049>Rejected Quest '%s' from %s} {${_questComplete[name]}} {${_questComplete[master]}};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
 	#unvar _questComplete;
@@ -19,7 +19,7 @@
 }
 
 #act {^%* tells you, 'As a reward for thy valor, I am awarding you %d quest points, %*.'} {
-	#format {__questEcho} {<049>%s's Quest '%d' Completed, rewards: %d quest points, %s.}
+	#format {__questEcho} {<049>%s's Quest '%s' Completed, rewards: %d quest points, %s.}
 	        {${_questComplete[master]}} {${_questComplete[name]}} {%2} {%3};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
@@ -43,5 +43,5 @@
 
 #alias {_questCompleteFin} {
 	#nop %1;
-	#class questComplete kill;
+	#class tmp_questComplete kill;
 }

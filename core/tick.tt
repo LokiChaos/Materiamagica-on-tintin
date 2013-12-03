@@ -39,15 +39,15 @@ _event_register {tick_sync} {sync} {_SyncTick};
 
 /* Downloads sysinfo.txt and parses the information into tintin */
 #alias {_UpdateSysInfo} {
-	#class sysinfo read core/tick/sysinfo.tt;
+	#class tmp_sysinfo read core/tick/sysinfo.tt;
 	_UpdateSystemInfo;
-	#class sysinfo kill;
+	#class tmp_sysinfo kill;
 }
 
 /* Prevents spamming iota with requests */
 #alias {_GetSysinfo} {
-	#class sysinfo read core/tick/sysinfo.tt;
+	#class tmp_sysinfo read core/tick/sysinfo.tt;
 	_GetSysteminfo;
-	#class sysinfo kill;
+	#class tmp_sysinfo kill;
 }
 /* }}} */

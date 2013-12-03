@@ -5,9 +5,9 @@
 
 /* Player Commands {{{ */
 #alias {^run$} {
-	#class runSpeedWalk read core/speedwalks/run.tt;
+	#class tmp_sw_run read core/speedwalks/run.tt;
 	_RunSpeedWalk;
-	#class runSpeedWalk kill;
+	#class tmp_sw_run kill;
 }
 
 #alias {^stop$} {
@@ -22,28 +22,28 @@
 }
 
 #alias {^goto$} {
-	#class swgoto read core/speedwalks/goto.tt;
+	#class tmp_sw_goto read core/speedwalks/goto.tt;
 	_gotoHelp;
-	#class swgoto kill;
+	#class tmp_sw_goto kill;
 }
 
 #alias {^goto %*} {
 	#if {"%1" != ""} {
 		#regex {%1} {%d %d} {
-			#class swgoto read core/speedwalks/coord.tt;
+			#class tmp_sw_goto read core/speedwalks/coord.tt;
 			_goto_coord {&1} {&2};
 		} {
-			#class swgoto read core/speedwalks/goto.tt;
+			#class tmp_sw_goto read core/speedwalks/goto.tt;
 			_realgoto {%0};
 		};
 	} {
 		_gotoHelp;
 	};
-	#class swgoto kill;
+	#class tmp_sw_goto kill;
 }
 
 #alias {v{|e|en|end|endo|endor} go %*} {
-	#class vendorgo read core/speedwalks/vendorwalk.tt;
+	#class tmp_sw_vendor read core/speedwalks/vendorwalk.tt;
 	_vendorwalk %2;
 }
 /* }}} */
@@ -100,9 +100,9 @@ _event_register {speedStep} {sw_walker} {_SpeedWalkStep};
 
 #alias {_loadPathQueue} {
 	#if {@std_queue_depth{_pathQueue}} {
-		#class paths read data/paths.tt;
+		#class tmp_sw_paths read data/paths.tt;
 		#path load @std_queue_pop{_pathQueue};
-		#class paths kill;
+		#class tmp_sw_paths kill;
 	};
 }
 /* }}} */

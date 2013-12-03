@@ -16,5 +16,5 @@ _event_register {item_inv_noroom} {reagGet} {_reagNoRoom};
 #alias {_cleanReagGet} {
 	#nop %1;
 	_event_remove_specific {item_inv_noroom} {reagGet};
-	#class reagentGet kill; 
+	#class tmp_reagent_get kill; 
 }

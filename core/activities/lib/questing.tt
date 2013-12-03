@@ -6,7 +6,11 @@
 	};
 	#elseif {"%1" == "status"} {
 		#if {"%2" == ""} {
-			#send {quest status ${_questLast}};
+			#if {${_questLast} != -1 } {
+				#send {quest status ${_questLast}};
+			} {
+				#send {quest status};
+			};
 		};
 		#elseif {"%2" == "a{ll|}"} {
 			#send {quest status};
@@ -27,8 +31,12 @@
 	};
 	#elseif {"%1" == "complete"} {
 		#if {"%2" == ""} {
-			#send {quest complete ${_questLast}};
-			#var _questLast {-1};
+			#if {${_questLast} != -1 } {
+				#send {quest complete ${_questLast}};
+				#var _questLast {-1};
+			} {
+				#send {quest complete};	
+			};
 		};
 		#elseif {"%2" == "#%d"} {
 			#regex {%2} {#%d} {

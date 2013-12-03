@@ -106,7 +106,7 @@
 	};
 	#unvar __rcount;
 	#unvar __ridx;
-	#class rcheck kill;		
+	#class tmp_reagent_check kill;		
 };
 /* }}} */
 

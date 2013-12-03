@@ -15,16 +15,16 @@
 	#var __mem[Temp][maxNum] {%1};
 	#var __mem[Temp][maxCpx] {%2};
 	#var __mem[Temp][Cpx] {0};
-	#class memInfo read core/mems/memsub.tt;
+	#class tmp_info_mem read core/mems/memsub.tt;
 	_GenerateMemTable;
-	_event_oneshot {prompt_post} {memClean} {#class memInfo kill; #nop
+	_event_oneshot {prompt_post} {memClean} {#class tmp_info_mem kill; #nop
 	};
 }
 
 #act {^You don't currently have any spells memorized.} {
-	#class memInfo read core/mems/memsub.tt;
+	#class tmp_info_mem read core/mems/memsub.tt;
 	_NoMem;
-	#class memInfo kill;
+	#class tmp_info_mem kill;
 }
 /* }}} */
 

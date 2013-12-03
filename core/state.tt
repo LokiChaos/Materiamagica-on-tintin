@@ -83,7 +83,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 {
 	#if {"$stateChar[justLooking]" != "1"}
 	{
-		#class roomState read core/state/roomstate.tt;
+		#class tmp_state_room read core/state/roomstate.tt;
 		#var stateRoom {};
 		_parseRoomInfo;
 		#regex {%1} {Forested} {
@@ -100,7 +100,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 			} {
 				#unvar _roomExtraStr;
 			};
-			#class roomState kill;
+			#class tmp_state_room kill;
 		};
 	};
 }

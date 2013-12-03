@@ -2,18 +2,18 @@
 
 /* Started a Crystal guild {{{ */
 #act {^Tadamir the guildsman gives you a tightly-rolled scroll.$} {
-	#class crystalAction read core/activities/lib/crystals.tt;
+	#class tmp_crystalAction read core/activities/lib/crystals.tt;
 	_startCrystal;
-	#class crystalAction kill;
+	#class tmp_crystalAction kill;
 	_event_raise {activity_crystal_start};
 } {3}
 /* }}} */
 
 /* Completion of a crystal guild {{{ */
 #act {^You give a %* crystal to Tadamir the guildsman.$} {
-	#class crystalAction read core/activities/lib/crystals.tt;
+	#class tmp_crystalAction read core/activities/lib/crystals.tt;
 	_turnCrystal %1;
-	#class crystalAction kill;
+	#class tmp_crystalAction kill;
 	_event_raise {activity_crystal_return} {%1};
 } {3}
 /* }}} */
@@ -21,9 +21,9 @@
 /* Player (crystal) command {{{ */
 #alias {crystal}
 {
-	#class crystalAction read core/activities/lib/crystals.tt;
+	#class tmp_crystalAction read core/activities/lib/crystals.tt;
 	_crystalAction %1 %2;
-	#class crystalAction kill;
+	#class tmp_crystalAction kill;
 }
 /* }}} */
 

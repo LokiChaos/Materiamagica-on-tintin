@@ -79,6 +79,6 @@
 	#unvar __reward;
 	#unvar _dailyTown;
 	#unvar _dailyRewards;
-	#class dailyReward kill;
+	#class tmp_dailyReward kill;
 }
 /* }}} */

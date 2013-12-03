@@ -3,12 +3,12 @@
 /* Mail High-Magenta {{{ */
 #act {~^You receive %* in the mail, sent by %*}{
 	_ChannelLog {<159>%0} {$capPath[transfers]};
-	_event_raise {mail_received} {%2} {%1};
+	_event_raise {mail} {received} {%2} {%1};
 } {3}
 
 #act {~^You have successfully mailed %* to %*.$}{
 	_ChannelLog {<159>%0} {$capPath[transfers]};
-	_event_raise {mail_sent} {%2} {%1};
+	_event_raise {mail} {sent} {%2} {%1};
 } {3}
 /* }}} */
 
@@ -22,12 +22,12 @@
 /* Bank/Gold Transfers & Auction Profits High-Yellow {{{ */
 #act {^You transfer [%S] gp to %w for a transaction fee of [%S] gp.$} {
 	_ChannelLog {<139>%0} {$capPath[transfers]};
-	_event_raise {gold_transfer_to} {%2} {%1} {%3};
+	_event_raise {gold_transfer} {to} {%2} {%1} {%3};
 } {3}
 
 #act {^The imp tells you, '%w has transferred %S gold into your %* account.'$} {
 	_ChannelLog {<139>%1 has transferred [%2] gold into your %3 account.} {$capPath[transfers]};
-	_event_raise {gold_transfer_from} {%1} {%2} {%3};
+	_event_raise {gold_transfer} {from} {%1} {%2} {%3};
 } {2.8}
 
 #act {^The imp tells you, 'Your bank account has been credited for the amount of %S.$} {
@@ -44,28 +44,28 @@
 /* Reward Unit Transfers High-Red {{{ */
 #act {^You transfer [%S] ru to %w. Your new balance is [%S] ru.$} {
 	_ChannelLog {<119>%0} {$capPath[transfers]};
-	_event_raise {ru_transfer_to} {%2} {%1} {%3};
+	_event_raise {ru_transfer} {to} {%2} {%1} {%3};
 } {3}
 
 #act {^The imp tells you, '%w has transferred %S reward units to you. Reason: %*'$} {
 	_ChannelLog {<119>%1 has transferred %2 reward units to you. Reason: %3} {$capPath[transfers]};
-	_event_raise {ru_transfer_from} {%1} {%2} {%3};
+	_event_raise {ru_transfer} {from} {%1} {%2} {%3};
 } {2.8}
 
 #act {~^You gain \e[1;33m%d\e[0m rewardunits!$} {
 	_ChannelLog {<119>You gain %1 reward units.} {$capPath[transfers]};
-	_event_raise {ru_voucher} {%1};
+	_event_raise {ru_transfer} {voucher} {%1};
 } {3}
 /* }}} */
 
 /* Class Gemstone transfers High-Black {{{ */
 #act {^%w has transferred %S gemstones into your account.$} {
 	_ChannelLog {<109>%0} {$capPath[transfers]};
-	_event_raise {classgems_transfer_from} {%1} {%2};
+	_event_raise {classgems_transfer} {from} {%1} {%2};
 } {3}
 
 #act {^You have transferred %S gemstones into %S's account.$} {
 	_ChannelLog {<109>%0} {$capPath[transfers]};
-	_event_raise {classgems_transfer_to} {%2} {%1};
+	_event_raise {classgems_transfer} {to} {%2} {%1};
 } {3}
 /* }}} */

@@ -48,31 +48,31 @@ _event_register {sysinfo} {moons} {_MoonCalc};
    These echos allow syncing the ticker and Alyrian time */
 #act {^The land becomes alive as the sun breaks free of the horizon.$} {
 	#var gtime[time] 299;
-	_event_raise {time_sunrise};
+	_event_raise {time} {sunrise};
 	_event_raise {tick_sync};
 }
 
 #act {^The sun rises in the east, sending molten light across the land.$} {
 	#var gtime[time] 359;
-	_event_raise {time_morning};
+	_event_raise {time} {morning};
 	_event_raise {tick_sync};
 }
 
 #act {^The sun has reached its zenith directly overhead.$} {
 	#var gtime[time] 719;
-	_event_raise {time_noon};
+	_event_raise {time} {noon};
 	_event_raise {tick_sync};
 }
 
 #act {^Light begins to dim as the sun sets in the west.$} {
 	#var gtime[time] 1079;
-	_event_raise {time_evening};
+	_event_raise {time} {evening};
 	_event_raise {tick_sync};
 }
 
 #act {^The last glimmer of sunlight fades, and the land is dark.$} {
 	#var gtime[time] 1139;
-	_event_raise {time_sunset};
+	_event_raise {time} {sunset};
 	_event_raise {tick_sync};
 }
 /* }}} */

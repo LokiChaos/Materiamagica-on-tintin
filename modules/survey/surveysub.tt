@@ -21,7 +21,7 @@
 
 #alias {_mod_survey_clean} {
 	#nop %1;
-	#class mod_surveyHelp kill;
+	#class tmpm_survey kill;
 }
 
 #var _mod_survey_dist_table {

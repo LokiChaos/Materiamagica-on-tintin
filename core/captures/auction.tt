@@ -5,13 +5,13 @@
 	_ChannelLog {<159>%0} {$capPath[auction]};
 
 	#regex {%1} {%w has put %* up for auction. Minimum bid is %S gp.} {
-		_event_raise {auction_up} {&1} {&2} {&3};
+		_event_raise {auction} {up} {&1} {&2} {&3};
 	};
 	#regex {%1} {%* has been sold to %w for %S gp.} {
-		_event_raise {auction_sold} {&2} {&1} {&3};
+		_event_raise {auction} {sold} {&2} {&1} {&3};
 	};
 	#regex {%1} {No bids received for %*. Item has been removed.} {
-		_event_raise {auction_timeout} {&1};
+		_event_raise {auction} {timeout} {&1};
 	};
 } {3}
 /* }}} */

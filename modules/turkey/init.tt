@@ -1,0 +1,23 @@
+#nop
+
+#nop 2-35
+#nop {A rather small and weak turkey is here, gobbling and pecking at the ground.} {<122>}
+
+#nop 36-60
+#nop {A small, plump turkey is here, gobbling and pecking at the ground.} {<122}
+
+#nop 61-120
+#high {A medium-sized, well-muscled turkey is here, gobbling and flapping about.} {<122>}
+
+#nop 121-180
+#nop {A rather large turkey is here, waddling about gobbling endlessly.} {<122>}
+
+#nop 181-239
+#nop {A fierce, huge turkey struts about, daring you to hunt it.} {<122>}
+
+#nop 240
+#nop {A plump turkey stands here, gobbling loudly.} {<122>}
+
+#high {A tin cylinder labelled 'Milk' has been placed here.} {<122>}
+#high {A squat, orange copper can of something has been left here.} {<122>}
+#high {A metal rack is here, cooling off a sheet of pie crust.} {<122>}

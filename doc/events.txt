@@ -37,28 +37,28 @@ Session:
 		Called when a session disconnects
 
 Activity:
-	activity_crystal_start
+	activity_crystal {start}
 		Raised when you receive a crystal guild map and have begun a treasure hunt.
-	activity_crystal_return {<crystal short desc>}
+	activity_crystal {return} {<crystal short desc>}
 		Raised when you turn in a crystal.
-	activity_daily_collected {<town name>}
+	activity_daily {collected} {<town name>}
 		Raised when you collect daily rewards.
-	activity_bounty_start {<area name>} {<mob name>}
+	activity_bounty {start} {<area name>} {<mob name>}
 		Raised when you are given a bounty from the orc pursuer.
-	*activity_bounty_return
+	*activity_bounty {return}
 		Raised when you successfully return a bounty.
-	*activity_quest_receive {<quest#>} {<quest name>}
+	*activity_quest {receive} {<quest#>} {<quest name>}
 		Raised when you receive a quest.
-	*activity_quest_fail {<quest#>} {<quest name>}
+	*activity_quest {fail} {other} {<quest name>}
 		Raised when you fail a quest.
-	*activity_quest_timeout {<quest#>} {<quest name>}
+	*activity_quest {fail} {time} {<quest name>}
 		Raised when you run out of time on a quest.
-	*activity_quest_turnin {<completion>} {<quest#>} {<quest name>} {<quest master>}
+	*activity_quest {complete} {<completion level>} {<quest name>}
 		Raised when you turn in a quest.
-		Possible Values for Completion: none, partial, full
-	*activity_quest_phaseComplete
+		Possible Values for Completion: none partial full
+	*activity_quest {phase} {done} {<quest name>|unknown}
 		Raised when you complete a phase of a quest.
-	*activity_quest_complete
+	*activity_quest {phase} {complete} {<quest name>|unknown}
 		Raised when you have completed all phases of a quest.
 
 	activity_reward {<type>} {<amount>}

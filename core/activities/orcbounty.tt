@@ -15,7 +15,7 @@
 		#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
 		_gotBounty {%1} {%2};
 		#class tmp_orcCmd kill;
-		_event_raise {activity_bounty_start} {%1} {%2};
+		_event_raise {activity_bounty} {start} {%1} {%2};
 	};
 	#unvar _orcDidNod;
 }
@@ -26,7 +26,7 @@
 	#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
 	_rewBounty {%1};
 	#class tmp_orcCmd kill;
-	#nop _event_raise {activity_bounty_return};
+	#nop _event_raise {activity_bounty} {return};
 } {3}
 /* }}} */
 

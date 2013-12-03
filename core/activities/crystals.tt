@@ -5,7 +5,7 @@
 	#class tmp_crystalAction read core/activities/lib/crystals.tt;
 	_startCrystal;
 	#class tmp_crystalAction kill;
-	_event_raise {activity_crystal_start};
+	_event_raise {activity_crystal} {start};
 } {3}
 /* }}} */
 
@@ -14,7 +14,7 @@
 	#class tmp_crystalAction read core/activities/lib/crystals.tt;
 	_turnCrystal %1;
 	#class tmp_crystalAction kill;
-	_event_raise {activity_crystal_return} {%1};
+	_event_raise {activity_crystal} {return} {%1};
 } {3}
 /* }}} */
 

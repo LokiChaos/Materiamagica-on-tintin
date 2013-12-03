@@ -19,11 +19,11 @@
 #macro {\e[24~} {
 	#if { ${_mod_navpad[state]} } {
 		#echo {<149>NavPad Disabled};
-		#class _mod_navpad_pad kill;
+		#class tmpm_navpad_pad kill;
 		#var _mod_navpad[state] 0;
 	} {
 		#echo {<149>NavPad Enabled};
 		#var _mod_navpad[state] 1;
-		#class _mod_navpad_pad read modules/navpad/navpad2.tt;
+		#class tmpm_navpad_pad read modules/navpad/navpad2.tt;
 	};
 };

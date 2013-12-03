@@ -4,22 +4,22 @@
 /* Stamp Storing & Missing Indicator {{{ */
 
 #act {^A stamp collector's book contains:$} {
-	#class mod_Collectables_sort read modules/collectables/stamps.tt;
-	#unvar _mod_Collectables_sort;
+	#class tmpm_collectables_sort read modules/collectables/stamps.tt;
+	#unvar _tmpm_collectables_sort;
 	#var stateClient[autoContinue] 1;
-	_event_oneshot {prompt_post} {mod_collectables_clean} {#class mod_Collectables_sort kill; #nop};
+	_event_oneshot {prompt_post} {mod_collectables_clean} {#class tmpm_collectables_sort kill; #nop};
 }
 
 #act {^A velvet-lined toybox contains:$} {
-	#class mod_Collectables_sort read modules/collectables/plushies.tt;
-	#unvar _mod_Collectables_sort;
+	#class tmpm_collectables_sort read modules/collectables/plushies.tt;
+	#unvar _tmpm_collectables_sort;
 	#var stateClient[autoContinue] 1;
-	_event_oneshot {prompt_post} {mod_collectables_clean} {#class mod_Collectables_sort kill; #nop};
+	_event_oneshot {prompt_post} {mod_collectables_clean} {#class tmpm_collectables_sort kill; #nop};
 }
 
 #act {^A portable glassware armoire contains:$} {
-	#class mod_Collectables_sort read modules/collectables/plates.tt;
-	#unvar _mod_Collectables_sort;
+	#class tmpm_collectables_sort read modules/collectables/plates.tt;
+	#unvar _tmpm_collectables_sort;
 	#var stateClient[autoContinue] 1;
-	_event_oneshot {prompt_post} {mod_collectables_clean} {#class mod_Collectables_sort kill; #nop};
+	_event_oneshot {prompt_post} {mod_collectables_clean} {#class tmpm_collectables_sort kill; #nop};
 }

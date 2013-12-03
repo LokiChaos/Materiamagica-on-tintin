@@ -57,7 +57,7 @@
 	#unvar lastDaily;
 	#var _dailyRewards {};
 	#var _dailyTown {%1};
-	_event_register {item_bound} {dailyBindGag} {#line gag; #nop};
+	_event_register {item} {dailyBindGag} {#if {"%2" == "bound";} {#line gag;}; #nop};
 }
 
 #alias {_dailyFin} {
@@ -74,7 +74,7 @@
 		_CaptureLog {<259>${__rewStr}} {$capPath[act]};
 	};
 
-	_event_remove_specific {item_bound} {dailyBindGag};
+	_event_remove_specific {item} {dailyBindGag};
 	#unvar __rewStr;
 	#unvar __reward;
 	#unvar _dailyTown;

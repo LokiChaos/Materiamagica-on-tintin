@@ -30,6 +30,6 @@
 #alias {_mod_scan_aid_clean} {
 	#nop %1;
 	#unvar __mod_scan_aid_distTbl;
-	#class mod_scan_aidSub kill;
+	#class tmpm_scan_aid kill;
 }
 

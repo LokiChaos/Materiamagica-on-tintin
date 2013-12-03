@@ -1,5 +1,5 @@
 #nop survey module
 #act {^You survey the area around you%*, and see:$} {
-	#class mod_surveyHelp read modules/survey/surveysub.tt;
+	#class tmpm_survey read modules/survey/surveysub.tt;
 	_event_oneshot {prompt_post} {surveyClean} {_mod_survey_clean};
 }

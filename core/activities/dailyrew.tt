@@ -9,7 +9,7 @@
 	#class tmp_dailyReward read core/activities/lib/dailyrew.tt;
 	_event_oneshot {prompt_pre} {dailyFin} {_dailyFin};
 	_dailyCollect {%1};
-	_event_raise {activity_daily_collected} {%1};
+	_event_raise {activity_daily} {collected} {%1};
 }
 /* }}} */
 

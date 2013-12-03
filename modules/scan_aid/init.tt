@@ -1,7 +1,7 @@
 #nop
 
 #alias {sca{|n}} {
-	#class mod_scan_aidSub read modules/scan_aid/scan.tt;
+	#class tmpm_scan_aid read modules/scan_aid/scan.tt;
 	_event_oneshot {prompt_post} {scan_aidClean} {_mod_scan_aid_clean};
 	#send {%0};
 };

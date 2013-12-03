@@ -26,13 +26,13 @@
 #act {^Your formation has been disbanded.} {
 	#var stateChar[Formed] 0;
 	#unvar form;
-	_event_raise {form_disband};
+	_event_raise {form} {disband};
 }
 
 #act {^You stop following %*.} {
 	#var stateChar[Formed] 0;
 	#unvar form;
-	_event_raise {form_left};
+	_event_raise {form} {left};
 }
 
 #act {%* joins your formation.$} {
@@ -47,19 +47,19 @@
 #act {Your formation has been restructured.$} {
 	#var stateChar[Formed] 1;
 	silentForm;
-	_event_raise {form_restruct};
+	_event_raise {form} {restruct};
 }
 
 #act {You restructure your formation.$} {
 	#var stateChar[Formed] 1;
 	silentForm;
-	_event_raise {form_restruct};
+	_event_raise {form} {restruct};
 }
 
 #act {^%* restructures {her|his} formation.} {
 	#if {"$1" == "$form[Leader]"} {
 		silentForm;
-		_event_raise {form_restruct};
+		_event_raise {form} {restruct};
 	};
 }
 /* Collect info from form/form report commands {{{ */

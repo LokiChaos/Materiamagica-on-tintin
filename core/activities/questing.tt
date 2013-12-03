@@ -14,17 +14,33 @@ Type QUEST STATUS <#> for complete information on that quest.
 
 /* Quest Status {{{ */
 #act {^Quest #%d: %* (%d/%d goal{|s} complete).$} {
-	#var __questIdx &{_questListing[]};
-	#var _questListing[${__questIdx}][number] {%1};
-	#var _questListing[${__questIdx}][name]   {%2};
-	#var _questListing[${__questIdx}][phCom]  {%3};
-	#var _questListing[${__questIdx}][phTot]  {%4};
-	#unvar __questIdx;
+	#math __qIdx {${__qIdx} + 1};
+	#if {&{_quests[%1]} == 0 } {
+		#var _quests[%1][name]   {%2};
+		#var _quests[%1][phCom]  {%3};
+		#var _quests[%1][phTot]  {%4};
+	};
+	#var _quests[%1][index] {${__qIdx}};
+	#var __questNum {%1};
+	#line gag;
+	#echo {%+2s<149>) <099>%2 <139>(<099>%1<139>) [<099>%3<139>/<099>%4<139>]<099> phases complete.} {${__qIdx}};
 }
 
+#act {^  This quest has no time limit.$} {
+	#var _quests[${__questNum}][timeRem]  {-1};
+	#line gag;
+	#echo {    This quest has no time limit.};
+};
+
+#act {^  Time Remaining: %d Alyrian minutes.$} {
+	#var _quests[${__questNum}][timeRem]  {%1};
+	#line gag;
+	#echo {    Time Remaining: <139>%s<099> Alyrian Minutes.} {%1};
+};
+
 #act {^A total of [%d] quests.$} {
-	#var _quests[list] {${_questListing}};
-	#unvar _questListing;
+	#unvar __qIdx;
+	#unvar __questNum;
 }
 
 #act {^You aren't currently on any quests.$} {
@@ -35,36 +51,82 @@ Type QUEST STATUS <#> for complete information on that quest.
 
 /* Running out of time and Losing a Quest {{{ */
 #act {^You have run out of time for your quest, '%*'.} {
-
+	#format {__questEcho} {<049>You have run out of time for the quest '%s'.} {%1};
+	_CaptureLog {${__questEcho}} {$capPath[act]};
+	#unvar __questEcho;
+	#unvar _quests[@quest_name_to_num[%1]];
+	_event_raise {activity_quest_fail} {time} {%1};
 }
 
 #act {^You are no longer on the quest, '%*'.$} {
+	#format {__questEcho} {<049>You are no longer on the quest '%s'.} {%1};
+	_CaptureLog {${__questEcho}} {$capPath[act]};
+	#unvar __questEcho;
+	#unvar _quests[@quest_name_to_num[%1]];
+	_event_raise {activity_quest_phase} {other} {%1};
+}
+/* }}} */
 
+/* Phase Completions {{{ */
+#act {^All parts of your quest are complete. Return to your quest master in time to receive your reward!$} {
+	_CaptureLog {<049>All Quest Phases Completed!} {$capPath[act]};
+	_event_raise {activity_quest_phase} {complete};
+}
+
+#act {^You have completed a part of your quest!$} {
+	_event_raise {activity_quest_phase} {phase};
+}
+
+#act {^You have completed a part of your quest, '%*'!} {
+	_event_raise {activity_quest_phase} {phase};
+}
+
+#act {^Quest Goal: %* [%d/%d Complete].$} {
+	_event_raise {activity_quest_phase} {partial};
 }
 /* }}} */
 
 /* Requesting a Quest {{{ */
-#act {^You ask {Lord|Lady|Baron} %w for a quest.$} {
-	#class questRequest read core/activities/questreq.tt;
+#act {^You ask %* for a quest.$} {
+	#class questRequest read core/activities/lib/questreq.tt;
 	_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
 }
 /* }}} */
 
 /* Turning in a Quest {{{ */
-#act {^You inform {Lord|Lady|Baron} %w you have completed your quest '%*'.$} {
-	#class questComplete read core/activities/questcom.tt;	
+#act {^You inform %* you have completed your quest '%*'.$} {
+	#class questComplete read core/activities/lib/questcom.tt;
+	#var _questComplete[master] {%1};
+	#var _questComplete[name] {%2};
+	#unvar _quests[@quest_name_to_num{%2}];
 	_event_oneshot {prompt_post} {questComClean} {_questCompleteFin};
 }
 /* }}} */
 
-/* User (quest check) command {{{ */
-/*#alias {q{|uest} {check(|limit)|s(|tatus)|c(|omplete)}} {
-	#echo {quest %s} {%2};
-}*/
-/*
-#class questCmd read core/activities/lib/questing.tt;
-	questCheckLimit;
-	#class questCmd kill;
-};
-*/
+/* Get quest ID# from name or index {{{ */
+#function {quest_name_to_num} {
+	#var result -1;
+	#foreach {${_quests[]}} {__qNum} {
+		#if { "${_quests[${__qNum}][name]}" == "%1" } {
+			#var result {${__qNum}};
+		};
+	};
+	#unvar __qNum;
+}
+
+#function {quest_index_to_num} {
+	#var result -1;
+	#foreach {${_quests[]}} {__qNum} {
+		#if { "${_quests[${__qNum}][index]}" == "%1" } {
+			#var result {${__qNum}};
+		};
+	};
+	#unvar __qNum;
+}
 /* }}} */
+
+#alias {quest} {
+	#class questCmd read core/activities/lib/questing.tt;
+	_quest %0;
+	#class questCmd kill;
+}

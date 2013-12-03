@@ -1,21 +1,35 @@
 #nop
 
-#act {^{Lord|Lady|Baron} %w tells you, 'You didn't complete any parts of your quest, I'm sorry.'$} {
+#act {^%* tells you, 'You didn't complete any parts of your quest, I'm sorry.'$} {
 	_event_raise {activity_quest_reject} {${_questComplete[name]}};
+	#format {__questEcho} {<049>Rejected Quest '%d' from %s} {${_questComplete[name]}} {${_questComplete[master]}};
+	_CaptureLog {${__questEcho}} {$capPath[act]};
+	#unvar __questEcho;
+	#unvar _questComplete;
 }
 
-#act {^{Lord|Lady|Baron} %w tells you, 'As a reward for thy valor, I am awarding you %d quest points.'} {
+#act {^%* tells you, 'As a reward for thy valor, I am awarding you %d quest points.'} {
+	#format {__questEcho} {<049>Partially Completed %s's Quest '%s,' rewards: %d quest points.}
+	        {${_questComplete[master]}} {${_questComplete[name]}} {%2};
+	_CaptureLog {${__questEcho}} {$capPath[act]};
+	#unvar __questEcho;
 	_event_raise {activity_quest_complete} {partial} {${_questComplete[name]}};
+	#unvar _questComplete;
 
 }
 
-#act {^{Lord|Lady|Baron} %w tells you, 'As a reward for thy valor, I am awarding you %d quest points, %*.'} {
+#act {^%* tells you, 'As a reward for thy valor, I am awarding you %d quest points, %*.'} {
+	#format {__questEcho} {<049>%s's Quest '%d' Completed, rewards: %d quest points, %s.}
+	        {${_questComplete[master]}} {${_questComplete[name]}} {%2} {%3};
+	_CaptureLog {${__questEcho}} {$capPath[act]};
+	#unvar __questEcho;
 	_event_raise {activity_quest_complete} {complete} {${_questComplete[name]}};
+	#unvar _questComplete;
 }
 
 #alias {_questRecord}
 {
-	.restoreValue lastQuest;
+	std_value_restore lastQuest;
 	#format timeNow {%T};
 	#var lastQuest[%1][2] {$lastQuest[%1][1]};
 	#var lastQuest[%1][1] {$timeNow};
@@ -23,12 +37,11 @@
 	#if {&lastQuest[Main] > 7} {
 		#list lastQuest[Main]  {delete} {8};
 	}
-	.saveValue lastQuest;
+	std_value_save lastQuest;
 	#unvar timeNow;
 };
 
-#alias {_questCompelteFin} {
+#alias {_questCompleteFin} {
 	#nop %1;
 	#class questComplete kill;
-
 }

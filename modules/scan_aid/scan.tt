@@ -1,0 +1,35 @@
+#nop
+
+#var __mod_scan_aid_distTbl {
+  {right here}{1}
+  {close by}{2}
+  {not far off}{3}
+  {a brief walk away}{4}
+  {rather far off}{5}
+  {in the distance}{6}
+  {almost out of sight}{7}
+};
+
+#act {^%* is %* to the %w.$} {
+	#line gag;
+	#var __high {};
+	#if {&{_mod_scan_aid_settings[patterns][]} > 0} {
+		#forall {${_mod_scan_aid_settings[patterns][]}} {
+			#if {"%1" == "%*${_mod_scan_aid_settings[patterns][&0]}%*"} {
+				#var __high {${_mod_scan_aid_settings[color]}};
+			};
+		};
+	};
+	#echo {%s%s is %d to the %s.} {${__high}} {%1} {${__mod_scan_aid_distTbl[%2]}} {%3};	
+}
+
+#act {^You don't see anything %*.$} {
+	#line gag;
+}
+
+#alias {_mod_scan_aid_clean} {
+	#nop %1;
+	#unvar __mod_scan_aid_distTbl;
+	#class mod_scan_aidSub kill;
+}
+

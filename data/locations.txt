@@ -84,7 +84,7 @@ Xaventry Realty::n:The Towne of Xaventry:suburb:Alyria:0:0:Sepharia:::50:
 The Xaventry Stronghold::n:The Towne of Xaventry:nowhere:Alyria:0:0:Sepharia:::30:
 A Passage Beneath Xaventry::n:The Towne of Xaventry:underg:Alyra/SUG:0:0:Sepharia:::30:
 A Passage Beneath Xaventry:Bottomside:n:::SUG:?:?:::::
-The Lonely Dragon Inn::n::inn:Alyria:600:700:Sepharia:::25:small red brick building surrounded by several trees.
+The Lonely Dragon Inn::n::inn:Alyria:600:700:Sepharia:::25:a small red brick building surrounded by several trees.
 A Hill Giant Refuge::n::villge:Alyria:590:670:Sepharia:::25:a series of tents in various colors nestled into the side of a hill.
 Towne of Rune::y::towne:Alyria:695:770:Sepharia:6::19:the graceful white marble towers and the walls of the towne of Rune.
 Towne of Rune:West::::Alyria:648:760:Sepharia::::
@@ -124,14 +124,14 @@ A Disturbed Pyramid::n::dungn:Alyria:745:263:Sepharia:30:120*:30:a snow-covered 
 Bazaar::n::bazaar:Alyria:818:386:Sepharia:::42:a colorful open market, teeming with customers.
 Bazaar:West::::Alyria:818:386:Sepharia::::
 Bazaar:North::::Alyria:816:374:Sepharia::::
-Gilvery::y::villge:Alyria:951:356:Sepharia:::25:some pastoral, fenced-in farmland and a cluster of charmingly rural houses
+Gilvery::y::villge:Alyria:951:356:Sepharia:::25:some pastoral, fenced-in farmland and a cluster of charmingly rural houses.
 Gilvery:West::::Alyria:950:356:Sepharia::::
 Gilvery:East::::Alyria:962:356:Sepharia::::
 Inn of the Twin Moons::y::inn:Alyria:1007:306:Sepharia:::25:a small stone cottage with gray smoke rising from its chimney.
 Desert of Thorne::y::nowhere:Alyria:1031:316:Sepharia:::13:a vast desert circled by mountains.
 Desert of Thorne:West::::Alyria:1031:316:Sepharia::::
 Desert of Thorne:East::::Alyria:1048:324:Sepharia::::
-Lowangen:e:y::towne:Alyria:1159:421:Sepharia:::15:ancient, crumbling stone walls of the towne of Lowangen.
+Lowangen:e:y::towne:Alyria:1159:421:Sepharia:::15:the ancient, crumbling stone walls of the towne of Lowangen.
 Lowangen:Shipwright::::Alyria:1129:417:Sepharia::::
 Ofstadt Monastery::n::nowhere:Alyria:1120:330:Sepharia:::30:a serene-looking monastery overlooking the Annon.
 Tower of Art::y::tower:Alyria:1271:211:Sepharia:45::21:a sinister-looking stone tower silhouetted against the sky.
@@ -156,7 +156,7 @@ The Indestructible Cenotaphy::n::nowhere:Alyria:1430:1241:Beltane:241::?:a mithr
 The Village of Mulakanathos::y::villge:Alyria:1544:1234:Beltane:::25:a tiny coastal village combating the onslaught of sand and salt water.
 The Village of Mulakanathos:North::::Alyria:1544:1234:Beltane::::
 The Village of Mulakanathos:South::::Alyria:1556:1237:Beltane::::
-Gorth::y::villge:Alyria:1629:1223:Beltane:::25:
+Gorth::y::villge:Alyria:1629:1223:Beltane:::25:a narrow strip of trail peeking out of the mountainside.
 Gorth:West::::Alyria:1629:1223:Beltane::::
 Gorth:East::::Alyria:1635:1227:Beltane::::
 The Village of Colyon::n::villge:Alyria:1383:1029:Beltane:::25:a waft of smoke trailing lazily above the Wampo Stream.
@@ -169,13 +169,13 @@ A Mineshaft Between Alyria and the Sigil Underground:Underside::::SUG:1041:1246:
 Begora's Sanctuary::y::villge:Alyria:1833:425:Avros:::30:a wizened man sits crosslegged on the plains.
 Ogre Village::y::villge:Alyria:1885:459:Avros:::28:curling smoke from a small village nestled in the mountaintops.
 Old Stargazer Clanhall::y::clanhall:Alyria:1707:438:Avros:50:145:38:a ruined keep crafted of mossy gray stones.
-Frost Gaint's Keep::y::keep:Alyria:1689:389:Avros:18::19:a deep, glacier-filled gorge
+Frost Gaint's Keep::y::keep:Alyria:1689:389:Avros:18::19:a deep, glacier-filled gorge.
 Tower of Axora::n::tower:Alyria:1759:630:Avros::59:?:a medium-sized gray stone tower surrounded by a small overgrown forest.
 The Fishing Village Dorathon::y::villge:Alyria:1682:469:Avros:::25:a tiny hamlet settled against the shore of Lake Martoon.
 The Fishing Village Dorathon:West::::Alyria:1691:470:Avros::::
 The Fishing Village Dorathon:South::::Alyria:1695:474:Avros::::
 The Fishing Village Dorathon:East::::Alyria:1699:471:Avros::::
-Templeton::y::towne:Alyria:1619:540:Avros:::17:the shimmering walls and rooftops of the towne of Templeton
+Templeton::y::towne:Alyria:1619:540:Avros:::17:the shimmering walls and rooftops of the towne of Templeton.
 Templeton:South::::Alyria:1620:542:Avros::::
 Templeton:West::::Alyria:1619:540:Avros::::
 Catacombs of Shame::n:Tempelton:dungn:Alyria:0:0:Avros:::25:

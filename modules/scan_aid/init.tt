@@ -1,0 +1,46 @@
+#nop
+
+#alias {sca{|n}} {
+	#class mod_scan_aidSub read modules/scan_aid/scan.tt;
+	_event_oneshot {prompt_post} {scan_aidClean} {_mod_scan_aid_clean};
+	#send {%0};
+};
+
+#alias {sca{|n} {list|add|del|purge}{ .*|}} {
+	#var __aug {@std_str_trim{%3}};
+	#if {"%2" == "list"} {
+		#if {&{_mod_scan_aid_settings[patterns][]} > 0} {
+			#echo {Patterns to highlight on scan:};
+			#forall {${_mod_scan_aid_settings[patterns][]}} {
+				#echo {  '%s'} {${_mod_scan_aid_settings[patterns][&0]}};
+			};
+		} {
+			#echo {No patterns to highlight.};
+		};
+	};
+	#elseif {"%2" == "add"} {
+		#list _mod_scan_aid_settings[patterns] add {${__aug}};
+		#echo {<149>Added '<099>${__aug}<149>' to scan highlighting.};
+	};
+	#elseif {"%2" == "del"} {
+		#var __toDel {@std_list_findMember{ {${__aug}} {_mod_scan_aid_settings[patterns]} }};
+		#if {${__toDel}} {
+			#list _mod_scan_aid_settings[patterns] del {${__toDel}};
+			#echo {<149>Removed '<099>${__aug}<149>' from scan highlighting.};
+		} {
+			#echo {<119>Error: could not find pattern '${__aug}' to remove.};
+		};
+	};
+	#elseif {"%2" == "purge"} {
+		#var _mod_scan_aid_settings[patterns] {};
+		#echo {<149>Purged all scan highlighting patterns.};
+	};
+	#unvar __%*;
+} {4};
+
+/* Restore settings, if none load defaults */
+std_value_restore _mod_scan_aid_settings;
+
+#if {"${_mod_scan_aid_settings}" == ""} {
+	#var _mod_scan_aid_settings {{color}{<149>} {patterns}{}};
+}

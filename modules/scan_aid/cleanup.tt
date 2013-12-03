@@ -1,0 +1,5 @@
+#nop
+
+/* Save module settings */
+std_value_save _mod_scan_aid_settings;
+#unvar _mod_scan_aid_settings;

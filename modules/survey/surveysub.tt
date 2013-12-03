@@ -9,6 +9,16 @@
 		  @std_str_toUpper{@std_dir_short{%2}};
 }
 
+#act {~^\e[1;37m  Right here, you see %*.\e[0m$} {
+	#line gag;
+	#echo {  <179>%s is right here.}
+	      {@mod_survey_lookup{%1}};
+}
+
+#act {~  %* to the %*, you see %*.$} {
+	#line gag;
+}
+
 #alias {_mod_survey_clean} {
 	#nop %1;
 	#class mod_surveyHelp kill;
@@ -25,7 +35,7 @@
 }
 
 #function {mod_survey_lookup} {
-	#script result {awk -F: '$13 == "%0." {print $1}' data/locations.txt};
+	#script result {awk -F: '$13 == "@std_str_escape_shell{%0}." {print $1}' data/locations.txt};
 	#if {&result[]} {
 		#var result {$result[1]};
 	} {

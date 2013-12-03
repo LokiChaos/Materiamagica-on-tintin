@@ -28,7 +28,7 @@
 }
 /* }}} */
 
-/* Make Acetions for Each Reagent Producer {{{  */
+/* Make Actions for Each Reagent Producer {{{  */
 #foreach {$reagent[producerName]} {__reagentProdName} {
 	#act {^Your ${__reagentProdName} glows white as it accumulates possessions from the ether.} {
 		_event_raise {reagent_produced};
@@ -39,7 +39,7 @@
 #unvar __reagentProdName;
 /* }}} */
 
-/* Initalize Reagent counts if undefined {{{ */
+/* Initalize Reagent counts iff undefined {{{ */
 #if {&reagent[count][] == 0} {
 	#var reagent[count] {{fire}{255}{water}{255}{air}{255}{earth}{255}
 	                     {gem}{255}{ethereal}{255}{astral}{0}{summon}{0}

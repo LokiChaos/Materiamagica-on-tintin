@@ -1,8 +1,58 @@
 #nop activities/questing.tt
 
+#alias {_quest} {
+	#if {"%1" == "check" } {
+		questCheckLimit;
+	};
+	#elseif {"%1" == "status"} {
+		#if {"%2" == ""} {
+			#send {quest status ${_questLast}};
+		};
+		#elseif {"%2" == "a{ll|}"} {
+			#send {quest status};
+		};
+		#elseif {"%2" == "#%d"} {
+			#regex {%2} {#%d} {
+				#send {quest status &1};
+				#var _questLast {&1};
+			};
+		};
+		#elseif {"%2" == "%d"} {
+			#var _questLast {@quest_index_to_num{%2}};
+			#send {quest status ${_questLast}};
+		};
+		#else {
+			#send {quest status %2};
+		};
+	};
+	#elseif {"%1" == "complete"} {
+		#if {"%2" == ""} {
+			#send {quest complete ${_questLast}};
+			#var _questLast {-1};
+		};
+		#elseif {"%2" == "#%d"} {
+			#regex {%2} {#%d} {
+				#send {quest complete &1};
+			};
+		};
+		#elseif {"%2" == "%d"} {
+			#var _questLast {@quest_index_to_num{%2}};
+			#send {quest complete ${_questLast}};
+			#var _questLast {-1};
+		};
+		#else {
+			#send {quest complete %2};
+		};
+	};
+	#else {
+		#send {quest %1 %2 %3};
+	};
+};
+
+/* Check Questing Limits {{{ */
 #alias {questCheckLimit}
 {
-	.restoreValue lastQuest;
+	std_value_restore lastQuest;
 	#format timeNow {%T};
 	#math lastTwo {$timeNow - 7200};
 	#math lastSix {$timeNow - 21600};
@@ -57,3 +107,4 @@
 	};
 	#unvar qMaster;#unvar lastQuest; #unvar timeNow; #unvar lastTwo; #unvar lastSix; #unvar num;
 }
+/* }}} */

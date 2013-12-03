@@ -121,12 +121,13 @@
 /* Collect info from inventory command {{{ */
 #act {^You are carrying:$} {
 	#class invinfo read core/equipment/inventory.tt;
+	#var stateChar[Encumbered] {0};
 	_event_oneshot {prompt_post} {invClean} {#class invinfo kill; #nop
 	};
 }
 
 #act {^{\* |}You are currently encumbered. You may move slower than normal.} {
-		#var stateChar[Encumbered] {1};
+	#var stateChar[Encumbered] {1};
 }
 /* }}} */
 

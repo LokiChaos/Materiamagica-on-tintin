@@ -108,7 +108,7 @@ E {   23} {Path_Gilv_to_TwinM} {Path_Gilv_to_TwinM} {2} {0} {}
 
 R {   23} {0} {} {twin_moons_inn} { } {} {} {} {} {} {1.000}
 E {   22} {Path_TwinM_to_Gilv} {Path_TwinM_to_Gilv} {8} {0} {}
-E {   24} {Path_TwinM_to_ThornW} {Path_TwinM_to_ThronW} {2} {0} {}
+E {   24} {Path_TwinM_to_ThornW} {Path_TwinM_to_ThornW} {2} {0} {}
 
 R {   24} {0} {} {desert_thorn_west} { } {} {} {} {} {} {1.000}
 E {   23} {Path_ThornW_to_TwinM} {Path_ThornW_to_TwinM} {8} {0} {}

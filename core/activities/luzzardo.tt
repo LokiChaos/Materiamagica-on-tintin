@@ -23,3 +23,7 @@ Your Folklore has been increased by 2 to 4.
 #act {^Luzzardo Malvenu the professional eccentric gives you a page of parchment.$} {
 	#nop started bell hunt;
 }
+
+#act {^Luzzardo Malvenu the professional eccentric tells you 'Fine work, %w! That was exactly what I needed! Come back and fetch your reward!$} {
+	#nop found correct room;
+}

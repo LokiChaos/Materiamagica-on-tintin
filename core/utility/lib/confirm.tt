@@ -2,13 +2,11 @@
 
 /* Hook Affirmitive Response */
 #macro {y} {
-	#undelay confirm_timeout;
 	_event_raise {confirm} {y};
 }
 
 /* Hook Negativetive Response */
 #macro {n} {
-	#undelay confirm_timeout;
 	_event_raise {confirm} {n};
 }
 
@@ -30,6 +28,7 @@ _event_oneshot {confirm} {zzzzconfirm_cleanup} {confirm_cleanup};
 #alias {confirm_cleanup} {
 	#nop %1;
 	_event_remove_specific {prompt_pre} {confirm_reprint};
+	#undelay confirm_timeout;
 	#class tmp_confirm kill;
 	#unvar __confirm;
 }

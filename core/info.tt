@@ -11,15 +11,6 @@
 }
 /* }}} */
 
-/* Kills To Next Level {{{ */
-#alias {tnl} {
-	#class tmp_info_tnl read core/info/tnl.tt;
-	#send {score exp};
-	_event_oneshot {prompt_post} {cleanTnl} {#class tmp_info_tnl kill; #nop
-	};
-}
-/* }}} */
-
 /* Recall Where Augmentation {{{ */
 #alias {recall where} {
 	#class tmp_info_recall open;

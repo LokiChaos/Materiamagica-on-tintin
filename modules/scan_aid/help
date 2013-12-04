@@ -1,0 +1,12 @@
+<139>Usage:
+	<029>scan [add|del|purge|list] [<pattern>]
+
+scan_aid highlights output of the scan command based on basic pattern matching.
+
+	scan add <pattern> - adds the pattern to the highlight list
+	scan del <pattern> - removed the pattern from the highlight list
+	scan purge - clears the highlight list
+	scan list - lists all patterns that are to be highlighted
+
+You can change the color by setting the _mod_scan_aid_setting[color] variable.
+

@@ -1,0 +1,12 @@
+#nop
+
+#alias {_mod_killstnl_print} {
+	#if {"${charScore[expToNext]}" != "0" } {
+		#if {"%2" != "0"} {
+			#echo {<149>You need <099>%m<149> more kills to level.}
+			      { ${charScore[expToNext]} / %2 + 1} {%2};
+		};
+	};
+	#var _mod_killsTNL_lastExp {%2};
+	#class tmpm_killstnl kill;
+}

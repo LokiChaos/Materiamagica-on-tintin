@@ -1,0 +1,64 @@
+#nop
+
+/* "Prefix" Modifier keys to select actions to mbe taken on next directional key {{{ */
+#var __mod_keypad_mods {  {open}{\eOn}
+                          {look}{\eOp}
+                          {unlock}{\eOo}
+                          {bash}{\eOj}};
+/* }}} */
+
+/* List of directions and the keysets {{{ */
+#var __mod_keypad_dirmap {{north}{\eOx}
+                          {south}{\eOr}
+                          {east}{\eOv}
+                          {west}{\eOt}
+                          {northwest}{\eOw}
+                          {northeast}{\eOy}
+                          {southwest}{\eOq}
+                          {southeast}{\eOs}
+                          {up}{\eOk}
+                          {down}{\eOm} };
+/* }}} */
+
+/* Create Macros From Tables {{{ */
+/* Set all directional macros */
+#forall {${__mod_keypad_dirmap[]}} {
+	#macro {${__mod_keypad_dirmap[&0]}} {_mod_keypad_action &0};
+}
+#unvar __mod_keypad_dirmap;
+
+/* Set all modifer macros */
+#forall {${__mod_keypad_mods[]}} {
+	#macro {${__mod_keypad_mods[&0]}} {#if {"${_mod_keypad[act]}" != "&0"} {#echo {&0 which direction?};#var _mod_keypad[act] {&0}} {#var _mod_keypad[act] {default};}};
+}
+#unvar __mod_keypad_mods;
+/* }}} */
+
+/* Mask Keypad Enter */
+#macro {\eOM} {#nop;};
+
+/* Look with KP 5 */
+#macro {\eOu} {look};
+
+/* Initailize State */
+#var _mod_keypad[act] {default};
+
+/* keypad command to determine actual action based on state {{{ */
+#alias {_mod_keypad_action}
+{
+	#if {"${_mod_keypad[act]}" == "default"} {
+		#if {$stateChar[Combat]} {
+			flee %1;
+		};
+		#elseif {$stateChar[Sitting]} {
+			say fly %1;	
+		};
+		#else {
+			%1;
+		};
+	} {
+		${_mod_keypad[act]} %1;
+	};
+	#var _mod_keypad[act] {default};
+}
+/* }}} */

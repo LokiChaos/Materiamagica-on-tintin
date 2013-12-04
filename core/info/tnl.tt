@@ -1,7 +1,0 @@
-#nop info/tnl.tt
-
-#act {^You have %S experience points and need %S to advance.$} {
-	#echo {TODO};
-	#echo {<149>Based on an average exp of %d per kill, you have %d kills to next level.} {0} {0};
-	#line gag;
-}

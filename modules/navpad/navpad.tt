@@ -1,0 +1,87 @@
+#nop internals;
+/*
+ 	Navigation pad, uses vi directions for laptops.
+
+	    y       k       u
+	     Nw     N     Ne
+	   h W <-U-(M)-D-> E l
+	     Sw     S     Se
+	    b       j       n
+
+	Up = ,
+	Down = .
+
+	Commands:
+		Open = o
+		Pick = p
+
+	By default you will just walk <dir> unless...
+		If sitting, you will "say fly <dir>"
+		If in combat, you will "flee <dir>"
+*/
+
+/* Setting, which keyset to use, nh or kp? */
+#var __mod_navpad_type {nh};
+
+/* "Prefix" Modifier keys to select actions to mbe taken on next directional key {{{ */
+#var __mod_navpad_mods {  {open}{o}
+                          {close}{c}
+                          {look}{;}
+                          {scan}{:}
+                          {unlock}{'}
+                          {lock}{"}
+                          {bash}{D}
+                          {pick}{a} };
+/* }}} */
+
+/* List of directions and the keysets {{{ */
+#var __mod_navpad_dirmap {{north}{k}
+                          {south}{j}
+                          {east}{l}
+                          {west}{h}
+                          {northwest}{y}
+                          {northeast}{u}
+                          {southwest}{b}
+                          {southeast}{n}
+                          {up}{,}
+                          {down}{.} };
+/* }}} */
+
+/* Create Macros From Tables {{{ */
+/* Set all directional macros */
+#forall {${__mod_navpad_dirmap[]}} {
+	#macro {${__mod_navpad_dirmap[&0]}} {_mod_navpad_action &0};
+}
+#unvar __mod_navpad_dirmap;
+
+/* Set all modifer macros */
+#forall {${__mod_navpad_mods[]}} {
+	#macro {${__mod_navpad_mods[&0]}} {#if {"${_mod_navpad[act]}" != "&0"} {#echo {&0 which direction?};#var _mod_navpad[act] {&0}} {#var _mod_navpad[act] {default};}};
+}
+
+#unvar __mod_navpad_mods;
+/* }}} */
+
+/* Initailize State */
+#var _mod_navpad[act] {default};
+
+/* Navpad command to determine actual action based on state {{{ */
+#alias {_mod_navpad_action}
+{
+	#if {"${_mod_navpad[act]}" == "default"} {
+		#if {$stateChar[Combat]} {
+			flee %1;
+		};
+		#elseif {$stateChar[Sitting]} {
+			say fly %1;	
+		};
+		#else {
+			%1;
+		};
+	} {
+		${_mod_navpad[act]} %1;
+	};
+	#var _mod_navpad[act] {default};
+
+}
+/* }}} */

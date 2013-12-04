@@ -1,15 +1,29 @@
 #nop;
 /*
- 	Navigation pad, uses vi directions for laptops.
+	Nethack directions (for laptops).
+		y u i o
+		 h j k l
+		b n
 
-	    y       k       u
+	   y        k        u
 	     Nw     N     Ne
 	   h W <-U-(M)-D-> E l
 	     Sw     S     Se
-	    b       j       n
+	   b        j        n
 
-	Up = i
-	Down = o
+	   Up = i     Down = o
+	Toggle = m / \cm
+	
+	Keypad directions:
+		
+	   7        8        9
+	     Nw     N     Ne
+	   4 W <-U-(M)-D-> E 6
+	     Sw     S     Se
+	   1        2        3
+
+	   Up = +     Down = -
+	Toggle = *
 */
 
 #echo {<149>Press F12 to enable/disble NavPad.};
@@ -24,6 +38,6 @@
 	} {
 		#echo {<149>NavPad Enabled};
 		#var _mod_navpad[state] 1;
-		#class tmpm_navpad_pad read modules/navpad/navpad2.tt;
+		#class tmpm_navpad_pad read modules/navpad/navpad.tt;
 	};
 };

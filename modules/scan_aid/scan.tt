@@ -20,7 +20,8 @@
 			};
 		};
 	};
-	#echo {%s%s is %d to the %s.} {${__high}} {%1} {${__mod_scan_aid_distTbl[%2]}} {%3};	
+	#echo {%s%s is %d to the %s.} {${__high}} {%1} {${__mod_scan_aid_distTbl[%2]}} {%3};
+	#unvar __high;
 }
 
 #act {^You don't see anything %*.$} {

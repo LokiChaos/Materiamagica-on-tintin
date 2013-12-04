@@ -6,7 +6,7 @@
 	};
 	#elseif {"%1" == "status"} {
 		#if {"%2" == ""} {
-			#if {${_questLast} != -1 } {
+			#if {"${_questLast}" != "-1" } {
 				#send {quest status ${_questLast}};
 			} {
 				#send {quest status};

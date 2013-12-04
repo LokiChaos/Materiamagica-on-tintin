@@ -1,0 +1,14 @@
+#nop
+
+#var _mod_killsTNL_lastExp 0;
+
+#alias {tnl} {
+	#if {${_mod_killsTNL_lastExp} != 0} {
+		#echo {<149>You need about <099>%m<149> more kills of <099>%d<149> exp to level.}
+		      {$charScore[expToLevel] / ${_mod_killsTNL_lastExp} + 1} {${_mod_killsTNL_lastExp}};
+	} {
+		#echo {<149>Kill something for exp first!};
+	};
+}
+
+_event_register {slain_opponent} {mod_killstnl} {#class tmpm_killstnl read modules/killsTNL/onkill.tt; _mod_killstnl_print};

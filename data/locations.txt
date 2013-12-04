@@ -321,7 +321,7 @@ Aequtus::n::underw:Alyria:385:636:Island:::25:a scarcely-visible signpost partia
 An Abandoned Oil Well::n::at sea:Alyria:1753:824:Island:::30:a partially-constructed oil derrick on a desert island.
 A Forsaken Oil Well::n::at sea:Alyria:1729:842:Island:::30:a large oil derrick established on a desert island.
 Capture the Flag Arena::n::ctf:Alyria:993:893:Island:::6:two small keeps, one red and one blue, on a forested island.
-Arcane Archipelago::n::nowhere:Alyria:926:816:Island:::25:a temple almost overgrown by jungle.
+Arcane Archipelago::n::nowhere:Alyria:926:816:Island:::25:what appears to be a temple almost overgrown by jungle.
 Magencia::n::at sea:Alyria:856:834:Island:::29:the ruins of a great wooden ship.
 The Wreck of the Fiesty Wench::n::at sea:Alyria:1889:957:Island:::25:a damaged vessel jammed up onto the beach of a small island, its forward hull ripped apart.
 The Wreck of the Fiesty Wench:North::::Alyria:::::::

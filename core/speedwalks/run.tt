@@ -1,41 +1,30 @@
 #nop speedwalks/run.tt
 
 #alias {_RunSpeedWalk} {
-    #var __ready 0;
-    #if {"$prefs[speedWalk][needHaste]" > "$stateAffects[haste]"} {
-		#echo {<110>You're not hasted!<099>};
-		#var __ready 1;
-	};
-    #if {"$prefs[speedWalk][needLevi]"  > "$stateAffects[levitation]"} {
-		#echo {<110>You're not levitating!<099>};
-		#var __ready 1;
-	};
-    #if {"$prefs[speedWalk][needInvis]" > "$stateChar[invis]"} {
-		#echo {<110>You're not invisible!<099>};
-		#var __ready 1;
-	};
-	#if {"${__ready}" == "1"} {
-		#echo {<110>Are you sure you want to run it anyway? (y/n)<099>};
-		#macro {n} {
-			#undelay {swconf};
-			#echo {<119>Not running speedwalk.<099>};
-			#unmacro {y};
-			#unmacro {n}
+	#path save forward __dummyPath;
+	#if {"${__dummyPath}" != ""} {
+	    #var __ready 0;
+		#if {"$prefs[speedWalk][needHaste]" > "$stateAffects[haste]"} {
+			#echo {<110>You're not hasted!<099>};
+			#var __ready 1;
 		};
-		#macro {y} {
-			#undelay {swconf};
-			#echo {<110>Running speedwalk...<099>};
-			#unmacro {y};
-			#unmacro {n};
-			_SpeedWalkRun;
+			#if {"$prefs[speedWalk][needLevi]"  > "$stateAffects[levitation]"} {
+			#echo {<110>You're not levitating!<099>};
+			#var __ready 1;
 		};
-		#delay {swconf} {
-			#echo {<110>Not running speedwalk.<099>};
-			#unmacro {y};
-			#unmacro {n}
-		} {15};
+		#if {"$prefs[speedWalk][needInvis]" > "$stateChar[invis]"} {
+			#echo {<110>You're not invisible!<099>};
+			#var __ready 1;
+		};
+		#if {"${__ready}" == "1"} {
+			_event_oneshot {confirm} {speedwalkrun} {_SpeedWalkRunConfirm};
+			std_confirm_prompt {<119>Are you sure you want to run it anyway? (y/N)} {15};
+		} {
+		    _SpeedWalkRun;
+		};
+		#unvar __ready;
 	} {
-	    _SpeedWalkRun;
+		#echo {<119>Error: No path loaded!};
 	};
-	#unvar __ready;
-};
+	#unvar __dummyPath;
+}

@@ -3,15 +3,16 @@
 /* 
 	This is the FULL path to your tintin++ directory
 		Default: /home/USER/.tt/                                       */
+#script {echo "#var stateClient[root] $HOME/.tt/"};
 
-#var stateClient[root] {/home/will/.tt/};
-
+/* Uncomment this next line if you want to hard-code the path          */
+/*#var stateClient[root] {/home/EDIT ME/.tt/};*/
 
 /*
 	How long should the inital login menu wait for you to make a selection
 	before auto-connecting to the first entry.
 */
-#var prefs[loginTimeOut] {30};
+#var prefs[loginTimeOut]  {30};
 
 /*
 	Auto-Response to Server Login Menu
@@ -29,4 +30,4 @@
 	 0 = Never automatically reconnect.
 	-1 = Always try to reconnect, no limit.
 */
-#var _reconnect[attMax] {-1};
+#var _reconnect[attMax]   {-1};

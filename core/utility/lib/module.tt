@@ -1,0 +1,125 @@
+#nop module helpers;
+
+#alias {module_insert} {
+	#if { "%1" == "%S" && "%1" != "" } {
+		#if { @std_module_loaded{%1} } {
+			#echo {<139>Module '<099>%1<139>' is already loaded!}	
+		}; 
+		#elseif { @std_file_exists{modules/%1/init.tt}} {
+			#list _modules[loaded] add {%1};
+			module_load_deps %1;
+			#class {mod_%1} read modules/%1/init.tt;
+			_event_raise {module} {load} {%1};
+			#if { ${_module_deps[count]} > 0 } {
+				#echo {<129>Loaded <099>%d<129> dependencies:<099>%s} {${_module_deps[count]}} {${_module_deps[string]}};
+				#unvar _module_deps;
+			};
+			#echo {<129>Loaded module '<099>%1<129>'};
+		};
+		#else {
+			#echo {<139>Module '<099>%1<139>' does not exist!}		
+		};
+	} {
+		#echo {<149>Usage - insmod <modulename>};
+	};
+}
+
+#alias {module_load_deps} {	
+	#if {@std_file_exists{modules/%1/deps}} {
+		#script __modDeps[%1] {cat modules/%1/deps};
+		#forall {${__modDeps[%1][]}} {
+			#if { @std_module_loaded{${__modDeps[%1][&0]}} == 0 } {
+				module_load_deps ${__modDeps[%1][&0]};
+				_event_raise {module} {load_dep} {${__modDeps[%1][&0]}} {%1};
+				#math _module_deps[count] {${_module_deps[count]} + 1 };
+				#format _module_deps[string] {%s %s} {${_module_deps[string]}} {${__modDeps[%1][&0]}};
+				#list _modules[loaded] add {${__modDeps[%1][&0]}};
+				#class {mod_${__modDeps[%1][&0]}} read modules/${__modDeps[%1][&0]}/init.tt;
+			};
+		};
+		#unvar __modDeps[%1];
+	};
+	#if {"${__modDeps}" == "{}" } {
+		#unvar __modDeps;
+	};
+}
+
+#alias {module_remove} {
+	#if { "%1" == "%S" && "%1" != "" } {
+		#list _modules[loaded] find {%1} {__idx};
+		#if { ${__idx} } {
+			#list _modules[loaded] del  {${__idx}};
+			#read modules/%1/cleanup.tt;
+			#class {mod_%1} kill;
+			_event_raise {module} {unload} {%1};
+			#echo {<129>Unloaded module '<099>%1<129>'};
+		} {
+			#echo {<119>Error: No such module was loaded!};
+		};
+	} {
+		#echo {<149>Usage - rmmod <modulename>};
+	};
+	#unvar __idx;
+}
+
+#alias {module_remove_all} {
+	#if {&{_modules[loaded][]}} {
+		#echo {<149>Unloading All (<099>%d<149>) Modules...} {&{_modules[loaded][]}};
+		#var __modList {${_modules[loaded]}};
+		#forall {${__modList[]}} {
+			module_remove ${__modList[&0]};
+		};
+		#unvar __modList;
+	} {
+		#echo {<139>No modules are loaded.};
+	};
+}
+
+#alias {module_list} {
+	#if {"%1" == "l{|o|oad}"} {
+		#if {&{_modules[loaded][]}} {
+			#echo {<149>Loaded Modules:};
+			#foreach {${_modules[loaded][]}} {__idx} {
+				#echo {   <139>* <149>%s} {${_modules[loaded][${__idx}]}};
+			};
+		} {
+			#echo {<139>No modules are loaded.};
+		};
+	} {
+		#script {__mod[list]} {ls modules/};
+		#echo {<149>Installed modules:};
+		#foreach {${__mod[list][]}} {__idx} {
+			#var __mod[star] {{L}{ }{A}{ }};
+			#if { @std_module_loaded{${__mod[list][${__idx}]}} } {
+				#var __mod[star][L] {*};
+			};
+			#if { @std_list_isMember{ {${__mod[list][${__idx}]}} {_modules[AutoLoad]} } } {
+				#var __mod[star][A] {*};
+			};
+			#echo {  <129>%s<139>%s <149>%-15s<099> %.59s} {${__mod[star][A]}} {${__mod[star][L]}} {${__mod[list][${__idx}]}} {@std_module_desc{${__mod[list][${__idx}]}} };
+		};
+		#echo {<149>A <139>*<149> denotes a module is loaded, <129>*<149> that it is marked to auto-load.};
+	};
+	#unvar __idx;
+	#unvar __mod;
+}
+
+#alias {module_help} {
+	#if { "%1" == "%S" && "%1" != "" } {
+		#if {@std_file_exists{modules/%1/init.tt}} {
+			#if {@std_file_exists{modules/%1/help}} {
+				#script __modHelp {cat modules/%1/help};
+				#forall {${__modHelp[]}} {
+					#echo {${__modHelp[&0]}};
+				};
+				#unvar __modHelp;
+			} {
+				#echo {<139>Module '%1' has no helpfile!}
+			};
+		} {
+			#echo {<139>Module '%1' does not exist!}
+		};
+	} {
+		#echo {<149>Usage - helpmod <modulename>};
+	};
+}

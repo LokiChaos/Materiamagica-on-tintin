@@ -79,6 +79,20 @@
     #unvar __ready;
 } 
 
+/* Handles Confirmation of 'run' command */
+#alias {_SpeedWalkRunConfirm} {
+	#nop %1;
+	#switch {"%2"} {
+		#case {"y"} {
+			#echo {<110>Running speedwalk...<099>};
+			_SpeedWalkRun;
+		};
+		#default {
+			#echo {<119>Not running speedwalk.<099>};	
+		};
+	};
+};
+
 /* Check to see if you should take the next step
    if you've been attacked, or fell abort
 */

@@ -49,7 +49,7 @@ _event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 
 
 
-/* Bash/Kick/Charge/Sweep */
+/* Bash/Kick/Charge/Sweep {{{ */
 #act {^You bash %* over the head with %*.$} 
 {
 	_IncUses {bash};
@@ -59,8 +59,9 @@ _event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 {
 	_IncUses {bash};
 }
+/* }}} */
 
-/* Your defenses */
+/* Your defenses {{{ */
 #act {^You nimbly backflip out of the way %* attack.}$
 {
 	_IncUses {acrobatics};
@@ -90,7 +91,12 @@ _event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 {
 	_IncUses {evasion};
 }
+/* }}} */
 
+/* Exp Gain on Killing an opponent*/
+#act {You receive %S experience points.} {
+	_event_raise {slain_opponent} {@std_str_dropcomma{%1}};
+}
 
 /* Master combat trigger! */
 #act {~^\e[1\;35m%* {is in perfect health|has several minor scratches|has several minor wounds and bruises|has some significant wounds|has some very significant wounds and scratches|looks pretty beaten up|is in terrible condition|is vomiting blood|screams in agony|pales visibly as death nears|is barely clinging to life}.}

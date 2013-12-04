@@ -39,8 +39,8 @@ Formats:
 	cleanup.tt - A tintin++ script file, it is called with removing a module.
 	desc - a single plaintext line that describes the module in 50-chars or
 	        less.
-	help - a plaintext file that will be echoed when helpmod <mod name> is
-	        called.
+	help - a plaintext file that will be shown when helpmod <mod name> is
+	        called.  You /may/ use tintin color codes.
 	deps - a plaintext file that contains all dependencies, one per line, just
 	        the module name.
 
@@ -49,10 +49,15 @@ When a module is loaded the modules/<mod name>/init.tt Will be read in
 via #class, the modules class will be mod_<mod name>.  If there is a deps file,
 it will load those modules in the order listed in the file iff they are not
 already, it will also intelligently load any dependencies of those as well.
+It will not load any already loaded modules, nor will it check already loaded
+module's dependencies.
 
 The modules MAY #read other files from the base <mod name>.tt or even use
 #class * read to read in other files, however, it is up to the module to
-clean up any other classes it might make.
+clean up any other classes it might make.  Subclasses should adhere to
+tmpm_modulename_* for temporary classes and mod_modulename_* for persistent
+subclasses.  These clases are not autoremoved, but this convention prevents
+naming collisions.
 
 UNLOADING A MODULE:
 When a module is unloaded it will call modules/<mod name>/cleanup.tt this file
@@ -65,3 +70,7 @@ After cleanup.tt is run, #var _mod_<modname>%* will be called to remove all
 variables.  It will then run #class mod_<mod name> kill to remove whatever the
 module may have created.  At this point a compliant module should leave no
 trace.  (Aside from files in tmp/ and any persistent variables.)
+
+Dependencies of a modules must me unloaded manually: the module system will
+not automatically unload them.  This /may/ change should I decide to write a
+full dependency tracking system and add reverse-dependency lookups.

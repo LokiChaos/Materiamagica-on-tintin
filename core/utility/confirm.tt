@@ -1,0 +1,13 @@
+#showme {<aef>Loading: <faa>utility/confirm.tt}
+/*
+	std_confirm_prompt {promot string} {timeout}
+*/
+
+#alias {std_confirm_prompt} {
+	#echo {%1};
+	#var __confirm[prompt] {%1};
+	#if {"%2" == "%d"} {
+		#var __confirm[timeout] {%2};
+	};
+	#class tmp_confirm read core/utility/lib/confirm.tt;
+}

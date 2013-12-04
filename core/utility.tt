@@ -15,6 +15,7 @@
 #read core/utility/sql.tt;
 #read core/utility/module.tt;
 #read core/utility/zmudsw.tt;
+#read core/utility/confirm.tt;
 
 /* Queue Functions {{{ */
 
@@ -317,6 +318,13 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 	{\~;\0457E} {\`;\04560} {\?;\0453F} {\@;\04540}
 	};
 };
+
+/* Remove commas from numbers eg: 1,337 -> 1337 */
+#function {std_str_dropcomma} {
+	#var result {%1};
+	#replace result {,} {};
+}
+
 
 #function {std_str_strip} {
 	#line strip {#var result {%0}};

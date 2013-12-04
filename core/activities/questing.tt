@@ -1,16 +1,4 @@
 #showme {<aef>Loading: <faa>activities/questing.tt}
-/*
-Quest #32193: Robot Invasion! (0/8 goals complete).
-  This quest has no time limit.
-Quest #32053: Priest Training !! (0/15 goals complete).
-  This quest has no time limit.
-This is an ACHIEVEMENT. The Goal Quests must be completed.
-Quest #32143: Wizard Training !! (0/15 goals complete).
-  This quest has no time limit.
-This is an ACHIEVEMENT. The Goal Quests must be completed.
-A total of [3] quests.
-Type QUEST STATUS <#> for complete information on that quest.
-*/
 
 /* Quest Status {{{ */
 #act {^Quest #%d: %* (%d/%d goal{|s} complete).$} {
@@ -50,6 +38,10 @@ Type QUEST STATUS <#> for complete information on that quest.
 /* }}} */
 
 /* Running out of time and Losing a Quest {{{ */
+#act {^You have %d Alyrian minute{|s} remaining to finish your quest, '%*'.$} {
+	_event_raise {activity_quest} {time} {%2} {%1};
+}
+
 #act {^You have run out of time for your quest, '%*'.} {
 	#format {__questEcho} {<049>You have run out of time for the quest '%s'.} {%1};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
@@ -130,6 +122,7 @@ Type QUEST STATUS <#> for complete information on that quest.
 }
 /* }}} */
 
+/* Wrapper for the quest command */
 #alias {quest} {
 	#class tmp_questCmd read core/activities/lib/questing.tt;
 	_quest %0;

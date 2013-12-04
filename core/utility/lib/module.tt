@@ -76,11 +76,12 @@
 }
 
 #alias {module_list} {
-	#if {"%1" == "l{|o|oad}"} {
+	#if {"%1" == "l{|o|oad|oaded}"} {
 		#if {&{_modules[loaded][]}} {
 			#echo {<149>Loaded Modules:};
 			#foreach {${_modules[loaded][]}} {__idx} {
-				#echo {   <139>* <149>%s} {${_modules[loaded][${__idx}]}};
+				#echo {   <139>* <149>%-15s<099> %.59s} {${_modules[loaded][${__idx}]}}
+				      {@std_module_desc{${_modules[loaded][${__idx}]}}};
 			};
 		} {
 			#echo {<139>No modules are loaded.};
@@ -96,7 +97,8 @@
 			#if { @std_list_isMember{ {${__mod[list][${__idx}]}} {_modules[AutoLoad]} } } {
 				#var __mod[star][A] {*};
 			};
-			#echo {  <129>%s<139>%s <149>%-15s<099> %.59s} {${__mod[star][A]}} {${__mod[star][L]}} {${__mod[list][${__idx}]}} {@std_module_desc{${__mod[list][${__idx}]}} };
+			#echo {  <129>%s<139>%s <149>%-15s<099> %.59s} {${__mod[star][A]}} {${__mod[star][L]}}
+			      {${__mod[list][${__idx}]}} {@std_module_desc{${__mod[list][${__idx}]}} };
 		};
 		#echo {<149>A <139>*<149> denotes a module is loaded, <129>*<149> that it is marked to auto-load.};
 	};

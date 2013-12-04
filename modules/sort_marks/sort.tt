@@ -1,0 +1,26 @@
+#nop
+
+#act {^%w%W%w%W%w%W$} {
+	#list _mod_sort_marks_list sort {%1};
+	#list _mod_sort_marks_list sort {%3};
+	#list _mod_sort_marks_list sort {%5};
+	#line gag;
+}
+
+#act {^You have %d of %d available Marks.$} {
+	#var __markPrint {};
+	#forall {${_mod_sort_marks_list[]}} {
+		#format __markPrint {%s%-25s} {${__markPrint}} {${_mod_sort_marks_list[&0]}};
+		#if { @std_math_eval{ &0 % 3 } == 0 } {
+			#echo {<139>%s} {${__markPrint}};
+			#unvar __markPrint;
+		};
+	};
+	#if {"${__markPrint}" != "" } {
+		#echo {<139>%s} {${__markPrint}};
+	};
+	#unvar __markPrint;
+	#unvar _mod_sort_marks_list;
+	#var stateClient[autoContinue] 0;
+	#class tmpm_sort_marks kill;
+} {4}

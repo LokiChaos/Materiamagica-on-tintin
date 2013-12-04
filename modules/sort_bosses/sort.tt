@@ -1,0 +1,21 @@
+#nop
+
+#act {^* %*} {
+	#format __bossName {%n} {%1};
+	#list _mod_sort_bosses_list sort {${__bossName}};
+	#unvar __bossName;
+	#line gag;
+}
+
+#act {^You have killed a total of %S bosse%*.$} {
+	#var __bNum 0;
+	#forall {${_mod_sort_bosses_list[]}} {
+		#echo {<139>* <%d69>%s} {${__bNum}} {${_mod_sort_bosses_list[&0]}};
+		#math __bNum {${__bNum} == 0};
+	};
+	#unvar __bNum;
+	#unvar _mod_sort_bosses_list;
+	#var stateClient[autoContinue] 0;
+	#class tmpm_sort_bosses kill;
+}
+

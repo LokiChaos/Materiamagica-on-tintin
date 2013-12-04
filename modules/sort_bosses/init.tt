@@ -1,0 +1,5 @@
+#nop
+
+#act {^You have killed:$} {
+	#class tmpm_sort_bosses read modules/sort_bosses/sort.tt;
+}

@@ -42,13 +42,14 @@
 /* Either quest status #, quest status when on only one quest, or just given a quest {{{ */
 #act {^This quest [%d] is called '%*',$} {
 	#if {&{_quests[%1][]}} {
-		#var _quests[%1][name] {%2};
-		#var _questInfo {%1};
+		#nop;
 	} {
 		#var _quests[%1] {};
-		#var _quests[%1][name] {%2};
-		#var _questInfo {%1};
 	};
+	#var _quests[%1][name] {%2};
+	#var _quests[%1][phCom] {0};
+	#var _questInfo {%1};
+
 	#class tmp_questInfo read core/activities/lib/questinfo.tt;
 	_event_oneshot {prompt_post} {zquestInfoClean} {_questInfoFin};
 

@@ -18,15 +18,16 @@
 }
 
 #alias {_rewBounty} {
-	#math _bountyRewards[%1] {$_bountyRewards[%1]} + 1};
+	#math _bountyRewards[%1] {${_bountyRewards[%1]} + 1};
 	#line gag;
 }
 
 #alias {_orcFin} {
+	#nop %1;
 	#var stateChar[onBounty] 0;
 	#undelay bounty_Expire;
 	#undelay bounty_CoolDown;
-	_CaptureLog {<119>Turned in a limb '$bounty[MobName]' to the orc pursuer.} {$capPath[act]};
+	_CaptureLog {<119>Turned in a limb of '<099>$bounty[MobName]<119>' to the orc pursuer.} {$capPath[act]};
 
 	#foreach {${_bountyRewards[]}} {__reward}{
 		#if {${_bountyRewards[${__reward}]} == 1} {
@@ -53,9 +54,9 @@
 
 	#unvar _bountyRewards;
 	#unvar __rewStr; 
-	#unvar bounty;
-	_event_raise {activit_bounty} {return};
+	_event_raise {activit_bounty} {return} {$bounty[MobName]} {$bounty[AreaName]};
 	#class tmp_orcCmd kill;
+	#unvar bounty;
 }
 
 #alias {_doBounty} {
@@ -110,3 +111,5 @@
 	#unvar __timeNow;
 	#unvar __deltaTime;
 }
+
+#var _orcLoaded 1;

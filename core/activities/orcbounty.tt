@@ -23,7 +23,9 @@
 
 /* Orc Bounty Rewards {{{ */
 #act {^The orc pursuer gives you %*.} {
-	#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
+	#if {"${_orcLoaded}" != "1"} {
+		#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
+	};
 	_rewBounty {%1};
 	_event_oneshot {prompt_post} {orcFin} {_orcFin};
 } {3}

@@ -5,8 +5,13 @@
 		questCheckLimit;
 	};
 	#elseif {"%1" == "status"} {
+		#var _quest_status {1};
+		_event_oneshot {prompt_post} {questStatusClear} {
+				#unvar _quest_status;
+				#nop
+			};
 		#if {"%2" == ""} {
-			#if {"${_questLast}" != "-1" } {
+			#if {&{_quests[${_questLast}]}} {
 				#send {quest status ${_questLast}};
 			} {
 				#send {quest status};
@@ -31,7 +36,7 @@
 	};
 	#elseif {"%1" == "complete"} {
 		#if {"%2" == ""} {
-			#if {${_questLast} != -1 } {
+			#if {&{_quests[${_questLast}]}} {
 				#send {quest complete ${_questLast}};
 				#var _questLast {-1};
 			} {

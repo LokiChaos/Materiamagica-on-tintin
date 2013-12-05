@@ -1,0 +1,38 @@
+#nop activities/lib/questreq.tt
+
+/* Collect info about requested quest {{{ */
+#act {%* is the {master|mistress} in charge of this quest.$} {
+	#var _quests[${_questInfo}][master] {%1};
+}
+
+#act {^*Up to %S quest points, %S practice points, %S experience points,$} {
+	#var _quests[${_questInfo}][reward][qp] {%1};
+	#var _quests[${_questInfo}][reward][pp] {%2};
+	#var _quests[${_questInfo}][reward][exp] {%3};
+}
+
+#act {%S build points, %S piety, and %S gold pieces.$} {
+	#var _quests[${_questInfo}][reward][bp] {%1};
+	#var _quests[${_questInfo}][reward][piety] {%2};
+	#var _quests[${_questInfo}][reward][gold] {%3};
+}
+
+#act {^You have %S Alyrian minutes remaining to complete this quest.$} {
+	#var _quests[${_questInfo}][time] {%1};
+}
+
+#act {^This quest has no time limit.$} {
+	#var _quests[${_questInfo}][time] {-1};
+}
+
+#act {^Phase %d: %*} {
+	#var _quests[${_questInfo}][phTot] {%1};
+}
+/* }}} */
+
+/* At next prompt, clean up and log/throw event that you got a quest */
+#alias {_questInfoFin} {
+	#nop %1;
+	#unvar _questInfo;
+	#class tmp_questInfo kill;
+}

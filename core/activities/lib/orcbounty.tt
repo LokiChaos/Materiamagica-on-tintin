@@ -1,5 +1,4 @@
-#alias {_gotBounty}
-{
+#alias {_gotBounty} {
 	#var stateChar[onBounty] 1;
 	#var bounty[MobName]	{%1};
 	#var bounty[AreaName]	{%2};
@@ -18,34 +17,48 @@
 	} {2700};
 }
 
-#alias {_rewBounty}
-{
+#alias {_rewBounty} {
+	#math _bountyRewards[%1] {$_bountyRewards[%1]} + 1};
+	#line gag;
+}
+
+#alias {_orcFin} {
 	#var stateChar[onBounty] 0;
-	#unvar {bounty};
-	#undelay {bounty_Expire};
-	_CaptureLog {<119>Bounty Reward: %1. <099>} {$capPath[act]};
+	#undelay bounty_Expire;
 	#undelay bounty_CoolDown;
-	
-	#if {"${_bountyLimiter}" == ""} {
-		#var lastBounty {{type}{complete} {mob}{} {loc}{}};
-		#format {lastBounty[time]} {%T};
-		std_value_save lastBounty;
-		#unvar lastBounty;
+	_CaptureLog {<119>Turned in a limb '$bounty[MobName]' to the orc pursuer.} {$capPath[act]};
+
+	#foreach {${_bountyRewards[]}} {__reward}{
+		#if {${_bountyRewards[${__reward}]} == 1} {
+			#format __rewStr {The orc pursuer gives you %s.}
+				  {${__reward}};
+		} {
+			#format __rewStr {The orc pursuer gives you %d of %s.}
+				  {${_bountyRewards[${__reward}]}} {${__reward}};
+		};
+		#echo {${__rewStr}};
+		_CaptureLog {<119>${__rewStr}} {$capPath[act]};
 	};
-	#var _bountyLimiter 1;
-	#delay {limiter} {
-		#unvar _bountyLimiter
-	} {1};
+
+	#var lastBounty {{type}{complete} {mob}{} {loc}{}};
+	#format {lastBounty[time]} {%T};
+	std_value_save lastBounty;
+	#unvar lastBounty;
 
 	#delay {bounty_CoolDown} 
 	{
 		#echo {<119>You can now request another bounty.<099>};
 		_CaptureLog {<119>You can now request another bounty.} {$capPath[act]};
 	} {7200};
+
+	#unvar _bountyRewards;
+	#unvar __rewStr; 
+	#unvar bounty;
+	_event_raise {activit_bounty} {return};
+	#class tmp_orcCmd kill;
 }
 
-#alias {_doBounty}
-{
+#alias {_doBounty} {
 	#if {"%1"=="{s|st|sta|stat|status}"}
 	{
 		_bountyStatus;
@@ -61,8 +74,7 @@
 	};
 }
 
-#alias {_bountyRequest}
-{
+#alias {_bountyRequest} {
 	#if {$stateChar[onBounty]} {
 		#echo {<119>Error: You are already on a bounty.<099>};
 	} {
@@ -74,8 +86,7 @@
 	};
 }
 
-#alias {_bountyStatus}
-{
+#alias {_bountyStatus} {
 	std_value_restore lastBounty;
 	#format __timeNow {%T};
 	#math __deltaTime {$lastBounty[time] - ${__timeNow}};

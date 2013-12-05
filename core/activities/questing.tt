@@ -1,6 +1,6 @@
 #showme {<aef>Loading: <faa>activities/questing.tt}
 
-/* Quest Status {{{ */
+/* Quest Status (With Multiple Quests) {{{ */
 #act {^Quest #%d: %* (%d/%d goal{|s} complete).$} {
 	#math __qIdx {${__qIdx} + 1};
 	#if {&{_quests[%1]} == 0 } {
@@ -30,11 +30,33 @@
 	#unvar __qIdx;
 	#unvar __questNum;
 }
+/* }}} */
 
+/* Quest Status (No Quests) {{{ */
 #act {^You aren't currently on any quests.$} {
 	#var _quests[list] {};
 	#var _quests[last] {};
 }
+/* }}} */
+
+/* Either quest status #, quest status when on only one quest, or just given a quest {{{ */
+#act {^This quest [%d] is called '%*',$} {
+	#if {&{_quests[%1][]}} {
+		#var _quests[%1][name] {%2};
+		#var _questInfo {%1};
+	} {
+		#var _quests[%1] {};
+		#var _quests[%1][name] {%2};
+		#var _questInfo {%1};
+	};
+	#class tmp_questInfo read core/activities/lib/questinfo.tt;
+	_event_oneshot {prompt_post} {zquestInfoClean} {_questInfoFin};
+
+	#if {"${_quest_status}" != "1"} {
+		#class tmp_questRequest read core/activities/lib/questreq.tt;
+		_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
+	};
+};
 /* }}} */
 
 /* Running out of time and Losing a Quest {{{ */
@@ -85,8 +107,7 @@
 
 /* Requesting a Quest {{{ */
 #act {^You ask %* for a quest.$} {
-	#class tmp_questRequest read core/activities/lib/questreq.tt;
-	_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
+	_event_raise {activity_quest} {requesting} {%1};
 }
 /* }}} */
 
@@ -122,9 +143,10 @@
 }
 /* }}} */
 
-/* Wrapper for the quest command */
+/* Wrapper for the quest command {{{ */
 #alias {quest} {
 	#class tmp_questCmd read core/activities/lib/questing.tt;
 	_quest %0;
 	#class tmp_questCmd kill;
 }
+/* }}} */

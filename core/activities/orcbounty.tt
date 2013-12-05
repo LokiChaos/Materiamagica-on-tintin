@@ -25,8 +25,7 @@
 #act {^The orc pursuer gives you %*.} {
 	#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
 	_rewBounty {%1};
-	#class tmp_orcCmd kill;
-	#nop _event_raise {activity_bounty} {return};
+	_event_oneshot {prompt_post} {orcFin} {_orcFin};
 } {3}
 /* }}} */
 

@@ -1,50 +1,11 @@
 #nop activities/lib/questreq.tt
 
-/* Collect info about requested quest {{{ */
-#act {^This quest [%d] is called '%*',} {
-	#var _quests[%1] {};
-	#var _quests[%1][name] {%2};
-	#var _questInfo {%1};
-	#var _quests[${_questInfo}][phCom] {0};
-}
-
-#act {%* is the {master|mistress} in charge of this quest.$} {
-	#var _quests[${_questInfo}][master] {%1};
-}
-
-#act {^*Up to %S quest points, %S practice points, %S experience points,$} {
-	#var _quests[${_questInfo}][reward][qp] {%1};
-	#var _quests[${_questInfo}][reward][pp] {%2};
-	#var _quests[${_questInfo}][reward][exp] {%3};
-}
-
-#act {%S build points, %S piety, and %S gold pieces.$} {
-	#var _quests[${_questInfo}][reward][bp] {%1};
-	#var _quests[${_questInfo}][reward][piety] {%2};
-	#var _quests[${_questInfo}][reward][gold] {%3};
-}
-
-#act {^You have %S Alyrian minutes remaining to complete this quest.$} {
-	#var _quests[${_questInfo}][time] {%1};
-	#var _quests[${_questInfo}][timeRem] {%1};
-}
-
-#act {^This quest has no time limit.$} {
-	#var _quests[${_questInfo}][time] {-1};
-	#var _quests[${_questInfo}][timeRem] {-1};
-}
-
-#act {^Phase %d: %*} {
-	#var _quests[${_questInfo}][phTot] {%1};
-}
-/* }}} */
-
 /* Quest master/mistress didn't have a quest {{{ */
 #act {^%* tells you, 'I am sorry, but I don't have any {new |}quests for thee%*'$} {
 	#format {__questEcho} {<249>%s did not have a quest for you.} {%1};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
-	_event_raise {activity_quest_noquest};	
+	_event_raise {activity_quest} {noquest};	
 }
 /* }}} */
 
@@ -57,12 +18,11 @@
 		{${_questInfo}}
 		{${_quests[${_questInfo}][master]}};
 		_CaptureLog {${__questEcho}} {$capPath[act]};
-		_event_raise {activity_quest_recieved} 
+		_event_raise {activity_quest} {recieved} 
 		{${_quests[${_questInfo}][name]}}
 		{${_questInfo}}
 		{${_quests[${_questInfo}][master]}};
 	};
-	#unvar _questInfo;
 	#unvar __questEcho;
 	#class tmp_questRequest kill;
 }

@@ -50,7 +50,7 @@
 /* Channel Captures + Non-Activity Related Logging */
 #class core_caps read core/captures.tt
 /*  Records of Quests, Marks, Bounties, Crystal Guilds, etc. */
-#class core_caps read core/activities.tt
+#class core_activities read core/activities.tt
 
 /* Combat Display & Stat Tracking */
 #class core_combat read core/combat.tt

@@ -35,7 +35,7 @@
 /* Quest Status (No Quests) {{{ */
 #act {^You aren't currently on any quests.$} {
 	#var _quests[list] {};
-	#var _quests[last] {};
+	#var _questsLast {-1};
 }
 /* }}} */
 

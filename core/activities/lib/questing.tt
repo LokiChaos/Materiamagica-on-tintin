@@ -58,7 +58,7 @@
 		};
 	};
 	#else {
-		#send {quest %1 %2 %3};
+		#send {quest %0};
 	};
 };
 

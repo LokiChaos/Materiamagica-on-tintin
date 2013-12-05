@@ -3,6 +3,7 @@
 /* Collect info about requested quest {{{ */
 #act {%* is the {master|mistress} in charge of this quest.$} {
 	#var _quests[${_questInfo}][master] {%1};
+	#math _quests[${_questInfo}][phCom] {0};
 }
 
 #act {^*Up to %S quest points, %S practice points, %S experience points,$} {
@@ -28,6 +29,11 @@
 #act {^Phase %d: %*} {
 	#var _quests[${_questInfo}][phTot] {%1};
 }
+
+#act {^Phase %d: [Complete] %*} {
+	#var _quests[${_questInfo}][phTot] {%1};
+	#math _quests[${_questInfo}][phCom] {${_quests[${_questInfo}][phCom]} + 1};
+} {4.9}
 /* }}} */
 
 /* At next prompt, clean up and log/throw event that you got a quest */

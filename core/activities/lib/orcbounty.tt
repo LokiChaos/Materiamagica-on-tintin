@@ -53,7 +53,8 @@
 	} {7200};
 
 	#unvar _bountyRewards;
-	#unvar __rewStr; 
+	#unvar __rewStr;
+	#unvar __reward;
 	_event_raise {activit_bounty} {return} {$bounty[MobName]} {$bounty[AreaName]};
 	#class tmp_orcCmd kill;
 	#unvar bounty;

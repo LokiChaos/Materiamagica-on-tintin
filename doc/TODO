@@ -4,26 +4,26 @@ bin/
 core/
 	activities/
 		Check that all is working
-		Finish Multi-Quest Support
+		Finish Multi-Quest Support - Mostly Finished, needs extensive testing
 			Re-sync on Login
-			Last quest records
-		Add Luzzardo Support
-		Orc Bounty reward stacking
+			Last quest records - Mostly Finished, needs testing ('quest check' command)
+		Add Luzzardo Support - Started
+		Orc Bounty reward stacking - Finished, needs testing
 	affects/
 		Finish string table
 		Add support for others affects
 	bot/
-		Move to module
+		Move to module - Finished
 	captures/
-		Check all are working correctly
+		Check all are working correctly - Finished, Double Check
 	combat/
 		Add Super-Brief
-		Add Uses for Def & Weapons
+		Add Uses for Def & Weapons - Defenses Added
 		Add combat stats
 	core.tt/
-		Re-select core classes for more granularity
+		Re-select core classes for more granularity - Finished, core_* namespace
 	equipment/
-		Verify all #actions work.
+		Verify all #actions work. - Finished, Double Check
 		More ideas?
 	forms/
 		Better "form report"
@@ -35,7 +35,7 @@ core/
 		Herb Mixer
 		Clean up whereis
 		Remove "locate" alias?
-		Kills TNL, implement
+		Kills TNL, implement - Finished, Moved to Module
 		Bearing Command
 	login/
 		Clean up code
@@ -73,7 +73,7 @@ core/
 		Redo to make it easier to use
 	utility/
 		Other Standard Functions?
-		Finalize Module system
+		Finalize Module system - Mostly Finished
 		Sound
 			Local Play
 			Remote Play
@@ -90,8 +90,8 @@ modules/
 	Add Ship/Sailing Module
 	Survey needs strings
 	Check modules for bugs
-	Implement Dependency system
-	Implement auto-load
+	Implement Dependency system - Finished
+	Implement auto-load - Finished
 
 data/
 	Need strings/data for:

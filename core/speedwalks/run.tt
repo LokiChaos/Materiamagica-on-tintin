@@ -28,3 +28,13 @@
 	};
 	#unvar __dummyPath;
 }
+
+#alias {_RunSpeedWalkNoCheck} {
+	#path save forward __dummyPath;
+	#if {"${__dummyPath}" != ""} {
+		_SpeedWalkRun;
+	} {
+		#echo {<119>Error: No path loaded!};
+	};
+	#unvar __dummyPath;
+}

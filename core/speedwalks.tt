@@ -10,6 +10,12 @@
 	#class tmp_sw_run kill;
 }
 
+#alias {^run!$} {
+	#class tmp_sw_run read core/speedwalks/run.tt;
+	_RunSpeedWalkNoCheck;
+	#class tmp_sw_run kill;
+}
+
 #alias {^stop$} {
 	#if {$stateChar[is_onSpeedWalk]} {
 		#nop TODO Save coordinates here;

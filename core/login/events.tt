@@ -7,6 +7,7 @@
 {
 	#format version[tt] {%p} {%1};
 	#var version[tt_name] {%0};
+	#script {echo "#var version[term] $TERM"};
 }
 /* }}} */
 
@@ -51,12 +52,20 @@
 	- Start reconnect process
 */
 #event {SESSION DISCONNECTED} {
-	_event_raise {session_disconnect};
-	#history write char/%0/var/cmdhistory.hist;
-	#write char/%0/var/lastSessionBackup.tt;
-	#showme {\033ktt++\033\\};
-	#gts {#var lastSession {{sessionName}{%0}{charName}{$charName}{server}{%1}{port}{%3}};};
-	#gts {#class gts_reconnect read core/login/reconnect.tt;};
+	#switch {"%0"} {
+		#case {"mtt"} {
+			_loadChars;
+			_printMenu;
+		};
+		#default {
+			_event_raise {session_disconnect};
+			#history write char/%0/var/cmdhistory.hist;
+			#write char/%0/var/lastSessionBackup.tt;
+			#showme {\033ktt++\033\\};
+			#gts {#var lastSession {{sessionName}{%0}{charName}{$charName}{server}{%1}{port}{%3}};};
+			#gts {#class gts_reconnect read core/login/reconnect.tt;};
+		};
+	};
 }
 
 #event {SESSION TIMED OUT} {
@@ -64,6 +73,10 @@
 	#gts {#class gts_reconnect read core/login/reconnect.tt;};
 }
 /* }}} */
+
+/* Gag Session lines */
+#gag {^#SESSION}
+#gag {^#TRYING TO LAUNCH}
 
 /* Events to track entered and sent commands {{{ */
 /* Sent %0 to the game, reset gameIdle time */

@@ -72,7 +72,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 		#math stateChar[tracking]  {"${__flag}" == "%*[T]%*"};
 		#math stateChar[tagged]    {"${__flag}" == "%*[TAG!]%*"};
 		#math stateChar[invis]     {"${__flag}" == "%*[*]%*"};
-		#var promptFlagsB ${__flag};
+		#var _promptFlagsB ${__flag};
 		#unvar __flag;
 	};
 }

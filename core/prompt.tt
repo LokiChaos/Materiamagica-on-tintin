@@ -80,7 +80,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	#elseif {"%1" == "[C]ontinue [R]edraw [B]ack [E]xit: "}
 		{#var __promptType {Continue};
 	};
-	#elseif {"%1" == "%*({Social|#.*}) "}
+	#elseif {"%1" == "%*({Social|#.*|@#.*}) "}
 		{#var __promptType {Social};
 	};
 	#elseif {"%1" == "%*(%Shull %Sdir %S %Swind%*"}
@@ -171,10 +171,10 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 #alias {_promptSocial}
 {
 	#var stateChar[inSocial] 1;
-	#regex {%1} {%*({Social|#.*}) } {
-		#format {prompt[1]} {<099>[<148>&2<099>]<098>};
-		#if { "&2" != "Social" } {
-			#var stateChar[inChatRoom] {&2};
+	#regex {%1} {%*({@|}{Social|#.*}) } {
+		#format {prompt[1]} {<099>[<139>&2<148>&3<099>]<098>};
+		#if { "&3" != "Social" } {
+			#var stateChar[inChatRoom] {&3};
 			#replace stateChar[inChatRoom] {#} {};
 		} {
 			#unvar stateChar[inChatRoom];

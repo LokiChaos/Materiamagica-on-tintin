@@ -30,17 +30,14 @@
 /* }}} */
 
 #alias {_printMenu} {
-	_printWelcome;
-	#echo {<149>Please Select a character with <099>1<149> to <099>&charList[]<149> or <099>q<149> to quit or <099>n<149> for new!<099>};
+	#echo {<149>Please Select a character with <099>1<149> to <099>&charList[]<149>.};
 	#loop {1} {&charList[]} {__idx} {
 		#echo {<119>   %d<099> - <129>%-25s<099> (<179>%s\@%s:%s<099>)}
 			  {${__idx}} {$charList[${__idx}][name]} {$charList[${__idx}][cname]}
 			  {$charList[${__idx}][server]} {$charList[${__idx}][port]};
 	};
 	#unvar __idx;
-	#if {&lastSession == 0} {
-		_AutoLogin;
-	};
+	#echo {<149>Or <099>q<149> to quit, <099>n<149> to create a new session, or <099>N<149> to make a new character.};
 }
 
 /* Menu Subroutines {{{ */
@@ -52,41 +49,51 @@
 	} {30};
 }
 
-#alias {_AutoLogin} {#echo {Disabled for now...}}
+#alias {_AutoLogin} {#echo {Auto-Login Disabled for now...}}
 
 #alias {_loginMM}
 {
 	#var _reconnect[attMade] {0};
 	#var charName {%2};
+	#var _login_menu_choice {%5};
 	#unvar charList;
 	#undelay autoLogin;
 	#class gts_login_menu kill;
 	#class gts_telopt read core/login/telopt.tt;
 	#session {%1} {%3} {%4};
 }
+/* }}} */
 
+/* Other Menu options {{{ */
 #alias {{q|quit}} {
 	#undelay autoLogin;
 	#gts {#cursor exit};
 }
+
+#alias {{n|new}} {
+	#undelay autoLogin;
+	#run {mtt} {lib/mknewses.sh};
+}
 /* }}} */
 
-#read etc/chars.tt;
 
-/* Load Sessions and generate alises for connection {{{ */
-#foreach {$charList[]} {__idx} {
-	#line substitute variables {
-		#alias {${__idx}} {_loginMM {$charList[${__idx}][name]} {$charList[${__idx}][cname]} {$charList[${__idx}][server]} {$charList[${__idx}][port]}};
+#alias {_loadChars} {
+	#unvar charList;
+	#read etc/chars.tt;
+
+	#foreach {$charList[]} {__idx} {
+		#line substitute variables {
+			#alias {${__idx}} {_loginMM {$charList[${__idx}][name]} {$charList[${__idx}][cname]} {$charList[${__idx}][server]} {$charList[${__idx}][port]} {$charList[${__idx}][menu]}};
+		};
 	};
+
+	#line substitute variables {#alias {_loginAuto} {_loginMM  {$charList[1][name]} {$charList[1][cname]} {$charList[1][server]} {$charList[1][port]};} {$charList[1][menu]}};
+	#unvar __idx;
 };
-/* Create Autologin Alias */
-#line substitute variables {#alias {_loginAuto} {_loginMM  {$charList[1][name]} {$charList[1][cname]} {$charList[1][server]} {$charList[1][port]};}};
-#unvar __idx;
-/* }}} */
 
 #var _reconnect[attMade] {0};
 
 /* Let things Settle Down before we show the menu...*/
-#split 1 1;
+#nop split 1 1;
 
-#delay {1} {_printMenu};
+#delay {1} {_printWelcome;_loadChars;_printMenu;_AutoLogin};

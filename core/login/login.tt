@@ -18,21 +18,28 @@
 	#unact {^Password:};
 }
 
-/* Enter the world and Cleanup this class to negate any chance of abuse */
+/* Only auto-respond to the login menu if menu option is >0 */
 #act {^Your choice?} {
-	#if {$prefs[loginChoice] >= 0 && $prefs[loginChoice]} {
-		#send {$prefs[loginChoice]};
+	#if {${_login_menu_choice} > 0} {
+		#send {${_login_menu_choice}};
+	} {
+		#if {$prefs[loginChoice] > 0} {
+			#send {$prefs[loginChoice]};
+		};
 	};
+	#unact {^Your choice?};
 }
 
-/* */
+/* Enter the world and Cleanup this class to negate any chance of abuse */
 #act {^I-MOTION Engine v%d.%d (build %d)$} {
 	#class tmp_login kill;
+	#unvar _login_menu_choice;
 	_event_raise {session_login} {login};
 }
 
 /* Cleanup this class to negate any chance of abuse */
 #act {^Welcome back to Materia Magica.} {
 	#class tmp_login kill;
+	#unvar _login_menu_choice;
 	_event_raise {session_login} {reconnect};
 }

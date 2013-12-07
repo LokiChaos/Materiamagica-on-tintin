@@ -32,7 +32,11 @@
 #function {makeRoomBar} {
 	#var result {<149>-};
 	#if {$stateRoom[indoors]} {
-		#var result {${result}<279>IN<149>--};
+		#if {$stateRoom[dark]} {
+			#var result {${result}<109>IN<149>--};
+		} {
+			#var result {${result}<279>IN<149>--};
+		};
 	} {
 	    #var result {${result}<169>OUT<149>-}
 	};
@@ -74,6 +78,15 @@
 	};
 	#if {$stateRoom[vanishing-items]} {
 		#var result {${result}<119>!Items<149>-}
+	};
+	#if {$stateRoom[no-npcs]} {
+		#var result {${result}<139>!NPC<149>-}
+	};
+	#if {$stateRoom[no-fear]} {
+		#var result {${result}<139>!Fear<149>-}
+	};
+	#if {$stateRoom[no-disguise]} {
+		#var result {${result}<139>!Shift<149>-}
 	};
 	#if {$stateRoom[diggable]} {
 		#if {$stateRoom[hard]} {

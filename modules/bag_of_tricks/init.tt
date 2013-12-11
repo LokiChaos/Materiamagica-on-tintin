@@ -12,9 +12,9 @@
 #alias {BoTGet} {
 	#class tmpm_bag_of_tricks_get read modules/bag_of_tricks/get.tt;
 	#loop {1} {$prefs[BoTcount]} {__c} {
-		queueCmd {open ${__c}.tricks} {0};
-		queueCmd {get all ${__c}.tricks} {0};
-		queueCmd {close ${__c}.tricks} {0};
+		queueCmd {open '${__c}.a bag of tricks'} {0};
+		queueCmd {get all '${__c}.a bag of tricks'} {0};
+		queueCmd {close '${__c}.a bag of tricks'} {0};
 	};
 	#unvar __c;
 	_event_oneshot {cmdQueue_end} {botClean} {_CleanBot};

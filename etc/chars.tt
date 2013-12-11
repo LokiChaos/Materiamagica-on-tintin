@@ -1,5 +1,4 @@
-#list charList add {{{name}{Shinde}{cname}{Shinde}{menu}{1}{server}{materiamagica.com}{port}{80}}}
+#list charList add {{{name}{Shinde}{cname}{Shinde}{menu}{1}{server}{materiamagica.com}{port}{8000}}}
 #list charList add {{{name}{Kamiko}{cname}{Kamiko}{menu}{2}{server}{materiamagica.com}{port}{8000}}}
 #list charList add {{{name}{Shinde-Dev}{cname}{Shinde}{menu}{1}{server}{dev.ingenii.com}{port}{4444}}}
 #list charList add {{{name}{Testing}{cname}{Noconnect}{menu}{1}{server}{materiamagica.com}{port}{4445}}}
-#list charList add {{{name}{Neko}{cname}{Kami}{menu}{1}{server}{materiamagica.com}{port}{23}}}

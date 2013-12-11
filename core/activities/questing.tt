@@ -97,7 +97,7 @@
 	_event_raise {activity_quest} {phase} {done} {unknown};
 }
 
-#act {^You have completed a part of your quest, '%*'!} {
+#act {^You have completed a part of your quest, '%*'!$} {
 	_event_raise {activity_quest} {phase} {done} {%1};
 }
 

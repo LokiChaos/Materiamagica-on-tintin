@@ -50,7 +50,7 @@
 	{
 		#echo {<119>You can now request another bounty.<099>};
 		_CaptureLog {<119>You can now request another bounty.} {$capPath[act]};
-	} {7200};
+	} {3600};
 
 	#unvar _bountyRewards;
 	#unvar __rewStr;

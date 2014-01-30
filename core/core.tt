@@ -1,8 +1,9 @@
 #showme {<aef>Loading MM Config for "$sessionName"};
 
 /* Master Log */
-#log a char/$sessionName/log/${charName}\.log
-
+#var __dot {.};
+#log a char/$sessionName/log/${charName}${__dot}log;
+#unvar __dot;
 /* Load shared settings for core system */
 #class core read etc/coreSettings.tt;
 

@@ -62,15 +62,19 @@
 	#var __mapName {%1};
 	#replace {__mapName} {'} {};
 	#replace {__mapName} { } {_};
-	#map write {${mapper[path]}/${__mapName}\.map};
+	#var __mapExt {.map};
+	#map write {${mapper[path]}/${__mapName}${__mapExt}};
 	#unvar __mapName;
+	#unvar __mapExt;
 }
 
 #alias {_mapperReadIn} {
 	#var __mapName {%1};
 	#replace {__mapName} {'} {};
 	#replace {__mapName} { } {_};
-	#map read {${mapper[path]}/${__mapName}\.map};
+	#var __mapExt {.map};
+	#map read {${mapper[path]}/${__mapName}${__mapExt}};
 	#unvar __mapName;
+	#unvar __mapExt;
 }
 /* }}} */

@@ -21,6 +21,7 @@
 		#var navigation[recall_Area] {%2};
 		#line gag;
 	} {4};
+	#gag {^[%W]};
 	#gag {^* Your default recall point is:};
 	#act {^* It will cost [%*] gp to change your default recall point.} {
 		#line gag;

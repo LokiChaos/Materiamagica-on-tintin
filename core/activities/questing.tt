@@ -108,7 +108,9 @@
 
 /* Requesting a Quest {{{ */
 #act {^You ask %* for a quest.$} {
+	#class tmp_questRequest read core/activities/lib/questreq.tt;
 	_event_raise {activity_quest} {requesting} {%1};
+	_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
 }
 /* }}} */
 

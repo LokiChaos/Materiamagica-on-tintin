@@ -82,7 +82,7 @@
 
 /* Persistent value saving {{{ */
 #alias {std_value_save} {
-	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#var __persistPath {char/${sessionName}/var/persistent.tt};
 	#class persistent kill;
 	#class persistent read {${__persistPath}};
 	#class persistent open;
@@ -94,7 +94,7 @@
 }
 
 #function {std_value_get} {
-	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#var __persistPath {char/${sessionName}/var/persistent.tt};
 	#class persistent kill;
 	#class persistent read {${__persistPath}};
 	#var result ${:%1};
@@ -103,7 +103,7 @@
 }
 
 #alias {std_value_restore} {
-	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#var __persistPath {char/${sessionName}/var/persistent.tt};
 	#class persistent kill;
 	#class persistent read {${__persistPath}};
 	#var %1 ${:%1};
@@ -112,7 +112,7 @@
 }
 
 #alias {std_value_clear} {
-	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#var __persistPath {char/${sessionName}/var/persistent.tt};
 	#class persistent kill;
 	#class persistent read {${__persistPath}};
 	#unvar {:%1};
@@ -137,7 +137,7 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 /* Internal Remeber System Helpers {{{ */
 #alias {_std_remember_save} {
 	#nop %1;
-	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#var __persistPath {char/${sessionName}/var/persistent.tt};
 	#class persistent kill;
 	#class persistent read {${__persistPath}};
 	#class persistent open;
@@ -157,7 +157,7 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 
 #alias {_std_remember_load} {
 	#nop %1;
-	#var __persistPath {char/$sessionName/var/persistent.tt};
+	#var __persistPath {char/${sessionName}/var/persistent.tt};
 	#class persistent kill;
 	#class persistent read {${__persistPath}};
 	#var {_remember} {${:_remember}};
@@ -175,7 +175,7 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 /* Notify system {{{ */
 #alias {std_Notice} {
 	#format {__noTemp} {%t %s<099>} {{%H:%M:%S}} {%1};
-	#line log {$stateClient[root]tmp/notices.$sessionName} {${__noTemp]}};
+	#line log {${stateClient[root]}tmp/notices.${sessionName}} {${__noTemp]}};
 	#unvar __noTemp;
 }
 /* }}} */

@@ -83,9 +83,9 @@
 */
 /* TODO: Remove */
 #alias {_event_raise} {
-	_CaptureLog {Event %0} {tmp/event_$sessionName.log};
+	_CaptureLog {Event %0} {tmp/event_${sessionName}\.log};
 	#foreach {${_events[%1][]}} {__handler} {
-	_CaptureLog {    Handler '${__handler}' called for '%1'} {tmp/event_$sessionName.log};
+	_CaptureLog {    Handler '${__handler}' called for '%1'} {tmp/event_${sessionName}\.log};
 		#if {&{_events[%1][${__handler}]} != 0} {
 			event_eval {${_events[%1][${__handler}]}} {%0};
 		};

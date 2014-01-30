@@ -62,7 +62,7 @@
 	#var __mapName {%1};
 	#replace {__mapName} {'} {};
 	#replace {__mapName} { } {_};
-	#map write {$mapper[path]/${__mapName}.map};
+	#map write {${mapper[path]}/${__mapName}.map};
 	#unvar __mapName;
 }
 
@@ -70,7 +70,7 @@
 	#var __mapName {%1};
 	#replace {__mapName} {'} {};
 	#replace {__mapName} { } {_};
-	#map read {$mapper[path]/${__mapName}.map};
+	#map read {${mapper[path]}/${__mapName}.map};
 	#unvar __mapName;
 }
 /* }}} */

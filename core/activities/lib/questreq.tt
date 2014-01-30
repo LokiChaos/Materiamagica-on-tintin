@@ -1,12 +1,12 @@
 #nop activities/lib/questreq.tt
 
 /* Quest master/mistress didn't have a quest {{{ */
-#act {^%* tells you, 'I am sorry, but I don't have any {new |}quests for thee%*'$} {
+#act {^%* tells you, 'I am sorry, but I don't have any%*quests for thee%*'$} {
 	#format {__questEcho} {<249>%s did not have a quest for you.} {%1};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
 	_event_raise {activity_quest} {noquest};	
-}
+} {4}
 /* }}} */
 
 /* At next prompt, clean up and log/throw event that you got a quest */

@@ -1,6 +1,6 @@
 #nop info/roominfo.tt
 
-#echo {<149>Room info for <099>%s<149>:} {$gmcp[Room][name]};
+#echo {<149>Room info for <099>%s<149> (<099>#%d<149>):} {$gmcp[Room][name]} {$gmcp[Room][num]};
 #echo {<139> * <149>Shape:<099> %s} {$gmcp[Room][shape]};
 #echo {<139> * <149>Size:<099> %s} {$gmcp[Room][size]};
 #echo {<139> * <149>Terrain:<099> %s} {$gmcp[Room][terrain]};

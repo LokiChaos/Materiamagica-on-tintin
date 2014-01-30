@@ -1,6 +1,5 @@
 #showme {<aef>Loading: <faa>state.tt}
-/* 
-	State Machine Summary {{{
+/* 	State Machine Summary {{{
 	This is the core of the state machine logic for the client.
 	Many, many triggers on events to keep track of states...
 	
@@ -22,8 +21,7 @@
 	digging, searching, tracking, have-mail, have-news, tagged,
 	mounted, on-ship, encumbered, casting, playing, panic,
 	combat starting/ending (combat.tt handles the details of combat).
-	}}}
-*/
+	}}}*/
 
 /* Initialize States {{{ */
 #if {&{stateChar[]} == 0 } {
@@ -87,7 +85,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 		#var stateRoom {};
 		_parseRoomInfo;
 		#regex {%1} {Forested} {
-			#var stateRoom[forest] 1;
+			#var stateRoom[wooded] 1;
 		};
 		#if {$stateChar[is_onSpeedWalk]} {
 			_event_raise {speedStep};

@@ -92,6 +92,7 @@
 		#replace {__eq[PrintListRace]} {${__eq[Slot]}, } {};
 	};
 	#replace {__eq[PrintList]} {, END} {};
+	#replace {__eq[PrintList]} {END} {};
 	#replace {__eq[PrintListRace]} {, END} {};
 	
 	#regex {${__eq[PrintListRace]}} {^$} {

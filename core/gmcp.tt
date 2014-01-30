@@ -30,30 +30,30 @@
 	Current all of these can only be invoked manually, still stub events will capture data to $gmcp */
 
 #event {IAC SB GMCP char.base IAC SE} {
-  #var gmcp[Char][Base] {%0};
+	#var gmcp[Char][Base] {%0};
 }
 
 #event {IAC SB GMCP char.status IAC SE} {
-  #var gmcp[Char][Status] {%0};
+	#var gmcp[Char][Status] {%0};
 }
 
 #event {IAC SB GMCP char.stats IAC SE} {
-  #var gmcp[Char][Stats] {%0};
+	#var gmcp[Char][Stats] {%0};
 }
 
 #event {IAC SB GMCP char.maxstats IAC SE} {
-  #var gmcp[Char][MaxStats] {%0};
+	#var gmcp[Char][MaxStats] {%0};
 }
 
 #event {IAC SB GMCP char.worth IAC SE} {
-  #var gmcp[Char][Worth] {%0};
+	#var gmcp[Char][Worth] {%0};
 }
 
 #event {IAC SB GMCP char.form IAC SE} {
-  #var gmcp[Char][Form] {%0};
+	#var gmcp[Char][Form] {%0};
 }
 
 #event {IAC SB GMCP char.clan IAC SE} {
-  #var gmcp[Char][Clan] {%0};
+	#var gmcp[Char][Clan] {%0};
 }
 /* }}} */

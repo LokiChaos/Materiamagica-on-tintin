@@ -367,3 +367,4 @@ Vir Realty::?::?:?:?:?:?:::42:?
 Rimeward::n::?:FP:165:118::::?:a small hamlet of icicles and packed snow rises from the meadowland.
 Frosthold::n::keep:FP:179:235::::?:a brutalist citadel hewn from icicles and permafrost.
 Engineers Exclave::n::nowhere:FP:451:238::::?:an array of geometric solids of ice and hangs on the edge of the Chaotic Void.
+Unopened Inn:::::Alyria:927:288:Sephaira::::

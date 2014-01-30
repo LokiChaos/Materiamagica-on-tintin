@@ -55,6 +55,7 @@ _event_register {session_disconnect} {moduleRecallSave} {_std_modules_save};
 	#foreach {${_modules[AutoLoad][]}} {__mod} {
 		insmod ${_modules[AutoLoad][${__mod}]};
 	};
+	#unvar __mod;
 }
 
 #alias {_std_modules_save} {

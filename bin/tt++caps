@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # tmux Session Name for Captures
 TSESSION="Captures"
@@ -20,10 +20,8 @@ if [ $(tmux -L ${TSERVER} ls 2> /dev/null |grep -c "^${TSESSION}:") != 0 ]; then
 else
 	# Session Caps does not exist, create it
 	echo "Session ${TSESSION} does not exist. Creating."
-
 	cd ${TINTINDIR}
-
-	tmux -L ${TSERVER} new -d -s ${TSESSION} -x ${TCOL} -y ${TROW} -n dummy
+	tmux -L ${TSERVER} new -d -c ${TINTINDIR} -s ${TSESSION} -x ${TCOL} -y ${TROW} -n dummy
 	# Source shared settings
 	tmux -L ${TSERVER} source-file etc/tmux.conf
 	# Source capture-specific settings

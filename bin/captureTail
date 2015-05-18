@@ -1,13 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Log Tailer for MateriaMagica on tintin++
 
-if [ -z "$1" ]; then
+echoHelp(){
 	echo "Usage:"
 	echo "captureTail path/to/file"
 	echo "captureTail path/to/dir"
 	echo "captureTail SessionName"
 	echo "captureTail SessionName channel"
+}
+
+
+if [ -z "$1" ]; then
+	echoHelp
 	exit 1
 fi
 

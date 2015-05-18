@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Store Args in meaningful names
 # caps.sh TmuxServer TmuxSession TmuxWindow TintinSession
 TSERVER="${1}"

@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 $string1 = $ARGV[0];
 # Closed doors im magenta <158>
 $string1 =~ s/\(([NSEWUDew]+)\)/<159>\1<139>/g;

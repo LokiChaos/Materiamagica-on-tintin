@@ -30,6 +30,10 @@
 #pathdir          {sw}  {ne}  	  {12}
 #pathdir          {u}  	{d}  	  {16}
 #pathdir          {w}  	{e}  	  {8}
+
+/* Minimize output from tintin */
+#debug            {all}           {OFF}
+#message          {all}           {OFF}
 /* }}} */
 
 /* Script Version */

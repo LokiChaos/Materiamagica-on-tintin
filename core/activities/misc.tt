@@ -105,6 +105,12 @@
 	_event_raise {activity_better} {%1} {%2};
 }
 
+/* Partial better progress */
+#act {^You have made some progress towards improving your skill in '%*'!} {
+	_CaptureLog {<179>%0} {$capPath[important]};
+	_event_raise {activity_better_partial} {%1};
+}
+
 /* Mastery of a Skill */
 #act {^You have become a master at %*} {
 	_CaptureLog {<179>%0} {$capPath[important]};
@@ -131,6 +137,7 @@
 #act {^For journeying to far-off places and broadening your horizons, the Powers have rewarded you!} {
 	_CaptureLog {<259>%0} {$capPath[act]};
 }
+
 
 /* TODO MOVE THIS!!! */
 #act {~%* has set your rank in Clan %* to %*} {

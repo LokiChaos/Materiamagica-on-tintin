@@ -6,8 +6,8 @@
 #event {PROGRAM START}
 {
 	#format version[tt] {%p} {%1};
-	#var version[tt_name] {%0};
 	#script {echo "#var version[term] $TERM"};
+	#script {echo "#var version[tmux] `tmux -V|cut -c 6-`"}
 }
 /* }}} */
 

@@ -16,6 +16,7 @@
 #read core/utility/module.tt;
 #read core/utility/zmudsw.tt;
 #read core/utility/confirm.tt;
+#read code/utility/vt.tt;
 
 /* Queue Functions {{{ */
 
@@ -195,8 +196,19 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 	#return $result[1];
 }
 
+#function {std_dir_exists} {
+	#script {result} {if [ -d %0 ];then echo 1;else echo 0;fi};
+	#return $result[1];
+}
+
 #function {std_file_type} {
-#nop TODO- returns dir/file/fifo
+	#script {result} {file -b %0 };
+	#return $result[1];
+}
+
+#function {std_file_mime} {
+	#script {result} {file -bi %0 };
+	#return $result[1];
 }
 
 #function {std_envget} {
@@ -211,6 +223,11 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 
 #function {std_mktemp} {
 	#script result {mktemp};
+	#return $result[1];
+}
+
+#function {std_mkdir} {
+	#script result {if [ mkdir -p %0]; then echo 1; else echo 0;fi};
 	#return $result[1];
 }
 /* }}} */
@@ -324,7 +341,6 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 	#var result {%1};
 	#replace result {,} {};
 }
-
 
 #function {std_str_strip} {
 	#line strip {#var result {%0}};

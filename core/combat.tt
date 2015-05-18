@@ -62,7 +62,7 @@ _event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 /* }}} */
 
 /* Your defenses {{{ */
-#act {^You nimbly backflip out of the way %* attack.}$
+#act {^You nimbly backflip out of the way %* attack.}
 {
 	_IncUses {acrobatics};
 }

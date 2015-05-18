@@ -31,10 +31,16 @@
 }*/
 
 /* Uncomment to enable MXP (You would need to write your own support...) */
-/*#event {IAC WILL MXP}
+/*
+#event {IAC WILL MXP}
 {
 	#send {$tel[IAC]$tel[DO]$tel[MXP]\};
-}*/
+}
+
+#act {<VERSION>} {
+	#send {\e[1z<VERSION MXP="0.5" CLIENT=tintin VERSION="2.01.0" REGISTERED=YES>}
+}
+*/
 /* }}} */
 
 /* GMCP telopt neogtiation {{{ */

@@ -72,11 +72,11 @@
 /* }}} */
 
 /* PK Talk {{{ */ 
-#act {~^\e[1\;30m[PKTALK\e[0m %w\e[1\;30m] %*} {
+#act {~^\e[1\;30m[TALK %w] %*} {
 	_ChannelLog {%0} {$capPath[pkTalk]};
 } {3}
 
-#act {~^\e[1\;30m[PKTALK\e[0m\e[1\;30m] %*} {
+#act {~^\e[1\;30m[TALK\e[0m\e[1\;30m] %*} {
 	_ChannelLog {%0} {$capPath[pkTalk]};
 } {3}
 
@@ -241,15 +241,15 @@
 	_ChannelLog {%0} {@relayPath{%2}};
 } {3}
 
-#act {~^\e[1\;33m%*@#%w is now relaying messages from this chat room.} {
+#act {~^\e[1\;33m%*@#%S is now relaying messages from this chat room.} {
 	_ChannelLog {%0} {@relayPath{%2}};
 } {3}
 
-#act {~^\e[1\;33m%*@#%w is no longer relaying from this chat room.%*} {
+#act {~^\e[1\;33m%*@#%S is no longer relaying from this chat room.%*} {
 	_ChannelLog {%0} {@relayPath{%2}};
 } {3}
 
-#act {~^\e[1\;33m%w@#%w: %*} {
+#act {~^\e[1\;33m%w@#%S: %*} {
 	_ChannelLog {%0} {@relayPath{%2}};
 } {3}
 

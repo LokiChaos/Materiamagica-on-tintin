@@ -77,6 +77,23 @@ _event_register {sysinfo} {moons} {_MoonCalc};
 }
 /* }}} */
 
+/* Wind and weather strings {{{ */
+#act {^The wind changes direction, now coming from the %w.$} {
+	#var nagivation[wind] {%1};
+	_event_raise {wind_direction} {%1};
+}
+
+#act {^The wind changes direction to blow from the %w.$} {
+	#var nagivation[wind] {%1};
+	_event_raise {wind_direction} {%1};	
+}
+
+#act {^The wind has stopped.$} {
+	#var nagivation[wind] {calm};
+	_event_raise {wind_direction} {calm};
+}
+/* }}} */
+
 /* Grabs recall room & zone based on "recall list" output {{{ */
 #act {^[%?%?] Nearest area recall point (%D in %D)} {
 	#var navigation[recall_Room] {%3};

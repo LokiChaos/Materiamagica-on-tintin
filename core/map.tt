@@ -26,7 +26,7 @@ roomterrain: {terrain}{$gmcp[Room][terrain]}
 	{norm}{<099>}
 	{lpk}{<139>}
 	{npk}{<119>}
-	{cpk}{<019>}
+	{cpk}{<101>}
 	{safe}{<179>}
 	{dark}{<100>};
 };

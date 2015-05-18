@@ -97,6 +97,48 @@
 }
 /* }}} */
 
+/* Get/Put/Drop/Locker items {{{ */
+#act {^You get %* from your locker.$} {
+	_event_raise {item} {get} {locker} {%1} {1};
+} {4.5}
+
+#act {^You take %d of %* from %*.$} {
+	_event_raise {item} {get} {container} {%2} {%1} {%3};
+} {4.6}
+
+#act {^You take %d of %*.$} {
+	_event_raise {item} {get} {ground} {%2} {%1};
+} {4.8}
+
+#act {^You take %* from %*.$} {
+	_event_raise {item} {get} {container} {%1} {1} {%2};
+} {4.7}
+
+#act {^You take %*.$} {
+	_event_raise {item} {get} {ground} {%1} {1};
+} {4.9}
+
+#act {^You put %* in your locker$}{
+	_event_raise {item} {put} {locker} {%1} {1};
+} {4.5}
+
+#act {^You put %d of %* in %*.$} {
+	_event_raise {item} {put} {container} {%2} {%1} {%3};
+} {4.6}
+
+#act {^You put %* in %*.$} {
+	_event_raise {item} {put} {container} {%1} {1} {%2};
+} {4.9}
+
+#act {^You drop %d of %*.$} {
+	_event_raise {item} {drop} {%2} {%1};
+} {4.8}
+
+#act {^You drop %*.$} {
+	_event_raise {item} {drop} {%1} {1};
+} {4.9}
+/* }}} */
+
 /* Out of weight or count carry capacity {{{ */
 #act {^%*: there's not enough room in your inventory.$} {
 	_event_raise {item} {inv_noroom};
@@ -104,6 +146,10 @@
 
 #act {^%*: you cannot carry that much weight.$} {
 	_event_raise {item} {inv_noweight};
+}
+
+#act {^You can't store a container in a container.$} {
+	_event_raise {item} {container_invalid};
 }
 
 #act {^%* can hold a maximum of %d items, and is already full.$} {
@@ -136,14 +182,3 @@
 	_event_raise {equip} {disarmed} {%2} {%1};
 	_Notice {<119>DISARMED<099> - %3};
 };
-
-/* TODO add? {{{
-#act {^You get %* from your locker.$}
-#act {^You put %* in your locker.$}
-#act {^You close %*.$}
-#act {^You open %*.$}
-#act {^You drop %*.$}
-#act {^You take %*.$}
-#act {^You take %* from %*.$}
-#act {^You put %* in %*.$}
- }}} */

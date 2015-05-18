@@ -1,7 +1,7 @@
 #nop equipment/eq.tt
 
 /* Equipment Slot Tables {{{ */
-#var __eq[PrintList]  {light, finger1, finger2, neck1, neck2, neck3, neck4, onbody, head, face, legs, feet, hands, arms, shield, shoulder1, shoulder2, abtbody, rndbody, waist, wrist1, wrist2, rhand, lhand, END};
+#var __eq[PrintList]  {light, finger1, finger2, neck1, neck2, amulet1, amulet2, onbody, head, face, legs, feet, hands, arms, shield, shoulder1, shoulder2, abtbody, rndbody, waist, wrist1, wrist2, rhand, lhand, END};
 #var __eq[RaceSlotTable] { {dracon}{rwing, lwing, tail, END}
                        {fey}{rwing, lwing, END}
                        {sidhe}{rwing, lwing, END}
@@ -10,7 +10,7 @@
 
 #var __eq[PrintListRace] {${__eq[RaceSlotTable][$charScore[race]]}};
 
-#var __eq[Count] {{ring}{0}{neck}{0}{shoulder}{0}{wrist}{0}{wing}{0}};
+#var __eq[Count] {{ring}{0}{neck}{0}{amulet}{0}{shoulder}{0}{wrist}{0}{wing}{0}};
 /* }}} */
 
 /* Action to Parse Worn Equipment {{{ */
@@ -26,6 +26,11 @@
 	#elseif {"%1" == "worn around neck"} { 
 		#math __eq[Count][neck] {1 + ${__eq[Count][neck]}};
 		#format __eq[Temp] {neck%d, } {${__eq[Count][neck]}};
+		#replace {__eq[PrintList]} {${__eq[Temp]}} {};
+	};
+	#elseif {"%1" == "amulet around neck"} { 
+		#math __eq[Count][amulet] {1 + ${__eq[Count][amulet]}};
+		#format __eq[Temp] {amulet%d, } {${__eq[Count][amulet]}};
 		#replace {__eq[PrintList]} {${__eq[Temp]}} {};
 	};
 	#elseif {"%1" == "worn on body"} { 

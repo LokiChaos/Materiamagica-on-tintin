@@ -1,0 +1,26 @@
+#showme {<aef>Loading: <faa>utility/vt.tt}
+/*
+	Various VT Control Codes for use in triggers.
+	Mostly to make things more readable.
+*/
+
+#var ANSI[color][black]     {\e[0\;30m};
+#var ANSI[color][red]       {\e[0\;31m};
+#var ANSI[color][green]     {\e[0\;32m};
+#var ANSI[color][yellow]    {\e[0\;33m};
+#var ANSI[color][blue]      {\e[0\;34m};
+#var ANSI[color][maganta]   {\e[0\;35m};
+#var ANSI[color][cyan]      {\e[0\;36m};
+#var ANSI[color][white]     {\e[0\;37m};
+
+#var ANSI[color][hiblack]   {\e[1\;30m};
+#var ANSI[color][hired]     {\e[1\;31m};
+#var ANSI[color][higreen]   {\e[1\;32m};
+#var ANSI[color][hiyellow]  {\e[1\;33m};
+#var ANSI[color][hiblue]    {\e[1\;34m};
+#var ANSI[color][himaganta] {\e[1\;35m};
+#var ANSI[color][hicyan]    {\e[1\;36m};
+#var ANSI[color][hiwhite]   {\e[1\;37m};
+
+#var ANSI[color][reset]     {\e[0m};
+

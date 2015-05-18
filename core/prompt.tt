@@ -117,7 +117,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	#var stateChar[OnShip]   0;
 
 	_calcVitals;
-	#var vitals[print] @promptVitalsBar{};	
+	#var vitals[print] @promptVitalsBar{};
 
 	#var prompt[1] {@left_right{ {$vitals[print]} {@promptFlagsBar{}} }};
 
@@ -203,7 +203,7 @@ _event_register {tick} {promptTick} {_PromptTick};
 #alias {_PromptTick} {
 	#nop %1;
 	#format prompt[$prefs[split][bot]] {%s%s} {$prompt[b]} {$gtime[print]};
-	#echo {{%.80s}{$prefs[split][bot]}} {$prompt[$prefs[split][bot]]};
+	#echo {{%.80s}{4}} {$prompt[$prefs[split][bot]]};
 }
 /* }}} */
 

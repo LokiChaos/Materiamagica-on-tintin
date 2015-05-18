@@ -31,29 +31,55 @@
 
 #event {IAC SB GMCP char.base IAC SE} {
 	#var gmcp[Char][Base] {%0};
+	_event_raise {gmcp_char_base};
 }
 
 #event {IAC SB GMCP char.status IAC SE} {
 	#var gmcp[Char][Status] {%0};
+	_event_raise {gmcp_char_status};
+}
+
+#event {IAC SB GMCP char.vitals IAC SE} {
+	#var gmcp[Char][Vitals] {%0};
+	_event_raise {gmcp_char_vitals};
 }
 
 #event {IAC SB GMCP char.stats IAC SE} {
 	#var gmcp[Char][Stats] {%0};
+	_event_raise {gmcp_char_stats};
 }
 
 #event {IAC SB GMCP char.maxstats IAC SE} {
 	#var gmcp[Char][MaxStats] {%0};
+	_event_raise {gmcp_char_maxstats};
 }
 
 #event {IAC SB GMCP char.worth IAC SE} {
 	#var gmcp[Char][Worth] {%0};
+	_event_raise {gmcp_char_worth};
 }
 
 #event {IAC SB GMCP char.form IAC SE} {
 	#var gmcp[Char][Form] {%0};
+	_event_raise {gmcp_char_form};
 }
 
 #event {IAC SB GMCP char.clan IAC SE} {
 	#var gmcp[Char][Clan] {%0};
+	_event_raise {gmcp_char_clan};
+}
+
+#event {IAC SB GMCP char.gecho_notification IAC SE} {
+	#var gmcp[Char][gecho] {%0};
+	_event_raise {gmcp_char_gecho};	
 }
 /* }}} */
+
+ 
+#alias _gmcpRequest {
+	#format __request {%a%a%a %s \{"":""\} %a%a\\} {255} {250} {201} {%1} {255} {240};
+	#nop {$tel[IAC]$tel[SB]$tel[GMCP] Char.Status \{"":""\} $tel[IAC]$tel[SE]\}
+	#send {${__request}};
+	#unvar __request;
+}
+

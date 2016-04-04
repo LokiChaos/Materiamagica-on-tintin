@@ -41,7 +41,7 @@
 	#nop system {make_caps $charName 2>/dev/null};
 	#showme {\033k${sessionName}\033\\};
 	#system {makeCaps ${sessionName}};
-	#class tmp_login read core/login/login.tt;
+	#class tmp/login read init/login/login.tt;
 }
 
 /*
@@ -63,14 +63,14 @@
 			#write char/%0/var/lastSessionBackup.tt;
 			#showme {\033ktt++\033\\};
 			#gts {#var lastSession {{sessionName}{%0}{charName}{$charName}{server}{%1}{port}{%3}};};
-			#gts {#class gts_reconnect read core/login/reconnect.tt;};
+			#gts {#class gts/reconnect read init/login/reconnect.tt;};
 		};
 	};
 }
 
 #event {SESSION TIMED OUT} {
 	#gts {#var lastSession {{sessionName}{%0}{charName}{$charName}{server}{%1}{port}{%3}};};
-	#gts {#class gts_reconnect read core/login/reconnect.tt;};
+	#gts {#class gts/reconnect read init/login/reconnect.tt;};
 }
 /* }}} */
 

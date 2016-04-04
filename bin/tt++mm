@@ -14,7 +14,7 @@ fi
 spawn_tmux(){
 	cd ${TINTINDIR}
 	echo "Session ${TSESSION} does not exist. Creating."
-	tmux -L ${TSERVER} new-session -d -s ${TSESSION} -c ${TINTINDIR} "tt++ -G core/master.tt"
+	tmux -L ${TSERVER} new-session -d -s ${TSESSION} -c ${TINTINDIR} "tt++ -G init.tt"
 	tmux -L ${TSERVER} source-file etc/tmux.conf
 	tmux -L ${TSERVER} source-file etc/tmux.client.conf
 	return 0

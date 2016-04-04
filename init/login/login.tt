@@ -2,11 +2,11 @@
 
 /* Auto-Send Character Name, if it fails twice abort the auto-login & clean up */
 #act {^By what name shall we know thee?} {
-	#class gts_telopt kill;
+	#class gts/telopt kill;
 	#send {$charName};
 	#math __nameTry {${__nameTry} + 1 };
 	#if {${__nameTry} > 2} {
-		#class tmp_login kill;
+		#class tmp/login kill;
 	};
 }
 
@@ -35,14 +35,14 @@
 /* Enter the world and Cleanup this class to negate any chance of abuse */
 #act {^I-MOTION Engine v%d.%d (build %d)$} {
 	#undelay login_auto_choice;
-	#class tmp_login kill;
+	#class tmp/login kill;
 	#unvar _login_menu_choice;
 	_event_raise {session_login} {login};
 }
 
 /* Cleanup this class to negate any chance of abuse */
 #act {^Welcome back to Materia Magica.} {
-	#class tmp_login kill;
+	#class tmp/login kill;
 	#unvar _login_menu_choice;
 	_event_raise {session_login} {reconnect};
 }

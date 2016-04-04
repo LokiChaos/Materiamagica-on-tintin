@@ -49,9 +49,9 @@
 	#var charName {$lastSession[charName]};
 	#var sessionName {$lastSession[sessionName]};
 	#unvar __delay;	
-	#class gts_reconnect kill;
+	#class gts/reconnect kill;
 	#unalias _Reconnect;
-	#class gts_telopt read core/login/telopt.tt;
+	#class gts/telopt read init/login/telopt.tt;
 	#session {$sessionName} {$lastSession[server]} {$lastSession[port]};
 }
 
@@ -61,6 +61,6 @@
 	#unvar charName;
 	#var sessionName {gts};
 	#unvar __delay;
-	#class gts_reconnect kill;
-	#class gts_login_menu read core/login/menu.tt;
+	#class gts/reconnect kill;
+	#class gts/login/menu read init/login/menu.tt;
 }

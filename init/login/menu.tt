@@ -58,9 +58,9 @@
 	#var _login_menu_choice {%5};
 	#unvar charList;
 	#undelay autoLogin;
-	#class gts_login_menu kill;
-	#class gts_login_menu_alias kill;
-	#class gts_telopt read core/login/telopt.tt;
+	#class gts/login/menu kill;
+	#class gts/login/menuAlias kill;
+	#class gts/telopt read init/login/telopt.tt;
 	#session {%1} {%3} {%4};
 }
 /* }}} */
@@ -85,7 +85,7 @@
 
 #alias {_loadChars} {
 	#unvar charList;
-	#class gts_login_menu_alias open;
+	#class gts/login/menuAlias open;
 	#read etc/chars.tt;
 
 	#foreach {$charList[]} {__idx} {
@@ -96,7 +96,7 @@
 
 	#line substitute variables {#alias {_loginAuto} {_loginMM  {$charList[1][name]} {$charList[1][cname]} {$charList[1][server]} {$charList[1][port]};} {$charList[1][menu]}};
 	#unvar __idx;
-	#class gts_login_menu_alias close;
+	#class gts/login/menuAlias close;
 };
 
 #var _reconnect[attMade] {0};

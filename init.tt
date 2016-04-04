@@ -1,0 +1,30 @@
+#showme {<aef>Loading Master Config: <faa>master.tt}
+/* Sets up the tt++ enviroment for the mud and loads all other config files */
+
+#read init/ttConf.tt;
+
+/* Script Version */
+#var version[c] {0.2.0b};
+
+/* Inialize Session Name to default tt++ Session*/
+#var sessionName {gts};
+
+/* Read Global Settings and Preferences */
+#read etc/coreSettings.tt
+
+/* Load #event handlers
+   Needs to be loaded in #gts as it handles conncet/disconnect events */
+#class gts_events read init/events.tt
+
+/* Prevents accadental quitting with CTRL+D and Backgroudning with CTRL+Z {{{ */
+#macro {\cd} {
+	#nop;
+};
+
+#macro {\cz} {
+	#nop;
+};
+/* }}} */
+
+/* Login Menu and Welcome Screen */
+#class gts_login_menu read init/login/menu.tt

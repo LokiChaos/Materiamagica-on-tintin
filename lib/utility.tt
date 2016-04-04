@@ -10,13 +10,13 @@
 */
 
 /* Load Other Utility */
-#read core/utility/cmdqueue.tt;
-#read core/utility/handler.tt;
-#read core/utility/sql.tt;
-#read core/utility/module.tt;
-#read core/utility/zmudsw.tt;
-#read core/utility/confirm.tt;
-#read code/utility/vt.tt;
+#read lib/cmdqueue.tt;
+#read lib/handler.tt;
+#read lib/sql.tt;
+#read lib/module.tt;
+#read lib/zmudsw.tt;
+#read lib/confirm.tt;
+#read lib/vt.tt;
 
 /* Queue Functions {{{ */
 

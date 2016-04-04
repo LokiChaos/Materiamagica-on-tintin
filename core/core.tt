@@ -12,7 +12,7 @@
 #class core read char/$sessionName/modulesConfig.tt
 
 /* Load Internal Utility Library */
-#class utility read core/utility.tt
+#class utility read lib/utility.tt
 
 /* MM-specific Utility Library */
 #class utility_mm read core/mmutility.tt

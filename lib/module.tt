@@ -7,13 +7,13 @@
 
 /* Wrapper Aliases to be called to use the module system {{{ */
 #alias {insmod} {
-	#class tmp_module read core/utility/lib/module.tt;
+	#class tmp_module read lib/lib/module.tt;
 	module_insert %1;
 	#class tmp_module kill;
 }
 
 #alias {rmmod} {
-	#class tmp_module read core/utility/lib/module.tt;
+	#class tmp_module read lib/lib/module.tt;
 	#if {"%1" == "all" } {
 		module_remove_all;
 	} {
@@ -23,13 +23,13 @@
 }
 
 #alias {lsmod} {
-	#class tmp_module read core/utility/lib/module.tt;
+	#class tmp_module read lib/lib/module.tt;
 	module_list %1;
 	#class tmp_module kill;
 }
 
 #alias {helpmod} {
-	#class tmp_module read core/utility/lib/module.tt;
+	#class tmp_module read lib/lib/module.tt;
 	module_help %1;
 	#class tmp_module kill;	
 }

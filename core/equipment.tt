@@ -97,6 +97,10 @@
 }
 /* }}} */
 
+#act {^The Powers give you %S gold coins for your sacrifice of %*.$}{
+	_event_raise {item} {sacrifice} {%2} {%1};
+}
+
 /* Get/Put/Drop/Locker items {{{ */
 #act {^You get %* from your locker.$} {
 	_event_raise {item} {get} {locker} {%1} {1};

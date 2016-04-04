@@ -17,6 +17,11 @@
 	_ChannelLog {<099>%0} {$capPath[transfers]};
 	_event_raise {given_item} {%1} {%2};
 } {6}
+
+/* Blocks Annoying mob sting from beign captured */
+#act {A guardian of the Seelie, and all it stands for gives you a sharp glare.} {
+	#nop;
+} {5.9}
 /* }}} */
 
 /* Bank/Gold Transfers & Auction Profits High-Yellow {{{ */

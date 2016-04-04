@@ -113,7 +113,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 {
 	#if {"$stateChar[justLooking]" != "1"}
 	{
-		#script {_exitsC} {lib/exits "%1"};
+		#script {_exitsC} {libexec/exits "%1"};
 		#var _exitsC {${_exitsC[1]}};
 		#line gag;
 		#if {"$stateChar[is_onSpeedWalk]" != "1"} {

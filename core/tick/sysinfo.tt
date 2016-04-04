@@ -4,7 +4,7 @@
 #alias {_UpdateSystemInfo} {
 	#script __sysdummy {curl -s http://iota.materiamagica.com/online/sysinfo.txt -o "tmp/sysinfo.txt"};
 	#unvar __sysdummy;
-	#script {lib/sysinfo.pl};
+	#script {libexec/sysinfo.pl};
 	#replace gtime[print] { } {0};
 	_event_raise {sysinfo};
 }

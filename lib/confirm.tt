@@ -9,5 +9,5 @@
 	#if {"%2" == "%d"} {
 		#var __confirm[timeout] {%2};
 	};
-	#class tmp_confirm read lib/lib/confirm.tt;
+	#class tmp/confirm read lib/lib/confirm.tt;
 }

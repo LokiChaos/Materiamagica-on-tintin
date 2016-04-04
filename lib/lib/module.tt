@@ -8,7 +8,7 @@
 		#elseif { @std_file_exists{modules/%1/init.tt}} {
 			#list _modules[loaded] add {%1};
 			module_load_deps %1;
-			#class {mod_%1} read modules/%1/init.tt;
+			#class {mod/%1} read modules/%1/init.tt;
 			_event_raise {module} {load} {%1};
 			#if { ${_module_deps[count]} > 0 } {
 				#echo {<129>Loaded <099>%d<129> dependencies:<099>%s} {${_module_deps[count]}} {${_module_deps[string]}};
@@ -34,7 +34,7 @@
 				#math _module_deps[count] {${_module_deps[count]} + 1 };
 				#format _module_deps[string] {%s %s} {${_module_deps[string]}} {${__modDeps[%1][&0]}};
 				#list _modules[loaded] add {${__modDeps[%1][&0]}};
-				#class {mod_${__modDeps[%1][&0]}} read modules/${__modDeps[%1][&0]}/init.tt;
+				#class {mod/${__modDeps[%1][&0]}} read modules/${__modDeps[%1][&0]}/init.tt;
 			};
 		};
 		#unvar __modDeps[%1];
@@ -50,7 +50,7 @@
 		#if { ${__idx} } {
 			#list _modules[loaded] del  {${__idx}};
 			#read modules/%1/cleanup.tt;
-			#class {mod_%1} kill;
+			#class {mod/%1} kill;
 			_event_raise {module} {unload} {%1};
 			#echo {<129>Unloaded module '<099>%1<129>'};
 		} {

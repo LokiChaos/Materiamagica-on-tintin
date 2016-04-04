@@ -29,6 +29,6 @@ _event_oneshot {confirm} {zzzzconfirm_cleanup} {confirm_cleanup};
 	#nop %1;
 	_event_remove_specific {prompt_pre} {confirm_reprint};
 	#undelay confirm_timeout;
-	#class tmp_confirm kill;
+	#class tmp/confirm kill;
 	#unvar __confirm;
 }

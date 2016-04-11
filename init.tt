@@ -23,7 +23,7 @@ __ClassBootstrap;
 #class lib/eventHander read lib/handler.tt;
 __EventBootstrap;
 
-#class lib/print read lib/print.tt;
+#class lib/print read lib/message.tt;
 
 _Class fakeload config/core etc/coreSettings.tt;
 _Class fakeload lib/classLoader lib/class.tt;
@@ -36,7 +36,7 @@ _Class load lib/scriptLoader lib/rcload.tt;
 
 /* Load #event handlers
    Needs to be loaded in #gts as it handles conncet/disconnect events */
-#class gts/events read init/events.tt
+_Class load init/events init/events.tt;
 
 /* Prevents accadental quitting with CTRL+D and Backgroudning with CTRL+Z {{{ */
 #macro {\cd} {
@@ -49,4 +49,4 @@ _Class load lib/scriptLoader lib/rcload.tt;
 /* }}} */
 
 /* Login Menu and Welcome Screen */
-#class gts/login/menu read init/login/menu.tt
+_Class load init/login/menu init/login/menu.tt;

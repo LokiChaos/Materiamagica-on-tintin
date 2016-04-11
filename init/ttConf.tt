@@ -2,7 +2,7 @@
 /*
 	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
 */
-#nop CLASS: init/ttConf;
+
 /* Sets up the tt++ enviroment for the mud and loads all other config files */
 
 /* Set TinTin Config {{{ */

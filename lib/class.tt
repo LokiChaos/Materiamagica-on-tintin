@@ -1,0 +1,174 @@
+#nop lib/class.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: classLoader;
+#nop PROVIDES: lib/class;
+#nop REQUIRES: lib/print;
+
+/* ClassLoader API: {{{ */
+
+/*
+	Events:
+		class_loaded <class> [<path>]
+			Called after a class is loaded.
+		class_killed <class>
+			Called after a class is purged/killed, or unloaded.
+
+*/
+
+
+/*
+	@classGetIndex{<class>}
+	Returns index of <class> in the class manifest, else 0.
+*/
+#function {classGetIndex} {
+	#var result {0};
+	#foreach {${_Classes[]}} {_:CFtemp} {
+		#if {"${_Classes[${_:CFtemp}][name]}" == "%1"} {
+			#var result {${_:CFtemp}};
+			#break;
+		};
+	}
+	#unvar _:CFtemp;
+}
+
+/*
+	@classGetState{<class>}
+	Returns class state:
+		0 = Unloaded
+		1 = Loaded
+		-1 = Not in class manifest
+*/
+#function {classGetState} {
+	#var {_:CFtemp} {@classGetIndex{%1}};
+	#if {${_:CFtemp} != 0} {
+		#var result {${_Classes[${_:CFtemp}][loaded]}};
+	} {
+		#var result {-1};
+	};
+	#unvar _:CFtemp;
+}
+
+/*
+	@classGetClassList{[0|1]}
+	Returns list of class names.
+	Argument filters by unloaded (0), or loaded (1).
+*/
+#function {classGetList} {
+	#var result {};
+	#foreach {${_Classes[]}} {_:CFtemp} {
+		#if {"%1" == "" || "%1" == "${_Classes[${_:CFtemp]}][loaded]}"} {
+			#list result add {${_Classes[${_:CFtemp}][name]}};
+		};
+	};
+	#unvar _:CFtemp;
+}
+
+/*
+	@classGetClassCount{[0|1]}
+	Returns number of listed classes
+	Argument filters by unloaded (0), or loaded (1).
+*/
+#function {classGetCount} {
+	#if {"%1" == ""} {
+		#var result {&{_Classes[]}};
+	} {
+		#var result 0;
+		#foreach {${_Classes[]}} {_:CFtemp} {
+			#math result {$result + ("%1" == "${_Classes[${_:CFtemp}][loaded]}")};
+		};
+		#unvar _:CFtemp;
+	};
+}
+
+/*
+	@classGetPathCount{<class>}
+	Returns number of listed paths for <class>
+*/
+#function {classGetPathCount} {
+	#var result {&{_Classes[@classGetIndex{%1}][path][]}};
+}
+
+/*
+	@classGetPathList{<class>}
+	Returns list of path table for <class>
+*/
+#function {classGetPathTable} {
+	#var {_:CFtemp} {@classGetIndex{%1}};
+	#if {${_:CFtemp} != 0} {
+		#var result {${_Classes[${_:CFtemp}][path]}};
+	} {
+		#var result {};
+	};
+	#unvar _:CFtemp;
+}
+
+/*
+	@classGetPathList{<class>}
+	Returns list of path strings for <class>
+*/
+#function {classGetPathList} {
+	#var _:CFtemp[patht] {@classGetPathTable{%1}};
+	#var result {};
+	#foreach {${_:CFtemp[patht][]}} {_:CFtemp[pidx]} {
+		#var result[${_:CFtemp[pidx]}] {${_:CFtemp[patht][${_:CFtemp[pidx]}][p]}};
+	};
+	#unvar _:CFtemp;
+}
+
+/*
+	@classGetPathList{<class>}
+	Returns list of path strings for <class>
+*/
+#function {classGetPathListLoaded} {
+	#var _:CFtemp[patht] {@classGetPathTable{%1}};
+	#var result {};
+	#foreach {${_:CFtemp[patht][]}} {_:CFtemp[pidx]} {
+		#if {${_:CFtemp[patht][${_:CFtemp[pidx]}][l]}} {
+			#var result[${_:CFtemp[pidx]}] {${_:CFtemp[patht][${_:CFtemp[pidx]}][p]}};
+		};
+	};
+	#unvar _:CFtemp;
+}
+
+/*
+	@classGetPathState{ {<class>} {<path>} }
+	Returns load state of <path> in <class>'s manifest entry.
+		0 = Unloaded
+		1 = Loaded
+		-1 = Path not in class' manifest listing
+		-2 = Class not in manifest
+*/
+#function {classGetPathState} {
+	#if {@classGetState{%1} != -1} {
+		#var _:CFtemp[patht] {@classGetPathTable{%1}};
+		#var result {-1};
+		#foreach {${_:CFtemp[patht][]}} {_:CFtemp[pidx]} {
+			#if {"${_:CFtemp[patht][${_:CFtemp[pidx]}][p]}" == "%2"} {
+				#var result {${_:CFtemp[patht][${_:CFtemp[pidx]}][l]}};
+				#break;
+			};
+		};
+		#unvar _:CFtemp;
+	} {
+		#var result {-2};
+	};
+}
+/* }}} */
+
+#alias {_Class} {
+	#format {_:CCmd} {%l} {%1};
+	#class tmp/lib/class read lib/rtlib/class.tt;
+	__Class {${_:CCmd}} {%2} {%3};
+	#class tmp/lib/class kill;
+	#unvar _:CCmd;
+}
+
+/* If there is no class manifest define the bootstrap alias to be called to initialize it. */
+#if {&{_Classes[]} == 0 } {
+	#alias {__ClassBootstrap} {
+		#var _Classes {};
+		#unalias __ClassBootstrap;
+	};
+};

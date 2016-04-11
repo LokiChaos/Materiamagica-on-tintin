@@ -1,0 +1,307 @@
+#nop lib/class.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: tmp/lib/classLoader;
+
+#alias {__Class} {
+	#switch {"%1"} {
+		#case {"load"} {
+			#switch {@iclassGetState{%2}} {
+				#case {1} {
+					__Class_load_path {%2} {%3};
+				};
+				#case {0} {
+					#if {"%3" == ""} {
+						__Class_load_list {%2};
+					} {
+						__Class_load_path {%2} {%3};
+					};
+				};
+				#case {-1} {
+					__Class_load_path {%2} {%3};
+				};
+			};
+		};
+		#case {"fakeload"} {
+			__Class_fakeload {%2} {%3};
+		};
+		#case {"{unload|reload|purge|kill|replace}"} {
+			#switch {@iclassGetState{%2}} {
+				#case {1} {
+					__Class_%1 {%2} {%3};
+				};
+				#case {0} {
+					Print {ERROR} {class '<099>%2<>' is not in loaded.};
+				};
+				#default {
+					Print {ERROR} {class '<099>%2<>' is not in class manifest.};
+				};
+			};
+		};
+		#case {"delist"} {
+			#if {"%3" != ""} {
+				#switch {@iclassGetPathState{ {%2} {%3} }} {
+					#case {-1} {
+						Print {ERROR} {file '<099>%3<>' is not in '<099>%2<>'.};
+					};
+					#case {-2} {
+						Print {ERROR} {class '<099>%2<>' is not in class manifest.};
+					};
+					#default {
+						__Class_delist_path {%2} {%3};
+					};
+				};
+			} {
+				#switch {@iclassGetState{%2}} {
+					#case {-1} {
+						Print {ERROR} {class '<099>%2<119>' is not in class manifest.};
+					};
+					#default {
+						__Class_delist_class {%2};
+					};
+				};
+			};
+		};
+		#case {"list"} {
+			__Class_print {%2};
+		};
+		#case {"help"} {
+			__Class_help;
+		};
+		#default {
+			Print {WARNING} {'<099>%1<>' is not a valid subcommand.};
+			Print {INFO} {Use 'help' subcommand to see how to use this command.};
+		};
+	};
+}
+
+#alias {__Class_load_list} {
+	#var _:CCtemp[cidx] {@iclassGetIndex{%1}};
+	#var {_Classes[${_:CCtemp[cidx]}][loaded]} {1};
+	#foreach {${_Classes[${_:CCtemp[cidx]}][path][]}} {_:CCtemp[Path]} {
+		#if {${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][l]} != 1} {
+			#class {%1} read {${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][p]}};
+			#var {_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][l]} {1};
+			Print {VERBOSE} {Loaded file '${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][p]}' as class '%1'};
+		};
+	};
+	_event_raise {class} {loaded} {%1};
+	#unvar _:CCtemp;
+}
+
+#alias {__Class_load_path} {
+	#script {result} {if [ -f %2 ];then echo 1;else echo 0;fi};
+	#if {$result[1] && "%2" != ""} {
+		#class {%1} read {%2};
+		__Class_list {%1} {%2};
+		Print {VERBOSE} {Loaded file '%2' as class '%1'};
+		_event_raise {class} {loaded} {%1} {%2};
+	} {
+		Print {ERROR} {file '<099>%2<>' does not exist.};
+	};
+}
+
+#alias {__Class_fakeload} {
+	#script {result} {if [ -f %2 ];then echo 1;else echo 0;fi};
+	#if {$result[1] && "%2" != ""} {
+		__Class_list {%1} {%2};
+	} {
+		Print {ERROR} {file '<099>%2<>' does not exist.};
+	};
+}
+
+#alias {__Class_list} {
+	#if {@iclassGetState{%1} == -1} {
+		#list {_Classes} add {{{name}{%1}{loaded}{1}}};
+		#list {_Classes[@iclassGetIndex{%1}][path]} add {{{p}{%2}{l}{1}}};
+	} {
+		#var _:CCtemp[paths] {@iclassGetPathTable{%1}};
+		#var _:CCtemp[pidx] {0};
+		#foreach {${_:CCtemp[paths][]}} {_:CCtemp[idx]} {
+			#if {"${_:CCtemp[paths][${_:CCtemp[idx]}][p]}" == "%2"} {
+				#var _:CCtemp[pidx] {${_:CCtemp[idx]}};
+				#break;
+			};
+		};
+		#var _:CCtemp[cidx] {@iclassGetIndex{%1}};
+		#if {${_:CCtemp[pidx]} == 0} {
+			#list {_Classes[${_:CCtemp[cidx]}][path]} add {{{p}{%2}{l}{1}}};
+		} {
+			#var {_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[pidx]}][l]} {1};
+		};
+		#var {_Classes[${_:CCtemp[cidx]}][loaded]} {1};
+		#unvar _:CCtemp;
+	};
+}
+
+#alias {__Class_unload} {
+	#class {%1} kill;
+	#var {_:CCtemp[cidx]} {@iclassGetIndex{%1}};
+	#foreach {${_Classes[${_:CCtemp[cidx]}][path][]}} {_:CCtemp[cpidx]} {
+		#var {_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[cpidx]}][l]} {0};
+	};
+	#var {_Classes[${_:CCtemp[cidx]}][loaded]} {0};
+	#unvar _:CCtemp;
+	Print {VERBOSE} {Unloaded class '%1'};
+	_event_raise {class} {killed} {%1};
+}
+
+#alias {__Class_purge} {
+	#class {%1} kill;
+	__Class_delist_class {%1};
+	Print {VERBOSE} {Purged class '%1'};
+	_event_raise {class} {killed} {%1};
+}
+
+#alias {__Class_kill} {
+	#class {%1} kill; 
+	__Class_delist_class {%1};
+	Print {VERBOSE} {Purged class '%1'};
+	_event_raise {class} {killed} {%1};
+}
+
+#alias {__Class_reload} {
+	Print {VERBOSE} {Reloading class '%1'...};
+	__Class_unload {%1};
+	__Class_load_list {%1};
+}
+
+#alias {__Class_replace} {
+	Print {VERBOSE} {Replacing class '%1'...};
+	__Class_purge {%1};
+	__Class_load_path {%1} {%2};
+}
+
+#alias {__Class_delist_path} {
+	#var {_:CCtemp[cidx]} {@iclassGetIndex{%1}};
+	#foreach {${_Classes[${_:CCtemp[cidx]}][path][]}} {_:CCtemp[cpidx]} {
+		#if {"${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[cpidx]}][p]}" == "%2" } {
+			#list {_Classes[${_:CCtemp[cidx]}][path]} delete {${_:CCtemp[cpidx]}};
+			Print {VERBOSE} {Delisting '%2' from class '%1'};
+		};
+	};
+	#if {&{_Classes[${_:CCtemp[cidx]}][path][]} == 0} {
+		#list _Classes delete {${_:CCtemp[cidx]}};
+		Print {VERBOSE} {Delisting empty class '%1'};
+	};
+	#unvar _:CCtemp;
+}
+
+#alias {__Class_delist_class} {
+	#list _Classes delete {@iclassGetIndex{%1}};
+	Print {VERBOSE} {Delisting class '%1'};
+}
+
+#alias {__Class_print} {
+	#if {"%1" != ""} {
+		#echo {<119>Filtering with '<099>%s<119>':<099>} {%1};
+	};
+	#echo {<149>= Class ============================== ( L/T ) = Path ==========================<099>};
+	#var _:CCtemp[loadCount] {0};
+	#foreach {${_Classes[]}} {_:CCtemp[cIdx]} {
+		#regex {${_Classes[${_:CCtemp[cIdx]}][name]}} {%1} {
+			#var _:CCtemp[plc] {0};
+			#foreach {${_Classes[${_:CCtemp[cIdx]}][path][]}} {_:CCtemp[cpIdx]} {
+				#math {_:CCtemp[plc]} {${_:CCtemp[plc]} + ${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][l]}};
+			};
+			#echo {%s  %-38s%+2s/%-2s    %s%s}
+			      {@printClassColor{{&{_Classes[${_:CCtemp[cIdx]}][path][]}} {${_:CCtemp[plc]}}}}
+			      {${_Classes[${_:CCtemp[cIdx]}][name]}}
+			      {${_:CCtemp[plc]}}
+			      {&{_Classes[${_:CCtemp[cIdx]}][path][]}}
+			      {@printPathColor{${_Classes[${_:CCtemp[cIdx]}][path][1][l]}}}
+			      {${_Classes[${_:CCtemp[cIdx]}][path][1][p]}};
+			#foreach {${_Classes[${_:CCtemp[cIdx]}][path][]}} {_:CCtemp[cpIdx]} {
+				#if {"${_:CCtemp[cpIdx]}" != "1"} {
+					#echo {                                                 %s%s}
+					      {@printPathColor{${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][l]}}}
+					      {${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][p]}};
+				};
+			};
+		};
+		#math {_:CCtemp[loadCount]} {${_:CCtemp[loadCount]} + ${_Classes[${_:CCtemp[cIdx]}][loaded]}};
+	};
+	#echo {<149>====================================== (<099>%+2s/%-2s<149>) =================================<099>} 
+	      {${_:CCtemp[loadCount]}} {${_:CCtemp[cIdx]}};
+	#unvar _:CCtemp;
+}
+
+#alias {__Class_help} {
+	#echo {Usage: };
+	#echo {};
+}
+
+
+/*
+	Internal Class Functions
+*/
+
+#function {printClassColor} {
+	#if {%1 == %2} {
+		#var result {<129>};
+	};
+	#elseif {%2 == 0} {
+		#var result {<119>};
+	};
+	#else {
+		#var result {<139>};
+	};
+}
+
+#function {printPathColor} {
+	#if {%1 == 1} {
+		#var result {<099>};
+	} {
+		#var result {<109>};
+	};
+}
+
+/* Internal copies of API functions to permit self-reloading {{{ */
+#function {iclassGetIndex} {
+	#var result {0};
+	#foreach {${_Classes[]}} {_:CFtemp} {
+		#if {"${_Classes[${_:CFtemp}][name]}" == "%1"} {
+			#var result {${_:CFtemp}};
+			#break;
+		};
+	}
+	#unvar _:CFtemp;
+}
+
+#function {iclassGetState} {
+	#var {_:CFtemp} {@iclassGetIndex{%1}};
+	#if {${_:CFtemp} != 0} {
+		#var result {${_Classes[${_:CFtemp}][loaded]}};
+	} {
+		#var result {-1};
+	};
+	#unvar _:CFtemp;
+}
+
+#function {iclassGetPathTable} {
+	#var {_:CFtemp} {@iclassGetIndex{%1}};
+	#if {${_:CFtemp} != 0} {
+		#var result {${_Classes[${_:CFtemp}][path]}};
+	} {
+		#var result {};
+	};
+	#unvar _:CFtemp;
+}
+
+#function {iclassGetPathState} {
+	#if {@iclassGetState{%1} != -1} {
+		#var _:CFtemp[patht] {@iclassGetPathTable{%1}};
+		#var result {-1};
+		#foreach {${_:CFtemp[patht][]}} {_:CFtemp[pidx]} {
+			#if {"${_:CFtemp[patht][${_:CFtemp[pidx]}][p]}" == "%2"} {
+				#var result {${_:CFtemp[patht][${_:CFtemp[pidx]}][l]}};
+				#break;
+			};
+		};
+		#unvar _:CFtemp;
+	} {
+		#var result {-2};
+	};
+}
+/* }}} */

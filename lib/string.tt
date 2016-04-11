@@ -1,0 +1,86 @@
+#nop lib/string.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: string;
+#nop PROVIDES: lib/string;
+
+#function {std_str_sanitize} {
+	#var result {%0};
+	#replace {result} {'} {\047};
+}
+
+#func {std_str_escape} {
+	#var result %1;
+	#var __esctmp[aidx] 0;
+	#foreach {%0} {__esctmp[arg]} {
+		#math __esctmp[aidx] {1 + ${__esctmp[aidx]}};
+		#if {${__esctmp[aidx]} > 1 } {
+			#var __esctmp[asidx] 0;
+			#var __esctmp[a][2] {};
+			#foreach {${__esctmp[arg]}} {__esctmp[argsub]} {
+				#math __esctmp[asidx] {1 + ${__esctmp[asidx]}};
+				#var __esctmp[a][${__esctmp[asidx]}] {${__esctmp[argsub]}};
+			};
+			#line sub var #replace {result} {${__esctmp[a][1]}} {${__esctmp[a][2]}};
+			#unvar __esctmp[a];
+		};
+	};
+	#unvar __esctmp;
+};
+
+/* Escape Un-safe for sh/awk/sed*/
+#function {std_str_escape_shell} {
+	#var result @std_str_escape{ {%0} {\';\047} {\";\\"} };
+};
+
+/* Escaped URI */
+#function {std_str_escape_uri} {
+	#var result @std_str_escape{ {%0}
+	{\{;\0457B} {\};\0457D}
+	{\ ;\04520} {\=;\0453D} {\&;\04526}
+	{\:;\0453A} {\\\;;\0453B} {\/;\0452F} {\\;\0455C}
+	{\<;\0453C} {\>;\0453E} {\[;\0455B} {\];\0455D}
+	{\$;\04524}	{\#;\04523} {\|;\0457C} {\^;\0455E}
+	{\~;\0457E} {\`;\04560} {\?;\0453F} {\@;\04540}
+	};
+};
+
+/* Remove commas from numbers eg: 1,337 -> 1337 */
+#function {std_str_dropcomma} {
+	#var result {%1};
+	#replace result {,} {};
+}
+
+#function {std_str_strip} {
+	#line strip {#var result {%0}};
+	#replace result {<%.%.%.>} {};
+}
+
+#function {std_str_len} {
+	#format result {%L} {%0};
+}
+
+#function {std_str_trim} {
+	#format result {%p} {%0};
+}
+
+#function {std_str_toLower} {
+	#format result {%l} {%0};
+}
+
+#function {std_str_toUpper} {
+	#format result {%u} {%0};
+}
+
+#function {std_str_tokenize} {
+	#list result create %0;
+}
+
+#function {std_str_substr} {
+	#regex {%1} {^{.{%2}}{.{%3}}%*} {
+		#var result {&2};
+	} {
+		#var result {};
+	};
+}

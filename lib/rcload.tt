@@ -1,0 +1,194 @@
+#nop lib/rcload.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: scriptLoader;
+#nop PROVIDES: lib/scriptLoader;
+#nop REQUIRES: lib/class lib/print;
+
+/*
+	_loaderSource {<scipt path>} [{<classprefix>}]
+	Parses tintin script for class name and loads it under that class.
+	If a script isn't tagged with a class, it used the file name, stripped
+	of the .tt extension.
+	If not classprefix is given it will use the path sans the filename/ext.
+*/
+#alias {_SourceFile} {
+	#var _:RCtemp[class] {@scriptGetClass{%1}};
+	#if {"${_:RCtemp[class]}" != "" && "%2" != ""} {
+		_Class load {%2/${_:RCtemp[class]}} {%1};
+	} {
+		#var _:RCtemp[path] {@scriptParsePath{%1}};
+		#if {"${_:RCtemp[class]}" != ""} {
+			_Class load {${_:RCtemp[path][path]}/${_:RCtemp[class]}} {%1};
+		};
+		#elseif {"%2" != ""} {
+			_Class load {%2/${_:RCtemp[path][file]}} {%1};
+		};
+		#else {
+			_Class load {${_:RCtemp[path][path]}/${_:RCtemp[path][file]}} {%1};
+		};
+	};
+	#unvar _:RCtemp;
+}
+
+/*
+	_loaderSource {<scipt path>} [{<classprefix>}]
+	If path is valid:
+		Identifies all tintin scripts in given path.
+		Parses them for class name and dependency info.
+		Sorts load order by the dependency info.
+		Loads the scripts in order.
+*/
+#alias {_SourcePath} {
+	#if {"%1" != ""} {
+		#script {result} {if [ -d %1 ];then echo 1;else echo 0;fi};
+		#if {$result[1]} {
+			Print {VERBOSE} {Sourcing path '%1' for tt scripts...};
+			#var _:RCCtemp[files] {@scriptGetList{%1}};
+			#foreach {${_:RCCtemp[files][]}} {_:RCCtemp[idx]} {
+				#var {_:RCCtemp[files][${_:RCCtemp[idx]}]} {%1/${_:RCCtemp[files][${_:RCCtemp[idx]}]}};
+			};
+			#var _:RCCtemp[deps] {@scriptBuildDepList{{${_:RCCtemp[files]}}}};
+			#var _:RCCtemp[sort] {@scriptDepSort{{${_:RCCtemp[deps]}}}};
+			#foreach {${_:RCCtemp[sort][]}} {_:RCCtemp[idx]} {
+				_SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
+			};
+		};
+		#unvar _:RCCtemp;
+	};
+}
+
+#alias {_SourcePathOverrides} {
+	#var _:RCCtemp[dirs] {%1};
+	Print {VERBOSE} {Sourcing path '${_:RCCtemp[dirs][-1]}' and others for tt scripts...};
+	#var _:RCCtemp[file] {@scriptBuildList{ {${_:RCCtemp[dirs]}} }};
+	#var _:RCCtemp[over] {@scriptOverrides{  {${_:RCCtemp[dirs]}} {${_:RCCtemp[file]}} }};
+	#var _:RCCtemp[deps] {@scriptBuildDepList{{${_:RCCtemp[over]}}}};
+	#var _:RCCtemp[sort] {@scriptDepSort{{${_:RCCtemp[deps]}}}};
+	#foreach {${_:RCCtemp[sort][]}} {_:RCCtemp[idx]} {
+		_SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
+	};
+	#unvar _:RCCtemp;
+}
+
+#function {scriptGetDeps} {
+	#var result {};
+	#if {"%1" != ""} {
+		#script {result} {sed '/#nop \(REQUIRE\|DEPEND\)S\{0,1\}:/ !d;s/[ \t]*#nop \(DEPEND\|REQUIRE\)S\{0,1\}: \(.*\)/\2/;s/ /\n/g;s/;$//' %1};
+	};
+}
+
+#function {scriptGetProvides} {
+	#var result {};
+	#if {"%1" != ""} {
+		#script {result} {sed '/#nop PROVIDES\{0,1\}:/ !d;s/[ \t]*#nop PROVIDES\{0,1\}: \(.*\)/\1/;s/ /\n/g;s/;$//' %1};
+	};
+}
+
+#function {scriptGetClass} {
+	#var result {};
+	#if {"%1" != ""} {
+		#script {result} {sed '/#nop CLASS: / !d;s/[ \t]*#nop CLASS: \(.*\)/\1/;s/;$//' %1};
+		#var result {$result[1]};
+	};
+}
+
+#function {scriptParsePath} {
+	#regex {%1} {%*/{[^/]+}.tt$} {
+		#var result[path] {&1};
+		#var result[file] {&2};
+	};
+}
+
+/* Internal {{{ */
+
+#function {scriptGetList} {
+	#script {result} {find %1 -name "*.tt" -not -path "*rtlib*" -printf "%P\n" | sort};
+}
+
+#function {scriptBuildList} {
+	#var _:RCtemp[dirList] {%1};
+	#foreach {${_:RCtemp[dirList][]}} {_:RCtemp[idx]} {
+		#var _:RCtemp[toLoad][${_:RCtemp[dirList][${_:RCtemp[idx]}]}] {@scriptGetList{ ${_:RCtemp[dirList][${_:RCtemp[idx]}]} }};
+	};
+	#var result {${_:RCtemp[toLoad]}};
+	#unvar _:RCtemp;
+}
+
+#function {scriptOverrides} {
+	#var _:RCtemp[dirList] {%1};
+	#var _:RCtemp[toLoad] {%2};
+	#unvar result;
+	#foreach {${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][]}} {_:RCtemp[idx][1]} {
+		#foreach {${_:RCtemp[dirList][]}} {_:RCtemp[idx][2]} {
+			#list {_:RCtemp[toLoad][${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}]} find
+			      {${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}} {_:RCtemp[idx][3]};
+			#if {"${_:RCtemp[idx][3]}" != "0"} {
+				#break
+			};
+		};
+		#if {"${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}" != "${_:RCtemp[dirList][-1]}"} {
+			Print {VERBOSE} {Loader: '${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}' overrides '${_:RCtemp[dirList][-1]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}'};
+		};
+		#list result add {${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}};
+	};
+	#unvar _:RCtemp;
+}
+
+#function {scriptBuildDepList} {
+	#var _:RCtemp[L] {%1};
+	#foreach {${_:RCtemp[L][]}} {_:RCtemp[idx]} {
+		#var _:RCtemp[LL][${_:RCtemp[idx]}][path] {${_:RCtemp[L][${_:RCtemp[idx]}]}};
+		#var _:RCtemp[LL][${_:RCtemp[idx]}][r]    {@scriptGetDeps{ ${_:RCtemp[L][${_:RCtemp[idx]}]} }};
+		#var _:RCtemp[LL][${_:RCtemp[idx]}][p]    {@scriptGetProvides{ ${_:RCtemp[L][${_:RCtemp[idx]}]} }};
+	};
+	#var result {${_:RCtemp[LL]}};
+	#unvar _:RCtemp;
+}
+
+#function {scriptDepSort} {
+	#var _:RCS[L1] {%1};
+	#foreach {${_:RCS[L1][]}} {_:RCS[idx]} {
+		#var _:RCS[L2][${_:RCS[idx]}][n]      {${_:RCS[idx]}};
+		#var _:RCS[L2][${_:RCS[idx]}][r]      {${_:RCS[L1][${_:RCS[idx]}][r]}};
+		#var _:RCS[L2][${_:RCS[idx]}][p]      {${_:RCS[L1][${_:RCS[idx]}][p]}};
+	};
+
+	#var _:RCS[idx][check] {1};
+	#while {&{_:RCS[L2][]}} {
+		#if {&{_:RCS[L2][${_:RCS[idx][check]}][r][]} == 0} {
+			#math _:RCS[idx][sorted] {&{_:RCS[L3][]} + 1}; 
+			#var _:RCS[L3][${_:RCS[idx][sorted]}] {${_:RCS[L1][${_:RCS[L2][${_:RCS[idx][check]}][n]}]}};
+			#if {&{_:RCS[L2][${_:RCS[idx][check]}][p][]} > 0} {
+				#foreach {${_:RCS[L2][]}} {_:RCS[idx][r]} {
+					#if {&{_:RCS[L2][${_:RCS[idx][r]}][r][]} > 0} {
+						#foreach {${_:RCS[L2][${_:RCS[idx][check]}][p][]}} {_:RCS[idx][p]} {
+							#list {_:RCS[L2][${_:RCS[idx][r]}][r]} find {${_:RCS[L2][${_:RCS[idx][check]}][p][${_:RCS[idx][p]}]}} {_:RCS[idx][fi]};
+							#if {${_:RCS[idx][fi]} > 0} {
+								#list {_:RCS[L2][${_:RCS[idx][r]}][r]} del {${_:RCS[idx][fi]}};
+							};
+						};
+					};
+				};
+			};
+			#list _:RCS[L2] del {${_:RCS[idx][check]}};
+			#var _:RCS[idx][check] {1};
+		} {
+			#math _:RCS[idx][check] {${_:RCS[idx][check]} + 1};
+			#if {${_:RCS[idx][check]} > &{_:RCS[L2][]} && &{_:RCS[L2][]} > 0} {
+				Print {ERROR} {Loader encoutered unresolved dependencies!};
+				#foreach {${_:RCS[L2][]}} {_:RCS[idx][err]} {
+					Print {ERROR} {'<099>%s<>' missing deps:} {${_:RCS[L1][${_:RCS[L2][${_:RCS[idx][err]}][n]}][path]}};
+					#foreach {${_:RCS[L2][${_:RCS[idx][err]}][r][]}} {_:RCS[idx][md]} {
+						Print {ERROR} {     <139>'%s'} {${_:RCS[L2][${_:RCS[idx][err]}][r][${_:RCS[idx][md]}]}};
+					};
+				};
+				#break;
+			};
+		};
+	};
+	#var result {${_:RCS[L3]}};
+	#unvar _:RCS;
+}
+/* }}} */

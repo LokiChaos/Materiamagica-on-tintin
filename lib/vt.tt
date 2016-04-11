@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>utility/vt.tt}
+#nop lib/vt.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: vt;
+#nop PROVIDES: lib/vt;
+
 /*
 	Various VT Control Codes for use in triggers.
 	Mostly to make things more readable.

@@ -1,0 +1,43 @@
+#nop lib/math.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: math;
+#nop PROVIDES: lib/math;
+
+
+#function {std_math_eval} {
+	#math result {%0};
+}
+
+#function {std_math_max} {
+	#if {%1 > %2} {
+		#return %1;
+	} {
+		#return %2;
+	};
+}
+
+#function {std_math_min} {
+	#if {%1 > %2} {
+		#return %2;
+	} {
+		#return %1;
+	};
+}
+
+#function {std_math_abs} {
+	#if { (%0) >= 0} {
+		#return %0;
+	} {
+		#math result { -1 * %0};
+	};
+}
+
+#function {std_decrement} {
+	#math result {%1 - 1};
+}
+
+#function {std_dec2zero} {
+	#var result @std_math_max{ {0} {@std_decrement{%1}} };
+}

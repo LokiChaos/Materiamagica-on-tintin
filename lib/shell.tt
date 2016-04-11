@@ -1,0 +1,46 @@
+#nop lib/shell.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: shell;
+#nop PROVIDES: lib/shell;
+
+#function {std_file_exists} {
+	#script {result} {if [ -f %0 ];then echo 1;else echo 0;fi};
+	#return $result[1];
+}
+
+#function {std_dir_exists} {
+	#script {result} {if [ -d %0 ];then echo 1;else echo 0;fi};
+	#return $result[1];
+}
+
+#function {std_file_type} {
+	#script {result} {file -b %0 };
+	#return $result[1];
+}
+
+#function {std_file_mime} {
+	#script {result} {file -bi %0 };
+	#return $result[1];
+}
+
+#function {std_envget} {
+	#script result {echo $%1};
+	#return $result[1];
+}
+
+#function {std_uuidgen} {
+	#script result {uuidgen};
+	#return $result[1];
+}
+
+#function {std_mktemp} {
+	#script result {mktemp};
+	#return $result[1];
+}
+
+#function {std_mkdir} {
+	#script result {if [ mkdir -p %0]; then echo 1; else echo 0;fi};
+	#return $result[1];
+}

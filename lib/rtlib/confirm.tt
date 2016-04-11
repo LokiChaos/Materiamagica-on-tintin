@@ -1,4 +1,8 @@
-#nop
+#nop lib/rtlib/confirm.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: confirm;
 
 /* Hook Affirmitive Response */
 #macro {y} {
@@ -29,6 +33,6 @@ _event_oneshot {confirm} {zzzzconfirm_cleanup} {confirm_cleanup};
 	#nop %1;
 	_event_remove_specific {prompt_pre} {confirm_reprint};
 	#undelay confirm_timeout;
-	#class tmp/confirm kill;
+	_Class purge tmp/confirm;
 	#unvar __confirm;
 }

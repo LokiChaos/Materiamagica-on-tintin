@@ -1,24 +1,31 @@
-#showme {<aef>Loading: <faa>utility/handler.tt}
+#nop lib/handler.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: eventHander;
+#nop REQUIRES: lib/print;
+#nop PROVIDES: lib/eventHandler;
 
-/* Define events array iff it's not an array */
-#if {&{_events[]} == 0} {
-	#var _events {};
+/* Define bootstap alias to initalize array iff does not exist */
+#if {&{_Events[]} == 0} {
+	#alias {__EventBootstrap} {
+		#var _Events {};
+		#unalias {__EventBootstrap};
+	};
 }
 
 #alias {_event_tmp_ali} {#nop;}
 
-/*
-	event_register eventName handlerName action {{{
+/*	event_register eventName handlerName action {{{
 	adds action to the eventName event under the tag handlerName.
 */
 
 #alias {_event_register} {
-	#var _events[%1][%2] {%3};
+	#var _Events[%1][%2] {%3};
 }
 /* }}} */
 
-/*
-	event_oneshot eventName handlerName action {{{
+/*	event_oneshot eventName handlerName action {{{
 	adds action to the eventName event under the tag handlerName.
 
 	Like the above, but it only fires on the next call of the event and then
@@ -26,48 +33,44 @@
 */
 
 #alias {_event_oneshot} {
-	#var _events[%1][%2] {_event_remove_specific {%1} {%2};%3};
+	#var _Events[%1][%2] {_event_remove_specific {%1} {%2};%3};
 }
 /* }}} */
 
-/*
-	event_remove_event eventName {{{
+/*	event_remove_event eventName {{{
 	removes eventName completely
 */
 #alias {_event_remove_event} {
-	#line substitute {variable} #unvar _events[%1];
+	#line substitute {variable} #unvar _Events[%1];
 }
 /* }}} */
 
-/*
-	event_remove_handler handlerName {{{
+/*	event_remove_handler handlerName {{{
 	removes handlerName from all events
 */
 #alias {_event_remove_handler} {
-	#foreach {${_events[]}} {sublist} {
-		#line substitute {variable} #unvar _events[$sublist][%1];
-		#if {"${_events[$sublist]}" == ""} {
-			#line substitute {variable} #unvar _events[$sublist];
+	#foreach {${_Events[]}} {sublist} {
+		#line substitute {variable} #unvar _Events[$sublist][%1];
+		#if {"${_Events[$sublist]}" == ""} {
+			#line substitute {variable} #unvar _Events[$sublist];
 		};
 	}
 }
 /* }}} */
 
-/*
-	event_remove_specific eventName handlerName {{{
+/*	event_remove_specific eventName handlerName {{{
 	removes handlerName from eventName
 */
 
 #alias {_event_remove_specific} {
-	#line substitute {variable} #unvar _events[%1][%2];
-	#if {"${_events[%1]}" == ""} {
-		#line substitute {variable} #unvar _events[%1];
+	#line substitute {variable} #unvar _Events[%1][%2];
+	#if {"${_Events[%1]}" == ""} {
+		#line substitute {variable} #unvar _Events[%1];
 	};
 }
 /* }}} */
 
-/*
-	event_eval is a helper function {{{
+/*	event_eval is a helper function {{{
 	that allows dynamic alias definitions.
 */
 #alias {event_eval} {
@@ -77,33 +80,30 @@
 }
 /* }}} */
 
-/*
-	event_raise eventName args {{{
+/*	event_raise eventName args {{{
 	calls all actions for eventName with args
 */
-/* TODO: Remove */
 #alias {_event_raise} {
-	_CaptureLog {Event %0} {tmp/event_${sessionName}};
-	#foreach {${_events[%1][]}} {__handler} {
-	_CaptureLog {    Handler '${__handler}' called for '%1'} {tmp/event_${sessionName}};
-		#if {&{_events[%1][${__handler}]} != 0} {
-			event_eval {${_events[%1][${__handler}]}} {%0};
+	Print {DEBUG} {Event '<099>%0<>'};
+	#foreach {${_Events[%1][]}} {_:EHandler} {
+	Print {DEBUG} {Handler '<099>%s<>' called for '<099>%s<>'} {${_:EHandler}} {%1};
+		#if {&{_Events[%1][${_:EHandler}]} != 0} {
+			event_eval {${_Events[%1][${_:EHandler}]}} {%0};
 		};
 	};
-	#unvar __handler;
+	#unvar _:EHandler;
 };
 /* }}} */
 
 
-/* Debuging */
-#alias {events} {
-	#echo {Registered Handlers:};
-	#foreach {${_events[]}} {__Event} {
-		#echo { %s} {${__Event}};
-		#foreach {${_events[${__Event}][]}} {__Handler} {
-			#echo {  -%s} {${__Handler}};
+/* Print list of all registered handlers */
+#alias {_Events_print} {
+	#echo {<149>Registered Handlers:<099>};
+	#foreach {${_Events[]}} {_:EVPrint[event]} {
+		#echo {<139> %s<099>} {${_:EVPrint[event]}};
+		#foreach {${_Events[${_:EVPrint[event]}][]}} {_:EVPrint[handler]} {
+			#echo {  -<129>%s<099>} {${_:EVPrint[handler]}};
 		};
 	};
-	#unvar __Event;
-	#unvar __Handler;
+	#unvar _:EVPrint;
 }

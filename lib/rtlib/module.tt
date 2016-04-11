@@ -1,0 +1,132 @@
+#nop lib/rtlib/modules;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: tmp/lib/modules;
+
+#alias {__Module} {
+	#if {"%2" == "" && "%1" != "list"} {
+		Print {INFO} {<149>USAGE: module command <module name>};
+	} {
+		__Module_Update_Manifest;
+		#switch {"%1"} {
+			#case {"insert"} {
+				#if {@moduleGetStatus{%2}} {
+					Print {WARNING} {Module '<099>%2<>' is already loaded!};
+				} {
+					#if {@moduleGetIndex{%2} != 0} {
+						#var _:MCtemp[loadedDeps] {0};
+						_module_insert %2;
+						Print {INFO} {<129>Loaded module '<099>%2<129>'};
+						#if {${_:MCtemp[loadedDeps]} > 0} {
+							Print {INFO} {<129>... and <099>%d<129> dependencies.} {${_:MCtemp[loadedDeps]}};
+						};
+					} {
+						Print {WARNING} {Module '<099>%2<>' does not exist!};
+					};
+				};
+			};
+			#case {"remove"} {
+				#if {"%2" == "all" } {
+					#if {&{_Modules[loaded][]}} {
+						_module_remove_all;
+					} {
+						Print {WARNING} {No modules are loaded.};
+					};
+				} {
+					#if {@moduleGetStatus{%2}} {
+						_module_remove %2;
+						Print {INFO} {<129>Unloaded module '<099>%2<129>'};
+					} {
+						Print {WARNING} {No module '<099>%2<>' was loaded!};
+					};
+				};
+			};
+			#case {"list"} {
+				_module_list %2;
+			};
+			#case {"help"} {
+				#if {@moduleGetIndex{%1}} {
+					_module_help %2;
+				} {
+					Print {WARNING} {<Module '<099>%1<>' does not exist!}
+				};
+			};
+			#default {
+				Print {ERROR} {'<099>%1<>' is not a module command.};
+			};
+		};
+	};
+	#unvar _:MCtemp;
+}
+
+#alias {__Module_Update_Manifest} {
+	#var _Modules[manifest] {@moduleGetList{}};
+}
+
+#alias {_module_insert} {
+	#if {&{_Modules[manifest][@moduleGetIndex{%1}][d]} != 0} {
+		_module_load_deps {%1};
+	};
+	_Class load {module/%1} {@moduleGetPath{%1}/init.tt};
+	#list _Modules[loaded] add {%1};
+	_event_raise {module} {load} {%1};
+}
+
+#alias {_module_load_deps} {
+	#foreach {${_Modules[manifest][@moduleGetIndex{%1}][d][]}} {_:MCtemp[idx]} {
+		#if {@moduleGetStatus{${_Modules[manifest][@moduleGetIndex{%1}][d][${_:MCtemp[idx]}]}} == 0} {
+			#math _:MCtemp[loadedDeps] {1 + ${_:MCtemp[loadedDeps]}};
+			_module_insert {${_Modules[manifest][@moduleGetIndex{%1}][d][${_:MCtemp[idx]}]}};
+		};
+	};
+}
+
+#alias {_module_remove} {
+	#if {@std_file_exists{@moduleGetPath{%1}/cleanup.tt}} {
+		#read {@moduleGetPath{%1}/cleanup.tt};
+	};
+	_Class purge {module/%1};
+	#list _Modules[loaded] find {%1} {_:MCtemp[idx]};
+	#list _Modules[loaded] del  {${_:MCtemp[idx]}};
+	_event_raise {module} {unload} {%1};
+}
+
+#alias {_module_remove_all} {
+	Print {INFO} {<149>Unloading All (<099>%d<149>) Modules...} {&{_Modules[loaded][]}};
+	#var _:MCtemp[modlist] {${_Modules[loaded]}};
+	#forall {${_:MCtemp[modlist][]}} {
+		_module_remove ${_:MCtemp[modlist][&0]};
+		Print {INFO} {<129>Unloaded module '<099>${_:MCtemp[modlist][&0]}<129>'};
+	};
+}
+
+#alias {_module_list} {
+	#echo {<149>Installed modules:};
+	#foreach {${_Modules[manifest][]}} {_:MCtemp[idx]} {
+		#var _:MCtemp[mod][star] {{L}{ }{A}{ }};
+		#if { @moduleGetStatus{${_Modules[manifest][${_:MCtemp[idx]}][m]}} } {
+			#var _:MCtemp[mod][star][L] {*};
+		};
+		#if { @moduleGetAuto{${_Modules[manifest][${_:MCtemp[idx]}][m]}} } {
+			#var _:MCtemp[mod][star][A] {*};
+		};
+		#echo {  <129>%s<139>%s <149>%-15s<099> %.59s}
+		      {${_:MCtemp[mod][star][A]}}
+		      {${_:MCtemp[mod][star][L]}}
+		      {${_Modules[manifest][${_:MCtemp[idx]}][m]}}
+		      {@moduleGetDesc{${_Modules[manifest][${_:MCtemp[idx]}][p]}} };
+	};
+	#echo {<149>A <139>*<149> denotes a module is loaded, <129>*<149> that it is marked to auto-load.};
+}
+
+#alias {_module_help} {
+	#if {@std_file_exists{@moduleGetPath{%1}/help}} {
+		#script _:MCtemp[help] {cat @moduleGetPath{%1}/help};
+		#forall {${_:MCtemp[help][]}} {
+			#echo {${_:MCtemp[help][&0]}};
+		};
+	} {
+		Print {INFO} {<139>Module '%1' has no helpfile!}
+	};
+}

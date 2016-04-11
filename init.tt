@@ -14,7 +14,25 @@
 #var sessionName {gts};
 
 /* Read Global Settings and Preferences */
-#read etc/coreSettings.tt
+#class config/core read etc/coreSettings.tt;
+
+/* Bootstrap debug, class loading, and dependency resolution */
+#class lib/classLoader read lib/class.tt;
+__ClassBootstrap;
+
+#class lib/eventHander read lib/handler.tt;
+__EventBootstrap;
+
+#class lib/print read lib/print.tt;
+
+_Class fakeload config/core etc/coreSettings.tt;
+_Class fakeload lib/classLoader lib/class.tt;
+_Class fakeload lib/eventHander lib/handler.tt;
+_Class fakeload lib/print lib/message.tt;
+
+_Class load lib/scriptLoader lib/rcload.tt;
+
+
 
 /* Load #event handlers
    Needs to be loaded in #gts as it handles conncet/disconnect events */

@@ -1,0 +1,20 @@
+#nop lib/list.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: list;
+#nop PROVIDES: lib/list;
+
+#function {std_list_findKey} {
+	#list __tmpList create ${%2[]};
+	#list __tmpList find {%1} {result};
+	#unvar __tmpList;
+}
+
+#function {std_list_findMember} {
+	#list {%2} {find} {%1} {result};
+}
+
+#function {std_list_isMember} {
+	#math result { 0 != @std_list_findMember{{%1}{%2}} || "${%2[0]}" == "%1" };
+}

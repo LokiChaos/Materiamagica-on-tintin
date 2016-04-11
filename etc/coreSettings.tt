@@ -1,4 +1,4 @@
-#showme {<aef>Loading: <faa>etc/coreSettings.tt}
+#nop etc/coreSettings.tt
 
 /* 
 	This is the FULL path to your tintin++ directory
@@ -7,6 +7,17 @@
 
 /* Uncomment this next line if you want to hard-code the path          */
 /*#var stateClient[root] {/home/EDIT ME/.tt/};*/
+
+
+/*
+	Client verbosity, 
+	Valid Levels: CRITICAL ERROR WARNING [INFO] VERBOSE DEBUG
+	All to the left the the set value will be echoed or logged
+	Default level is INFO for echo and WARNING for logging.
+*/
+#var clientConfig[messageEchoLevel]  {INFO};
+#var clientConfig[messageLogLevel]   {WARNING};
+#var clientConfig[messageLogPath]    {debug.log};
 
 /*
 	How long should the inital login menu wait for you to make a selection

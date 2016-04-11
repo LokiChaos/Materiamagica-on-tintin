@@ -17,7 +17,8 @@
 #class core read char/$sessionName/modulesConfig.tt
 
 /* Load Internal Utility Library */
-#class utility read lib/utility.tt
+#nop #class utility read lib/utility.tt
+_SourcePath {lib} {lib};
 
 /* MM-specific Utility Library */
 #class utility_mm read core/mmutility.tt

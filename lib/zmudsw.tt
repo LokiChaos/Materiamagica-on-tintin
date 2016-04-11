@@ -1,3 +1,10 @@
+#nop lib/zmudsw.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: zMudSW;
+#nop PROVIDES: lib/zmudsw;
+
 #function {std_zmudsw_parse} {
 	#var __zpath[path] {};
 	#var __zpath[count] {};

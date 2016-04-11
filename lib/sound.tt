@@ -1,1 +1,7 @@
-#loading {<aef>Loading: <faa>utility/sound.tt}
+#nop lib/sound.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: sound;
+#nop PROVIDES: lib/sound;
+#nop REQUIRES: lib/shell;

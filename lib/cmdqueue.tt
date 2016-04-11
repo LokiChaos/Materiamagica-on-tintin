@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>utility/cmdqueue.tt}
+#nop lib/cmdqueue.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: cmdQueue;
+#nop PROVIDES: lib/cmdQueue;
+#nop REQUIRES: lib/utility;
 /*
 	This is a simple command queue system based off the generic queue.
 	Usage:

@@ -1,4 +1,11 @@
-#showme {<aef>Loading: <faa>utility/confirm.tt}
+#nop lib/confirm.tt;
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: confirm;
+#nop PROVIDES: lib/confirm;
+#nop REQUIRES: lib/class;
+
 /*
 	std_confirm_prompt {promot string} {timeout}
 */
@@ -9,5 +16,5 @@
 	#if {"%2" == "%d"} {
 		#var __confirm[timeout] {%2};
 	};
-	#class tmp/confirm read lib/lib/confirm.tt;
+	_Class load tmp/confirm lib/rtlib/confirm.tt;
 }

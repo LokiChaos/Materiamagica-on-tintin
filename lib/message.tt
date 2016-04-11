@@ -1,0 +1,44 @@
+#nop lib/message.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: print;
+#nop PROVIDES: lib/debug lib/print;
+
+/* Print {LEVEL} {MESSAGE}; */
+#alias {Print} {
+	#var _:DbTemp[lvl]   {{CRITICAL}{1}{ERROR}{2}{WARNING}{3}{INFO}{4}{VERBOSE}{5}{DEBUG}{6}};
+	#if {"${_:DbTemp[lvl][%1]}" != "" } {
+		#var _:DbTemp[color] {{CRITICAL}{<001>}{ERROR}{<119>}{WARNING}{<139>}{INFO}{<099>}{VERBOSE}{<099>}{message}{<129>}};
+		#var _:DbTemp[head]  {{CRITICAL}{CRITICAL: }{ERROR}{ERROR: }{WARNING}{WARNING: }{INFO}{}{VERBOSE}{}{message}{message: }};
+		#var _:DbTemp[format] {#format {_:DbTemp[print]} {%2}};
+		#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageEchoLevel]}]} ||
+		     ${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageLogLevel]}]}} {
+			#var _:DbTemp[argc] 0;
+			#foreach {%0} {_:DbTemp[arg]} {
+				#math _:DbTemp[argc] {${_:DbTemp[argc]} + 1};
+				#if {${_:DbTemp[argc]} > 2 && "${_:DbTemp[arg]}" != ""} {
+					#var _:DbTemp[format] {${_:DbTemp[format]} {${_:DbTemp[arg]}}};
+				}
+			};
+			${_:DbTemp[format]};
+			#format {_:DbTemp[print]} {%s%s%s<099>} {${_:DbTemp[color][%1]}} {${_:DbTemp[head][%1]}} {${_:DbTemp[print]}};
+			#replace {_:DbTemp[print]} {<>} {${_:DbTemp[color][%1]}};
+			#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageEchoLevel]}]}} {
+				#echo {${_:DbTemp[print]}};
+			};
+			#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageLogLevel]}]}} {
+				#format {_:DbTemp[print]} {%t %s} {{%Y-%m-%d %H:%M:%S}} {${_:DbTemp[print]}};
+				#line log {${clientConfig[messageLogPath]}} {${_:DbTemp[print]}};
+			};
+		};
+	};
+	#unvar _:DbTemp;
+}
+
+/* Compeltely disables the Print alias, if it isn't needed and there are performance concerns */
+#alias {_DisablePrint} {
+	#alias {Print} {
+		#nop %0;
+	};
+}

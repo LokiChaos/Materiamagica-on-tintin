@@ -1,0 +1,93 @@
+#nop lib/persistent.tt
+/*
+	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: persistent;
+#nop PROVIDES: lib/persistent;
+#nop REQUIRES: lib/eventHandler lib/list;
+
+#alias {std_value_save} {
+	__persistent_init;
+	#class persistent open;
+	#var   {:%1} ${%1};
+	#class persistent close;
+	__persistent_save;
+}
+
+#function {std_value_get} {
+	__persistent_init;
+	#var result ${:%1};
+	__persistent_cleanup;
+}
+
+#alias {std_value_restore} {
+	__persistent_init;
+	#var %1 ${:%1};
+	__persistent_cleanup;
+}
+
+#alias {std_value_clear} {
+	__persistent_init;
+	#unvar {:%1};
+	__persistent_save;
+}
+
+/* Automatically save and restore "remembered" values on session disconnect/connect */
+#alias {std_remember} {
+	#list _remember add {%1};
+}
+
+#alias {std_unremember} {
+	#list _remember del {@std_list_findMember{ {%1} {_remember} }};
+	std_value_clear {%1};
+}
+
+_event_register {session_connect}    {remember} {_std_remember_load};
+_event_register {session_disconnect} {remember} {_std_remember_save};
+
+/* Internal Remeber System Helpers {{{ */
+#alias {_std_remember_save} {
+	#nop %1;
+	__persistent_init;
+	#class persistent open;
+	#var {:_remember} {${_remember}};
+	Print {INFO} {<139>Saving %d variable[s].} {&{_remember[]}};
+	#foreach {${_remember[]}} {__idx} {
+		#if { &{${_remember[${__idx}]}} } {
+			#var {:${_remember[${__idx}]}} ${${_remember[${__idx}]}};
+		};
+	};
+	#unvar __idx;
+	#class persistent close;
+	__persistent_save;
+}
+
+#alias {_std_remember_load} {
+	#nop %1;
+	__persistent_init;
+	#var {_remember} {${:_remember}};
+	Print {<139>Restoring %d saved variable[s].} {&{_remember[]}};
+	#foreach {${_remember[]}} {__idx} {
+		#var {${_remember[${__idx}]}} ${:${_remember[${__idx}]}};
+	};
+	#unvar __idx;
+	__persistent_cleanup;
+}
+
+#alias {__persistent_init} {
+	#var __persistPath {char/${sessionName}/var/persistent.tt};
+	#class persistent kill;
+	#class persistent read {${__persistPath}};
+}
+
+#alias {__persistent_save} {
+	#class persistent write {${__persistPath}};
+	__persistent_cleanup;
+}
+
+#alias {__persistent_cleanup} {
+	#class persistent kill;
+	#unvar __persistPath;
+}
+
+/* }}} */

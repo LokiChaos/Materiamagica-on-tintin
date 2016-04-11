@@ -1,6 +1,6 @@
 #nop lib/persistent.tt
 /*
-	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
 */
 #nop CLASS: persistent;
 #nop PROVIDES: lib/persistent;

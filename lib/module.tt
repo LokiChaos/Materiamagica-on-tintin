@@ -1,6 +1,6 @@
 #nop lib/module.tt;
 /*
-	Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
 */
 #nop CLASS: modules;
 #nop REQUIRES: lib/class lib/eventHandler lib/persistent lib/shell lib/print;

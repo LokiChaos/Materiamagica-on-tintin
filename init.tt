@@ -1,4 +1,8 @@
-#showme {<aef>Loading Master Config: <faa>master.tt}
+#nop init.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+
 /* Sets up the tt++ enviroment for the mud and loads all other config files */
 
 #read init/ttConf.tt;

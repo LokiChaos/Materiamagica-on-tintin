@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>tab.tt}
+#nop core/tab.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: tabs;
+#nop PROVIDES: core/tab;
 /*
 	Adds tab-completions based on keyword lists
 */

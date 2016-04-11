@@ -1,4 +1,8 @@
-#nop activities/lib/dailyrew.tt
+#nop core/activites/lib/dailyrew.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities/dailyrew;
 
 /* Subroutines for (daily) comand {{{ */
 #alias {_doDaily} {

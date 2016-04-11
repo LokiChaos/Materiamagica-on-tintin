@@ -1,4 +1,8 @@
-#nop activities/lib/questreq.tt
+#nop core/activties/lib/questreq.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities/questreq;
 
 /* Quest master/mistress didn't have a quest {{{ */
 #act {^%* tells you, 'I am sorry, but I don't have any%*quests for thee%*'$} {

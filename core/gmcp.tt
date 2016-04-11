@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>gmcp.tt}
+#nop core/gmcp.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: gmcp;
+#nop PROVIDES: core/gmcp;
 
 /* GMCP room.info event {{{ */
 #event {IAC SB GMCP room.info IAC SE} {

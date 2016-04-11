@@ -1,4 +1,8 @@
-#nop reagents/sort.tt
+#nop core/reagents/sort.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: reagents/sort;
 
 #gag {^You aren't carrying anything that will fit into a};
 #gag {^$};

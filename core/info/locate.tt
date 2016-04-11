@@ -1,4 +1,8 @@
-#nop Location Related Sub functions
+#nop core/info/locate.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: info/locate;
 
 /* Wandering Sidhe {{{ */
 #alias {_LocWanderingSidhe} {

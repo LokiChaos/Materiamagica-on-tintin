@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>mems.tt}
+#nop core/mems.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: mems;
+#nop PROVIDES: core/mems;
 /*
 	Does Augmented Output for mem command and actions
 	to raise mem related events

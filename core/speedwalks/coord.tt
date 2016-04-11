@@ -1,4 +1,8 @@
-#nop speedwalks/coord.tt
+#nop core/speedwalk/coord.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: speedwalks/coords;
 
 #alias {_goto_coord} {
 	#math __goto[X] { (%1 % 2300 ) - $navigation[X] };

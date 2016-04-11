@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>equipment.tt}
+#nop core/equipment.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: equip;
+#nop PROVIDES: core/equip;
 
 /* Player Commands {{{ */
 /* Displays just AR output from eq command */

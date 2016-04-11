@@ -1,4 +1,10 @@
-#nop affects/self.tt;
+#nop core/affects/self.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: affects/self;
+#nop PROVIDES: core/affects/self;
+#nop REQUIRES: core/affects core/state;
 
 /*
 	Generate and Add a TON of triggers from the table of strings

@@ -1,4 +1,8 @@
-#nop activities/lib/crystals.tt
+#nop core/activites/lib/crystals.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities/crystal;
 
 /* Helpers For (crystal) command {{{ */
 #alias {_crystalAction}

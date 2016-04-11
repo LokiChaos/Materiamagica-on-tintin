@@ -1,4 +1,8 @@
-#nop speedwalks/goto.tt
+#nop core/speedwalks/goto.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: speedwalks/goto;
 
 /* Pathfinder {{{ */
 #alias {_realgoto} {

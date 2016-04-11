@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>reagents.tt}
+#nop core/reagents.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: reagents;
+#nop PROVIDES: core/reagents;
 /*
 	Reagent Subsytem
 	Tracks usage, purchase, and counting all types of reagents

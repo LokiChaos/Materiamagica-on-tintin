@@ -1,4 +1,10 @@
-#nop prompt/affectbar.tt
+#nop core/prompt/affectbar.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: prompt/affectbar;
+#nop PROVIDES: core/prompt/affectBar;
+#nop REQUIRES: core/affects core/prompt;
 
 #function {PromptAffectBar} {
 	#format __prompt {<098>%s%s%s} {@affectBar{pos;26}} {@affectBar{neg;25}} {@affectBar{util;23}};

@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>combat.tt}
+#nop core/combat.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: comabt;
+#nop PROVIDES: core/combat;
+#nop REQUIRES: core/state core/prompt;
 /*
 	Handles combat reformatting and parsing and use counts for
 	weapons/defenses/bash/kick/back stab/BR/etc.

@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>alias.tt}
+#nop core/alias.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: alias;
+#nop PROVIDES: core/alias;
 /*
 	Defines core alias.
 	Mostly wrappers to in-game commands to limits the scope of triggers

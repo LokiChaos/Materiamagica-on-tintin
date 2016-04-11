@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>substitute.tt}
+#nop core/subsitute.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: subs;
+#nop PROVIDES: core/subs;
 /*
 	These are the basic reformatting triggers
 */

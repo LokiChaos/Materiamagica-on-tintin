@@ -1,4 +1,9 @@
-#nop tick/sync.tt
+#nop core/tick/sync.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: tick/sync;
+
 /*
 	Synchronises the tick timer to the game's ticks.
 	Do NOT call directly, rather if you wish to add

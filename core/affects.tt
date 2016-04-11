@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>affects.tt}
+#nop core/affects.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: affects;
+#nop PROVIDES: core/affects;
+#nop REQUIRES: core/state;
 /*
 	Handles tracking the char's status affects
 	Lvl 3 - Higher than other's affects so self takes priority

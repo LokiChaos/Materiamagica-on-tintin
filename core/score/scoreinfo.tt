@@ -1,4 +1,8 @@
-#nop score/scoreinfo.tt 
+#nop core/score/scoreinfo.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: score/info;
 
 /* Triggers for collecting info from the score command. {{{ */
 #act {^  Hours Played:%*Age:%* years (Born %d/%d/%d)} {

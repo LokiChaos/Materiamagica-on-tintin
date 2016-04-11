@@ -1,4 +1,8 @@
-#nop map/vmap.tt
+#nop core/map.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: mapper/vmap;
 
 #var _vmap[alyira] {
 {0}{......................................................................}

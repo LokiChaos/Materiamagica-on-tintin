@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>navigation.tt}
+#nop core/navigation.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: navigation;
+#nop PROVIDES: core/navigation;
+#nop REQUIRES: core/mmutil;
 /*
 	Contians the majority of the actions and aliases associated
 	with tracking the character's in-game location, the time in-game,

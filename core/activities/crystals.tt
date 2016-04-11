@@ -1,4 +1,8 @@
-#showme {<aef>Loading: <faa>activities/crystals.tt}
+#nop core/activities/crystals.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities;
 
 /* Started a Crystal guild {{{ */
 #act {^Tadamir the guildsman gives you a tightly-rolled scroll.$} {

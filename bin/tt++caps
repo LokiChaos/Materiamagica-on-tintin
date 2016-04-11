@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
 
 # tmux Session Name for Captures
 TSESSION="Captures"

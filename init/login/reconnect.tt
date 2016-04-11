@@ -1,5 +1,8 @@
-#nop login/reconnect.tt
-
+#nop init/login/reconnect.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: init/reconnect;
 
 #var __timeOuts {{1}{15}{2}{30}{3}{60}{4}{120}{5}{300}{6}{600}};
 

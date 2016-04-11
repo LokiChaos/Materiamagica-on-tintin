@@ -1,4 +1,8 @@
-#nop activities/lib/questreq.tt
+#nop core/activities/lib/questinfo.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities/questinfo;
 
 /* Collect info about requested quest {{{ */
 #act {%* is the {master|mistress} in charge of this quest.$} {

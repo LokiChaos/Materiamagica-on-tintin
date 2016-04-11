@@ -1,4 +1,10 @@
-#nop captures/channels.tt
+#nop core/captures/channels.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: captures;
+#nop PROVIDES: core/captures/channels;
+#nop REQUIRES: core/captures;
 
 /* Clan Talk {{{ */
 #act {~^\e[1\;33m[CLAN] %*} {

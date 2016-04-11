@@ -1,3 +1,9 @@
+#nop core/activities/lib/orcbounty.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities/orbbounty;
+
 #alias {_gotBounty} {
 	#var stateChar[onBounty] 1;
 	#var bounty[MobName]	{%1};

@@ -1,4 +1,8 @@
-#nop reagents/get.tt
+#nop core/reagents/get.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: reagents/get;
 
 #gag {^You open};
 #gag {^You close};

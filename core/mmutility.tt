@@ -1,4 +1,9 @@
-#nop
+#nop core/mmutlity.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: mmutility;
+#nop PROVIDES: core/mmutil;
 /*
 	Matria magica specific helpers.
 */

@@ -1,4 +1,8 @@
-#showme {<aef>Loading: <faa>activities/dailyrew.tt}
+#nop core/activites/dailyrew.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities;
 
 /* Daily Reward Collection triggers {{{ */
 #act {^A representative from the %* Tourism Board gives you %*.} {

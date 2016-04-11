@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>captures.tt}
+#nop core/captures.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: captures;
+#nop PROVIDES: core/captures;
 /*
 	Handles all channel captures.
 	Level 3 - Very High Priority to avoid missing messages. 

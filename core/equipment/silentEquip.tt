@@ -1,4 +1,8 @@
-#nop equipmnet/silentEquip.tt
+#nop core/equipment/silentEquip.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: equip/silentEq;
 
 #gag {^You are using:}
 #gag {^<}

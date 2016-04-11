@@ -1,4 +1,8 @@
-#nop login/menu.tt
+#nop init/login/menu.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: init/menu;
 
 /* Print Welcome Message {{{ */
 #alias {_printWelcome} {

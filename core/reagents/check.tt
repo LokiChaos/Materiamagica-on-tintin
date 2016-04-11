@@ -1,4 +1,8 @@
-#nop reagents/check.tt
+#nop core/reagents/check.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: reagents/check;
 
 /* Start with a count of Zero */
 #var __rcount  {{fire}{0}{water}{0}{air}{0}{earth}{0}{gem}{0}{ethereal}{0}{astral}{0}{summon}{0}{focus}{0}{hema}{0}};

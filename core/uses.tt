@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>uses.tt}
+#nop core/uses.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: uses;
+#nop PROVIDES: core/uses;
 /*
 	Handles tracking uses
 	Triggers are set up for tracking attacks (and attempting to match them to weapon skills),

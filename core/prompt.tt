@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>prompt.tt}
+#nop core/prompt.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: prompt;
+#nop PROVIDES: core/prompt;
+#nop REQUIRES: core/state core/gmcp;
 
 /*  Setup Status bar display and prompt triggers {{{
 	

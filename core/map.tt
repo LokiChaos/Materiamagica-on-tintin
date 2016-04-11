@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>map.tt}
+#nop core/map.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: mapper;
+#nop PROVIDES: core/mapper;
+#nop REQUIRES: core/gmcp;
 
 /* MAP Notes {{{
    roomvnum: auto

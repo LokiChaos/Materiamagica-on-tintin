@@ -1,4 +1,8 @@
-#nop
+#nop core/reagents/buy.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: reagents/buy;
 
 #alias {_buyReagents}
 {	

@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>info.tt}
+#nop core/info.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: info;
+#nop PROVIDES: core/info;
+#nop REQUIRES: core/gmcp;
 /*
 	Handles parsing output of informational game commands
 	eg: checking your who, score, gold, time,

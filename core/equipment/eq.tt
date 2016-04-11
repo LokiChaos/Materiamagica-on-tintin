@@ -1,4 +1,8 @@
-#nop equipment/eq.tt
+#nop core/equipment/eq.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: equip/eq;
 
 /* Equipment Slot Tables {{{ */
 #var __eq[PrintList]  {light, finger1, finger2, neck1, neck2, amulet1, amulet2, onbody, head, face, legs, feet, hands, arms, shield, shoulder1, shoulder2, abtbody, rndbody, waist, wrist1, wrist2, rhand, lhand, END};

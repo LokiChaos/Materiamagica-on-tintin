@@ -1,4 +1,8 @@
-#showme {<aef>Loading: <faa>activities/misc.tt}
+#nop core/activities/misc.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities;
 
 /* REWARDS pp/qp/bp/exp/folklore {{{ */
 #act {^You gain %d practice{s|}!} {

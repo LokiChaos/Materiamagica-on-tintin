@@ -1,4 +1,9 @@
-#nop combat info;
+#nop core/info/combat.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: info/combat;
+#nop PROVIDES: core/info/combat;
 
 /*
 Your combat output mode is set to brief.

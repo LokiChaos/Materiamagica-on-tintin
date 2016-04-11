@@ -1,4 +1,9 @@
-#nop Form command info triggers;
+#nop core/forms/info.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: forms/info;
+
 #act {^A total of [%d] of [%d] members in formation.$} {
 	#var form[num] {%1};
 	#var form[max] {%2};

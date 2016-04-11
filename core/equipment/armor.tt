@@ -1,4 +1,8 @@
-#nop equipment/ar.tt
+#nop core/equipment/armor.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: equip/armor;
 
 #gag {^You are using:}
 #gag {^<}

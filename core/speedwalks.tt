@@ -1,4 +1,9 @@
-#showme {<aef>Loading: <faa>speedwalks.tt}
+#nop core/speedwalks.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: speedwalks;
+#nop PROVIDES: core/speed;
 /* 
 	Sets up Speedwalk Sub-System
 */

@@ -1,4 +1,8 @@
-#nop info/sextant.tt
+#nop core/info/sextant.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: info/sextant;
 
 #if {$stateClient[muteLine]} {
 	#gag {^It is %d:%d %w on %w, %w the %S, year %d.};

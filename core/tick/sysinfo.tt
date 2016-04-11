@@ -1,4 +1,8 @@
-#nop tick/sysinfo.tt;
+#nop core/tick/sysinfo.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: tick/sysinfo;
 
 /* Nothing user-invoked should call this, use GetSysinfo */
 #alias {_UpdateSystemInfo} {

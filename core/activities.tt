@@ -1,4 +1,10 @@
-#showme {<aef>Loading: <faa>activities.tt}
+#nop core/activities.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities;
+#nop PROVIDES: core/activities;
+#nop REQUIRES: core/captures;
 /*
 	Handles all triggers for tracking various game activites
 	eg: quests, orc presuer bounties, crystal guild hunts

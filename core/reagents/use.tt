@@ -1,4 +1,8 @@
-#nop reagents/use.tt
+#nop core/reagents/user.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: reagents/use;
 
 /* Reagent String Lists {{{ */
 #var __rTable[ethereal] {{a glowing piece of black moss}{1}{a white sapphire}{1}{an essence of the source}{1}{the horn from a unicorn}{1}{a sunstone}{1}{a lightning bolt}{1}{a sphere of ethereal energy}{1}{a bit of shadow}{1}{a midnight pearl}{1}{a soul in a bottle}{1}{a wayward spirit}{1}{a bone from a gravedancer}{1}{a ghost essence}{1}{a small misshapen pearl}{1}{a sparkling stone}{1}{a silver scale}{1}};

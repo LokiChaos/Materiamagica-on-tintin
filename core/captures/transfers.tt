@@ -1,4 +1,8 @@
-#nop captures/transfers.tt
+#nop core/captures/transfers.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: captures;
 
 /* Mail High-Magenta {{{ */
 #act {~^You receive %* in the mail, sent by %*}{

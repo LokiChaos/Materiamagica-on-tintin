@@ -1,4 +1,8 @@
-#showme {<aef>Loading: <faa>activities/orcbounty.tt}
+#nop core/activities/orcbounty.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: activities;
 
 /* Orc Bounty Requests {{{ */
 /* Prevents false triggerings from other people's requests */

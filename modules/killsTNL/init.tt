@@ -1,4 +1,5 @@
-#nop
+#nop MODULE: killsTNL;
+#nop DESC: Displays kills to next level based on last kill's exp;
 
 #var _mod_killsTNL_lastExp 0;
 

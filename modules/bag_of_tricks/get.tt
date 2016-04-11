@@ -110,5 +110,5 @@
 
 #alias {_CleanBot} {
 	#nop %1;
-	#class tmpm_bag_of_tricks_get kill;
+	_Class purge tmp/module/bagoftricks/get;
 }

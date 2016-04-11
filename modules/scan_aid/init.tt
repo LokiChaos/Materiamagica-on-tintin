@@ -1,4 +1,5 @@
-#nop
+#nop MODULE: scanAid;
+#nop DESC: Scan Output Highlighter;
 
 #alias {sca{|n}} {
 	#class tmpm_scan_aid read modules/scan_aid/scan.tt;

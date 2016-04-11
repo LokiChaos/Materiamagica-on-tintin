@@ -1,4 +1,5 @@
-#nop
+#nop MODULE: pendant;
+#nop DESC: Augment Maldra's Pendant Echos;
 
 #act {^The Pendant of Lord Maldra shines briefly with a soft %w light\!$} {
 	#var __pendColors = {

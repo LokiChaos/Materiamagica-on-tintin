@@ -1,4 +1,5 @@
-#nop
+#nop MODULE: keypad;
+#nop DESC: Keypad-based Move Macro Set;
 
 /* "Prefix" Modifier keys to select actions to mbe taken on next directional key {{{ */
 #var __mod_keypad_mods {  {open}{\eOn}

@@ -1,4 +1,5 @@
-#nop;
+#nop MODULE: navpad;
+#nop DESC: NetHack-Like Move Macro Set;
 /*
 	Nethack directions (for laptops).
 		y u i o

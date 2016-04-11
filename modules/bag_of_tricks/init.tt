@@ -1,4 +1,5 @@
-#showme {<aef>Loading: <faa>bot.tt}
+#nop MODULE: BagOfTricks;
+#nop DESC: Bag of Tricks Tracking & Sorting;
 /*
 	Handles tracking the state of your bag of trick.
 	Alias allows you to easily empty a BoT & auto-sort the contents.
@@ -10,7 +11,7 @@
 }
 
 #alias {BoTGet} {
-	#class tmpm_bag_of_tricks_get read modules/bag_of_tricks/get.tt;
+	_Class load tmp/module/bagoftricks/get modules/bag_of_tricks/get.tt;
 	#loop {1} {$prefs[BoTcount]} {__c} {
 		queueCmd {open '${__c}.a bag of tricks'} {0};
 		queueCmd {get all '${__c}.a bag of tricks'} {0};

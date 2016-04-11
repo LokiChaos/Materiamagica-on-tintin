@@ -1,4 +1,5 @@
-#nop
+#nop MODULE: herbs+mixes;
+#nop DESC: Display sprig power and mix affects;
 
 #var __mod_herbs_n_mixes_mixes {
 	{silvery}{awaken}

@@ -1,5 +1,5 @@
-#nop
-
+#nop MODULE: Collectables;
+#nop DESC: Collectables' Sorter & More;
 
 /* Stamp Storing & Missing Indicator {{{ */
 

@@ -1,4 +1,5 @@
-#nop A Scroll IDer
+#nop MODULE: scrollid;
+#nop DESC: Auto-ID's scrolls;
 
 #function {mod_scrollid_id} {
 	#if {"@scroll2spell{%1}" != "" } {

@@ -8,7 +8,7 @@
 #alias {_PromptEcho} {
 	#loop {-$prefs[split][top]} {$prefs[split][bot]} {__pLine} {
 		#if {${__pLine} != 0 } {
-			#echo { {%.${stateClient[Cols]}s} {${__pLine}} } {$prompt[${__pLine}]};
+			#echo {{%.${stateClient[Cols]}s} {${__pLine}}} {$prompt[${__pLine}]};
 		};
 	};
 	#unvar __pLine;

@@ -62,7 +62,9 @@
 }
 
 #function {std_str_trim} {
-	#format result {%p} {%0};
+	#regex {%0} {^{ *}%*{ *}$} {
+		#var result {&2};
+	};
 }
 
 #function {std_str_toLower} {

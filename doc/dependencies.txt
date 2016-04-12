@@ -13,6 +13,7 @@ For installing tmux, consult:
 These are standard on most *nix systems:
 	curl
 	awk (preferably GNU awk, but BSD awks should be fine)
+	sed (preferable GNU sed, but BSD seds should be fine)
 	tail (ideally one that support inotify or equivilent)
 	bash (should work with any sh compatable shell)
 	perl

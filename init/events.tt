@@ -41,9 +41,8 @@
 	#var sessionName {%0};
 	#gts {#var lastSession {}; #var _reconnect[attMade] 0;};
 	#history read char/${sessionName}/var/cmdhistory.hist;
-	#read core/core.tt;
+	#read init/core.tt;
 	_event_raise {session_connect};
-	#nop system {make_caps $charName 2>/dev/null};
 	#showme {\033k${sessionName}\033\\};
 	#system {makeCaps ${sessionName}};
 	_Class load tmp/init/login init/login/login.tt;

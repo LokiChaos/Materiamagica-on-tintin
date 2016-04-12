@@ -1,0 +1,37 @@
+#nop init/core.tt
+
+/*
+	Loads core framework
+*/
+
+/* Master Log */
+Print {INFO} {<129>Starting master session log.};
+#var __dot {.};
+#log a char/$sessionName/log/${charName}${__dot}log;
+#unvar __dot;
+
+
+/* Source lib before loading anything else */
+Print {INFO} {<129>Loading lib/...};
+_SourcePath {lib} {lib};
+
+Print {INFO} {<129>Loading session config...};
+_SourcePath {char/$sessionName/config} {config/usr};
+
+/* Source core, favoring overrides in global & session local/ */
+Print {INFO} {<129>Loading core scripts.};
+#var _corePath {{1}{char/$sessionName/local}{2}{local}{3}{core}};
+_SourcePathOverrides {${_corePath}} {core};
+#unvar _corePath;
+
+/* Source runcommand (rc) files after core is loaded */
+Print {INFO} {<129>Loading global rc...};
+_SourcePath {rc} {rc};
+
+Print {INFO} {<129>Loading session rc...};
+_SourcePath {char/$sessionName/rc} {usr/rc};
+
+Print {INFO} {<129>Fetching sysinfo from server...};
+_UpdateSysInfo;
+
+Print {INFO} {<129>Core loaded};

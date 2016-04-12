@@ -26,7 +26,7 @@
 #act {^You are using:}
 {
 	_Class load tmp/core/info/eq core/equipment/rtlib/eq.tt;
-	_event_oneshot {prompt_post} {eqClean} {#if {@classGetState{tmp/core/info/eq} == 1} {_Class purge tmp/core/info/eq;}; #nop
+	_event_oneshot {prompt_post} {eqClean} {_Class purge tmp/core/info/eq; #nop
 	};
 }
 /* }}} */

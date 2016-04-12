@@ -136,9 +136,6 @@
 
 #act {^Excepting defenses and dynamic modifiers, you will hit %d% of the time.} {
 	#var charScore[toHit]      {%1};
-	#if {@classGetState{tmp/core/info/eq} == 1} {
-		_Class purge tmp/core/info/eq;
-	};
 	#if {@classGetState{tmp/core/silentEq} == 1} {
 		_Class purge tmp/core/silentEq;
 	};

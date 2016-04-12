@@ -16,10 +16,3 @@
 /* Set logging paths for activites and noteworthy events */
 #var capPath[act] 	    {$capPath[base]/activities};
 #var capPath[important] {$capPath[base]/noteworthy};
-
-/* Load actual activity & noteworth event triggers */
-#read core/activities/questing.tt
-#read core/activities/orcbounty.tt
-#read core/activities/dailyrew.tt
-#read core/activities/crystals.tt
-#read core/activities/misc.tt

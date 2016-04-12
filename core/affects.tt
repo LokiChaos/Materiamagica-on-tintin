@@ -37,15 +37,6 @@
 	#line gag;	
 } {3}
 
-/* First Person Affects Tracking */
-#class core_aff_self read core/affects/self.tt
-
-/* Room Affects Tracking */
-#class core_aff_room read core/affects/room.tt
-
-/* Other's Affects Tracking */
-/*#class core_aff_other read core/affects/others.tt */
-
 /* Special Affects Related Events */
 #act {^%* has siphoned the spell effect of '%*' from %*.} {
 	_event_raise {affect_siphon} {%1} {%2} {%3};

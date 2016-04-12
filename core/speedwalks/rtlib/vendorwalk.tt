@@ -11,24 +11,24 @@
 {
 	#unvar _pathQueue;
 	#act {^You sense that '%*' (Managed by %*) may be located %*.$} {
-		  #line gag;
-		  #var __vendorpath {%%3};
-		  #replace {__vendorpath} {, } {;};
-		  #format {__vendorpath} {%sFIN} {${__vendorpath}};
-		  #replace {__vendorpath} {;%wFIN} {;open &1; &1};
-		  #path load {${__vendorpath}};
-		  #unvar __vendorpath;
-		  #echo {<149>Path to shop '%s' owned by %s has been loaded. Loaded path... } {%%1} {%%2}; 
-		  #class tmp_sw_vendor kill;
+		#line gag;
+		#var __vendorpath {%%3};
+		#replace {__vendorpath} {, } {;};
+		#format {__vendorpath} {%sFIN} {${__vendorpath}};
+		#replace {__vendorpath} {;%wFIN} {;open &1; &1};
+		#path load {${__vendorpath}};
+		#unvar __vendorpath;
+		#echo {<149>Path to shop '%s' owned by %s has been loaded. Loaded path... } {%%1} {%%2};
+		_Class purge tmp/core/sw/vendor;
 	};
 	#act {^There is no vendor leased by a character matching that name.} {
-		#class tmp_sw_vendor kill;
+		_Class purge tmp/core/sw/vendor;
 	};
 	#act {^There is no vendor leased by a clan of that number.} {
-		#class tmp_sw_vendor kill;
+		_Class purge tmp/core/sw/vendor;
 	};
 	#act {^You are not able to sense the direction of that vendor from your current location.$} {
-		#class tmp_sw_vendor kill;
+		_Class purge tmp/core/sw/vendor;
 	};
 	#send {vendor where %1};
 }

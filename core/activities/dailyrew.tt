@@ -10,7 +10,7 @@
 } {3}
 
 #act {^A representative from the %* Tourism Board nods at you.} {
-	#class tmp_dailyReward read core/activities/lib/dailyrew.tt;
+	_Class load tmp/core/activities/dailyReward core/activities/rtlib/dailyrew.tt;
 	_event_register {item} {dailyBindGag} {
 		#if { "%2" == "bound"} {
 			#line gag;
@@ -24,9 +24,9 @@
 
 /* Player (daily) command {{{ */
 #alias {daily} {
-	#class tmp_dailyCmd read core/activities/lib/dailyrew.tt;
+	_Class load tmp/core/activites/dailyCmd core/activities/rtlib/dailyrew.tt;
 	_doDaily %1;
-	#class tmp_dailyCmd kill;
+	_Class purge tmp/core/activites/dailyCmd;
 }
 /* }}} */
 

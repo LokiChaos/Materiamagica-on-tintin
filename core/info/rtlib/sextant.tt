@@ -53,10 +53,10 @@
 #gag {^Alyria have long used such items to find their ways.  This is not only a}
 
 #act {^{you walk about, noting your general position within Alyria.|guide your way around when used.|that this sextant will help you guide your way around when used.|crafted, but it appears to serve its function.|useful piece of equipment, but a wonderful work of art.}} {
-	#class tmp_info_sextant kill;
+	_Class purge tmp/core/info/sextant;
 	#line gag;
 }
  
 #act {^You do not see that here.} {
- #class tmp_info_sextant kill;
+ _Class purge tmp/core/info/sextant;
 }

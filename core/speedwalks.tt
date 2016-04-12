@@ -10,15 +10,15 @@
 
 /* Player Commands {{{ */
 #alias {^run$} {
-	#class tmp_sw_run read core/speedwalks/run.tt;
+	_Class load tmp/core/sw/run core/speedwalks/rtlib/run.tt;
 	_RunSpeedWalk;
-	#class tmp_sw_run kill;
+	_Class tmp/core/sw/run;
 }
 
 #alias {^run!$} {
-	#class tmp_sw_run read core/speedwalks/run.tt;
+	_Class load tmp/core/sw/run core/speedwalks/rtlib/run.tt;
 	_RunSpeedWalkNoCheck;
-	#class tmp_sw_run kill;
+	_Class tmp/core/sw/run;
 }
 
 #alias {^stop$} {
@@ -33,28 +33,28 @@
 }
 
 #alias {^goto$} {
-	#class tmp_sw_goto read core/speedwalks/goto.tt;
+	_Class load tmp/core/sw/goto core/speedwalks/rtlib/goto.tt;
 	_gotoHelp;
-	#class tmp_sw_goto kill;
+	_Class purge tmp/core/sw/goto;
 }
 
 #alias {^goto %*} {
 	#if {"%1" != ""} {
 		#regex {%1} {%d %d} {
-			#class tmp_sw_goto read core/speedwalks/coord.tt;
+			_Class load tmp/core/sw/goto core/speedwalks/rtlib/coord.tt;
 			_goto_coord {&1} {&2};
 		} {
-			#class tmp_sw_goto read core/speedwalks/goto.tt;
+			_Class load tmp/core/sw/goto core/speedwalks/rtlib/goto.tt;
 			_realgoto {%0};
 		};
 	} {
 		_gotoHelp;
 	};
-	#class tmp_sw_goto kill;
+	_Class purge tmp/core/sw/goto;
 }
 
 #alias {v{|e|en|end|endo|endor} go %*} {
-	#class tmp_sw_vendor read core/speedwalks/vendorwalk.tt;
+	_Class load tmp/core/sw/vendor core/speedwalks/rtlib/vendorwalk.tt;
 	_vendorwalk %2;
 }
 /* }}} */
@@ -125,9 +125,9 @@ _event_register {speedStep} {sw_walker} {_SpeedWalkStep};
 
 #alias {_loadPathQueue} {
 	#if {@std_queue_depth{_pathQueue}} {
-		#class tmp_sw_paths read data/paths.tt;
+		_Class load tmp/core/sw/paths data/paths.tt;
 		#path load @std_queue_pop{_pathQueue};
-		#class tmp_sw_paths kill;
+		_Class purge tmp/core/sw/paths;
 	};
 }
 /* }}} */

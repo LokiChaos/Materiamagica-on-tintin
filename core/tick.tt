@@ -18,7 +18,7 @@ _event_register {tick_sync} {sync} {_SyncTick};
 
 #alias {_SyncTick} {
 	#nop %1;
-	#read core/tick/sync.tt;
+	#read core/tick/rtlib/sync.tt;
 };
 
 /* Main 15 second timer to track ticks, incriment game timer, etc. 
@@ -31,7 +31,7 @@ _event_register {tick_sync} {sync} {_SyncTick};
 
 #alias {_OnTick} {
 	_event_raise {tick};
-	#read core/tick/ontick.tt;
+	#read core/tick/rtlib/ontick.tt;
 };
 /* }}} */
 
@@ -44,15 +44,16 @@ _event_register {tick_sync} {sync} {_SyncTick};
 
 /* Downloads sysinfo.txt and parses the information into tintin */
 #alias {_UpdateSysInfo} {
-	#class tmp_sysinfo read core/tick/sysinfo.tt;
+	_Class load tmp/core/sysinfo read core/tick/rtlib/sysinfo.tt;
 	_UpdateSystemInfo;
-	#class tmp_sysinfo kill;
+	_Class purge tmp/core/sysinfo;
 }
 
 /* Prevents spamming iota with requests */
 #alias {_GetSysinfo} {
-	#class tmp_sysinfo read core/tick/sysinfo.tt;
+
+	_Class load tmp/core/sysinfo read core/tick/rtlib/sysinfo.tt;
 	_GetSysteminfo;
-	#class tmp_sysinfo kill;
+	_Class purge tmp/core/sysinfo;
 }
 /* }}} */

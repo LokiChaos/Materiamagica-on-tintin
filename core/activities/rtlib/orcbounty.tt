@@ -62,7 +62,7 @@
 	#unvar __rewStr;
 	#unvar __reward;
 	_event_raise {activit_bounty} {return} {$bounty[MobName]} {$bounty[AreaName]};
-	#class tmp_orcCmd kill;
+	_Class purge tmp/core/activities/orcCmd;
 	#unvar bounty;
 }
 

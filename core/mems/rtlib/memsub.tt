@@ -67,7 +67,7 @@
 	#echo {<149>A total of <099>${__mem[Temp][num]}/${__mem[Temp][maxNum]}<149> spells and <099>${__mem[Temp][Cpx]}/${__mem[Temp][maxCpx]}<149> complexity.<099>};
 	#line gag;
 	#unvar __mem;
-	#class tmp_info_mem kill;
+	_Class tmp/core/info/mem;
 }
 /* }}} */
 

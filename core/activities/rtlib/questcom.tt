@@ -47,5 +47,5 @@
 
 #alias {_questCompleteFin} {
 	#nop %1;
-	#class tmp_questComplete kill;
+	_Class purge tmp/core/activites/questComplete;
 }

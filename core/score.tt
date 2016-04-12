@@ -7,8 +7,8 @@
 
 /* Collect info from score command */
 #act {^Player Information for: %*} {
-	#class tmp_info_score read core/score/scoreinfo.tt;
-	_event_oneshot {prompt_post} {scoreClean} {#class tmp_info_score kill; #nop};
+	_Class load tmp/core/info/score core/score/rtlib/scoreinfo.tt;
+	_event_oneshot {prompt_post} {scoreClean} {_Class purge tmp/core/info/score; #nop};
 }
 
 /* Collect info from the alignment command */

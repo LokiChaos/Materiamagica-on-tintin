@@ -6,9 +6,9 @@
 
 /* Buy Reagents {{{ */
 #alias {_ReagentBuy} {
-	#class tmp_reagent_buy read core/reagents/buy.tt;
+	_Class load tmp/core/reagent/buy core/reagents/rtlib/buy.tt;
 	_buyReagents;
-	#class tmp_reagent_buy kill;
+	_Class purge tmp/core/reagent/buy;
 }
 /* }}} */
 
@@ -16,7 +16,7 @@
 #alias {_ReagentGet} {
 	#echo {Getting Reagents...};
 	#var stateChar[have_reagents] 0;
-	#class tmp_reagent_get read core/reagents/get.tt;
+	_Class load tmp/core/reagent/get core/reagents/rtlib/get.tt;
 	_event_oneshot {cmdQueue_end} {getReag} {_cleanReagGet};
 	#forall {$reagent[producer]} {
 	  queueCmd {open &0} {0};
@@ -24,14 +24,14 @@
 	  queueCmd {close &0} {0};
 	};
 	doQueue;
-	#class tmp_reagent_act kill;
+	_Class purge temp/core/reagent/get;
 }
 /* }}} */
 
 /* Sort Reagents Into Containers {{{ */
 #alias {_ReagentSort} {
-	_event_oneshot {cmdQueue_end} {sortReag} {#class tmp_reagent_sort kill};
-	#class tmp_reagent_sort read core/reagents/sort.tt;
+	_event_oneshot {cmdQueue_end} {sortReag} {_Class purge tmp/core/reagent/sort};
+	_Class load tmp/core/reagent/sort core/reagents/rtlib/sort.tt;
 	#forall {fire;water;earth;air;astral;ethereal} {
 		#forall {$reagent[store][&0]} {
 			queueCmd {put all.reagent-&0  &&0} {0};
@@ -44,7 +44,7 @@
 	};
 	queueCmd {drop all.reagent} {0};
 	doQueue;
-	#class tmp_reagent_act kill;
+	_Class purge tmp/core/reagent/act;
 }
 /* }}} */
 
@@ -67,7 +67,7 @@
 	#if {$reagent[used][focus]}  {
 		#echo {              <178>%+3s focusing crystal<198>}  {$reagent[used][focus]};
 	};
-	#class tmp_reagent_act kill;
+	_Class purge tmp/core/reagent/act;
 }
 /* }}} */
 
@@ -75,7 +75,7 @@
 #alias {_ReagentUsedClear} {
 	#unvar {reagent[used]};
 	#format {reagent[used][since]} {%T};
-	#class tmp_reagent_act kill;
+	_Class purge tmp/core/reagent/act;
 }
 /* }}} */
 
@@ -85,7 +85,7 @@
 	Note: it only looks in a given contianer ONCE as to avoid re-counting */
 
 #alias {_ReagentSync} {
-	#class tmp_reagent_check read core/reagents/check.tt;
+	_Class load tmp/core/reagent/check core/reagents/rtlib/check.tt;
 	#echo {Checking Reagents...};
 	queueCmd {set page_length 120} {0};
 	#forall {{fire}{water}{earth}{air}{gem}{ethereal}{astral}{hema}{summon}{focus}{etc}} {
@@ -103,6 +103,6 @@
 	queueCmd {set page_length $prefs[defPgLen]} {0};	
 	queueCmd {score st} {0};
 	doQueue;
-	#class tmp_reagent_act kill;
+	_Class purge tmp/core/reagent/act;
 }
 /* }}} */

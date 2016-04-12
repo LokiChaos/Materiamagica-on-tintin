@@ -55,8 +55,3 @@
 	#unvar __captemp;
 } {2}
 /* }}} */
-
-/* Load the capture triggers */
-#read core/captures/channels.tt
-#read core/captures/transfers.tt
-#read core/captures/auction.tt

@@ -32,7 +32,7 @@ _event_register {sysinfo} {moons} {_MoonCalc};
 
 #alias {_MoonCalc} {
 	#nop %1;
-	#class tmp_nav_moons read data/moon.tt;
+	_Class load tmp/core/nav/moons data/moon.tt;
 	#script {__world_gates} {awk -F : '$1 ~ /$gtime[Trigael]/ && $2 ~ /$gtime[Marabah]/ {print $3}' data/worldgate.tbl};
 	#var gtime[Gates] {${__world_gates[1]}};
 	#format gtime[printMoon] {[%s %s<099>]} {${__phaseHash[$gtime[Trigael]]}} {${__phaseHash[$gtime[Marabah]]}};
@@ -40,7 +40,7 @@ _event_register {sysinfo} {moons} {_MoonCalc};
 	#var gtime[regen] {${__regenArray[${__moonIndex}]}};
 	#unvar __world_gates;
 	#unvar __moonIndex;
-	#class tmp_nav_moons kill;
+	_Class purge tmp/core/nav/moons;
 }
 /* }}} */
 

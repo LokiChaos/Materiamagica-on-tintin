@@ -16,9 +16,9 @@
 /* You were given if bounty, but only if you just nodded to him! */
 #act {^'Ekai Nosrat Sulla Garha "%*", Setama Sulla "%*", Ekass Armas Thran Bel Dinas.' the orc pursuer says. 'Nohsa Sulla Amata.'} {
 	#if {${_orcDidNod}}{
-		#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
+		_Class load tmp/core/activties/orcCmd core/activities/rtlib/orcbounty.tt;
 		_gotBounty {%1} {%2};
-		#class tmp_orcCmd kill;
+		_Class purge tmp/core/activities/orcCmd;
 		_event_raise {activity_bounty} {start} {%1} {%2};
 	};
 	#unvar _orcDidNod;
@@ -28,7 +28,7 @@
 /* Orc Bounty Rewards {{{ */
 #act {^The orc pursuer gives you %*.} {
 	#if {"${_orcLoaded}" != "1"} {
-		#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
+		_Class load tmp/core/activties/orcCmd core/activities/rtlib/orcbounty.tt;
 	};
 	_rewBounty {%1};
 	_event_oneshot {prompt_post} {orcFin} {_orcFin};
@@ -37,8 +37,8 @@
 
 /* Player (bounty) command {{{ */
 #alias {bounty} {
-	#class tmp_orcCmd read core/activities/lib/orcbounty.tt;
+	_Class load tmp/core/activties/orcCmd core/activities/rtlib/orcbounty.tt;
 	_doBounty %1;
-	#class tmp_orcCmd kill;
+	_Class purge tmp/core/activities/orcCmd;
 }
 /* }}} */

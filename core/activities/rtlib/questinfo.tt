@@ -44,5 +44,5 @@
 #alias {_questInfoFin} {
 	#nop %1;
 	#unvar _questInfo;
-	#class tmp_questInfo kill;
+	_Class purge tmp/core/activities/questInfo;
 }

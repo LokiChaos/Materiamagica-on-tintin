@@ -7,14 +7,14 @@
 #act {^A total of [%d] of [%d] members in formation.$} {
 	#var form[num] {%1};
 	#var form[max] {%2};
-	#class tmp_printform read core/forms/print.tt;
+	_Class load tmp/core/printform core/forms/rtlib/print.tt;
 	#if {$stateClient[muteLine]} {
 		#line gag
 	} {
 		_PrintForm
 	};
-	#class tmp_printform kill;
-	#class tmp_info_form kill;
+	_Class purge tmp/core/printform;
+	_Class purge tmp/core/info/form;
 }
 
 #act {^You are at position %w.$} {

@@ -12,9 +12,9 @@
 /* Action for Reagent Use {{{  */
 #act {%1 {flare|flares} brightly and {vanish|vanishes}!$} {
 	_event_raise {reagent_use} {%1};
-    #class tmp_reagent_use read core/reagents/use.tt;
+    _Class load tmp/core/reagent/use core/reagents/rtlib/use.tt;
     _reagentUse {%1};
-    #class tmp_reagent_use kill;
+    _Class purge tmp/core/reagent/use;
 } 
 /* }}} */
 
@@ -27,7 +27,7 @@
 		#echo {<149>You cannot do that as a shade.};
 	};
 	#else {
-		#class tmp_reagent_act read core/reagents/actions.tt;
+		_Class load tmp/core/reagent/act core/reagents/rtlib/actions.tt;
 		_Reagent%1;
 	};
 }

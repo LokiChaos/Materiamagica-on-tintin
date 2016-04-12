@@ -76,7 +76,7 @@
 	#if {$stateClient[muteLine]} {
 		#line gag;
 	};
-	#class tmp_info_form read core/forms/info.tt;
+	_Class load tmp/core/info/form core/forms/rtlib/info.tt;
 }
 
 #act {^%*'s %w Formation Consists of:$} {
@@ -86,7 +86,7 @@
 	#if {$stateClient[muteLine]} {
 		#line gag;
 	};
-	#class tmp_info_form read core/forms/info.tt;
+	_Class load tmp/core/info/form core/forms/rtlib/info.tt;
 }
 
 #alias {silentForm} {

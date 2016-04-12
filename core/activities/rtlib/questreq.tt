@@ -28,5 +28,5 @@
 		{${_quests[${_questInfo}][master]}};
 	};
 	#unvar __questEcho;
-	#class tmp_questRequest kill;
+	_Class purge tmp/core/activities/questRequest;
 }

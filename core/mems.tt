@@ -20,16 +20,16 @@
 	#var __mem[Temp][maxNum] {%1};
 	#var __mem[Temp][maxCpx] {%2};
 	#var __mem[Temp][Cpx] {0};
-	#class tmp_info_mem read core/mems/memsub.tt;
+	_Class load tmp/core/info/mem core/mems/rtlib/memsub.tt;
 	_GenerateMemTable;
-	_event_oneshot {prompt_post} {memClean} {#class tmp_info_mem kill; #nop
+	_event_oneshot {prompt_post} {memClean} {_Class purge tmp/core/info/mem; #nop
 	};
 }
 
 #act {^You don't currently have any spells memorized.} {
-	#class tmp_info_mem read core/mems/memsub.tt;
+	_Class load tmp/core/info/mem core/mems/rtlib/memsub.tt;
 	_NoMem;
-	#class tmp_info_mem kill;
+	_Class purge tmp/core/info/mem;
 }
 /* }}} */
 

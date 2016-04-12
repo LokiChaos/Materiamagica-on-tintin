@@ -21,5 +21,5 @@ _event_register {item} {reagGet} {_reagNoRoom};
 #alias {_cleanReagGet} {
 	#nop %1;
 	_event_remove_specific {item} {reagGet};
-	#class tmp_reagent_get kill; 
+	_Class purge tmp/core/reagent/get; 
 }

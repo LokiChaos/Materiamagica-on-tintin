@@ -54,11 +54,11 @@
 	#var _quests[%1][phCom] {0};
 	#var _questInfo {%1};
 
-	#class tmp_questInfo read core/activities/lib/questinfo.tt;
+	_Class load tmp/core/activites/questInfo core/activities/rtlib/questinfo.tt;
 	_event_oneshot {prompt_post} {zquestInfoClean} {_questInfoFin};
 
 	#if {"${_quest_status}" != "1"} {
-		#class tmp_questRequest read core/activities/lib/questreq.tt;
+		_Class load tmp/core/activities/questRequest core/activities/rtlib/questreq.tt;
 		_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
 	};
 };
@@ -112,7 +112,7 @@
 
 /* Requesting a Quest {{{ */
 #act {^You ask %* for a quest.$} {
-	#class tmp_questRequest read core/activities/lib/questreq.tt;
+	_Class load tmp/core/activites/questRequest core/activities/rtlib/questreq.tt;
 	_event_raise {activity_quest} {requesting} {%1};
 	_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
 }
@@ -120,7 +120,7 @@
 
 /* Turning in a Quest {{{ */
 #act {^You inform %* you have completed your quest '%*'.$} {
-	#class tmp_questComplete read core/activities/lib/questcom.tt;
+	_Class load tmp/core/activities/questComplete core/activities/rtlib/questcom.tt;
 	#var _questComplete[master] {%1};
 	#var _questComplete[name] {%2};
 	#unvar _quests[@quest_name_to_num{%2}];
@@ -152,8 +152,8 @@
 
 /* Wrapper for the quest command {{{ */
 #alias {quest} {
-	#class tmp_questCmd read core/activities/lib/questing.tt;
+	_Class load tmp/core/activities/questCmd core/activities/rtlib/questing.tt;
 	_quest %0;
-	#class tmp_questCmd kill;
+	_Class purge tmp/core/activities/questCmd;
 }
 /* }}} */

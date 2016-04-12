@@ -83,6 +83,6 @@
 	#unvar __reward;
 	#unvar _dailyTown;
 	#unvar _dailyRewards;
-	#class tmp_dailyReward kill;
+	_Class purge tmp/core/activites/dailyReward;
 }
 /* }}} */

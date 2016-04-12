@@ -68,9 +68,9 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 #alias {_UpdatePromptAffects} {
 	#nop %1;
-	#class tmp_affBar read core/prompt/affectbar.tt;
+	_Class load tmp/core/affBar core/prompt/rtlib/affectbar.tt;
 	#var prompt[2] {@PromptAffectBar{}};
-	#class tmp_affBar kill;
+	_Class purge tmp/core/affBar;
 }
 /* }}} */
 
@@ -108,7 +108,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 /* Default Prompt {{{ */
 #alias {_promptDefault} {
-	#class tmp_prompt_lines read core/prompt/subprompt.tt;
+	_Class load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
 	#regex {%1} {<%dhp %dsp %dst>} {
 		#var vitals[o] {$vitals[c]};
 		#var vitals[c][hp] {&1};
@@ -140,7 +140,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	#line gag;
 	#var stateChar[justLooking] 0;
 	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
-	#class tmp_prompt_lines kill;
+	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
 
@@ -158,7 +158,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 		#var prompt[1] {${prompt[1]}><099>};
 	};
 	#var stateChar[OnShip] 1;
-	#class tmp_prompt_lines read core/prompt/subprompt.tt;
+	_Class load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
 	#var prompt[1] {@left_right{ {$prompt[1]} {@promptFlagsBar{}} }};
 	#var prompt[-1] {@PromptTop{}};
 
@@ -169,7 +169,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	#line gag;
 	#var stateChar[justLooking] 0;
 	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
-	#class tmp_prompt_lines kill;
+	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
 
@@ -186,7 +186,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 			#unvar stateChar[inChatRoom];
 		};
 	};
-	#class tmp_prompt_lines read core/prompt/subprompt.tt;
+	_Class load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
 
 	#format prompt[1] {%-40s} {$prompt[1]};
 	#var prompt[1] {@left_right{ {$prompt[1]} {@promptFlagsBar{}} }};
@@ -198,7 +198,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	#line gag;
 	#var stateChar[justLooking] 0;
 	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
-	#class tmp_prompt_lines kill;
+	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
 

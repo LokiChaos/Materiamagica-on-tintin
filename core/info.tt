@@ -13,7 +13,7 @@
 
 /* Displays detailed Room Information (uses GMCP) {{{ */
 #alias {^roominfo} {
-	#read core/info/roominfo.tt;
+	#read core/info/rtlib/roominfo.tt;
 }
 /* }}} */
 
@@ -70,7 +70,7 @@
 	#if {"%1" == "%*silence%*"} {
 		#var stateClient[muteLine] 1;
 	};
-	#class tmp_info_sextant read core/info/sextant.tt;
+	_Class load tmp/core/info/sextant core/info/rtlib/sextant.tt;
 	
 	#switch {$navigation[sextantCont]}
 	{
@@ -114,8 +114,8 @@
 		You can also lookup the coordinates of worldgates and clanhalls
 */
 #alias {whereis} {
-	#class tmp_info_loc read core/info/locate.tt;
-	#format {__cmdStr} {%l} {%0};	
+	_Class load tmp/core/info/loc core/info/rtlib/locate.tt;
+	#format {__cmdStr} {%l} {%0};
 	#switch {"${__cmdStr}"} {
 		#case {"{wadering|sidhe|wandering sidhe}"} {
 			_LocWanderingSidhe;
@@ -147,7 +147,7 @@
 			_LocArea {%0};
 		};
 	};
-	#class tmp_info_loc kill;
+	_Class tmp/core/info/loc;
 	#unvar __cmdStr;
 }
 /* }}} */

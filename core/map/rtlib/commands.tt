@@ -36,11 +36,11 @@
 		};
 		#case {"remap"} {
 			#echo {<149>Forcibly updating room to GMCP data...};
-			#class tmp_map read core/map/mapper.tt;
+			_Class lead tmp/core/map core/map/rtlib/mapper.tt;
 			#map goto {$gmcp[Room][num]} {dig};
 			_mapperAddRoom;
 			_mapperLinkExits;
-			#class tmp_map kill;
+			_Class purge tmp/core/map kill;
 		};
 		#default {
 			#echo {Need to Do help};

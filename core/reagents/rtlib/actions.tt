@@ -24,7 +24,7 @@
 	  queueCmd {close &0} {0};
 	};
 	doQueue;
-	_Class purge temp/core/reagent/get;
+	_Class purge tmp/core/reagent/get;
 }
 /* }}} */
 

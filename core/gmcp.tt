@@ -78,6 +78,12 @@
 	#var gmcp[Char][gecho] {%0};
 	_event_raise {gmcp_char_gecho};	
 }
+
+#event {IAC SB GMCP char.affect_application_msg IAC SE} {
+	#var gmcp[Char][AffectApp] {%0};
+	_event_raise {gmcp_char_affect_app;
+}
+
 /* }}} */
 
  

@@ -1,4 +1,4 @@
 #nop
 
-#class tmpm_navpad_pad kill;
+_Class purge tmp/module/navpad_pad;
 #unvar _mod_navpad%*;

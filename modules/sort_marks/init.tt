@@ -2,5 +2,5 @@
 #nop DESC: Sorts Marks in 'score marks';
 
 #act {^You have obtained the following Marks:$} {
-	#class tmpm_sort_marks read modules/sort_marks/sort.tt;
+	_Class load tmp/module/sort_marks modules/sort_marks/sort.tt;
 }

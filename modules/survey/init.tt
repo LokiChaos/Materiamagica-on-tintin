@@ -2,6 +2,6 @@
 #nop DESC: Reformats survey output to ID locations & distances;
 
 #act {^You survey the area around you%*, and see:$} {
-	#class tmpm_survey read modules/survey/surveysub.tt;
+	_Class load tmp/module/survey modules/survey/surveysub.tt;
 	_event_oneshot {prompt_post} {surveyClean} {_mod_survey_clean};
 }

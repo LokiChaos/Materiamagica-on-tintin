@@ -8,5 +8,5 @@
 		};
 	};
 	#var _mod_killsTNL_lastExp {%2};
-	#class tmpm_killstnl kill;
+	_Class purge tmp/module/killstnl;
 }

@@ -1,4 +1,4 @@
-#nop
+#nop cleanup.tt;
 
 _promptFlagDel {BOT};
-#class tmpm_bag_of_tricks_get kill;
+_Class purge tmp/module/bagoftricks/get;

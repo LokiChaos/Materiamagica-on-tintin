@@ -16,6 +16,6 @@
 	#unvar __bNum;
 	#unvar _mod_sort_bosses_list;
 	#var stateClient[autoContinue] 0;
-	#class tmpm_sort_bosses kill;
+	_Class purge tmp/module/bossSort;
 }
 

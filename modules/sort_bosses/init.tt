@@ -2,5 +2,5 @@
 #nop DESC: Sorts Bosses in personal log;
 
 #act {^You have killed:$} {
-	#class tmpm_sort_bosses read modules/sort_bosses/sort.tt;
+	_Class load tmp/module/bossSort modules/sort_bosses/sort.tt;
 }

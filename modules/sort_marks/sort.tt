@@ -22,5 +22,5 @@
 	#unvar __markPrint;
 	#unvar _mod_sort_marks_list;
 	#var stateClient[autoContinue] 0;
-	#class tmpm_sort_marks kill;
+	_Class purge tmp/module/sort_marks;
 } {4}

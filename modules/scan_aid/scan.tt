@@ -31,6 +31,6 @@
 #alias {_mod_scan_aid_clean} {
 	#nop %1;
 	#unvar __mod_scan_aid_distTbl;
-	#class tmpm_scan_aid kill;
+	_Class purge tmp/module/scan_aid;
 }
 

@@ -44,7 +44,7 @@ _event_register {tick_sync} {sync} {_SyncTick};
 
 /* Downloads sysinfo.txt and parses the information into tintin */
 #alias {_UpdateSysInfo} {
-	_Class load tmp/core/sysinfo read core/tick/rtlib/sysinfo.tt;
+	_Class load tmp/core/sysinfo core/tick/rtlib/sysinfo.tt;
 	_UpdateSystemInfo;
 	_Class purge tmp/core/sysinfo;
 }
@@ -52,7 +52,7 @@ _event_register {tick_sync} {sync} {_SyncTick};
 /* Prevents spamming iota with requests */
 #alias {_GetSysinfo} {
 
-	_Class load tmp/core/sysinfo read core/tick/rtlib/sysinfo.tt;
+	_Class load tmp/core/sysinfo  core/tick/rtlib/sysinfo.tt;
 	_GetSysteminfo;
 	_Class purge tmp/core/sysinfo;
 }

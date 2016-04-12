@@ -136,8 +136,12 @@
 
 #act {^Excepting defenses and dynamic modifiers, you will hit %d% of the time.} {
 	#var charScore[toHit]      {%1};
-	_Class purge tmp/core/info/eq;
-	_Class purge tmp/core/silentEq;
+	#if {@classGetState{tmp/core/info/eq}} {
+		_Class purge tmp/core/info/eq;
+	};
+	#if {@classGetState{tmp/core/silentEq}} {
+		_Class purge tmp/core/silentEq;
+	};
 	#if {$stateClient[muteLine]} {
 		#line {gag};
 	};

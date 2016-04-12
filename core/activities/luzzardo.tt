@@ -3,6 +3,7 @@
 	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
 */
 #nop CLASS: acitivies;
+#nop REQUIRES: core/activities;
 
 /* Game Strings {{{
 Luzzardo Malvenu's Lothario Hideaway

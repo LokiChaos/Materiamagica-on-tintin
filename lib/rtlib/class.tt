@@ -197,7 +197,7 @@
 	#if {"%1" != ""} {
 		#echo {<119>Filtering with '<099>%s<119>':<099>} {%1};
 	};
-	#echo {<149>= Class ============================== ( L/T ) = Path ==========================<099>};
+	#echo {<149>= Class ==================== ( L/T ) = Path ====================================<099>};
 	#var _:CCtemp[loadCount] {0};
 	#foreach {${_Classes[]}} {_:CCtemp[cIdx]} {
 		#regex {${_Classes[${_:CCtemp[cIdx]}][name]}} {%1} {
@@ -205,7 +205,7 @@
 			#foreach {${_Classes[${_:CCtemp[cIdx]}][path][]}} {_:CCtemp[cpIdx]} {
 				#math {_:CCtemp[plc]} {${_:CCtemp[plc]} + ${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][l]}};
 			};
-			#echo {%s  %-38s%+2s/%-2s    %s%s}
+			#echo {%s  %-28s%+2s/%-2s    %s%s}
 			      {@printClassColor{{&{_Classes[${_:CCtemp[cIdx]}][path][]}} {${_:CCtemp[plc]}}}}
 			      {${_Classes[${_:CCtemp[cIdx]}][name]}}
 			      {${_:CCtemp[plc]}}
@@ -214,7 +214,7 @@
 			      {${_Classes[${_:CCtemp[cIdx]}][path][1][p]}};
 			#foreach {${_Classes[${_:CCtemp[cIdx]}][path][]}} {_:CCtemp[cpIdx]} {
 				#if {"${_:CCtemp[cpIdx]}" != "1"} {
-					#echo {                                                 %s%s}
+					#echo {                                       %s%s}
 					      {@printPathColor{${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][l]}}}
 					      {${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][p]}};
 				};
@@ -222,7 +222,7 @@
 		};
 		#math {_:CCtemp[loadCount]} {${_:CCtemp[loadCount]} + ${_Classes[${_:CCtemp[cIdx]}][loaded]}};
 	};
-	#echo {<149>====================================== (<099>%+2s/%-2s<149>) =================================<099>} 
+	#echo {<149>============================ (<099>%+2s/%-2s<149>) ===========================================<099>};
 	      {${_:CCtemp[loadCount]}} {${_:CCtemp[cIdx]}};
 	#unvar _:CCtemp;
 }

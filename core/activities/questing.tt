@@ -3,6 +3,8 @@
 	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
 */
 #nop CLASS: activities;
+#nop REQUIRES: core/activities;
+
 
 /* Quest Status (With Multiple Quests) {{{ */
 #act {^Quest #%d: %* (%d/%d goal{|s} complete).$} {

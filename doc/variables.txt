@@ -18,7 +18,7 @@ $sessionName
 	name, but does not have to be.  It generally is used for determining file
 	paths for char/$sessionName/* and tmp/*.$sessionName.
 
-stateClient
+$stateClient
 	Contains the client's state for several things. You can use these to
 	gather information but it is not advised to change these unless noted
 	otherwise.

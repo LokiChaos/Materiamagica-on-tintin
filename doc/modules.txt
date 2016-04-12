@@ -23,12 +23,15 @@ variables.  Again, it is good practice to clean those as soon as possible.
 Module's internal file structure within its directory is left open, the only
 required files are:
 	modules/<mod name>/init.tt
-	modules/<mod name>/cleanup.tt
-	modules/<mod name>/desc
+
+This file must have two lines
+
+	#nop MODULES: <module name>;
+	#nop DESC: <a short, single line, description of the module>;
 
 The following OPTIONAL files have special meanings:
-	modules/<mod name>/deps
 	modules/<mod name>/help
+	modules/<mod name>/cleanup.tt
 
 Aside from the above files a module is free to have any other files for it's
 use within its directory.  It may even have subdirectories, binaries, 
@@ -37,12 +40,8 @@ external script files, data tables, or additional tintin script files.
 Formats:
 	init.tt - A tintin++ script file, is called when loading a module.
 	cleanup.tt - A tintin++ script file, it is called with removing a module.
-	desc - a single plaintext line that describes the module in 50-chars or
-	        less.
 	help - a plaintext file that will be shown when helpmod <mod name> is
 	        called.  You /may/ use tintin color codes.
-	deps - a plaintext file that contains all dependencies, one per line, just
-	        the module name.
 
 LOADING A MODULE:
 When a module is loaded the modules/<mod name>/init.tt Will be read in

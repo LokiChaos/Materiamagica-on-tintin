@@ -68,7 +68,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 #alias {_UpdatePromptAffects} {
 	#nop %1;
-	_Class load tmp/core/affBar core/prompt/rtlib/affectbar.tt;
+	_Class !load tmp/core/affBar core/prompt/rtlib/affectbar.tt;
 	#var prompt[2] {@PromptAffectBar{}};
 	_Class purge tmp/core/affBar;
 }
@@ -108,7 +108,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 /* Default Prompt {{{ */
 #alias {_promptDefault} {
-	_Class load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
+	_Class !load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
 	#regex {%1} {<%dhp %dsp %dst>} {
 		#var vitals[o] {$vitals[c]};
 		#var vitals[c][hp] {&1};
@@ -158,7 +158,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 		#var prompt[1] {${prompt[1]}><099>};
 	};
 	#var stateChar[OnShip] 1;
-	_Class load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
+	_Class !load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
 	#var prompt[1] {@left_right{ {$prompt[1]} {@promptFlagsBar{}} }};
 	#var prompt[-1] {@PromptTop{}};
 
@@ -186,7 +186,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 			#unvar stateChar[inChatRoom];
 		};
 	};
-	_Class load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
+	_Class !load tmp/core/prompt/lines core/prompt/rtlib/subprompt.tt;
 
 	#format prompt[1] {%-40s} {$prompt[1]};
 	#var prompt[1] {@left_right{ {$prompt[1]} {@promptFlagsBar{}} }};

@@ -6,20 +6,23 @@
 
 #alias {__Class} {
 	#switch {"%1"} {
+		#case {"!load"} {
+			__Class_load_path {%2} {%3};
+		};
 		#case {"load"} {
 			#switch {@iclassGetState{%2}} {
 				#case {1} {
-					__Class_load_path {%2} {%3};
+					__Class_safe_load_path {%2} {%3};
 				};
 				#case {0} {
 					#if {"%3" == ""} {
 						__Class_load_list {%2};
 					} {
-						__Class_load_path {%2} {%3};
+						__Class_safe_load_path {%2} {%3};
 					};
 				};
 				#case {-1} {
-					__Class_load_path {%2} {%3};
+					__Class_safe_load_path {%2} {%3};
 				};
 			};
 		};
@@ -90,7 +93,7 @@
 	#unvar _:CCtemp;
 }
 
-#alias {__Class_load_path} {
+#alias {__Class_safe_load_path} {
 	#script {result} {if [ -f %2 ];then echo 1;else echo 0;fi};
 	#if {$result[1] && "%2" != ""} {
 		#class {%1} read {%2};
@@ -100,6 +103,13 @@
 	} {
 		@Print{ {ERROR} {file '<099>%2<>' does not exist.} };
 	};
+}
+
+#alias {__Class_load_path} {
+	#class {%1} read {%2};
+	__Class_list {%1} {%2};
+	@Print{ {VERBOSE} {Loaded file '%2' as class '%1' (No File Check)} };
+	_event_raise {class} {loaded} {%1} {%2};
 }
 
 #alias {__Class_fakeload} {
@@ -205,7 +215,7 @@
 			#foreach {${_Classes[${_:CCtemp[cIdx]}][path][]}} {_:CCtemp[cpIdx]} {
 				#math {_:CCtemp[plc]} {${_:CCtemp[plc]} + ${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][l]}};
 			};
-			#echo {%s  %-28s%+2s/%-2s    %s%s}
+			#echo {%s  %-28s%+2s/%-2s    %s%.38s}
 			      {@printClassColor{{&{_Classes[${_:CCtemp[cIdx]}][path][]}} {${_:CCtemp[plc]}}}}
 			      {${_Classes[${_:CCtemp[cIdx]}][name]}}
 			      {${_:CCtemp[plc]}}
@@ -214,7 +224,7 @@
 			      {${_Classes[${_:CCtemp[cIdx]}][path][1][p]}};
 			#foreach {${_Classes[${_:CCtemp[cIdx]}][path][]}} {_:CCtemp[cpIdx]} {
 				#if {"${_:CCtemp[cpIdx]}" != "1"} {
-					#echo {                                       %s%s}
+					#echo {                                       %s%.38s}
 					      {@printPathColor{${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][l]}}}
 					      {${_Classes[${_:CCtemp[cIdx]}][path][${_:CCtemp[cpIdx]}][p]}};
 				};

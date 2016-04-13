@@ -7,8 +7,9 @@
 
 /* Queue Functions {{{ */
 
-#alias {std_queue_push} {
+#function {std_queue_push} {
 	#list {%1} {insert} {-1} {%2};
+	#return {#nop ;};
 }
 
 #function {std_queue_pop} {
@@ -24,12 +25,14 @@
 	};
 }
 
-#alias {std_queue_purge} {
+#function {std_queue_purge} {
 	#var {%1} {};
+	#return {#nop ;};
 }
 
-#alias {std_queue_delete} {
+#function {std_queue_delete} {
 	#unvar {%1};
+	#return {#nop ;};
 }
 
 #function {std_queue_depth} {
@@ -38,8 +41,9 @@
 /* }}} */
 
 /* Stack Functions {{{ */
-#alias {std_stack_push} {
+#function {std_stack_push} {
 	#list {%1} {insert} {1} {%2};
+	#return {#nop ;};
 }
 
 #function {std_stack_pop} {
@@ -55,12 +59,14 @@
 	};
 }
 
-#alias {std_stack_purge} {
+#function {std_stack_purge} {
 	#var {%1} {};
+	#return {#nop ;};
 }
 
-#alias {std_stack_delete} {
+#function {std_stack_delete} {
 	#unvar {%1};
+	#return {#nop ;};
 }
 
 #function {std_stack_depth} {

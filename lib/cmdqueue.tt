@@ -31,11 +31,11 @@
 }
 
 #alias {queueCmd} {
-	std_queue_push cmdQueue {{cmd}{%1}{delay}{%2}};
+	@std_queue_push{ {cmdQueue} {{cmd}{%1}{delay}{%2}} };
 }
 
 #alias {clearCmdQueue} {
-	std_queue_delete cmdQueue;
+	@std_queue_delete{cmdQueue};
 }
 
 #alias {abortCmdQueue} {
@@ -61,7 +61,7 @@
 		};
 		#unvar __poppedCmd;
 	} {
-		std_queue_delete cmdQueue;
+		@std_queue_delete{cmdQueue};
 		_event_remove_specific {prompt_post} {quickQueue};
 		_event_raise {cmdQueue_end};
 	};

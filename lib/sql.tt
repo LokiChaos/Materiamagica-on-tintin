@@ -11,8 +11,9 @@
   db_submit works the same way as #format
   NB: You must enclose each argument in {}
 
-  _db_submit {returnvar} {db file} {sql expression} [{format-style args}]
+  std_db_submit {returnvar} {db file} {sql expression} [{format-style args}]
        {select * from tablename where fieldname = '%s'} {match text}
+  @std_db_submit{ {db file} {sql expression} [{format-style args}] }
 
   Parses the output and puts it into an associative array:
        $returnvar[recordnumber][fieldname]
@@ -20,6 +21,10 @@
        #var {varname} {$returnvar[1][HP]}
 	}}}
 */
+
+#function {std_db_submit} {
+	std_db_submit result %0;
+}
 
 #alias {std_db_submit} {
 	#if {"%0" != ""} {

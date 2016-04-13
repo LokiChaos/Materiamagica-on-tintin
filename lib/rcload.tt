@@ -52,7 +52,7 @@
 			#var _:RCCtemp[deps] {@scriptBuildDepList{{${_:RCCtemp[files]}}}};
 			#var _:RCCtemp[sort] {@scriptDepSort{{${_:RCCtemp[deps]}}}};
 			#foreach {${_:RCCtemp[sort][]}} {_:RCCtemp[idx]} {
-				_SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
+				SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
 			};
 		};
 		#unvar _:RCCtemp;
@@ -67,7 +67,7 @@
 	#var _:RCCtemp[deps] {@scriptBuildDepList{{${_:RCCtemp[over]}}}};
 	#var _:RCCtemp[sort] {@scriptDepSort{{${_:RCCtemp[deps]}}}};
 	#foreach {${_:RCCtemp[sort][]}} {_:RCCtemp[idx]} {
-		_SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
+		SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
 	};
 	#unvar _:RCCtemp;
 }

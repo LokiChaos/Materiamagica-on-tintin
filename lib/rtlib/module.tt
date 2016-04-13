@@ -127,6 +127,6 @@
 			#echo {${_:MCtemp[help][&0]}};
 		};
 	} {
-		@Print{} {INFO} {<139>Module '%1' has no helpfile!} };
+		@Print{ {INFO} {<139>Module '%1' has no helpfile!} };
 	};
 }

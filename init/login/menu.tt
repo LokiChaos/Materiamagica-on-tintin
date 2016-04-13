@@ -63,7 +63,7 @@
 	#unvar charList;
 	#undelay autoLogin;
 	_Class purge init/login/menu;
-	#class init/menuAlias kill;
+	_Class purge init/login/menuOpt;
 	_Class load init/login/telopt init/login/telopt.tt;
 	#session {%1} {%3} {%4};
 }
@@ -89,18 +89,7 @@
 
 #alias {_loadChars} {
 	#unvar charList;
-	#class init/menuAlias open;
-	#read etc/chars.tt;
-
-	#foreach {$charList[]} {__idx} {
-		#line substitute variables {
-			#alias {${__idx}} {_loginMM {$charList[${__idx}][name]} {$charList[${__idx}][cname]} {$charList[${__idx}][server]} {$charList[${__idx}][port]} {$charList[${__idx}][menu]}};
-		};
-	};
-
-	#line substitute variables {#alias {_loginAuto} {_loginMM  {$charList[1][name]} {$charList[1][cname]} {$charList[1][server]} {$charList[1][port]};} {$charList[1][menu]}};
-	#unvar __idx;
-	#class init/menuAlias close;
+	_Class load init/login/menuOpt init/login/menuOptions.tt;
 };
 
 #var _reconnect[attMade] {0};

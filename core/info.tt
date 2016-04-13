@@ -19,22 +19,8 @@
 
 /* Recall Where Augmentation {{{ */
 #alias {recall where} {
-	#class tmp_info_recall open;
-	#gag {^Available recall points:$};
-	#act {[1 ] Nearest area recall point (%* in %*)$} {
-		#echo {<149>You are in the recall zone for <099>%%2<149>.<099>};
-		#var navigation[recall_Room] {%1};
-		#var navigation[recall_Area] {%2};
-		#line gag;
-	} {4};
-	#gag {^[%W]};
-	#gag {^* Your default recall point is:};
-	#act {^* It will cost [%*] gp to change your default recall point.} {
-		#line gag;
-		#class tmp_info_recall kill;
-	};
-	#class tmp_info_recall close;
-	#send {recall list}
+	_Class load tmp/core/info/recall core/info/rtlib/recall.tt;
+	#send {recall list};
 }
 /* }}} */
 

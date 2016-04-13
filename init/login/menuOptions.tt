@@ -1,0 +1,16 @@
+#nop init/login/menuOptions.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: init/login/menuOpt;
+
+#read etc/chars.tt;
+
+#foreach {$charList[]} {__idx} {
+	#line substitute variables {
+		#alias {${__idx}} {_loginMM {$charList[${__idx}][name]} {$charList[${__idx}][cname]} {$charList[${__idx}][server]} {$charList[${__idx}][port]} {$charList[${__idx}][menu]}};
+	};
+};
+
+#line substitute variables {#alias {_loginAuto} {_loginMM  {$charList[1][name]} {$charList[1][cname]} {$charList[1][server]} {$charList[1][port]};} {$charList[1][menu]}};
+#unvar __idx;

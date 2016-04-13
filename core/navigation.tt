@@ -28,7 +28,7 @@
 /* }}} */
 
 /* Internal - Performs calculation & lookups for moon data {{{  */
-_event_register {sysinfo} {moons} {_MoonCalc};
+_Event_register {sysinfo} {moons} {_MoonCalc};
 
 #alias {_MoonCalc} {
 	#nop %1;
@@ -54,49 +54,49 @@ _event_register {sysinfo} {moons} {_MoonCalc};
    These echos allow syncing the ticker and Alyrian time */
 #act {^The land becomes alive as the sun breaks free of the horizon.$} {
 	#var gtime[time] 299;
-	_event_raise {time} {sunrise};
-	_event_raise {tick_sync};
+	_Event_raise {time} {sunrise};
+	_Event_raise {tick_sync};
 }
 
 #act {^The sun rises in the east, sending molten light across the land.$} {
 	#var gtime[time] 359;
-	_event_raise {time} {morning};
-	_event_raise {tick_sync};
+	_Event_raise {time} {morning};
+	_Event_raise {tick_sync};
 }
 
 #act {^The sun has reached its zenith directly overhead.$} {
 	#var gtime[time] 719;
-	_event_raise {time} {noon};
-	_event_raise {tick_sync};
+	_Event_raise {time} {noon};
+	_Event_raise {tick_sync};
 }
 
 #act {^Light begins to dim as the sun sets in the west.$} {
 	#var gtime[time] 1079;
-	_event_raise {time} {evening};
-	_event_raise {tick_sync};
+	_Event_raise {time} {evening};
+	_Event_raise {tick_sync};
 }
 
 #act {^The last glimmer of sunlight fades, and the land is dark.$} {
 	#var gtime[time] 1139;
-	_event_raise {time} {sunset};
-	_event_raise {tick_sync};
+	_Event_raise {time} {sunset};
+	_Event_raise {tick_sync};
 }
 /* }}} */
 
 /* Wind and weather strings {{{ */
 #act {^The wind changes direction, now coming from the %w.$} {
 	#var nagivation[wind] {%1};
-	_event_raise {wind_direction} {%1};
+	_Event_raise {wind_direction} {%1};
 }
 
 #act {^The wind changes direction to blow from the %w.$} {
 	#var nagivation[wind] {%1};
-	_event_raise {wind_direction} {%1};	
+	_Event_raise {wind_direction} {%1};	
 }
 
 #act {^The wind has stopped.$} {
 	#var nagivation[wind] {calm};
-	_event_raise {wind_direction} {calm};
+	_Event_raise {wind_direction} {calm};
 }
 /* }}} */
 
@@ -130,12 +130,12 @@ _event_register {sysinfo} {moons} {_MoonCalc};
 	#var stateChar[Flying] 1;
 	#var navigation[flightBearing] {%1};
 	#math navigation[click] {$navigation[click] + 1};
-	_event_raise {nav_fly_click};
+	_Event_raise {nav_fly_click};
 }
 /* }}} */
 
 /* Update ZoneType and Repop Time For new Zone {{{ */
-_event_register {nav_changezone} {updateNav} {_UpdateZone};
+_Event_register {nav_changezone} {updateNav} {_UpdateZone};
 
 #alias {_UpdateZone} {
 	#var navigation[repop] {@repopTime{%2}};
@@ -152,4 +152,4 @@ _event_register {nav_changezone} {updateNav} {_UpdateZone};
 #act {^VACUUM INVOKE STRING$}
 	{#if {$navigation[blinkRecall]} {recall where};};
 #act {^You feel a rushing sense of motion...$}
-	{_event_raise {cast} {word of recall};}
+	{_Event_raise {cast} {word of recall};}

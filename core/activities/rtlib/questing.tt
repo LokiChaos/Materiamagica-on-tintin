@@ -10,7 +10,7 @@
 	};
 	#elseif {"%1" == "status"} {
 		#var _quest_status {1};
-		_event_oneshot {prompt_post} {questStatusClear} {
+		_Event_oneshot {prompt_post} {questStatusClear} {
 				#unvar _quest_status;
 				#nop
 			};

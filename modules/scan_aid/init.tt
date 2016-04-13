@@ -3,7 +3,7 @@
 
 #alias {sca{|n}} {
 	_Class load tmp/module/scan_aid  modules/scan_aid/scan.tt;
-	_event_oneshot {prompt_post} {scan_aidClean} {_mod_scan_aid_clean};
+	_Event_oneshot {prompt_post} {scan_aidClean} {_mod_scan_aid_clean};
 	#send {%0};
 };
 

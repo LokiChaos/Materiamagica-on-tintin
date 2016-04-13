@@ -17,7 +17,7 @@
 	#echo {Getting Reagents...};
 	#var stateChar[have_reagents] 0;
 	_Class load tmp/core/reagent/get core/reagents/rtlib/get.tt;
-	_event_oneshot {cmdQueue_end} {getReag} {_cleanReagGet};
+	_Event_oneshot {cmdQueue_end} {getReag} {_cleanReagGet};
 	#forall {$reagent[producer]} {
 	  queueCmd {open &0} {0};
 	  queueCmd {get all.reagent &0} {0};
@@ -29,7 +29,7 @@
 
 /* Sort Reagents Into Containers {{{ */
 #alias {_ReagentSort} {
-	_event_oneshot {cmdQueue_end} {sortReag} {_Class purge tmp/core/reagent/sort};
+	_Event_oneshot {cmdQueue_end} {sortReag} {_Class purge tmp/core/reagent/sort};
 	_Class load tmp/core/reagent/sort core/reagents/rtlib/sort.tt;
 	#forall {fire;water;earth;air;astral;ethereal} {
 		#forall {$reagent[store][&0]} {

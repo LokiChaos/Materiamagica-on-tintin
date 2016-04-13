@@ -7,7 +7,7 @@
 
 #act {^Your a bag of tricks glows white as it accumulates possessions from the ether.} {
 	#math stateChar[have_bot] {$stateChar[have_bot] + 1};
-	_event_raise {bot_produce};
+	_Event_raise {bot_produce};
 }
 
 #alias {BoTGet} {
@@ -18,7 +18,7 @@
 		queueCmd {close '${__c}.a bag of tricks'} {0};
 	};
 	#unvar __c;
-	_event_oneshot {cmdQueue_end} {botClean} {_CleanBot};
+	_Event_oneshot {cmdQueue_end} {botClean} {_CleanBot};
 	doQueue;
 	#var stateChar[have_bot] 0;
 }

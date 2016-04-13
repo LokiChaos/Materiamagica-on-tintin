@@ -1,3 +1,3 @@
 #nop
 
-_event_remove_specific {slain_opponent} {mod_killstnl};
+_Event_remove_specific {slain_opponent} {mod_killstnl};

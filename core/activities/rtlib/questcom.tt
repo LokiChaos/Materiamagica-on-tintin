@@ -5,7 +5,7 @@
 #nop CLASS: activities/questcom;
 
 #act {^%* tells you, 'You didn't complete any parts of your quest, I'm sorry.'$} {
-	_event_raise {activity_quest} {complete} {none} {${_questComplete[name]}};
+	_Event_raise {activity_quest} {complete} {none} {${_questComplete[name]}};
 	#format {__questEcho} {<049>Rejected Quest '%s' from %s} {${_questComplete[name]}} {${_questComplete[master]}};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
@@ -17,7 +17,7 @@
 	        {${_questComplete[master]}} {${_questComplete[name]}} {%2};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
-	_event_raise {activity_quest} {complete} {partial} {${_questComplete[name]}};
+	_Event_raise {activity_quest} {complete} {partial} {${_questComplete[name]}};
 	#unvar _questComplete;
 
 }
@@ -27,7 +27,7 @@
 	        {${_questComplete[master]}} {${_questComplete[name]}} {%2} {%3};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
-	_event_raise {activity_quest} {complete} {full} {${_questComplete[name]}};
+	_Event_raise {activity_quest} {complete} {full} {${_questComplete[name]}};
 	#unvar _questComplete;
 }
 

@@ -18,13 +18,13 @@
 
 #alias {_affectChange} {
 	#var stateAffects[%1] {%2};
-	_event_raise affect_change {%1} {%2};
+	_Event_raise affect_change {%1} {%2};
 	#var __affName {%1};
 	#replace {__affName} { } {_};
 	#if {"%2" == "0"} {
-		_event_raise {affect_off_${__affName}};
+		_Event_raise {affect_off_${__affName}};
 	} {
-		_event_raise {affect_on_${__affName}};
+		_Event_raise {affect_on_${__affName}};
 	};
 	#unvar __affName;
 }

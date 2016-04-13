@@ -47,8 +47,8 @@
 	#return {#nop ;};
 }
 
-_event_register {session_connect}    {remember} {_std_remember_load};
-_event_register {session_disconnect} {remember} {_std_remember_save};
+_Event_register {session_connect}    {remember} {_std_remember_load};
+_Event_register {session_disconnect} {remember} {_std_remember_save};
 
 /* Internal Remeber System Helpers {{{ */
 #alias {_std_remember_save} {

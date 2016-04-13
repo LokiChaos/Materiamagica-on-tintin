@@ -26,7 +26,7 @@
 		#nop TODO Save coordinates here;
 		#echo {<110>Stop: Aborting Speedwalk.\n<099>Resume with 'run'};
 		_SpeedWalkCleanup;
-		_event_raise {speedwalk_aborted};
+		_Event_raise {speedwalk_aborted};
 	} {
 		#echo {<110>Stop: You're not on a speedwalk.};
 	};
@@ -65,11 +65,11 @@
 {
 	#if {@std_queue_depth{_pathQueue}} {
 		#echo {<159>Loading next state of speedwalk...<099>};
-		_event_raise {speedwalk_loadnext};
+		_Event_raise {speedwalk_loadnext};
 		_loadPathQueue;
 	} {
 		_SpeedWalkCleanup;
-		_event_raise {speedwalk_finished};
+		_Event_raise {speedwalk_finished};
 	};
 }
 
@@ -83,7 +83,7 @@
 /* Setup called before starting speedwalking */
 #alias {_SpeedWalkRun}
 {
-	_event_raise {speedwalk_start};
+	_Event_raise {speedwalk_start};
 	#var stateChar[is_onSpeedWalk] {1};
     #send {set superbrief on};
     #path walk;
@@ -107,7 +107,7 @@
 /* Check to see if you should take the next step
    if you've been attacked, or fell abort
 */
-_event_register {speedStep} {sw_walker} {_SpeedWalkStep};
+_Event_register {speedStep} {sw_walker} {_SpeedWalkStep};
 
 #alias {_SpeedWalkStep}
 {
@@ -116,7 +116,7 @@ _event_register {speedStep} {sw_walker} {_SpeedWalkStep};
 	{
 	 #echo {<110>You have been attacked! Aborting Speedwalk!\n<099>Resume with 'run'};
 		_SpeedWalkCleanup;
-		_event_raise {speedwalk_aborted};
+		_Event_raise {speedwalk_aborted};
 	} {
 		#path walk;
 	};

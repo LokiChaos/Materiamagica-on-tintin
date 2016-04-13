@@ -38,9 +38,9 @@ roomterrain: {terrain}{$gmcp[Room][terrain]}
 };
 
 /* Hook on gmcp_room event (gmcp.tt) */
-_event_register {gmcp_room} {mapper} {_mapGMCP};
+_Event_register {gmcp_room} {mapper} {_mapGMCP};
 /* Hook on nav_changezone event (gmcp.tt) */
-_event_register {nav_changezone} {mapper} {_mapChangeZone};
+_Event_register {nav_changezone} {mapper} {_mapChangeZone};
 
 /* Main Mapping Routines {{{ */
 #alias {_mapGMCP} {

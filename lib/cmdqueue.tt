@@ -40,8 +40,8 @@
 
 #alias {abortCmdQueue} {
 	#undelay {queueWait};
-	_event_remove_specific {prompt} {quickQueue};
-	_event_raise {cmdQueue_abort};
+	_Event_remove_specific {prompt} {quickQueue};
+	_Event_raise {cmdQueue_abort};
 }
 /* }}} */
 
@@ -53,17 +53,17 @@
 		${__poppedCmd[cmd]};
 		#if {&{cmdQueue[]} > 1} {
 			#if {"${__poppedCmd[delay]}" != "0" } {
-				_event_remove_specific {prompt} {quickQueue};
+				_Event_remove_specific {prompt} {quickQueue};
 				#delay {queueWait} {_PopQueue} {${__poppedCmd[delay]}}
 			} {
-				_event_register {prompt_post} {quickQueue} {_PopQueue};
+				_Event_register {prompt_post} {quickQueue} {_PopQueue};
 			};
 		};
 		#unvar __poppedCmd;
 	} {
 		@std_queue_delete{cmdQueue};
-		_event_remove_specific {prompt_post} {quickQueue};
-		_event_raise {cmdQueue_end};
+		_Event_remove_specific {prompt_post} {quickQueue};
+		_Event_raise {cmdQueue_end};
 	};
 }
 /* }}} */

@@ -11,11 +11,11 @@
 
 	Spells you will need to impliment the tracking yourself, ideally via skilluse event.
 		eg: 
-			_event_raise {skilluse} {<spell name>};
+			_Event_raise {skilluse} {<spell name>};
 
 */
 
-/*_event_register {skilluse} {useCounter} {_IncUses %1;#nop}; */
+/*_Event_register {skilluse} {useCounter} {_IncUses %1;#nop}; */
 
 #alias {_IncUses} {
 	@std_value_restore{uses};

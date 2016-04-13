@@ -8,7 +8,7 @@
 	Synchronises the tick timer to the game's ticks.
 	Do NOT call directly, rather if you wish to add
 	and event to sync with, raises the event.
-	_event_raise {synctick};
+	_Event_raise {synctick};
 */
 
 #if {"${_syncLimit}" != "1"} {

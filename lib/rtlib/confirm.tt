@@ -6,32 +6,32 @@
 
 /* Hook Affirmitive Response */
 #macro {y} {
-	_event_raise {confirm} {y};
+	_Event_raise {confirm} {y};
 }
 
 /* Hook Negativetive Response */
 #macro {n} {
-	_event_raise {confirm} {n};
+	_Event_raise {confirm} {n};
 }
 
 /* Set Timeout, if one exists */
 #if {&{__confirm[timeout]}} {
 	#delay {confirm_timeout} {
-		_event_raise {confirm} {t};
+		_Event_raise {confirm} {t};
 	} {${__confirm[timeout]}};
 }
 
 /* Reprint Conformation prompt */
-_event_register {prompt_pre} {confirm_reprint} {
+_Event_register {prompt_pre} {confirm_reprint} {
 	#echo {${__confirm[prompt]}};#nop %1
 };
 
 /* Cleanup tmp class on any response or timeout */
-_event_oneshot {confirm} {zzzzconfirm_cleanup} {confirm_cleanup};
+_Event_oneshot {confirm} {zzzzconfirm_cleanup} {confirm_cleanup};
 
 #alias {confirm_cleanup} {
 	#nop %1;
-	_event_remove_specific {prompt_pre} {confirm_reprint};
+	_Event_remove_specific {prompt_pre} {confirm_reprint};
 	#undelay confirm_timeout;
 	_Class purge tmp/confirm;
 	#unvar __confirm;

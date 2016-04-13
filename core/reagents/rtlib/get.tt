@@ -10,7 +10,7 @@
 #gag {^$};
 
 /* For each bag that we can't empty incriment the counter by one */
-_event_register {item} {reagGet} {_reagNoRoom};
+_Event_register {item} {reagGet} {_reagNoRoom};
 
 #alias {_reagNoRoom} {
 	#if {"%2" == "inv_noroom"} {
@@ -20,6 +20,6 @@ _event_register {item} {reagGet} {_reagNoRoom};
 
 #alias {_cleanReagGet} {
 	#nop %1;
-	_event_remove_specific {item} {reagGet};
+	_Event_remove_specific {item} {reagGet};
 	_Class purge tmp/core/reagent/get; 
 }

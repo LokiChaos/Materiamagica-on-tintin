@@ -25,14 +25,14 @@
 	#var __affName {%1};
 	#replace {__affName} { } {_};
 	#if {"%2" == "0"} {
-		_event_raise {affect_room_off_${__affName}};
+		_Event_raise {affect_room_off_${__affName}};
 	};
 	#elseif {"%2" == "1" } {
-		_event_raise {affect_room_on_${__affName}};
+		_Event_raise {affect_room_on_${__affName}};
 	};
 	#elseif {"%2" == "2" } {
 		#if {$stateChar[justLooking] != 1} {
-			_event_raise {affect_room_active_${__affName}};
+			_Event_raise {affect_room_active_${__affName}};
 		};
 	};
 	#unvar __affName;

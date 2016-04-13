@@ -8,22 +8,22 @@
 /* REWARDS pp/qp/bp/exp/folklore {{{ */
 #act {^You gain %d practice{s|}!} {
 	_CaptureLog {<179>%0} {$capPath[act]};
-	_event_raise {activity_rewards} {practices} {%1};
+	_Event_raise {activity_rewards} {practices} {%1};
 }
 
 #act {^You gain %W experience point{s|}!} {
 	_CaptureLog {<179>%0} {$capPath[act]};
-	_event_raise {activity_rewards} {experience points} {%1};
+	_Event_raise {activity_rewards} {experience points} {%1};
 }
 
 #act {^You gain %d quest point{s|}!} {
 	_CaptureLog {<179>%0} {$capPath[act]};
-	_event_raise {activity_rewards} {quest points} {%1};
+	_Event_raise {activity_rewards} {quest points} {%1};
 }
 
 #act {^You gain %d building point{s|}!} {
 	_CaptureLog {<179>%0} {$capPath[act]};
-	_event_raise {activity_rewards} {build points} {%1};
+	_Event_raise {activity_rewards} {build points} {%1};
 }
 
 #act {^Your alignment {in|de}creases by %d.} {
@@ -70,7 +70,7 @@
 /* Boss Kills {{{ */
 #act {^You have killed a new boss, %*.$} {
 	_CaptureLog {<119>New Boss Kill: <179>%1} {$capPath[important]};
-	_event_raise {activity_bosskill} {%1};
+	_Event_raise {activity_bosskill} {%1};
 }
 /* }}} */
 
@@ -78,7 +78,7 @@
 /* Vitals / PP on Leveling */
 #act {^You gain %d hit points, %d spell points, %d stamina, and %d practices!} {
 	_CaptureLog {<179>%0} {$capPath[important]};
-	_event_raise {activity_levelup};
+	_Event_raise {activity_levelup};
 }
 
 /* Every 15th level Stat Better */
@@ -101,25 +101,25 @@
 /* Betters, either from usage or leveling */
 #act {^You have become more learned at '%*' (%*).} {
 	_CaptureLog {<179>%0} {$capPath[important]};
-	_event_raise {activity_better} {%1} {%2};
+	_Event_raise {activity_better} {%1} {%2};
 }
 
 /* Better on a fumble */
 #act {^You learn from your mistakes, and your knowledge of '%*' improves. (%*)} {
 	_CaptureLog {<179>%0} {$capPath[important]};
-	_event_raise {activity_better} {%1} {%2};
+	_Event_raise {activity_better} {%1} {%2};
 }
 
 /* Partial better progress */
 #act {^You have made some progress towards improving your skill in '%*'!} {
 	_CaptureLog {<179>%0} {$capPath[important]};
-	_event_raise {activity_better_partial} {%1};
+	_Event_raise {activity_better_partial} {%1};
 }
 
 /* Mastery of a Skill */
 #act {^You have become a master at %*} {
 	_CaptureLog {<179>%0} {$capPath[important]};
-	_event_raise {activity_better} {%1} {100};
+	_Event_raise {activity_better} {%1} {100};
 }
 /* }}} */
 

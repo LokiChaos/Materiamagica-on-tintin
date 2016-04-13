@@ -10,7 +10,7 @@
 	_Class load tmp/core/activites/crystalAction core/activities/rtlib/crystals.tt;
 	_startCrystal;
 	_Class purge tmp/core/activities/crystalAction;
-	_event_raise {activity_crystal} {start};
+	_Event_raise {activity_crystal} {start};
 } {3}
 /* }}} */
 
@@ -19,7 +19,7 @@
 	_Class load tmp/core/activites/crystalAction core/activities/rtlib/crystals.tt;
 	_turnCrystal %1;
 	_Class purge tmp/core/activities/crystalAction;
-	_event_raise {activity_crystal} {return} {%1};
+	_Event_raise {activity_crystal} {return} {%1};
 } {3}
 /* }}} */
 

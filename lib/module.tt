@@ -111,9 +111,9 @@
 }
 
 /* All persistent values should be saved in $mod[mod_name][%*] {{{ */
-_event_register {session_connect}    {moduleRecallLoad} {_modules_load};
-_event_register {session_connect}    {zmoduleAutoLoad}  {_modules_auto};
-_event_register {session_disconnect} {moduleRecallSave} {_modules_save};
+_Event_register {session_connect}    {moduleRecallLoad} {_modules_load};
+_Event_register {session_connect}    {zmoduleAutoLoad}  {_modules_auto};
+_Event_register {session_disconnect} {moduleRecallSave} {_modules_save};
 
 #alias {_modules_auto} {
 	#nop %1;

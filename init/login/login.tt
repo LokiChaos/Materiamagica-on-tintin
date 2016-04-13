@@ -41,12 +41,12 @@
 	#undelay login_auto_choice;
 	_Class purge tmp/init/login;
 	#unvar _login_menu_choice;
-	_event_raise {session_login} {login};
+	_Event_raise {session_login} {login};
 }
 
 /* Cleanup this class to negate any chance of abuse */
 #act {^Welcome back to Materia Magica.} {
 	_Class purge tmp/init/login;
 	#unvar _login_menu_choice;
-	_event_raise {session_login} {reconnect};
+	_Event_raise {session_login} {reconnect};
 }

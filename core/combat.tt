@@ -14,9 +14,9 @@
 /* Called at the start of combat, initalizes variables */
 
 /* */
-_event_register {combat_start} {initcombat} {_startCombat};
-_event_register {prompt_post}  {combatecho} {_combatEcho};
-_event_register {prompt_pre}   {combatform} {_combatGetFormHP};
+_Event_register {combat_start} {initcombat} {_startCombat};
+_Event_register {prompt_post}  {combatecho} {_combatEcho};
+_Event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 
 #alias {_startCombat}
 {
@@ -101,7 +101,7 @@ _event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 
 /* Exp Gain on Killing an opponent*/
 #act {You receive %S experience points.} {
-	_event_raise {slain_opponent} {@std_str_dropcomma{%1}};
+	_Event_raise {slain_opponent} {@std_str_dropcomma{%1}};
 }
 
 /* Master combat trigger! */

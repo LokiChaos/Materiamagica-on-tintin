@@ -11,7 +11,7 @@
 
 /* Action for Reagent Use {{{  */
 #act {%1 {flare|flares} brightly and {vanish|vanishes}!$} {
-	_event_raise {reagent_use} {%1};
+	_Event_raise {reagent_use} {%1};
     _Class load tmp/core/reagent/use core/reagents/rtlib/use.tt;
     _reagentUse {%1};
     _Class purge tmp/core/reagent/use;
@@ -36,7 +36,7 @@
 /* Make Actions for Each Reagent Producer {{{  */
 #foreach {$reagent[producerName]} {__reagentProdName} {
 	#act {^Your ${__reagentProdName} glows white as it accumulates possessions from the ether.} {
-		_event_raise {reagent_produced};
+		_Event_raise {reagent_produced};
 		#math stateChar[have_reagents] {$stateChar[have_reagents] + 1};
 	}
 }

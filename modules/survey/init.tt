@@ -3,5 +3,5 @@
 
 #act {^You survey the area around you%*, and see:$} {
 	_Class load tmp/module/survey modules/survey/surveysub.tt;
-	_event_oneshot {prompt_post} {surveyClean} {_mod_survey_clean};
+	_Event_oneshot {prompt_post} {surveyClean} {_mod_survey_clean};
 }

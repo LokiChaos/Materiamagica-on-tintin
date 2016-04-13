@@ -57,18 +57,18 @@
 	#var _questInfo {%1};
 
 	_Class load tmp/core/activites/questInfo core/activities/rtlib/questinfo.tt;
-	_event_oneshot {prompt_post} {zquestInfoClean} {_questInfoFin};
+	_Event_oneshot {prompt_post} {zquestInfoClean} {_questInfoFin};
 
 	#if {"${_quest_status}" != "1"} {
 		_Class load tmp/core/activities/questRequest core/activities/rtlib/questreq.tt;
-		_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
+		_Event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
 	};
 };
 /* }}} */
 
 /* Running out of time and Losing a Quest {{{ */
 #act {^You have %d Alyrian minute{|s} remaining to finish your quest, '%*'.$} {
-	_event_raise {activity_quest} {time} {%2} {%1};
+	_Event_raise {activity_quest} {time} {%2} {%1};
 }
 
 #act {^You have run out of time for your quest, '%*'.} {
@@ -76,7 +76,7 @@
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
 	#unvar _quests[@quest_name_to_num[%1]];
-	_event_raise {activity_quest} {fail} {time} {%1};
+	_Event_raise {activity_quest} {fail} {time} {%1};
 }
 
 #act {^You are no longer on the quest, '%*'.$} {
@@ -84,39 +84,39 @@
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
 	#unvar _quests[@quest_name_to_num[%1]];
-	_event_raise {activity_quest} {fail} {other} {%1};
+	_Event_raise {activity_quest} {fail} {other} {%1};
 }
 /* }}} */
 
 /* Phase Completions {{{ */
 #act {^All parts of your quest are complete. Return to your quest master in time to receive your reward!$} {
 	_CaptureLog {<049>All Quest Phases Completed!} {$capPath[act]};
-	_event_raise {activity_quest} {phase} {complete} {unknown};
+	_Event_raise {activity_quest} {phase} {complete} {unknown};
 }
 
 #act {^All parts of your quest '%*' are complete.$} {
 	_CaptureLog {<049>All Quest Phases Completed! (%1)} {$capPath[act]};
-	_event_raise {activity_quest} {phase} {complete} {%1};
+	_Event_raise {activity_quest} {phase} {complete} {%1};
 }
 
 #act {^You have completed a part of your quest!$} {
-	_event_raise {activity_quest} {phase} {done} {unknown};
+	_Event_raise {activity_quest} {phase} {done} {unknown};
 }
 
 #act {^You have completed a part of your quest, '%*'!$} {
-	_event_raise {activity_quest} {phase} {done} {%1};
+	_Event_raise {activity_quest} {phase} {done} {%1};
 }
 
 #act {^Quest Goal: %* [%d/%d Complete].$} {
-	_event_raise {activity_quest} {phase} {partial};
+	_Event_raise {activity_quest} {phase} {partial};
 }
 /* }}} */
 
 /* Requesting a Quest {{{ */
 #act {^You ask %* for a quest.$} {
 	_Class load tmp/core/activites/questRequest core/activities/rtlib/questreq.tt;
-	_event_raise {activity_quest} {requesting} {%1};
-	_event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
+	_Event_raise {activity_quest} {requesting} {%1};
+	_Event_oneshot {prompt_post} {questReqClean} {_questRequestFin};
 }
 /* }}} */
 
@@ -126,7 +126,7 @@
 	#var _questComplete[master] {%1};
 	#var _questComplete[name] {%2};
 	#unvar _quests[@quest_name_to_num{%2}];
-	_event_oneshot {prompt_post} {questComClean} {_questCompleteFin};
+	_Event_oneshot {prompt_post} {questComClean} {_questCompleteFin};
 }
 /* }}} */
 

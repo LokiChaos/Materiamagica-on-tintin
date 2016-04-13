@@ -1,7 +1,7 @@
 #nop MODULE: missingAff;
 #nop DESC: Lists missing affects as part of affects cmd output;
 
-_event_register {affect_refresh} {missingAff} {_mod_missing_aff_missing};
+_Event_register {affect_refresh} {missingAff} {_mod_missing_aff_missing};
 
 
 #if {&{prefs[modules][missing_aff][want]}} {

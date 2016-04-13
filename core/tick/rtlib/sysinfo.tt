@@ -10,7 +10,7 @@
 	#unvar __sysdummy;
 	#script {libexec/sysinfo.pl};
 	#replace gtime[print] { } {0};
-	_event_raise {sysinfo};
+	_Event_raise {sysinfo};
 }
 
 /* Prevents spamming iota with requests */

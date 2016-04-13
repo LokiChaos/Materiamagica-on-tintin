@@ -10,26 +10,26 @@
 #act {~^\e[1\;33m[CLAN] %*} {
 	_ChannelLog {%0} {$capPath[clanTalk]};
 	#regex {%0} {[CLAN] %w has entered Materia Magica.} {
-		_event_raise {clan} {login} {&1};
+		_Event_raise {clan} {login} {&1};
 	};
 	#regex {%0} {[CLAN] %w has recalled to the clan hall!} {
-		_event_raise {clan} {gohall} {&1};
+		_Event_raise {clan} {gohall} {&1};
 	};
 	#regex {%0} {[CLAN] %w has left Materia Magica} {
-		_event_raise {clan} {logout} {&1};
+		_Event_raise {clan} {logout} {&1};
 	};
 	#regex {%0} {[CLAN] %w is now away.%*} {
-		_event_raise {clan} {away} {&1} {<139>&2};
+		_Event_raise {clan} {away} {&1} {<139>&2};
 	};
 	#regex {%0} {[CLAN] %w is no longer away.} {
-		_event_raise {clan} {return} {&1};
+		_Event_raise {clan} {return} {&1};
 	};
 
 } {3}
 
 #act {~^\e[1\;33m[CLAN NOTICE] %*} {
 	_ChannelLog {%0} {$capPath[clanTalk]};
-	_event_raise {clan} {notice} {%0};
+	_Event_raise {clan} {notice} {%0};
 } {3}
 
 #act {~^\e[1\;33m[%d] clan member%? heard you say, %*} {
@@ -73,7 +73,7 @@
 #act {~^\e[1\;33m[ALLIED NOTICE] %*} {
 	_ChannelLog {%0} {$capPath[allianceTalk]};
 	_ChannelLog {%0} {$capPath[allianceEvents]};
-	_event_raise {alliance} {notice} {%0};
+	_Event_raise {alliance} {notice} {%0};
 } {3}
 /* }}} */
 
@@ -95,7 +95,7 @@
 		#nop Stupid Shopkeeps;
 	}{
 		_ChannelLog {%0} {$capPath[tells]};
-		_event_raise {tell_recieved} {%1} {<119>%2};
+		_Event_raise {tell_recieved} {%1} {<119>%2};
 	};
 } {3}
 
@@ -118,7 +118,7 @@
 
 #act {~^\e[1\;31mReason: %*} {
 	_ChannelLog {%0} {$capPath[tells]};
-	_event_raise {page_recieved} {${_chanPager}} {<119>%1};
+	_Event_raise {page_recieved} {${_chanPager}} {<119>%1};
 	#unvar _chanPager;
 } {3}
 
@@ -159,9 +159,9 @@
 #act {^Sign{off|on} at %* for %w detected.}
 {
 	#if {"%1" == "on"} {
-		_event_raise {notify} {signon} {%3};
+		_Event_raise {notify} {signon} {%3};
 	}{
-		_event_raise {notify} {signoff} {%3};	
+		_Event_raise {notify} {signoff} {%3};	
 	};
 } {3}
 /* }}} */

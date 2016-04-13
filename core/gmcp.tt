@@ -15,19 +15,19 @@
 	#if {"$navigation[Zone]" != "$gmcp[Room][zone]"} {
 		#var navigation[ChangedZones] 1;
 		#var navigation[OldZone] {$navigation[Zone]};
-		_event_raise {nav_changezone} {$gmcp[Room][zone]} {$navigation[Zone]};
+		_Event_raise {nav_changezone} {$gmcp[Room][zone]} {$navigation[Zone]};
 	} {
 		#var navigation[ChangedZones] 0;
 		#unvar navigation[OldZone];
 	};
 	#var navigation[Zone] {$gmcp[Room][zone]};
-	_event_raise {gmcp_room};
+	_Event_raise {gmcp_room};
 }
 /* }}} */
 
 /* GMCP room.wrongdir {{{ */
 #event {IAC SB GMCP room.wrongdir IAC SE} {
-	_event_raise {gmcp_wrongdir};
+	_Event_raise {gmcp_wrongdir};
 }
 /* }}} */
 
@@ -36,52 +36,52 @@
 
 #event {IAC SB GMCP char.base IAC SE} {
 	#var gmcp[Char][Base] {%0};
-	_event_raise {gmcp_char_base};
+	_Event_raise {gmcp_char_base};
 }
 
 #event {IAC SB GMCP char.status IAC SE} {
 	#var gmcp[Char][Status] {%0};
-	_event_raise {gmcp_char_status};
+	_Event_raise {gmcp_char_status};
 }
 
 #event {IAC SB GMCP char.vitals IAC SE} {
 	#var gmcp[Char][Vitals] {%0};
-	_event_raise {gmcp_char_vitals};
+	_Event_raise {gmcp_char_vitals};
 }
 
 #event {IAC SB GMCP char.stats IAC SE} {
 	#var gmcp[Char][Stats] {%0};
-	_event_raise {gmcp_char_stats};
+	_Event_raise {gmcp_char_stats};
 }
 
 #event {IAC SB GMCP char.maxstats IAC SE} {
 	#var gmcp[Char][MaxStats] {%0};
-	_event_raise {gmcp_char_maxstats};
+	_Event_raise {gmcp_char_maxstats};
 }
 
 #event {IAC SB GMCP char.worth IAC SE} {
 	#var gmcp[Char][Worth] {%0};
-	_event_raise {gmcp_char_worth};
+	_Event_raise {gmcp_char_worth};
 }
 
 #event {IAC SB GMCP char.form IAC SE} {
 	#var gmcp[Char][Form] {%0};
-	_event_raise {gmcp_char_form};
+	_Event_raise {gmcp_char_form};
 }
 
 #event {IAC SB GMCP char.clan IAC SE} {
 	#var gmcp[Char][Clan] {%0};
-	_event_raise {gmcp_char_clan};
+	_Event_raise {gmcp_char_clan};
 }
 
 #event {IAC SB GMCP char.gecho_notification IAC SE} {
 	#var gmcp[Char][gecho] {%0};
-	_event_raise {gmcp_char_gecho};	
+	_Event_raise {gmcp_char_gecho};	
 }
 
 #event {IAC SB GMCP char.affect_application_msg IAC SE} {
 	#var gmcp[Char][AffectApp] {%0};
-	_event_raise {gmcp_char_affect_app};
+	_Event_raise {gmcp_char_affect_app};
 }
 
 /* }}} */

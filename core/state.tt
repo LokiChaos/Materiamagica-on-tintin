@@ -57,7 +57,7 @@
 /* }}} */
 
 /* Update State Based on Prompt Flags {{{ */
-_event_register {prompt_pre} {procFlags} {_statePromptUpdate};
+_Event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 
 #alias {_statePromptUpdate}
 {
@@ -94,13 +94,13 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 			#var stateRoom[wooded] 1;
 		};
 		#if {$stateChar[is_onSpeedWalk]} {
-			_event_raise {speedStep};
+			_Event_raise {speedStep};
 		} {
 			#line gag;
 			#echo {<149>(%s<149>)    %s}  {@makeRoomBar{}} {%2};
 			#var _roomExtraStr {@makeAuxRoomBar{}};
 			#if { @std_str_len{${_roomExtraStr}} } {
-				_event_oneshot {visExits} {roomAux} {_EchoAccess};
+				_Event_oneshot {visExits} {roomAux} {_EchoAccess};
 			} {
 				#unvar _roomExtraStr;
 			};
@@ -123,7 +123,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 		#var _exitsC {${_exitsC[1]}};
 		#line gag;
 		#if {"$stateChar[is_onSpeedWalk]" != "1"} {
-		_event_raise {visExits};};
+		_Event_raise {visExits};};
 	};
 }
 
@@ -171,7 +171,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#var stateAffects[detect invisibility] 1;
 	#var stateAffects[detect alignment]    1;
 
-	_event_raise {state_death};
+	_Event_raise {state_death};
 }
 
 #act {^The Powers take pity on you and restore your soul to your body.} {
@@ -180,7 +180,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#var stateChar[Encumbered] 0;
 
 	#unvar stateAffects;
-	_event_raise {state_alive};
+	_Event_raise {state_alive};
 }
 
 #act {^You feel whole again.} {
@@ -189,29 +189,29 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#var stateChar[Encumbered] 0;
 	#unvar stateAffects;
 
-	_event_raise {state_alive};
+	_Event_raise {state_alive};
 }
 /* }}} */
 
 /* Hunger and Thrist {{{ */ 
 #act {^Your stomach rumbles.} {
         #var stateChar[Hungry] 1;
-		_event_raise {state_hunger_nag};
+		_Event_raise {state_hunger_nag};
 }
 
 #act {^Your throat feels parched.} {
         #var stateChar[Thirsty] 1;
-		_event_raise {state_thirst_nag};
+		_Event_raise {state_thirst_nag};
 }
 
 #act {^You are no longer thirsty.} {
         #var stateChar[Thirsty] 0;
-		_event_raise {state_thirst_end};
+		_Event_raise {state_thirst_end};
 }
 
 #act {^Your hunger feels satisfied.} {
         #var stateChar[Hungry] 0;
-		_event_raise {state_hunger_end};
+		_Event_raise {state_hunger_end};
 }
 
 #act {^* You are thirsty.$} {
@@ -226,7 +226,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 /* Sitting, Resting, Sleeping, and Standing...  Slip, Blown over {{{ */
 #alias {_sitSleepRest} {
 	_sitSleepRestState {%1};
-	_event_raise {state_%1};
+	_Event_raise {state_%1};
 }
 
 #alias {_sitSleepRestState} {
@@ -282,7 +282,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 }
 
 #act {^{You slip and fall!|You slip and fall on the icy ground!}} {
-	_event_raise {state_slipped};
+	_Event_raise {state_slipped};
 	_sitSleepRest {sit};
 	#if {$stateChar[is_onSpeedWalk]} {
 		SpeedWalkCleanup;
@@ -290,7 +290,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 }
 
 #act {^A sudden, strong gust of wind knocks you to the ground!} {
-	_event_raise {state_blown};
+	_Event_raise {state_blown};
 	_sitSleepRest {sit};
 	#if {$stateChar[is_onSpeedWalk]} {
 		SpeedWalkCleanup;
@@ -298,7 +298,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 }
 
 #act {^You are buffeted to the %* by crosswinds!$} {
-	_event_raise {state_buffeted} {%1};
+	_Event_raise {state_buffeted} {%1};
 }
 
 #act {^You are already standing, and in combat as well.} {
@@ -310,20 +310,20 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 /* Mounts/Riding {{{ */
 #act {^You mount %*, and start riding %S.$} {
 	#var stateChar[Mounted]	  1;
-	_event_raise {state_mount} {%1};
+	_Event_raise {state_mount} {%1};
 }
 
 #act {^You dismount from %*.$} {
 	#var stateChar[Mounted]	  0;
-	_event_raise {state_dismount} {%1};
+	_Event_raise {state_dismount} {%1};
 }
 
 #act {^You {unhitch|hitch} %* {to|from} %*.$} {
-	_event_raise {state_%1} {%2} {%4};
+	_Event_raise {state_%1} {%2} {%4};
 }
 
 #act {^Your mount is too exhausted.$} {
-	_event_raise {state_mount_nost};
+	_Event_raise {state_mount_nost};
 };
 /* }}} */
 
@@ -334,7 +334,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#if {$prefs[muteCast] && $stateChar[Combat]} {
 		#line gag;
 	};
-	_event_raise {state_casting};
+	_Event_raise {state_casting};
 }
 
 #act {^You begin reciting the words of the {in|e}vocation...} {
@@ -342,7 +342,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#if {$prefs[muteCast] && $stateChar[Combat]} {
 		#line gag;
 	};
-	_event_raise {state_casting};
+	_Event_raise {state_casting};
 }
 
 #act {^You have completed your {casting|invocation|evocation}.} {
@@ -350,11 +350,11 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#if {$prefs[muteCast] && $stateChar[Combat]} {
 		#line gag;
 	};
-	_event_raise {state_casted};
+	_Event_raise {state_casted};
 }
 
 #act {^You lose your concentration.} {	
-	_event_raise {state_fumble};
+	_Event_raise {state_fumble};
 }
 
 /* TODO: Need to add counterspell/bash */
@@ -364,7 +364,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#if {$prefs[muteCast] && $stateChar[Combat]} {
 		#line gag;
 	};
-	_event_raise {state_playing};
+	_Event_raise {state_playing};
 }
 
 #act {^You have completed your song.$} {
@@ -372,7 +372,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#if {$prefs[muteCast] && $stateChar[Combat]} {
 		#line gag;
 	};
-	_event_raise {state_played};
+	_Event_raise {state_played};
 }
 /* }}} */
 
@@ -383,24 +383,24 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#delay {lagEle} {
 		#var stateChar[Lag] 0;
 	} {3};
-	_event_raise {state_lagged};
+	_Event_raise {state_lagged};
 }
 /* }}} */
 
 /* Away, Quiet, and Guide Status {{{ */
 #act {^You have been marked away.} {
 	#var stateChar[Away] 1;
-	_event_raise {state_away} {1};
+	_Event_raise {state_away} {1};
 }
 
 #act {^You are no longer marked away.} {
 	#var stateChar[Away] 0;
-	_event_raise {state_away} {0};
+	_Event_raise {state_away} {0};
 }
 
 #act {^QUIET is now OFF} {
 	#var stateChar[Quiet]	  0;
-	_event_raise {state_quiet} {0};
+	_Event_raise {state_quiet} {0};
 }
 
 #act {^QUIET                        is OFF.} {
@@ -413,7 +413,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 
 #act {^QUIET is now ON} {
 	#var stateChar[Quiet]	  1;
-	_event_raise {state_quiet} {1};
+	_Event_raise {state_quiet} {1};
 }
 
 #act {^You are now available for player assistance} {
@@ -430,19 +430,19 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
     more indepth triggers in combat.tt */
 
 #act {^You enter into combat with %*.} {
-	_event_raise {combat_start} 		{%1};
+	_Event_raise {combat_start} 		{%1};
 }
 
 #act {^You join the melee opposing %*.} {
-	_event_raise {combat_start} 		{%1};
+	_Event_raise {combat_start} 		{%1};
 }
 
 #act {^You change the focus of your attack to %*.} {
-	_event_raise {combat_start} 		{%1};
+	_Event_raise {combat_start} 		{%1};
 }
 
 #act {%* begins attacking you!$} {
-	_event_raise {combat_start} 		{%1};
+	_Event_raise {combat_start} 		{%1};
 	_sitSleepRestState {stand};
 	#var stateChar[Flying]	  0;
 	#var navigation[click]    0;
@@ -452,7 +452,7 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#math exp[Count] {$exp[Count] + %1};
 	#math exp[Kills] {$exp[Kills] + 1};
 	#math exp[Mean]  {$exp[Mean] + ((%1 - $exp[Mean]) / $exp[Kills])};
-	_event_raise {combat_kill};
+	_Event_raise {combat_kill};
 }
 /* }}} */
 
@@ -480,9 +480,9 @@ _event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 #act {^A glowing portal appears before you, and you step carefully through.} {
 	#buffer get __lastLine {1} {1};
 	#if {"${__lastLine[1]}" == "You have no invisibility skills affecting you."} {
-			_event_raise {social_enter};
+			_Event_raise {social_enter};
 		} {
-			_event_raise {social_exit};
+			_Event_raise {social_exit};
 			#unvar stateChar[inChatRoom];
 		};
 	#unvar __lastLine;

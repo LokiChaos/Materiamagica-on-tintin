@@ -14,13 +14,13 @@
 	};
 }
 
-#alias {_event_tmp_ali} {#nop;}
+#alias {__event_tmp_ali} {#nop;}
 
 /*	event_register eventName handlerName action {{{
 	adds action to the eventName event under the tag handlerName.
 */
 
-#alias {_event_register} {
+#alias {_Event_register} {
 	#var _Events[%1][%2] {%3};
 }
 /* }}} */
@@ -32,15 +32,15 @@
 	removes itself.
 */
 
-#alias {_event_oneshot} {
-	#var _Events[%1][%2] {_event_remove_specific {%1} {%2};%3};
+#alias {_Event_oneshot} {
+	#var _Events[%1][%2] {_Event_remove_specific {%1} {%2};%3};
 }
 /* }}} */
 
 /*	event_remove_event eventName {{{
 	removes eventName completely
 */
-#alias {_event_remove_event} {
+#alias {_Event_remove_event} {
 	#line substitute {variable} #unvar _Events[%1];
 }
 /* }}} */
@@ -48,7 +48,7 @@
 /*	event_remove_handler handlerName {{{
 	removes handlerName from all events
 */
-#alias {_event_remove_handler} {
+#alias {_Event_remove_handler} {
 	#foreach {${_Events[]}} {sublist} {
 		#line substitute {variable} #unvar _Events[$sublist][%1];
 		#if {"${_Events[$sublist]}" == ""} {
@@ -62,7 +62,7 @@
 	removes handlerName from eventName
 */
 
-#alias {_event_remove_specific} {
+#alias {_Event_remove_specific} {
 	#line substitute {variable} #unvar _Events[%1][%2];
 	#if {"${_Events[%1]}" == ""} {
 		#line substitute {variable} #unvar _Events[%1];
@@ -74,16 +74,16 @@
 	that allows dynamic alias definitions.
 */
 #alias {event_eval} {
-	#alias _event_tmp_ali {%1};
-	_event_tmp_ali %2;
-	#alias _event_tmp_ali #nop;
+	#alias __event_tmp_ali {%1};
+	__event_tmp_ali %2;
+	#alias __event_tmp_ali #nop;
 }
 /* }}} */
 
 /*	event_raise eventName args {{{
 	calls all actions for eventName with args
 */
-#alias {_event_raise} {
+#alias {_Event_raise} {
 	@Print{ {DEBUG} {Event '<099>%0<>'} };
 	#foreach {${_Events[%1][]}} {_:EHandler} {
 	@Print{ {DEBUG} {Handler '<099>%s<>' called for '<099>%s<>'} {${_:EHandler}} {%1} };

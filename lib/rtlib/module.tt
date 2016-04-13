@@ -70,7 +70,7 @@
 	};
 	_Class load {module/%1} {@moduleGetPath{%1}/init.tt};
 	#list _Modules[loaded] add {%1};
-	_event_raise {module} {load} {%1};
+	_Event_raise {module} {load} {%1};
 }
 
 #alias {_module_load_deps} {
@@ -89,7 +89,7 @@
 	_Class purge {module/%1};
 	#list _Modules[loaded] find {%1} {_:MCtemp[idx]};
 	#list _Modules[loaded] del  {${_:MCtemp[idx]}};
-	_event_raise {module} {unload} {%1};
+	_Event_raise {module} {unload} {%1};
 }
 
 #alias {_module_remove_all} {

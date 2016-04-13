@@ -9,12 +9,12 @@
 
 /*
 	To Sync the tick timer:
-		_event_raise {tick_sync};
+		_Event_raise {tick_sync};
 	By default, this is tied to some Auction Events and Hints
 */
 
 /* Event to trigger tick syncing */
-_event_register {tick_sync} {sync} {_SyncTick};
+_Event_register {tick_sync} {sync} {_SyncTick};
 
 #alias {_SyncTick} {
 	#nop %1;
@@ -30,7 +30,7 @@ _event_register {tick_sync} {sync} {_SyncTick};
 } {15};
 
 #alias {_OnTick} {
-	_event_raise {tick};
+	_Event_raise {tick};
 	#read core/tick/rtlib/ontick.tt;
 };
 /* }}} */

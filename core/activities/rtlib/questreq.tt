@@ -9,7 +9,7 @@
 	#format {__questEcho} {<249>%s did not have a quest for you.} {%1};
 	_CaptureLog {${__questEcho}} {$capPath[act]};
 	#unvar __questEcho;
-	_event_raise {activity_quest} {noquest};	
+	_Event_raise {activity_quest} {noquest};	
 } {4}
 /* }}} */
 
@@ -22,7 +22,7 @@
 		{${_questInfo}}
 		{${_quests[${_questInfo}][master]}};
 		_CaptureLog {${__questEcho}} {$capPath[act]};
-		_event_raise {activity_quest} {recieved} 
+		_Event_raise {activity_quest} {recieved} 
 		{${_quests[${_questInfo}][name]}}
 		{${_questInfo}}
 		{${_quests[${_questInfo}][master]}};

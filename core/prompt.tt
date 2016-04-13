@@ -63,8 +63,8 @@ Other tags: [Search][Dig][Q][B][C][T][SW][S][Q][A][News][TAG!]
 /* }}} */
 
 /* Only Update Affects Bar On Affects Changes {{{ */
-_event_register {affect_change}  {updatePrompt} {_UpdatePromptAffects};
-_event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
+_Event_register {affect_change}  {updatePrompt} {_UpdatePromptAffects};
+_Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 #alias {_UpdatePromptAffects} {
 	#nop %1;
@@ -93,11 +93,11 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 		{#var __promptType {Ship};
 	};
 	
-	_event_raise {prompt_pre} {${__promptType}} {%1};
+	_Event_raise {prompt_pre} {${__promptType}} {%1};
 	_prompt${__promptType} {%1};
-	_event_raise {prompt_${__promptType}} {%1};
+	_Event_raise {prompt_${__promptType}} {%1};
 	#if {"${__promptType}" != "Continue" } {
-		_event_raise {prompt_post} {${__promptType}} {%1};
+		_Event_raise {prompt_post} {${__promptType}} {%1};
 	};
 	#unvar __promptType;
 }
@@ -203,7 +203,7 @@ _event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 /* }}} */
 
 /* Hook to Tick Event to Update Prompt Clock {{{ */
-_event_register {tick} {promptTick} {_PromptTick};
+_Event_register {tick} {promptTick} {_PromptTick};
 
 /* To be called whenever the time is updated */
 #alias {_PromptTick} {

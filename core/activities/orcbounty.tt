@@ -20,7 +20,7 @@
 		_Class load tmp/core/activties/orcCmd core/activities/rtlib/orcbounty.tt;
 		_gotBounty {%1} {%2};
 		_Class purge tmp/core/activities/orcCmd;
-		_event_raise {activity_bounty} {start} {%1} {%2};
+		_Event_raise {activity_bounty} {start} {%1} {%2};
 	};
 	#unvar _orcDidNod;
 }
@@ -32,7 +32,7 @@
 		_Class load tmp/core/activties/orcCmd core/activities/rtlib/orcbounty.tt;
 	};
 	_rewBounty {%1};
-	_event_oneshot {prompt_post} {orcFin} {_orcFin};
+	_Event_oneshot {prompt_post} {orcFin} {_orcFin};
 } {3}
 /* }}} */
 

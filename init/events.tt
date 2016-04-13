@@ -21,7 +21,7 @@
 	#var stateClient[Rows] {%1};
 	#var stateClient[Cols] {%0};
 	#if {"$sessionName" != "gts" && $stateClient[Rows] != $stateClient[OldRows] || $stateClient[Cols] != $stateClient[OldCols]} {
-		_event_raise {screen_resize} {$stateClient[Rows]} {$stateClient[Cols]} {$stateClient[OldRows]}  {$stateClient[OldCols]}
+		_Event_raise {screen_resize} {$stateClient[Rows]} {$stateClient[Cols]} {$stateClient[OldRows]}  {$stateClient[OldCols]}
 	};
 	#var stateClient[OldRows] {$stateClient[Rows]};
 	#var stateClient[OldCols] {$stateClient[Cols]};
@@ -42,7 +42,7 @@
 	#gts {#var lastSession {}; #var _reconnect[attMade] 0;};
 	#history read char/${sessionName}/var/cmdhistory.hist;
 	#read init/core.tt;
-	_event_raise {session_connect};
+	_Event_raise {session_connect};
 	#showme {\033k${sessionName}\033\\};
 	#system {makeCaps ${sessionName}};
 	_Class load tmp/init/login init/login/login.tt;
@@ -62,7 +62,7 @@
 			_printMenu;
 		};
 		#default {
-			_event_raise {session_disconnect};
+			_Event_raise {session_disconnect};
 			#history write char/%0/var/cmdhistory.hist;
 			#write char/%0/var/lastSessionBackup.tt;
 			#showme {\033ktt++\033\\};

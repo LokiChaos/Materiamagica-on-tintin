@@ -64,7 +64,7 @@
 	};
 	#if {$stateChar[is_onSpeedWalk]} {
 		#if {"%1" == "{open|close|unlock|lock}"} {
-			_event_raise {speedStep};
+			_Event_raise {speedStep};
 		};
 	};
 } {4}

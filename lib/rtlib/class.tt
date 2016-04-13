@@ -89,7 +89,7 @@
 			@Print{ {VERBOSE} {Loaded file '${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][p]}' as class '%1'} };
 		};
 	};
-	_event_raise {class} {loaded} {%1};
+	_Event_raise {class} {loaded} {%1};
 	#unvar _:CCtemp;
 }
 
@@ -99,7 +99,7 @@
 		#class {%1} read {%2};
 		__Class_list {%1} {%2};
 		@Print{ {VERBOSE} {Loaded file '%2' as class '%1'} };
-		_event_raise {class} {loaded} {%1} {%2};
+		_Event_raise {class} {loaded} {%1} {%2};
 	} {
 		@Print{ {ERROR} {file '<099>%2<>' does not exist.} };
 	};
@@ -109,7 +109,7 @@
 	#class {%1} read {%2};
 	__Class_list {%1} {%2};
 	@Print{ {VERBOSE} {Loaded file '%2' as class '%1' (No File Check)} };
-	_event_raise {class} {loaded} {%1} {%2};
+	_Event_raise {class} {loaded} {%1} {%2};
 }
 
 #alias {__Class_fakeload} {
@@ -154,21 +154,21 @@
 	#var {_Classes[${_:CCtemp[cidx]}][loaded]} {0};
 	#unvar _:CCtemp;
 	@Print{ {VERBOSE} {Unloaded class '%1'} };
-	_event_raise {class} {killed} {%1};
+	_Event_raise {class} {killed} {%1};
 }
 
 #alias {__Class_purge} {
 	#class {%1} kill;
 	__Class_delist_class {%1};
 	@Print{ {VERBOSE} {Purged class '%1'} };
-	_event_raise {class} {killed} {%1};
+	_Event_raise {class} {killed} {%1};
 }
 
 #alias {__Class_kill} {
 	#class {%1} kill; 
 	__Class_delist_class {%1};
 	@Print{ {VERBOSE} {Purged class '%1'} };
-	_event_raise {class} {killed} {%1};
+	_Event_raise {class} {killed} {%1};
 }
 
 #alias {__Class_reload} {

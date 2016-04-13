@@ -43,9 +43,9 @@
 #alias {_ChannelLog} {
 	_CaptureLog {%1} {$capPath[base]/%2};
 	#regex {%1} {%i$charName} {
-		_event_raise {soft_page};
+		_Event_raise {soft_page};
 	};
-	_event_raise {channel} {%2};
+	_Event_raise {channel} {%2};
 } {2}
 
 /* More Generic, for general timestamp logging */

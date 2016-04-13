@@ -1,7 +1,7 @@
 #nop MODULE: nameAffects;
 #nop DESC: Replace affect strings with colorized echos;
 
-_event_register {affect_change} {aff_namer} {_mod_name_affects_name};
+_Event_register {affect_change} {aff_namer} {_mod_name_affects_name};
 
 #alias {_mod_name_affects_name} {
 	

@@ -12,4 +12,4 @@
 	};
 }
 
-_event_register {slain_opponent} {mod_killstnl} {_Class load tmp/module/killstnl modules/killsTNL/onkill.tt; _mod_killstnl_print};
+_Event_register {slain_opponent} {mod_killstnl} {_Class load tmp/module/killstnl modules/killsTNL/onkill.tt; _mod_killstnl_print};

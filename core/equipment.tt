@@ -26,7 +26,7 @@
 #act {^You are using:}
 {
 	_Class load tmp/core/info/eq core/equipment/rtlib/eq.tt;
-	_event_oneshot {prompt_post} {eqClean} {_Class purge tmp/core/info/eq; #nop
+	_Event_oneshot {prompt_post} {eqClean} {_Class purge tmp/core/info/eq; #nop
 	};
 }
 /* }}} */
@@ -34,7 +34,7 @@
 /* Internal Helper - executes equipment command & gags output {{{ */
 #alias {_equipSilent}
 {
-	_event_oneshot {prompt_post} {clearAutoCont} {#var stateClient[autoContinue] 0; #nop
+	_Event_oneshot {prompt_post} {clearAutoCont} {#var stateClient[autoContinue] 0; #nop
 	};
 	_Class load tmp/core/silentEq core/equipment/rtlib/silentEquip.tt;
 	equipment;
@@ -49,127 +49,127 @@
 	_equipSilent;
 	#var stateClient[muteLine] 2;
 	#echo {<149>Updating weapon info...};
-	_event_raise {equip} {weild} {%1} {%2 hand};
+	_Event_raise {equip} {weild} {%1} {%2 hand};
 }
 
 #act {^You hold %* in your %w hand.$} {
-	_event_raise {equip} {equip} {%1} {%2 hand};
+	_Event_raise {equip} {equip} {%1} {%2 hand};
 } {4.9}
 
 #act {^You hold %*.$} {
-	_event_raise {equip} {equip} {%1} {used as light};
+	_Event_raise {equip} {equip} {%1} {used as light};
 }
 
 #act {^You stop using %*.} {
-	_event_raise {equip} {remove} {%1};
+	_Event_raise {equip} {remove} {%1};
 }
 
 #act {%* sparks and sputters, and a thin trail of smoke dissipates into the air.$} {
-	_event_raise {equip} {spark} {%1};
+	_Event_raise {equip} {spark} {%1};
 }
 
 #act {^You wear %*.$} {
 	#regex {%1} {%* on your %*} {
-		_event_raise {equip} {equip} {&1} {worn on &2};
+		_Event_raise {equip} {equip} {&1} {worn on &2};
 	};
 	#regex {%1} {%* about your %*} {
-		_event_raise {equip} {equip} {&1} {worn about &2};
+		_Event_raise {equip} {equip} {&1} {worn about &2};
 	};
 	#regex {%1} {%* around your %*} {
-		_event_raise {equip} {equip} {&1} {worn around &2};
+		_Event_raise {equip} {equip} {&1} {worn around &2};
 	};
 	#regex {%1} {%* as a shield.} {
-		_event_raise {equip} {equip} {&1} {worn as shield};
+		_Event_raise {equip} {equip} {&1} {worn as shield};
 	};
 }
 /* }}} */
 
 /* Hide/Find Bury/Unearth Items {{{ */
 #act {^You found a hidden item, %*!$} {
-	_event_raise {item} {found} {%1};
+	_Event_raise {item} {found} {%1};
 }
 
 #act {^You have unearthed %*!$} {
-	_event_raise {item} {dugup} {%1};
+	_Event_raise {item} {dugup} {%1};
 }
 
 #act {^You successfully hide %*.$} {
-	_event_raise {item} {hide} {%1};
+	_Event_raise {item} {hide} {%1};
 }
 
 #act {^You have successfully buried %*.$} {
-	_event_raise {item} {bury} {%1};
+	_Event_raise {item} {bury} {%1};
 }
 /* }}} */
 
 #act {^The Powers give you %S gold coins for your sacrifice of %*.$}{
-	_event_raise {item} {sacrifice} {%2} {%1};
+	_Event_raise {item} {sacrifice} {%2} {%1};
 }
 
 /* Get/Put/Drop/Locker items {{{ */
 #act {^You get %* from your locker.$} {
-	_event_raise {item} {get} {locker} {%1} {1};
+	_Event_raise {item} {get} {locker} {%1} {1};
 } {4.5}
 
 #act {^You take %d of %* from %*.$} {
-	_event_raise {item} {get} {container} {%2} {%1} {%3};
+	_Event_raise {item} {get} {container} {%2} {%1} {%3};
 } {4.6}
 
 #act {^You take %d of %*.$} {
-	_event_raise {item} {get} {ground} {%2} {%1};
+	_Event_raise {item} {get} {ground} {%2} {%1};
 } {4.8}
 
 #act {^You take %* from %*.$} {
-	_event_raise {item} {get} {container} {%1} {1} {%2};
+	_Event_raise {item} {get} {container} {%1} {1} {%2};
 } {4.7}
 
 #act {^You take %*.$} {
-	_event_raise {item} {get} {ground} {%1} {1};
+	_Event_raise {item} {get} {ground} {%1} {1};
 } {4.9}
 
 #act {^You put %* in your locker$}{
-	_event_raise {item} {put} {locker} {%1} {1};
+	_Event_raise {item} {put} {locker} {%1} {1};
 } {4.5}
 
 #act {^You put %d of %* in %*.$} {
-	_event_raise {item} {put} {container} {%2} {%1} {%3};
+	_Event_raise {item} {put} {container} {%2} {%1} {%3};
 } {4.6}
 
 #act {^You put %* in %*.$} {
-	_event_raise {item} {put} {container} {%1} {1} {%2};
+	_Event_raise {item} {put} {container} {%1} {1} {%2};
 } {4.9}
 
 #act {^You drop %d of %*.$} {
-	_event_raise {item} {drop} {%2} {%1};
+	_Event_raise {item} {drop} {%2} {%1};
 } {4.8}
 
 #act {^You drop %*.$} {
-	_event_raise {item} {drop} {%1} {1};
+	_Event_raise {item} {drop} {%1} {1};
 } {4.9}
 /* }}} */
 
 /* Out of weight or count carry capacity {{{ */
 #act {^%*: there's not enough room in your inventory.$} {
-	_event_raise {item} {inv_noroom};
+	_Event_raise {item} {inv_noroom};
 }
 
 #act {^%*: you cannot carry that much weight.$} {
-	_event_raise {item} {inv_noweight};
+	_Event_raise {item} {inv_noweight};
 }
 
 #act {^You can't store a container in a container.$} {
-	_event_raise {item} {container_invalid};
+	_Event_raise {item} {container_invalid};
 }
 
 #act {^%* can hold a maximum of %d items, and is already full.$} {
-	_event_raise {item} {container_noroom};
+	_Event_raise {item} {container_noroom};
 }
 
 /* }}} */
 
 /* Item Binding (both on take and on wear) {{{ */
 #act {%* emits a bright flare of white light as it binds with you.$} {
-	_event_raise {item} {bound} {%1};
+	_Event_raise {item} {bound} {%1};
 }
 /* }}} */
 
@@ -177,7 +177,7 @@
 #act {^You are carrying:$} {
 	_Class load tmp/core/info/inv core/equipment/rtlib/inventory.tt;
 	#var stateChar[Encumbered] {0};
-	_event_oneshot {prompt_post} {invClean} {_Class purge tmp/core/info/inv; #nop
+	_Event_oneshot {prompt_post} {invClean} {_Class purge tmp/core/info/inv; #nop
 	};
 }
 
@@ -188,6 +188,6 @@
 
 /* Disarmed */
 #act {^%* knocks %* from your grip.$} {
-	_event_raise {equip} {disarmed} {%2} {%1};
+	_Event_raise {equip} {disarmed} {%2} {%1};
 	_Notice {<119>DISARMED<099> - %3};
 };

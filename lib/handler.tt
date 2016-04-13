@@ -84,9 +84,9 @@
 	calls all actions for eventName with args
 */
 #alias {_event_raise} {
-	Print {DEBUG} {Event '<099>%0<>'};
+	@Print{ {DEBUG} {Event '<099>%0<>'} };
 	#foreach {${_Events[%1][]}} {_:EHandler} {
-	Print {DEBUG} {Handler '<099>%s<>' called for '<099>%s<>'} {${_:EHandler}} {%1};
+	@Print{ {DEBUG} {Handler '<099>%s<>' called for '<099>%s<>'} {${_:EHandler}} {%1} };
 		#if {&{_Events[%1][${_:EHandler}]} != 0} {
 			event_eval {${_Events[%1][${_:EHandler}]}} {%0};
 		};

@@ -44,7 +44,7 @@
 	#if {"%1" != ""} {
 		#script {result} {if [ -d %1 ];then echo 1;else echo 0;fi};
 		#if {$result[1]} {
-			Print {VERBOSE} {Sourcing path '%1' for tt scripts...};
+			@Print{ {VERBOSE} {Sourcing path '%1' for tt scripts...} };
 			#var _:RCCtemp[files] {@scriptGetList{%1}};
 			#foreach {${_:RCCtemp[files][]}} {_:RCCtemp[idx]} {
 				#var {_:RCCtemp[files][${_:RCCtemp[idx]}]} {%1/${_:RCCtemp[files][${_:RCCtemp[idx]}]}};
@@ -61,7 +61,7 @@
 
 #alias {_SourcePathOverrides} {
 	#var _:RCCtemp[dirs] {%1};
-	Print {VERBOSE} {Sourcing path '${_:RCCtemp[dirs][-1]}' and others for tt scripts...};
+	@Print{ {VERBOSE} {Sourcing path '${_:RCCtemp[dirs][-1]}' and others for tt scripts...} };
 	#var _:RCCtemp[file] {@scriptBuildList{ {${_:RCCtemp[dirs]}} }};
 	#var _:RCCtemp[over] {@scriptOverrides{  {${_:RCCtemp[dirs]}} {${_:RCCtemp[file]}} }};
 	#var _:RCCtemp[deps] {@scriptBuildDepList{{${_:RCCtemp[over]}}}};
@@ -129,7 +129,7 @@
 			};
 		};
 		#if {"${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}" != "${_:RCtemp[dirList][-1]}"} {
-			Print {VERBOSE} {Loader: '${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}' overrides '${_:RCtemp[dirList][-1]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}'};
+			@Print{ {VERBOSE} {Loader: '${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}' overrides '${_:RCtemp[dirList][-1]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}'} };
 		};
 		#list result add {${_:RCtemp[dirList][${_:RCtemp[idx][2]}]}/${_:RCtemp[toLoad][${_:RCtemp[dirList][-1]}][${_:RCtemp[idx][1]}]}};
 	};
@@ -177,11 +177,11 @@
 		} {
 			#math _:RCS[idx][check] {${_:RCS[idx][check]} + 1};
 			#if {${_:RCS[idx][check]} > &{_:RCS[L2][]} && &{_:RCS[L2][]} > 0} {
-				Print {ERROR} {Loader encoutered unresolved dependencies!};
+				@Print{ {ERROR} {Loader encoutered unresolved dependencies!} };
 				#foreach {${_:RCS[L2][]}} {_:RCS[idx][err]} {
-					Print {ERROR} {'<099>%s<>' missing deps:} {${_:RCS[L1][${_:RCS[L2][${_:RCS[idx][err]}][n]}][path]}};
+					@Print{ {ERROR} {'<099>%s<>' missing deps:} {${_:RCS[L1][${_:RCS[L2][${_:RCS[idx][err]}][n]}][path]}} };
 					#foreach {${_:RCS[L2][${_:RCS[idx][err]}][r][]}} {_:RCS[idx][md]} {
-						Print {ERROR} {     <139>'%s'} {${_:RCS[L2][${_:RCS[idx][err]}][r][${_:RCS[idx][md]}]}};
+						@Print{ {ERROR} {     <139>'%s'} {${_:RCS[L2][${_:RCS[idx][err]}][r][${_:RCS[idx][md]}]}} };
 					};
 				};
 				#break;

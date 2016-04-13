@@ -5,8 +5,8 @@
 #nop CLASS: print;
 #nop PROVIDES: lib/debug lib/print;
 
-/* Print {LEVEL} {MESSAGE}; */
-#alias {Print} {
+/* Usage: @Print{ {LEVEL} {MESSAGE} [{args}...] }; */
+#function {Print} {
 	#var _:DbTemp[lvl]   {{CRITICAL}{1}{ERROR}{2}{WARNING}{3}{INFO}{4}{VERBOSE}{5}{DEBUG}{6}};
 	#if {"${_:DbTemp[lvl][%1]}" != "" } {
 		#var _:DbTemp[color] {{CRITICAL}{<001>}{ERROR}{<119>}{WARNING}{<139>}{INFO}{<099>}{VERBOSE}{<099>}{message}{<129>}};
@@ -34,11 +34,12 @@
 		};
 	};
 	#unvar _:DbTemp;
+	#return {#nop ;};
 }
 
 /* Compeltely disables the Print alias, if it isn't needed and there are performance concerns */
 #alias {_DisablePrint} {
-	#alias {Print} {
-		#nop %0;
+	#function {Print} {
+		#return {#nop ;};
 	};
 }

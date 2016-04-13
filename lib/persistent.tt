@@ -51,7 +51,7 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 	__persistent_init;
 	#class persistent open;
 	#var {:_remember} {${_remember}};
-	Print {INFO} {<139>Saving %d variable[s].} {&{_remember[]}};
+	@Print{ {INFO} {<139>Saving %d variable[s].} {&{_remember[]}} };
 	#foreach {${_remember[]}} {__idx} {
 		#if { &{${_remember[${__idx}]}} } {
 			#var {:${_remember[${__idx}]}} ${${_remember[${__idx}]}};
@@ -66,7 +66,7 @@ _event_register {session_disconnect} {remember} {_std_remember_save};
 	#nop %1;
 	__persistent_init;
 	#var {_remember} {${:_remember}};
-	Print {<139>Restoring %d saved variable[s].} {&{_remember[]}};
+	@Print{ {<139>Restoring %d saved variable[s].} {&{_remember[]}} };
 	#foreach {${_remember[]}} {__idx} {
 		#var {${_remember[${__idx}]}} ${:${_remember[${__idx}]}};
 	};

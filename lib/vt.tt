@@ -9,24 +9,44 @@
 	Various VT Control Codes for use in triggers.
 	Mostly to make things more readable.
 */
+/* Basic 16 color control codes */
+#var VT[c][black]        {\e[0\;30m};
+#var VT[c][red]          {\e[0\;31m};
+#var VT[c][green]        {\e[0\;32m};
+#var VT[c][yellow]       {\e[0\;33m};
+#var VT[c][blue]         {\e[0\;34m};
+#var VT[c][maganta]      {\e[0\;35m};
+#var VT[c][cyan]         {\e[0\;36m};
+#var VT[c][white]        {\e[0\;37m};
 
-#var ANSI[color][black]     {\e[0\;30m};
-#var ANSI[color][red]       {\e[0\;31m};
-#var ANSI[color][green]     {\e[0\;32m};
-#var ANSI[color][yellow]    {\e[0\;33m};
-#var ANSI[color][blue]      {\e[0\;34m};
-#var ANSI[color][maganta]   {\e[0\;35m};
-#var ANSI[color][cyan]      {\e[0\;36m};
-#var ANSI[color][white]     {\e[0\;37m};
+#var VT[c][hiblack]      {\e[1\;30m};
+#var VT[c][hired]        {\e[1\;31m};
+#var VT[c][higreen]      {\e[1\;32m};
+#var VT[c][hiyellow]     {\e[1\;33m};
+#var VT[c][hiblue]       {\e[1\;34m};
+#var VT[c][himaganta]    {\e[1\;35m};
+#var VT[c][hicyan]       {\e[1\;36m};
+#var VT[c][hiwhite]      {\e[1\;37m};
 
-#var ANSI[color][hiblack]   {\e[1\;30m};
-#var ANSI[color][hired]     {\e[1\;31m};
-#var ANSI[color][higreen]   {\e[1\;32m};
-#var ANSI[color][hiyellow]  {\e[1\;33m};
-#var ANSI[color][hiblue]    {\e[1\;34m};
-#var ANSI[color][himaganta] {\e[1\;35m};
-#var ANSI[color][hicyan]    {\e[1\;36m};
-#var ANSI[color][hiwhite]   {\e[1\;37m};
+#var VT[c][reset]        {\e[0m};
 
-#var ANSI[color][reset]     {\e[0m};
+/* 256-color codes for basic 16 colors */
+#var VT[256c][black]     {\e[38\;5\;0m};
+#var VT[256c][red]       {\e[38\;5\;1m};
+#var VT[256c][green]     {\e[38\;5\;2m};
+#var VT[256c][yellow]    {\e[38\;5\;3m};
+#var VT[256c][blue]      {\e[38\;5\;4m};
+#var VT[256c][magenta]   {\e[38\;5\;5m};
+#var VT[256c][cyan]      {\e[38\;5\;6m};
+#var VT[256c][white]     {\e[38\;5\;7m};
 
+#var VT[256c][hiblack]   {\e[38\;5\;8m};
+#var VT[256c][hired]     {\e[38\;5\;9m};
+#var VT[256c][higreen]   {\e[38\;5\;10m};
+#var VT[256c][hiyellow]  {\e[38\;5\;11m};
+#var VT[256c][hiblue]    {\e[38\;5\;12m};
+#var VT[256c][himagenta] {\e[38\;5\;13m};
+#var VT[256c][hicyan]    {\e[38\;5\;14m};
+#var VT[256c][hiwhite]   {\e[38\;5\;15m};
+
+#var VT[256c][reset]     {\e[38\;5\;7m\e[0\;40m};

@@ -117,9 +117,9 @@ _event_register {session_disconnect} {moduleRecallSave} {_modules_save};
 
 #alias {_modules_auto} {
 	#nop %1;
-	@Print{ {INFO} {<139>Autoloading %m modules.} {&{_modules[AutoLoad][]}} };
-	#foreach {${_modules[AutoLoad][]}} {_:mod} {
-		insmod ${_modules[AutoLoad][${_:mod}]};
+	@Print{ {INFO} {<139>Autoloading %m modules.} {&{_Modules[AutoLoad][]}} };
+	#foreach {${_Modules[AutoLoad][]}} {_:mod} {
+		insmod ${_Modules[AutoLoad][${_:mod}]};
 	};
 	#unvar _:mod;
 }

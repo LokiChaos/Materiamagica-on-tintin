@@ -13,23 +13,23 @@
 
 /* Source lib before loading anything else */
 @Print{ {INFO} {<129>Loading lib/...} };
-@SourcePath{ {lib} {lib} };
+SourcePath {lib} {lib};
 
 @Print{ {INFO} {<129>Loading session config...} };
-@SourcePath{ {char/$sessionName/config} {config/usr} };
+SourcePath {char/$sessionName/config} {config/usr};
 
 /* Source core, favoring overrides in global & session local/ */
 @Print{ {INFO} {<129>Loading core scripts.} };
 #var _corePath {{1}{char/$sessionName/local}{2}{local}{3}{core}};
-@SourcePathOverrides{ {${_corePath}} {core} };
+SourcePathOverrides {${_corePath}} {core};
 #unvar _corePath;
 
 /* Source runcommand (rc) files after core is loaded */
 @Print{ {INFO} {<129>Loading global rc...} };
-@SourcePath{ {rc} {rc} };
+SourcePath {rc} {rc};
 
 @Print{ {INFO} {<129>Loading session rc...} };
-@SourcePath{ {char/$sessionName/rc} {usr/rc} };
+SourcePath {char/$sessionName/rc} {usr/rc};
 
 @Print{ {INFO} {<129>Fetching sysinfo from server...} };
 _UpdateSysInfo;

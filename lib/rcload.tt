@@ -13,7 +13,7 @@
 	of the .tt extension.
 	If not classprefix is given it will use the path sans the filename/ext.
 */
-#function {SourceFile} {
+#alias {SourceFile} {
 	#var _:RCtemp[class] {@scriptGetClass{%1}};
 	#if {"${_:RCtemp[class]}" != "" && "%2" != ""} {
 		_Class load {%2/${_:RCtemp[class]}} {%1};
@@ -30,7 +30,6 @@
 		};
 	};
 	#unvar _:RCtemp;
-	#return {#nop ;};
 }
 
 /*
@@ -41,7 +40,7 @@
 		Sorts load order by the dependency info.
 		Loads the scripts in order.
 */
-#function {SourcePath} {
+#alias {SourcePath} {
 	#if {"%1" != ""} {
 		#script {result} {if [ -d %1 ];then echo 1;else echo 0;fi};
 		#if {$result[1]} {
@@ -53,15 +52,14 @@
 			#var _:RCCtemp[deps] {@scriptBuildDepList{{${_:RCCtemp[files]}}}};
 			#var _:RCCtemp[sort] {@scriptDepSort{{${_:RCCtemp[deps]}}}};
 			#foreach {${_:RCCtemp[sort][]}} {_:RCCtemp[idx]} {
-				@SourceFile{ {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2} };
+				_SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
 			};
 		};
 		#unvar _:RCCtemp;
 	};
-	#return {#nop ;};
 }
 
-#function {SourcePathOverrides} {
+#alias {SourcePathOverrides} {
 	#var _:RCCtemp[dirs] {%1};
 	@Print{ {VERBOSE} {Sourcing path '${_:RCCtemp[dirs][-1]}' and others for tt scripts...} };
 	#var _:RCCtemp[file] {@scriptBuildList{ {${_:RCCtemp[dirs]}} }};
@@ -69,10 +67,9 @@
 	#var _:RCCtemp[deps] {@scriptBuildDepList{{${_:RCCtemp[over]}}}};
 	#var _:RCCtemp[sort] {@scriptDepSort{{${_:RCCtemp[deps]}}}};
 	#foreach {${_:RCCtemp[sort][]}} {_:RCCtemp[idx]} {
-		@SourceFile{ {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2} };
+		_SourceFile {${_:RCCtemp[sort][${_:RCCtemp[idx]}][path]}} {%2};
 	};
 	#unvar _:RCCtemp;
-	#return {#nop ;};
 }
 
 #function {scriptGetDeps} {

@@ -35,7 +35,7 @@
 
 #alias {_crystalStatus}
 {
-	std_value_restore lastCrystal;
+	@std_value_restore{lastCrystal};
 	#format __timeNow {%T};
 	#math __deltaTime {$lastCrystal[time] - ${__timeNow}};
 	#if {"$lastCrystal[type]" == "request"} {
@@ -75,7 +75,7 @@
 	_CaptureLog {<169>Requested Crystal Guild Map.} {$capPath[act]};
 	#format {lastCrystal[time]} {%T};
 	#var lastCrystal[type] {request};
-	std_value_save lastCrystal;
+	@std_value_save{lastCrystal};
 	#unvar lastCrystal;
 }
 
@@ -83,9 +83,9 @@
 {
 	_CaptureLog {<169>Completed Crystal Guild Treasure Hunt (%1 Crystal).<099>} {$capPath[act]};
 	#var stateChar[onCrystal] 0;
-	std_value_restore lastCrystal;
+	@std_value_restore{lastCrystal};
 	#var lastCrystal[type] {complete};
-	std_value_save lastCrystal;
+	@std_value_save{lastCrystal};
 	#unvar lastCrystal;
 }
 /* }}} */

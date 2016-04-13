@@ -33,7 +33,7 @@
 
 #alias {_questRecord}
 {
-	std_value_restore lastQuest;
+	@std_value_restore{lastQuest};
 	#format timeNow {%T};
 	#var lastQuest[%1][2] {$lastQuest[%1][1]};
 	#var lastQuest[%1][1] {$timeNow};
@@ -41,7 +41,7 @@
 	#if {&lastQuest[Main] > 7} {
 		#list lastQuest[Main]  {delete} {8};
 	}
-	std_value_save lastQuest;
+	@std_value_save{lastQuest};
 	#unvar timeNow;
 };
 

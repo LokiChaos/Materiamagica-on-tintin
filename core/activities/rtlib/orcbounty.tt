@@ -12,7 +12,7 @@
 	#format {bounty[IssuedTime]} {%t} {{%Y-%m-%d %H:%M:%S}};
 	#var lastBounty {{type}{request} {mob}{$bounty[MobName]} {loc}{$bounty[AreaName]}};
 	#format {lastBounty[time]} {%T};
-	std_value_save lastBounty;
+	@std_value_save{lastBounty};
 	#unvar lastBounty;
 	#delay {bounty_Expire} 
 	{
@@ -49,7 +49,7 @@
 
 	#var lastBounty {{type}{complete} {mob}{} {loc}{}};
 	#format {lastBounty[time]} {%T};
-	std_value_save lastBounty;
+	@std_value_save{lastBounty};
 	#unvar lastBounty;
 
 	#delay {bounty_CoolDown} 
@@ -95,7 +95,7 @@
 }
 
 #alias {_bountyStatus} {
-	std_value_restore lastBounty;
+	@std_value_restore{lastBounty};
 	#format __timeNow {%T};
 	#math __deltaTime {$lastBounty[time] - ${__timeNow}};
 	#if {$stateChar[onBounty]} {

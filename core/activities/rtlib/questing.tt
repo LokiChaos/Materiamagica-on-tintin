@@ -69,7 +69,7 @@
 /* Check Questing Limits {{{ */
 #alias {questCheckLimit}
 {
-	std_value_restore lastQuest;
+	@std_value_restore{lastQuest};
 	#format timeNow {%T};
 	#math lastTwo {$timeNow - 7200};
 	#math lastSix {$timeNow - 21600};

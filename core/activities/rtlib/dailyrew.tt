@@ -24,7 +24,7 @@
 }
 
 #alias {_doDailyStatus} {
-	std_value_restore {lastDaily};
+	@std_value_restore{lastDaily};
 	#format {__timeNow} {%T};
 	#echo {<149>You can recieve daily rewards from:<099>};
 	#foreach {New Rigel;Xaventry;Sigil;Tellerium} {__towne} {
@@ -55,9 +55,9 @@
 
 #alias {_dailyCollect} {
 	_CaptureLog {<259>Collected daily reward from %1.} {$capPath[act]};
-	std_value_restore {lastDaily};
+	@std_value_restore{lastDaily};
 	#format {lastDaily[%1][time]} {%T};
-	std_value_save {lastDaily};
+	@std_value_save{lastDaily};
 	#unvar lastDaily;
 	#var _dailyRewards {};
 	#var _dailyTown {%1};

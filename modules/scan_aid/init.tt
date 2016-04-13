@@ -40,7 +40,7 @@
 } {4};
 
 /* Restore settings, if none load defaults */
-std_value_restore _mod_scan_aid_settings;
+@std_value_restore{_mod_scan_aid_settings};
 
 #if {"${_mod_scan_aid_settings}" == ""} {
 	#var _mod_scan_aid_settings {{color}{<149>} {patterns}{}};

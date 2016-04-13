@@ -128,6 +128,6 @@
 	If you see this message, an error had occured.
 */
 #alias {_%*} {
-	@Print{ {ERROR} {Bad _Alias: '<099>%0<>'} };
+	Print {ERROR} {Bad _Alias: '<099>%0<>'};
 } {10};
 /* }}} */

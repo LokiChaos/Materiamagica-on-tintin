@@ -35,10 +35,10 @@
 					__Class_%1 {%2} {%3};
 				};
 				#case {0} {
-					@Print{ {ERROR} {class '<099>%2<>' is not in loaded.} };
+					Print {ERROR} {class '<099>%2<>' is not in loaded.};
 				};
 				#default {
-					@Print{ {ERROR} {class '<099>%2<>' is not in class manifest.} };
+					Print {ERROR} {class '<099>%2<>' is not in class manifest.};
 				};
 			};
 		};
@@ -46,10 +46,10 @@
 			#if {"%3" != ""} {
 				#switch {@iclassGetPathState{ {%2} {%3} }} {
 					#case {-1} {
-						@Print{ {ERROR} {file '<099>%3<>' is not in '<099>%2<>'.} };
+						Print {ERROR} {file '<099>%3<>' is not in '<099>%2<>'.};
 					};
 					#case {-2} {
-						@Print{ {ERROR} {class '<099>%2<>' is not in class manifest.} };
+						Print {ERROR} {class '<099>%2<>' is not in class manifest.};
 					};
 					#default {
 						__Class_delist_path {%2} {%3};
@@ -58,7 +58,7 @@
 			} {
 				#switch {@iclassGetState{%2}} {
 					#case {-1} {
-						@Print{ {ERROR} {class '<099>%2<119>' is not in class manifest.} };
+						Print {ERROR} {class '<099>%2<119>' is not in class manifest.};
 					};
 					#default {
 						__Class_delist_class {%2};
@@ -73,8 +73,8 @@
 			__Class_help;
 		};
 		#default {
-			@Print{ {WARNING} {'<099>%1<>' is not a valid subcommand.} };
-			@Print{ {INFO} {Use 'help' subcommand to see how to use this command.} };
+			Print {WARNING} {'<099>%1<>' is not a valid subcommand.};
+			Print {INFO} {Use 'help' subcommand to see how to use this command.};
 		};
 	};
 }
@@ -86,7 +86,7 @@
 		#if {${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][l]} != 1} {
 			#class {%1} read {${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][p]}};
 			#var {_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][l]} {1};
-			@Print{ {VERBOSE} {Loaded file '${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][p]}' as class '%1'} };
+			Print {VERBOSE} {Loaded file '${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[Path]}][p]}' as class '%1'};
 		};
 	};
 	_Event_raise {class} {loaded} {%1};
@@ -98,17 +98,17 @@
 	#if {$result[1] && "%2" != ""} {
 		#class {%1} read {%2};
 		__Class_list {%1} {%2};
-		@Print{ {VERBOSE} {Loaded file '%2' as class '%1'} };
+		Print {VERBOSE} {Loaded file '%2' as class '%1'};
 		_Event_raise {class} {loaded} {%1} {%2};
 	} {
-		@Print{ {ERROR} {file '<099>%2<>' does not exist.} };
+		Print {ERROR} {file '<099>%2<>' does not exist.};
 	};
 }
 
 #alias {__Class_load_path} {
 	#class {%1} read {%2};
 	__Class_list {%1} {%2};
-	@Print{ {VERBOSE} {Loaded file '%2' as class '%1' (No File Check)} };
+	Print {VERBOSE} {Loaded file '%2' as class '%1' (No File Check)};
 	_Event_raise {class} {loaded} {%1} {%2};
 }
 
@@ -117,7 +117,7 @@
 	#if {$result[1] && "%2" != ""} {
 		__Class_list {%1} {%2};
 	} {
-		@Print{ {ERROR} {file '<099>%2<>' does not exist.} };
+		Print {ERROR} {file '<099>%2<>' does not exist.};
 	};
 }
 
@@ -153,32 +153,32 @@
 	};
 	#var {_Classes[${_:CCtemp[cidx]}][loaded]} {0};
 	#unvar _:CCtemp;
-	@Print{ {VERBOSE} {Unloaded class '%1'} };
+	Print {VERBOSE} {Unloaded class '%1'};
 	_Event_raise {class} {killed} {%1};
 }
 
 #alias {__Class_purge} {
 	#class {%1} kill;
 	__Class_delist_class {%1};
-	@Print{ {VERBOSE} {Purged class '%1'} };
+	Print {VERBOSE} {Purged class '%1'};
 	_Event_raise {class} {killed} {%1};
 }
 
 #alias {__Class_kill} {
 	#class {%1} kill; 
 	__Class_delist_class {%1};
-	@Print{ {VERBOSE} {Purged class '%1'} };
+	Print {VERBOSE} {Purged class '%1'};
 	_Event_raise {class} {killed} {%1};
 }
 
 #alias {__Class_reload} {
-	@Print{ {VERBOSE} {Reloading class '%1'...} };
+	Print {VERBOSE} {Reloading class '%1'...};
 	__Class_unload {%1};
 	__Class_load_list {%1};
 }
 
 #alias {__Class_replace} {
-	@Print{ {VERBOSE} {Replacing class '%1'...} };
+	Print {VERBOSE} {Replacing class '%1'...};
 	__Class_purge {%1};
 	__Class_load_path {%1} {%2};
 }
@@ -188,19 +188,19 @@
 	#foreach {${_Classes[${_:CCtemp[cidx]}][path][]}} {_:CCtemp[cpidx]} {
 		#if {"${_Classes[${_:CCtemp[cidx]}][path][${_:CCtemp[cpidx]}][p]}" == "%2" } {
 			#list {_Classes[${_:CCtemp[cidx]}][path]} delete {${_:CCtemp[cpidx]}};
-			@Print{ {VERBOSE} {Delisting '%2' from class '%1'} };
+			Print {VERBOSE} {Delisting '%2' from class '%1'};
 		};
 	};
 	#if {&{_Classes[${_:CCtemp[cidx]}][path][]} == 0} {
 		#list _Classes delete {${_:CCtemp[cidx]}};
-		@Print{ {VERBOSE} {Delisting empty class '%1'} };
+		Print {VERBOSE} {Delisting empty class '%1'};
 	};
 	#unvar _:CCtemp;
 }
 
 #alias {__Class_delist_class} {
 	#list _Classes delete {@iclassGetIndex{%1}};
-	@Print{ {VERBOSE} {Delisting class '%1'} };
+	Print {VERBOSE} {Delisting class '%1'};
 }
 
 #alias {__Class_print} {

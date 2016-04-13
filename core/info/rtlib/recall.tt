@@ -1,0 +1,23 @@
+#nop core/info/recall.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: info/recall;
+#nop PROVIDES: core/info/recall;
+
+#gag {^Available recall points:$};
+#gag {^[%W]};
+#gag {^* Your default recall point is:};
+
+#act {[1 ] Nearest area recall point (%* in %*)$} {
+	#echo {<149>You are in the recall zone for <099>%%2<149>.<099>};
+	#var navigation[recall_Room] {%1};
+	#var navigation[recall_Area] {%2};
+	#line gag;
+} {4};
+
+#act {^* It will cost [%*] gp to change your default recall point.} {
+	#line gag;
+	_Class purge tmp/core/info/recall;
+};
+

@@ -6,16 +6,29 @@ TSESSION="MM"
 TSERVER="ttGame"
 TARGS=""
 TINTINDIR=~/.tt
+TINTINCMD="tt++ -G init.tt"
 
-# Forward the -d argument to tmux
-if [ "$1" == "-d" ]; then
-	TARGS+=" -d"
-fi
+printhelp(){
+	echo "	-d To disconnect the tmux session if it is connected elsewhere."
+	echo "	-S <session> To set the auto-login session name."
+	echo "	-h To display this help message."
+
+	return 0
+}
+
+while getopts "S:dh" OPTION; do
+	case $OPTION in
+		d) TARGS+=" -d";;
+		S) TTSESSION="$OPTARG";;
+		h) printhelp; exit 0;;
+		?) printhelp; exit 1;;
+	esac
+done
 
 spawn_tmux(){
 	cd ${TINTINDIR}
 	echo "Session ${TSESSION} does not exist. Creating."
-	tmux -L ${TSERVER} new-session -d -s ${TSESSION} -c ${TINTINDIR} "tt++ -G init.tt"
+	tmux -L ${TSERVER} new-session -d -s ${TSESSION} -c ${TINTINDIR} ${TINTINCMD}
 	tmux -L ${TSERVER} source-file etc/tmux.conf
 	tmux -L ${TSERVER} source-file etc/tmux.client.conf
 	return 0

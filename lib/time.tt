@@ -1,0 +1,42 @@
+#nop lib/time.tt
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: time;
+#nop PROVIDES: lib/time;
+
+/*
+	Usage: @std_getTime{}
+	Retuns: current time in HH:MM:SS format
+*/
+#function {std_getTime} {
+	#format {result} {%t} {%H:%M:%S};
+}
+
+/*
+	Usage: @std_getDate{}
+	Retuns: current time in YYYY-MM-DD format
+*/
+#function {std_getDate} {
+	#format {result} {%t} {%Y-%m-%d};
+}
+
+/*
+	Usage: @std_getTimestamp{}
+	Retuns: current time in YYYY-MM-DD HH:MM:SS format
+*/
+#function {std_getTimestamp} {
+	#format {result} {%t} {%Y-%m-%d %H:%M:%S};
+}
+
+/*
+	Usage: @std_unixToTime{ {<unix Epoch time>} [{<format>}]}
+	Retuns: given Unix epoch time in format or default %c
+*/
+#function {std_unixToTime} {
+	#if {"%2" != ""} {
+		#format {result} {%t} {{%2} {%1}};
+	} {
+		#format {result} {%t} {{%c} {%1}};
+	};
+}

@@ -199,8 +199,8 @@
 }
 
 #alias {__Class_delist_class} {
-	#list _Classes delete {@iclassGetIndex{%1}};
 	Print {VERBOSE} {Delisting class '%1'};
+	#list _Classes delete {@iclassGetIndex{%1}};
 }
 
 #alias {__Class_print} {

@@ -335,8 +335,8 @@
 			};
 		};
 		#default {
-			#replace {_:SGRCT[arg]} {{high|bright|bold|light}} {hi};
-			#replace {_:SGRCT[arg]} {{lo|low|dim|regular|dark|normal}} {};
+			#replace {_:SGRCT[arg]} {^{high|bright|bold|light}} {hi};
+			#replace {_:SGRCT[arg]} {^{lo|low|dim|regular|dark|normal}} {};
 			#replace {_:SGRCT[arg]} {{ |\-}} {};
 			#format {_:SGRCT[arg]} {%l} {${_:SGRCT[arg]}};
 			#var _:SGRCT[names] {{black}{0}{red}{1}{green}{2}

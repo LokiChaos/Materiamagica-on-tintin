@@ -5,11 +5,18 @@
 #nop CLASS: math;
 #nop PROVIDES: lib/math;
 
-
+/*
+	Usage: @std_math_eval{ <math expression> }
+	Returns: the value of the expression after evaluation
+*/
 #function {std_math_eval} {
 	#math result {%0};
 }
 
+/*
+	Usage: @std_math_max{ {<value>} {<value>} }
+	Returns: the value of the greater input value
+*/
 #function {std_math_max} {
 	#if {%1 > %2} {
 		#return %1;
@@ -18,6 +25,10 @@
 	};
 }
 
+/*
+	Usage: @std_math_min{ {<value>} {<value>} }
+	Returns: the value of the lesser input value
+*/
 #function {std_math_min} {
 	#if {%1 > %2} {
 		#return %2;
@@ -26,6 +37,10 @@
 	};
 }
 
+/*
+	Usage: @std_math_abs{ <value> }
+	Returns: the absolute value of the argument
+*/
 #function {std_math_abs} {
 	#if { (%0) >= 0} {
 		#return %0;
@@ -34,10 +49,18 @@
 	};
 }
 
+/*
+	Usage: @std_decrement{ <value> }
+	Returns: the value--
+*/
 #function {std_decrement} {
 	#math result {%1 - 1};
 }
 
+/*
+	Usage: @std_dec2zero{ <value> }
+	Returns: the value-- or 0, whichever is greater
+*/
 #function {std_dec2zero} {
 	#var result @std_math_max{ {0} {@std_decrement{%1}} };
 }

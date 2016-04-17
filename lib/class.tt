@@ -19,8 +19,8 @@
 
 
 /*
-	@classGetIndex{<class>}
-	Returns index of <class> in the class manifest, else 0.
+	Usage: @classGetIndex{<class>}
+	Returns: index of <class> in the class manifest, else 0.
 */
 #function {classGetIndex} {
 	#var result {0};
@@ -34,8 +34,8 @@
 }
 
 /*
-	@classGetState{<class>}
-	Returns class state:
+	Usage: @classGetState{<class>}
+	Returns: class state:
 		0 = Unloaded
 		1 = Loaded
 		-1 = Not in class manifest
@@ -51,9 +51,9 @@
 }
 
 /*
-	@classGetClassList{[0|1]}
-	Returns list of class names.
+	Usage: @classGetClassList{[0|1]}
 	Argument filters by unloaded (0), or loaded (1).
+	Returns: list of class names.
 */
 #function {classGetList} {
 	#var result {};
@@ -66,9 +66,9 @@
 }
 
 /*
-	@classGetClassCount{[0|1]}
-	Returns number of listed classes
+	Usage: @classGetClassCount{[0|1]}
 	Argument filters by unloaded (0), or loaded (1).
+	Returns: number of listed classes
 */
 #function {classGetCount} {
 	#if {"%1" == ""} {
@@ -83,16 +83,16 @@
 }
 
 /*
-	@classGetPathCount{<class>}
-	Returns number of listed paths for <class>
+	Usage: @classGetPathCount{<class>}
+	Returns: number of listed paths for <class>
 */
 #function {classGetPathCount} {
 	#var result {&{_Classes[@classGetIndex{%1}][path][]}};
 }
 
 /*
-	@classGetPathList{<class>}
-	Returns list of path table for <class>
+	Usage: @classGetPathList{<class>}
+	Returns: list of path table for <class>
 */
 #function {classGetPathTable} {
 	#var {_:CFtemp} {@classGetIndex{%1}};
@@ -105,8 +105,8 @@
 }
 
 /*
-	@classGetPathList{<class>}
-	Returns list of path strings for <class>
+	Usage: @classGetPathList{<class>}
+	Returns: list of path strings for <class>
 */
 #function {classGetPathList} {
 	#var _:CFtemp[patht] {@classGetPathTable{%1}};
@@ -118,8 +118,8 @@
 }
 
 /*
-	@classGetPathList{<class>}
-	Returns list of path strings for <class>
+	Usage: @classGetPathList{<class>}
+	Returns: list of path strings for <class>
 */
 #function {classGetPathListLoaded} {
 	#var _:CFtemp[patht] {@classGetPathTable{%1}};
@@ -133,8 +133,8 @@
 }
 
 /*
-	@classGetPathState{ {<class>} {<path>} }
-	Returns load state of <path> in <class>'s manifest entry.
+	Usage: @classGetPathState{ {<class>} {<path>} }
+	Returns: load state of <path> in <class>'s manifest entry.
 		0 = Unloaded
 		1 = Loaded
 		-1 = Path not in class' manifest listing

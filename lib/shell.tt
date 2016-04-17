@@ -4,25 +4,50 @@
 */
 #nop CLASS: shell;
 #nop PROVIDES: lib/shell;
+#nop REQUIRES: lib/debug;
 
 #function {std_file_exists} {
-	#script {result} {if [ -f %0 ];then echo 1;else echo 0;fi};
-	#return $result[1];
+	#if {"%0" == ""} {
+		Print {ERROR} {std_file_exists: argument error};
+		#var result {0};
+	};
+	#else {
+		#script {result} {if [ -f %0 ];then echo 1;else echo 0;fi};
+		#return $result[1];
+	};
 }
 
 #function {std_dir_exists} {
-	#script {result} {if [ -d %0 ];then echo 1;else echo 0;fi};
-	#return $result[1];
+	#if {"%0" == ""} {
+		Print {ERROR} {std_dir_exists: argument error};
+		#var result {0};
+	};
+	#else {
+		#script {result} {if [ -d %0 ];then echo 1;else echo 0;fi};
+		#return $result[1];
+	};
 }
 
 #function {std_file_type} {
-	#script {result} {file -b %0 };
-	#return $result[1];
+	#if {"%0" == ""} {
+		Print {ERROR} {std_file_type: argument error};
+		#var result {0};
+	};
+	#else {
+		#script {result} {file -b %0 };
+		#return $result[1];
+	};
 }
 
 #function {std_file_mime} {
-	#script {result} {file -bi %0 };
-	#return $result[1];
+	#if {"%0" == ""} {
+		Print {ERROR} {std_file_mime: argument error};
+		#var result {0};
+	};
+	#else {
+		#script {result} {file -bi %0 };
+		#return $result[1];
+	};
 }
 
 #function {std_envget} {
@@ -41,6 +66,16 @@
 }
 
 #function {std_mkdir} {
-	#script result {if [ mkdir -p %0]; then echo 1; else echo 0;fi};
-	#return $result[1];
+	#if {"%0" == ""} {
+		Print {ERROR} {std_mkdir: argument error};
+		#var result {0};
+	};
+	#elseif {@std_dir_exists{%0} == 1} {
+		Print {WARNING} {std_mkdir: '<099>%0<>' already exists};
+		#var result {0};
+	};
+	#else {
+		#script result {mkdir -p %0};
+		#var result {1};
+	};
 }

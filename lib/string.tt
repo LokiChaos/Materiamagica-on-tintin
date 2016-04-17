@@ -10,23 +10,28 @@
 	#replace {result} {'} {\047};
 }
 
+#function {std_str_esc} {
+	#script {result} {echo "$(echo "%0" | sed 's/[^-A-Za-z0-9_]/\\&/g')"};
+	#var result {$result[1]};
+}
+
 #func {std_str_escape} {
 	#var result %1;
-	#var __esctmp[aidx] 0;
-	#foreach {%0} {__esctmp[arg]} {
-		#math __esctmp[aidx] {1 + ${__esctmp[aidx]}};
-		#if {${__esctmp[aidx]} > 1 } {
-			#var __esctmp[asidx] 0;
-			#var __esctmp[a][2] {};
-			#foreach {${__esctmp[arg]}} {__esctmp[argsub]} {
-				#math __esctmp[asidx] {1 + ${__esctmp[asidx]}};
-				#var __esctmp[a][${__esctmp[asidx]}] {${__esctmp[argsub]}};
+	#var _:esctmp[aidx] 0;
+	#foreach {%0} {_:esctmp[arg]} {
+		#math _:esctmp[aidx] {1 + ${_:esctmp[aidx]}};
+		#if {${_:esctmp[aidx]} > 1 } {
+			#var _:esctmp[asidx] 0;
+			#var _:esctmp[a][2] {};
+			#foreach {${_:esctmp[arg]}} {_:esctmp[argsub]} {
+				#math _:esctmp[asidx] {1 + ${_:esctmp[asidx]}};
+				#var _:esctmp[a][${_:esctmp[asidx]}] {${_:esctmp[argsub]}};
 			};
-			#line sub var #replace {result} {${__esctmp[a][1]}} {${__esctmp[a][2]}};
-			#unvar __esctmp[a];
+			#line sub var #replace {result} {${_:esctmp[a][1]}} {${_:esctmp[a][2]}};
+			#unvar _:esctmp[a];
 		};
 	};
-	#unvar __esctmp;
+	#unvar _:esctmp;
 };
 
 /* Escape Un-safe for sh/awk/sed*/

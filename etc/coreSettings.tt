@@ -20,6 +20,15 @@
 #var clientConfig[messageLogPath]    {debug.log};
 
 /*
+	Color mode
+	Determines behavior of color handling for pattern matching.
+	Valid Options: 16 256 both
+	Default: both
+	Unknown values will be treated as 'both'
+*/
+#var clientConfig[colorMode] {both};
+
+/*
 	How long should the inital login menu wait for you to make a selection
 	before auto-connecting to the first entry.
 */

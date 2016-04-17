@@ -4,49 +4,360 @@
 */
 #nop CLASS: vt;
 #nop PROVIDES: lib/vt;
+#nop REQUIRES: lib/debug;
 
 /*
-	Various VT Control Codes for use in triggers.
-	Mostly to make things more readable.
+	Various functions for helping with ANSI Escape Sequences and SGR control codes
+
+	WARNING: DEEP MAGIC!
+	Don't worry about the internals unless you have a firm grasp of ANSI/SGR
+	control codes, terminal emulation and regular expressions as well as
+	tintin++'s unique syntax and how it handles % references.
+
+	If you would like to learn more:
+		https://en.wikipedia.org/wiki/ANSI_escape_code
+		https://en.wikipedia.org/wiki/Terminal_emulator
+		https://en.wikipedia.org/wiki/C0_and_C1_control_codes
+		http://invisible-island.net/xterm/ctlseqs/ctlseqs.html
 */
-/* Basic 16 color control codes */
-#var VT[c][black]        {\e[0\;30m};
-#var VT[c][red]          {\e[0\;31m};
-#var VT[c][green]        {\e[0\;32m};
-#var VT[c][yellow]       {\e[0\;33m};
-#var VT[c][blue]         {\e[0\;34m};
-#var VT[c][maganta]      {\e[0\;35m};
-#var VT[c][cyan]         {\e[0\;36m};
-#var VT[c][white]        {\e[0\;37m};
 
-#var VT[c][hiblack]      {\e[1\;30m};
-#var VT[c][hired]        {\e[1\;31m};
-#var VT[c][higreen]      {\e[1\;32m};
-#var VT[c][hiyellow]     {\e[1\;33m};
-#var VT[c][hiblue]       {\e[1\;34m};
-#var VT[c][himaganta]    {\e[1\;35m};
-#var VT[c][hicyan]       {\e[1\;36m};
-#var VT[c][hiwhite]      {\e[1\;37m};
+/*
+	Usage: @sgrp{<color>}
+	Returns: regex pattern for SGR control codes for use in #action
+	NB: each use will take up ONE %[1-99] reference.
 
-#var VT[c][reset]        {\e[0m};
+	TODO: Remove MM's "reset" pattern once the game is fixed
+*/
+#function {sgrp} {
+	#var _:SGRP[CSI]   {\e[};
+	#var _:SGRP[SGR]   {m};
+	#var _:SGRP[error] {E{RRO}R};
 
-/* 256-color codes for basic 16 colors */
-#var VT[256c][black]     {\e[38\;5\;0m};
-#var VT[256c][red]       {\e[38\;5\;1m};
-#var VT[256c][green]     {\e[38\;5\;2m};
-#var VT[256c][yellow]    {\e[38\;5\;3m};
-#var VT[256c][blue]      {\e[38\;5\;4m};
-#var VT[256c][magenta]   {\e[38\;5\;5m};
-#var VT[256c][cyan]      {\e[38\;5\;6m};
-#var VT[256c][white]     {\e[38\;5\;7m};
+	#var _:SGRP[arg] {@sgrParseColor{%1}};
 
-#var VT[256c][hiblack]   {\e[38\;5\;8m};
-#var VT[256c][hired]     {\e[38\;5\;9m};
-#var VT[256c][higreen]   {\e[38\;5\;10m};
-#var VT[256c][hiyellow]  {\e[38\;5\;11m};
-#var VT[256c][hiblue]    {\e[38\;5\;12m};
-#var VT[256c][himagenta] {\e[38\;5\;13m};
-#var VT[256c][hicyan]    {\e[38\;5\;14m};
-#var VT[256c][hiwhite]   {\e[38\;5\;15m};
+	#switch {"${_:SGRP[arg][att]}"} {
+		#case {"RESET"} {
+			#switch {"$clientConfig[colorMode]"} {
+				#case {"16"} {
+					#var _:SGRP[pattern] {0};
+				};
+				#default {
+					#var _:SGRP[pattern] {0|0\;38\;5\;7m\e\[0\;40};
+				};
+			};
+		};
+		#case {"ANY"} {
+			#var _:SGRP[pattern] {[0-9\;]+};
+		};
+		#default {
+			#if {"$clientConfig[colorMode]" == "16" && ( ${_:SGRP[arg][c][fg]} > 15 || ${_:SGRP[arg][c][bg]} > 15 ) } {
+				#echo {Print {ERROR} {Color '<099>%1<>' is beyond standard 16 color range}};
+			};
+			#var _:SGRP[pat][16]  {@sgr16{ ${_:SGRP[arg][c]} }};
+			#var _:SGRP[pat][256] {@sgr256{ ${_:SGRP[arg][c]} }};
 
-#var VT[256c][reset]     {\e[38\;5\;7m\e[0\;40m};
+			#if {"$clientConfig[colorMode]" == "16"} {
+				#var _:SGRP[pat][256] {};
+			};
+			#elseif {"$clientConfig[colorMode]" == "256" && "${_:SGRP[pat][256]}" != ""} {
+				#var _:SGRP[pat][16] {};
+			};
+
+			#var _:SGRP[pattern] {@sgrRegex{ {${_SGRstate[att]}} {${_:SGRP[arg]}} {${_:SGRP[pat][256]}} {${_:SGRP[pat][16]}} }};
+		};
+	};
+
+	#var _SGRstate {@sgrState{ {${_SGRstate[att]}} {${_:SGRP[arg][att]}} {${_:SGRP[arg][strictness]}} }};
+
+	#if {"${_:SGRP[pattern]}" == "" } {
+		#var result {${_:SGRP[error]}};
+	} {
+		#var result {${_:SGRP[CSI]}{${_:SGRP[pattern]}}${_:SGRP[SGR]}};
+	};
+	#unvar _:SGRP;
+}
+
+/*
+	Usage: @sgrinit{[<?>]}
+	Start's new pattern and Resets _SGRstate to default or unknown state
+	Called at start of an action to ensure clean state
+	Returns ~ for #act
+*/
+#function {sgrinit} {
+	#if {"%0" == "?"} {
+		#var _SGRstate {{att}{?}};
+	} {
+		#var _SGRstate {{att}{0}};
+	}
+	#var result {~};
+}
+
+/*
+	Usage: @sgrfin{}
+	Marks end of a pattern and cleans up _SGRstate
+	Called at end of an action's pattern
+	Returns nothing for #act
+*/
+#function {sgrfin} {
+	#unvar _SGRstate {};
+	#var result {};
+}
+
+/*
+	Usage: @sgrc{<stripped sequence>}
+	Returns the ANSI control sequence based on the stripped sequence.
+	eg: @sgrc{0\;32} returns '\e[0\;32m' (aka reset and fg set to green)
+*/
+#function {sgrc} {
+	#format result {\e[%sm} {%0};
+};
+
+/* Internal Helpers {{{ */
+/* Generates pattern for standard 16-color control codes */
+#function {sgr16} {
+	#var _:SGRC[arg] {%0};
+	#if {${_:SGRC[arg][fg]} >= 0 && ${_:SGRC[arg][fg]} < 16} {
+		#math _:SGRC[fg] {30 + ${_:SGRC[arg][fg]} % 8};
+	};
+	#elseif {${_:SGRC[arg][fg]} == -2 } {
+		#var _:SGRC[fg]  {39};
+	};
+	#if {${_:SGRC[arg][bg]} >= 0 && ${_:SGRC[arg][bg]} < 16} {
+		#math _:SGRC[bg] {40 + ${_:SGRC[arg][bg]} % 8};
+	};
+	#elseif {${_:SGRC[arg][bg]} == -2 } {
+		#var _:SGRC[bg]  {49};
+	};
+	#var _:SGRC[return] {${_:SGRC[fg]} ${_:SGRC[bg]}};
+	#replace {_:SGRC[return]} {{^ +| +$}} {};
+	#replace {_:SGRC[return]} { }      {\;};
+	#var result {${_:SGRC[return]}};
+	#unvar _:SGRC;
+};
+
+/* Generates pattern for 256-color control codes */
+#function {sgr256} {
+	#var _:SGRC[arg]  {%0};
+	#if {${_:SGRC[arg][fg]} >= 0 && ${_:SGRC[arg][bg]} < 0} {
+		#var result {38\;5\;${_:SGRC[arg][fg]}};
+	};
+	#elseif {${_:SGRC[arg][bg]} >= 0 && ${_:SGRC[arg][fg]} < 0} {
+		#var result {48\;5\;${_:SGRC[arg][bg]}};
+	};
+	#else {
+		#var result {};
+	};
+	#unvar _:SGRC;
+}
+
+
+/* Determines new state from oldstate*/
+#function {sgrState} {
+	#switch {"%2"} {
+		#case {"RESET"} {
+			#var result {0};
+		};
+		#case {"ANY"} {
+			#var result {?};
+		};
+		#case {"-1"} {
+			#var result {%1};
+		};
+		#default {
+			#if {"%1" == "?"} {
+				#if {%3 == 2} {
+					#var result {%2};
+				} {
+					#var result {?};
+				};
+			};
+			#elseif {"%2" != "%1"} {
+				#if {%3 >= 0} {
+					#var result {%2};
+				} {
+					#var result {?};
+				};
+			};
+			#else {
+				#if {%3 >= 1} {
+					#var result {%2};
+				} {
+					#var result {?};
+				};
+			};
+		};
+	};
+	#var result[att] {$result};
+};
+
+/* Builds final regex from SGR fragments and state */
+#function {sgrRegex} {
+	#var _:SGRX[att]   {%1};
+	#var _:SGRX[arg]   {%2};
+	#var _:SGRX[256]   {%3};
+	#var _:SGRX[16]    {%4};
+
+	#if {"${_:SGRX[arg][att]}" != "-1"} {
+		#var _:SGRX[nat] {${_:SGRX[arg][att]}\;};
+	} {
+		#var _:SGRX[nat] {};
+	};
+
+	#if {${_:SGRX[arg][strictness]} == 2 || ( ${_:SGRX[arg][strictness]} != -1 && "${_:SGRX[att]}" != "?" && "${_:SGRX[arg][att]}" != "${_:SGRX[att]}" )} {
+		#if {"${_:SGRX[256]}" != "" } {
+			#var _:SGRX[256] {${_:SGRX[nat]}${_:SGRX[256]}};
+		};
+		#if {"${_:SGRX[16]}" != "" } {
+			#var _:SGRX[16] {${_:SGRX[nat]}${_:SGRX[16]}};
+		};
+	};
+	#elseif {${_:SGRX[arg][strictness]} == 1 && "${_:SGRX[arg][att]}" == "${_:SGRX[att]}" } {
+		#nop ;
+	};
+	#else {
+		#if {"${_:SGRX[256]}" != "" && ${_:SGRX[arg][att]} != -1 && ${_:SGRX[arg][att]} != 1} {
+			#var _:SGRX[256] {${_:SGRX[nat]}${_:SGRX[256]}|${_:SGRX[256]}};
+		};
+		#if {"${_:SGRX[16]}" != "" && ${_:SGRX[arg][att]} != -1 } {
+			#var _:SGRX[16] {${_:SGRX[nat]}${_:SGRX[16]}|${_:SGRX[16]}};
+		};
+	};
+
+	#var _:SGRX[return] {${_:SGRX[256]}|${_:SGRX[16]}};
+	#replace _:SGRX[return] {{^\||\|$}} {};
+	#if {"${_:SGRX[return]}" == "" && ${_:SGRX[arg][att]} != -1} {
+		#var _:SGRX[return] {${_:SGRX[arg][att]}};
+	};
+
+	#replace _:SGRX[return] {1\\\;38} {38};
+	#replace _:SGRX[return] {1\\\;48} {48};
+	#var result {${_:SGRX[return]}};
+	#unvar _:SGRX;
+}
+
+/* Parses the various possible input formats into usable values */
+#function {sgrParseColor} {
+	#var _:SGRCT[arg]  {%1};
+
+	#switch {"${_:SGRCT[arg]}"} {
+		#case {"!!%*"} {
+			#var _:SGRCT[ret][strictness] {2};
+			#replace {_:SGRCT[arg]} {!!} {};
+		};
+		#case {"!%*"} {
+			#var _:SGRCT[ret][strictness] {1};
+			#replace {_:SGRCT[arg]} {!} {};
+		};
+		#case {"?%*"} {
+			#var _:SGRCT[ret][strictness] {-1};
+			#replace {_:SGRCT[arg]} {?} {};
+		};
+		#default {
+			#var _:SGRCT[ret][strictness] {0};
+		};
+	};
+
+	#var _:SGRCT[ret][att] {-1};
+
+	#switch {"${_:SGRCT[arg]}"} {
+		#case {"{reset|X|\|X}"} {
+			#var _:SGRCT[ret][att] {RESET};
+		};
+		#case {"{any|\*}"} {
+			#var _:SGRCT[ret][att] {ANY};
+		};
+		#case {"{under|underscore|underline|U|\|U|u|\|u}"} {
+			#var _:SGRCT[ret][att] {4};
+		};
+		#case {"{invert|I|\|I|i|\|i}"} {
+			#var _:SGRCT[ret][att] {7};
+		};
+		#case {"{\||}{k|r|g|y|b|m|c|w|K|D|R|G|Y|B|M|C|W}"} {
+			#replace _:SGRCT[arg] {|} {};
+			#var _:SGRCT[MM] {{k}{0}{r}{1}{g}{2}{y}{3}{b}{4}{m}{5}{c}{6}{w}{7}{K}{8}
+			                 {D}{8}{R}{9}{G}{10}{Y}{11}{B}{12}{M}{13}{C}{14}{W}{15}};
+			#var _:SGRCT[ret][c][fg] {${_:SGRCT[MM][${_:SGRCT[arg]}]}};
+			#math _:SGRCT[ret][att] {${_:SGRCT[ret][c][fg]} > 7};
+		};
+		#case {"{\|[0-7]}"} {
+			#replace _:SGRCT[arg] {|} {};
+			#var _:SGRCT[ret][c][bg] {${_:SGRCT[arg]}};
+		};
+		#case {"{[0-9]{1,3}}"} {
+			#regex {${_:SGRCT[arg]}} {%.%.%.} {
+				#if {&1 < 8} {
+					#var _:SGRCT[ret][att] {&1};
+				};
+				#if { &2 < 8 } {
+					#math _:SGRCT[ret][c][fg] { (8 * (&1 == 1)) + &2};
+				};
+				#elseif { &2 == 9} {
+					#var _:SGRCT[ret][c][fg]  {-2};
+				};
+				#if { &3 < 8 } {
+					#var _:SGRCT[ret][c][bg] {&3};
+				};
+				#elseif { &3 == 9} {
+					#var _:SGRCT[ret][c][bg]  {-2};
+				};
+			} {
+				#if {${_:SGRCT[arg]} >= 0 && ${_:SGRCT[arg]} < 16} {
+					#var _:SGRCT[ret][c][fg] {${_:SGRCT[arg]}};
+					#math _:SGRCT[ret][att] {${_:SGRCT[ret][c][fg]} > 7};
+				};
+			};
+		};
+		#case {"{[a-f]{3}}"} {
+			#regex {${_:SGRCT[arg]}} {%.%.%.} {
+				#var _:SGRCT[value] {{a}{0}{b}{1}{c}{2}{d}{3}{e}{4}{f}{5}};
+				#math _:SGRCT[ret][c][fg] {16 + 36 * ${_:SGRCT[value][&1]} + 6 * ${_:SGRCT[value][&2]} + ${_:SGRCT[value][&3]} };
+			};
+			#math _:SGRCT[ret][att] {${_:SGRCT[ret][c][fg]} > 7 && ${_:SGRCT[ret][c][fg]} < 16};
+		};
+		#case {"{[A-F]{3}}"} {
+			#regex {${_:SGRCT[arg]}} {%.%.%.} {
+				#var _:SGRCT[value] {{A}{0}{B}{1}{C}{2}{D}{3}{E}{4}{F}{5}};
+				#math _:SGRCT[ret][c][bg] {16 + 36 * ${_:SGRCT[value][&1]} + 6 * ${_:SGRCT[value][&2]} + ${_:SGRCT[value][&3]} };
+			};
+		};
+		#case {"g{[0-9]{2}}"} {
+			#regex {${_:SGRCT[arg]}} {g%d} {
+				#if {&1 < 24 && &1 >= 0} {
+					#math _:SGRCT[ret][c][fg]   {232 + &1};
+				};
+			};
+		};
+		#case {"G{[0-9]{2}}"} {
+			#regex {${_:SGRCT[arg]}} {G%d} {
+				#if {&1 < 24 && &1 >= 0} {
+					#math _:SGRCT[ret][c][bg]   {232 + &1};
+				};
+			};
+		};
+		#default {
+			#replace {_:SGRCT[arg]} {{high|bright|bold|light}} {hi};
+			#replace {_:SGRCT[arg]} {{lo|low|dim|regular|dark|normal}} {};
+			#replace {_:SGRCT[arg]} {{ |\-}} {};
+			#format {_:SGRCT[arg]} {%l} {${_:SGRCT[arg]}};
+			#var _:SGRCT[names] {{black}{0}{red}{1}{green}{2}
+			                     {yellow}{3}{brown}{3}{olive}{3}
+			                     {blue}{4}{navy}{4}{magenta}{5}{purple}{5}
+			                     {cyan}{6}{teal}{6}{white}{7}{grey}{7}{gray}{7}
+			                     {hiblack}{8}{darkgrey}{8}{darkgray}{8}
+			                     {hired}{9}{higreen}{10}{lime}{10}
+			                     {hiyellow}{11}{hiblue}{12}{himagenta}{13}
+			                     {hicyan}{14}{hiwhite}{15}};
+			#var _:SGRCT[ret][c][fg] {${_:SGRCT[names][${_:SGRCT[arg]}]}};
+			#math _:SGRCT[ret][att] {${_:SGRCT[ret][c][fg]} > 7};
+		};
+	};
+	#if {"${_:SGRCT[ret][c][fg]}" == ""} {
+		#var _:SGRCT[ret][c][fg] {-1};
+	};
+	#if {"${_:SGRCT[ret][c][bg]}" == ""} {
+		#var _:SGRCT[ret][c][bg] {-1};
+	};
+	#var result {${_:SGRCT[ret]}};
+	#unvar _:SGRCT;
+}
+/* }}} */

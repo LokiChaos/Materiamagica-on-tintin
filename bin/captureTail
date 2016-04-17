@@ -2,6 +2,8 @@
 # Author: LokiChaos ©2016 Released under the ISC License (See doc/license.txt)
 # Log Tailer for MateriaMagica on tintin++
 
+TINTINDIR=~/.tt
+
 echoHelp(){
 	echo "Usage:"
 	echo "captureTail path/to/file"
@@ -39,14 +41,14 @@ elif [ -d "$1" ]; then
 # Assume it was a Session and a channel and build a path off of that
 elif [ -n "$2" ]; then
 	SESSNAME=$1
-	LOGPATH=~/.tt/char/${SESSNAME}/log
+	LOGPATH=${TINTINDIR}/char/${SESSNAME}/log
 	LOGF=${LOGPATH}/$2
 
 # if only one non-tailable file or directory was given, assume it was a Session name
 # prompt the user for what file to tail from that Session's log directory
 else
 	SESSNAME=$1
-	LOGPATH=~/.tt/char/${SESSNAME}/log
+	LOGPATH=${TINTINDIR}/char/${SESSNAME}/log
 	clear
 	ls $LOGPATH
 	echo -e "\033[01;32mPlease Select a log file to follow from above (blank to exit):\033[01;35m"
@@ -61,13 +63,14 @@ else
 fi
 
 if [ -f "$LOGF" ]; then
-	# Suppress Local Echo of keypresses
-	stty -echo
+	# Suppress Local Echo of keypresses, and ^s/^q
+	TTYORIG=$(stty -g)
+	stty -echo -ixon
 	clear
 	# -F follow & retry, -q no headers, -n 100 by default last 100 lines
 	tail -F -q -n 100 $LOGF | cut -c 6- 2>/dev/null
-	# Re-enable Local Echo in terminal
-	stty echo
+	# Re-set tty settings
+	stty ${TTYORIG}
 else
 	echo "File \"$LOGF\" does not exist!"
 	exit 1

@@ -23,7 +23,7 @@
 	_Event_raise {given_item} {%1} {%2};
 } {6}
 
-#act {~^{[^\e]+} gives you \e[1;33m{[0-9,]+}\e[0m gold coins.$} {
+#act {~^{[^\e]+} gives you \e[1;33m{[0-9,]+}\e[0m gold{ coins|}.$} {
 	_ChannelLog {<099>%0} {$capPath[transfers]};
 	_Event_raise {given_gold} {%1} {%2};
 } {5.9}

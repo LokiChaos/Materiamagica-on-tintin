@@ -12,13 +12,13 @@
 #alias {^run$} {
 	_Class load tmp/core/sw/run core/speedwalks/rtlib/run.tt;
 	_RunSpeedWalk;
-	_Class tmp/core/sw/run;
+	_Class purge tmp/core/sw/run;
 }
 
 #alias {^run!$} {
 	_Class load tmp/core/sw/run core/speedwalks/rtlib/run.tt;
 	_RunSpeedWalkNoCheck;
-	_Class tmp/core/sw/run;
+	_Class purge tmp/core/sw/run;
 }
 
 #alias {^stop$} {

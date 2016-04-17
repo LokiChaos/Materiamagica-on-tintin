@@ -42,7 +42,7 @@
 }
 
 #function {std_unremember} {
-	#list _remember del {@std_list_findMember{ {%1} {_remember} }};
+	#list _remember del {@std_list_findValue{ {%1} {_remember} }};
 	@std_value_clear{%1};
 	#return {#nop ;};
 }

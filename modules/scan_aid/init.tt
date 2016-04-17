@@ -24,7 +24,7 @@
 		#echo {<149>Added '<099>${__aug}<149>' to scan highlighting.};
 	};
 	#elseif {"%2" == "del"} {
-		#var __toDel {@std_list_findMember{ {${__aug}} {_mod_scan_aid_settings[patterns]} }};
+		#var __toDel {@std_list_findValue{ {${__aug}} {_mod_scan_aid_settings[patterns]} }};
 		#if {${__toDel}} {
 			#list _mod_scan_aid_settings[patterns] del {${__toDel}};
 			#echo {<149>Removed '<099>${__aug}<149>' from scan highlighting.};

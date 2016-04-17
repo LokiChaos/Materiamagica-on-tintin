@@ -4,6 +4,7 @@
 	*/
 #nop CLASS: sqlite;
 #nop PROVIDES: lib/sql;
+#nop REQUIRES: lib/debug;
 
 /*
   Generic SQLite Database Connector 
@@ -11,14 +12,15 @@
   db_submit works the same way as #format
   NB: You must enclose each argument in {}
 
-  std_db_submit {returnvar} {db file} {sql expression} [{format-style args}]
+  Usage: std_db_submit {returnvar} {db file} {sql expression} [{format-style args}]
        {select * from tablename where fieldname = '%s'} {match text}
-  @std_db_submit{ {db file} {sql expression} [{format-style args}] }
 
   Parses the output and puts it into an associative array:
        $returnvar[recordnumber][fieldname]
    E.G. to get the data from HP field of the first record returned:
        #var {varname} {$returnvar[1][HP]}
+  Usage: @std_db_submit{ {db file} {sql expression} [{format-style args}] }
+	Similar to the alias, but in function form.
 	}}}
 */
 

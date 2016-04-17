@@ -4,17 +4,143 @@
 */
 #nop CLASS: list;
 #nop PROVIDES: lib/list;
+#nop REQUIRES: lib/debug;
 
+/*
+	Usage: @std_list_findKey{ {<key>} {<list>} }
+	Returns: 0 if <key> isn't in list, else it returns the positional index
+*/
 #function {std_list_findKey} {
-	#list __tmpList create ${%2[]};
-	#list __tmpList find {%1} {result};
-	#unvar __tmpList;
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_findKey: argument error};
+		#var result {error};
+	};
+	#else {
+		#list _:ListKeys create ${%2[]};
+		#list _:ListKeys find {%1} {result};
+		#unvar _:ListKeys;
+	};
 }
 
-#function {std_list_findMember} {
-	#list {%2} {find} {%1} {result};
+/*
+	Usage: @std_list_isKey{ {<key>} {<list>} }
+	Returns: 0 if <key> isn't in list, of 1 if it is.
+*/
+#function {std_list_isKey} {
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_isKey: argument error};
+		#var result {error};
+	};
+	#else {
+		#list _:ListKeys create ${%2[]};
+		#math result { 0 != @std_list_findValue{{%1}{_:ListKeys}} };
+		#unvar _:ListKeys;
+	};
 }
 
-#function {std_list_isMember} {
-	#math result { 0 != @std_list_findMember{{%1}{%2}} || "${%2[0]}" == "%1" };
+/*
+	Usage: @std_list_findValue{ {<value>} {<list>} }
+	Returns: 0 if value isn't in list, else it returns the position
+	Note: it returns the FIRST match to <value>
+*/
+#function {std_list_findValue} {
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_findValue: argument error};
+		#var result {error};
+	};
+	#else {
+		#list {%2} {find} {%1} {result};
+	};
+}
+
+/*
+	Usage: @std_list_findValueKey{ {<value>} {<list>} }
+	Returns: {} if value isn't in list, else it returns the key
+	Note: it returns the FIRST match to <value>
+*/
+#function {std_list_findValueKey} {
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_findValueKey: argument error};
+		#var result {error};
+	};
+	#else {
+		#list {%2} {find} {%1} {_:ListKey};
+		#list _:ListKeys create ${%2[]};
+		#var result {${_:ListKeys[${_:ListKey}]}};
+		#unvar _:ListKeys;
+		#unvar _:ListKey;
+	};
+}
+
+/*
+	Usage: @std_list_findAllValue{ {<value>} {<list>} }
+	Returns: {} if value isn't in list, else it returns a list of all indexes with matching value
+*/
+#function {std_list_findAllValue} {
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_findAllValue: argument error};
+		#var result {error};
+	};
+	#else {
+		#var result {};
+		#loop {1} {&{%2[]}} {_:ListPos} {
+			#if {"${%2[+${_:ListPos}]}" == "%1"} {
+				#list result add {${_:ListPos}};
+			};
+		};
+		#unvar _:ListPos;
+	};
+}
+
+/*
+	Usage: @std_list_findAllValueKey{ {<value>} {<list>} }
+	Returns: {} if value isn't in list, else it returns a list of all keys with matching value
+*/
+#function {std_list_findAllValueKey} {
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_findAllValueKey: argument error};
+		#var result {error};
+	};
+	#else {
+		#var result {};
+		#forall {${%2[]}} {
+			#if {"${%2[&0]}" == "%1"} {
+				#list result add {&0};
+			};
+		};
+	};
+}
+
+/*
+	Usage: @std_list_findAllValueCount{ {<value>} {<list>} }
+	Returns: 0 if value isn't in list, else it returns a count of how many times it appears
+*/
+#function {std_list_findAllValueCount} {
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_findAllValueKey: argument error};
+		#var result {error};
+	};
+	#else {
+		#var result {};
+		#forall {${%2[]}} {
+			#if {"${%2[&0]}" == "%1"} {
+				#list result add {&0};
+			};
+		};
+	#var result {&{result[]}};
+	};
+}
+
+/*
+	Usage: @std_list_isValue{ {<value>} {<list>} }
+	Returns: 0 if <value> is not is <list> or 1 if it is.
+*/
+#function {std_list_isValue} {
+	#if {"%1" == "" || &{%2} == 0} {
+		Print {ERROR} {std_list_isValue: argument error};
+		#var result {error};
+	};
+	#else {
+		#math result { 0 != @std_list_findValue{{%1}{%2}} || "${%2[0]}" == "%1" };
+	};
 }

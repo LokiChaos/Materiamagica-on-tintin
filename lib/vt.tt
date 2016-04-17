@@ -51,7 +51,7 @@
 		};
 		#default {
 			#if {"$clientConfig[colorMode]" == "16" && ( ${_:SGRP[arg][c][fg]} > 15 || ${_:SGRP[arg][c][bg]} > 15 ) } {
-				#echo {Print {ERROR} {Color '<099>%1<>' is beyond standard 16 color range}};
+				Print {ERROR} {Color '<099>%1<>' is beyond standard 16 color range};
 			};
 			#var _:SGRP[pat][16]  {@sgr16{ ${_:SGRP[arg][c]} }};
 			#var _:SGRP[pat][256] {@sgr256{ ${_:SGRP[arg][c]} }};
@@ -78,12 +78,12 @@
 }
 
 /*
-	Usage: @sgrinit{[<?>]}
+	Usage: @sgrInit{[<?>]}
 	Start's new pattern and Resets _SGRstate to default or unknown state
 	Called at start of an action to ensure clean state
 	Returns ~ for #act
 */
-#function {sgrinit} {
+#function {sgrInit} {
 	#if {"%0" == "?"} {
 		#var _SGRstate {{att}{?}};
 	} {
@@ -93,12 +93,12 @@
 }
 
 /*
-	Usage: @sgrfin{}
+	Usage: @sgrFin{}
 	Marks end of a pattern and cleans up _SGRstate
 	Called at end of an action's pattern
 	Returns nothing for #act
 */
-#function {sgrfin} {
+#function {sgrFin} {
 	#unvar _SGRstate {};
 	#var result {};
 }

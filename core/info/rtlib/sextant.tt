@@ -4,7 +4,7 @@
 */
 #nop CLASS: info/sextant;
 
-#if {$stateClient[muteLine]} {
+#if {$client[State][muteLine]} {
 	#gag {^It is %d:%d %w on %w, %w the %S, year %d.};
 	#gag {^You are currently at position %*, %* in %*.};
 	#gag {^You are not in a mappable location.};

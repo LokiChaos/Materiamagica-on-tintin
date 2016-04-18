@@ -37,7 +37,7 @@
 
 	#switch {"${_:SGRP[arg][att]}"} {
 		#case {"RESET"} {
-			#switch {"$clientConfig[colorMode]"} {
+			#switch {"$client[Config][colorMode]"} {
 				#case {"16"} {
 					#var _:SGRP[pattern] {0};
 				};
@@ -50,14 +50,14 @@
 			#var _:SGRP[pattern] {[0-9\;]+};
 		};
 		#default {
-			#if {"$clientConfig[colorMode]" != "16"} {
+			#if {"$client[Config][colorMode]" != "16"} {
 				#var _:SGRP[pat][256] {@sgr256{ ${_:SGRP[arg][c]} }};
 			};
 			#elseif {${_:SGRP[arg][c][fg]} > 15 || ${_:SGRP[arg][c][bg]} > 15} {
 				Print {ERROR} {Color '<099>%1<>' is beyond standard 16 color range};
 			};
 
-			#if {"$clientConfig[colorMode]" != "256" || "${_:SGRP[pat][256]}" == ""} {
+			#if {"$client[Config][colorMode]" != "256" || "${_:SGRP[pat][256]}" == ""} {
 				#var _:SGRP[pat][16]  {@sgr16{ ${_:SGRP[arg][c]} }};
 			};
 

@@ -11,14 +11,14 @@
 {
 	_Class load tmp/core/silentEq core/equipment/rtlib/armor.tt;
 	equipment;
-	#var stateClient[muteLine] 1;
+	#var client[State][muteLine] 1;
 }
 
 #alias {weapon}
 {
 	_Class load tmp/core/silentEq core/equipment/rtlib/weapon.tt;
 	equipment;
-	#var stateClient[muteLine] 1;
+	#var client[State][muteLine] 1;
 }
 /* }}} */
 
@@ -34,12 +34,12 @@
 /* Internal Helper - executes equipment command & gags output {{{ */
 #alias {_equipSilent}
 {
-	_Event_oneshot {prompt_post} {clearAutoCont} {#var stateClient[autoContinue] 0; #nop
+	_Event_oneshot {prompt_post} {clearAutoCont} {#var client[State][autoContinue] 0; #nop
 	};
 	_Class load tmp/core/silentEq core/equipment/rtlib/silentEquip.tt;
 	equipment;
-	#var stateClient[muteLine] 1;
-	#var stateClient[autoContinue] 1;
+	#var client[State][muteLine] 1;
+	#var client[State][autoContinue] 1;
 }
 /* }}} */
 
@@ -47,7 +47,7 @@
 /* When you hold a weapon it updates info with a silent equipment command */
 #act {^You wield %* in your %w hand.$} {
 	_equipSilent;
-	#var stateClient[muteLine] 2;
+	#var client[State][muteLine] 2;
 	#echo {<149>Updating weapon info...};
 	_Event_raise {equip} {weild} {%1} {%2 hand};
 }

@@ -11,5 +11,5 @@
 	};
 	#unvar __idx;
 	#unvar _mod_Collectables_sort;
-	#var stateClient[autoContinue] 0;
+	#var client[State][autoContinue] 0;
 }

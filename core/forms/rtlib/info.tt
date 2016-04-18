@@ -8,7 +8,7 @@
 	#var form[num] {%1};
 	#var form[max] {%2};
 	_Class load tmp/core/printform core/forms/rtlib/print.tt;
-	#if {$stateClient[muteLine]} {
+	#if {$client[State][muteLine]} {
 		#line gag
 	} {
 		_PrintForm

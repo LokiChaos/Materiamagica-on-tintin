@@ -21,6 +21,6 @@
 	};
 	#unvar __markPrint;
 	#unvar _mod_sort_marks_list;
-	#var stateClient[autoContinue] 0;
+	#var client[State][autoContinue] 0;
 	_Class purge tmp/module/sort_marks;
 } {4}

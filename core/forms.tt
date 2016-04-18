@@ -24,7 +24,7 @@
 #act {^You aren't in a formation.}{
 	#var stateChar[Formed] 0;
 	#unvar form;
-	#if {$stateClient[muteLine]} {
+	#if {$client[State][muteLine]} {
 		#line gag;
 	};
 }
@@ -73,7 +73,7 @@
 	#unvar form;
 	#var form[leader] {$charName};
 	#var form[type]   {%1};
-	#if {$stateClient[muteLine]} {
+	#if {$client[State][muteLine]} {
 		#line gag;
 	};
 	_Class load tmp/core/info/form core/forms/rtlib/info.tt;
@@ -83,21 +83,21 @@
 	#unvar form;
 	#var form[leader] {%1};
 	#var form[type]   {%2};
-	#if {$stateClient[muteLine]} {
+	#if {$client[State][muteLine]} {
 		#line gag;
 	};
 	_Class load tmp/core/info/form core/forms/rtlib/info.tt;
 }
 
 #alias {silentForm} {
-	#var stateClient[muteLine] 2;
+	#var client[State][muteLine] 2;
 	#echo {Updating form info (Please Update with GMCP)};
 	form;
 }
 
 #act {^%* Formation's Status:$} {
 	#system {echo -e "\n\n\n\n\n\n\n\n" > tmp/formstat.$sessionName};
-	#if {$stateClient[muteLine]} {
+	#if {$client[State][muteLine]} {
 		#line gag;
 	};
 }
@@ -106,14 +106,14 @@
 	#format __formLine {<149>[<139>%+3s<149>] [<139>%-13s<149>] [<099>%+4s<149>/<099>%+4s<149>] [<169>%+4s<149>] [<139>%+4s<149>]<099>} {%2} {%4} {%5} {%6} {%7} {%9};
 	#line log tmp/formstat.$sessionName {${__formLine}};
 	#line gag;
-	#if {$stateClient[muteLine] == 0} {
+	#if {$client[State][muteLine] == 0} {
 		#echo {%.80s %p} {${__formLine}} {%11};
 	};
 	#unvar __formLine;
 }
 
 #alias {silentFormReport} {
-	#var stateClient[muteLine] 2;
+	#var client[State][muteLine] 2;
 	form report;
 }
 

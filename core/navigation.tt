@@ -19,7 +19,7 @@
 	#var gtime[Trigael] {%2};
 	#var gtime[Marabah] {%4};
 	_MoonCalc;
-	#if {$stateClient[muteLine]} {
+	#if {$client[State][muteLine]} {
 		#nop;
 	} {
 		#echo {<1%s9>Current Worldgates:<099> %s<099>} {%1} {$gtime[Gates]};

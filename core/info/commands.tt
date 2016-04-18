@@ -54,7 +54,7 @@
 */
 #alias {^{loc|locate}$} {
 	#if {"%1" == "%*silence%*"} {
-		#var stateClient[muteLine] 1;
+		#var client[State][muteLine] 1;
 	};
 	_Class load tmp/core/info/sextant core/info/rtlib/sextant.tt;
 	

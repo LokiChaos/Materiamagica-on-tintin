@@ -6,25 +6,25 @@
 #nop PROVIDES: init/events;
 
 /*  Program Start Event {{{
-	- Save tintin++ version info
+	- Save tintin++ client[Version] info
 */
 #event {PROGRAM START}
 {
-	#format version[tt] {%p} {%1};
-	#script {echo "#var version[term] $TERM"};
-	#script {echo "#var version[tmux] `tmux -V|cut -c 6-`"}
+	#format client[Version][tt] {%p} {%1};
+	#script {echo "#var client[Version][term] $TERM"};
+	#script {echo "#var client[Version][tmux] `tmux -V|cut -c 6-`"}
 }
 /* }}} */
 
 /* Screen Resize Event {{{ */
 #event {SCREEN RESIZE} {
-	#var stateClient[Rows] {%1};
-	#var stateClient[Cols] {%0};
-	#if {"$sessionName" != "gts" && $stateClient[Rows] != $stateClient[OldRows] || $stateClient[Cols] != $stateClient[OldCols]} {
-		_Event_raise {screen_resize} {$stateClient[Rows]} {$stateClient[Cols]} {$stateClient[OldRows]}  {$stateClient[OldCols]}
+	#var client[State][Rows] {%1};
+	#var client[State][Cols] {%0};
+	#if {"$sessionName" != "gts" && $client[State][Rows] != $client[State][OldRows] || $client[State][Cols] != $client[State][OldCols]} {
+		_Event_raise {screen_resize} {$client[State][Rows]} {$client[State][Cols]} {$client[State][OldRows]}  {$client[State][OldCols]}
 	};
-	#var stateClient[OldRows] {$stateClient[Rows]};
-	#var stateClient[OldCols] {$stateClient[Cols]};
+	#var client[State][OldRows] {$client[State][Rows]};
+	#var client[State][OldCols] {$client[State][Cols]};
 }
 /* }}} */
 
@@ -88,14 +88,14 @@
 	#if {"$sessionName" == "gts"} {
 		#return
 	};
-	#if {$stateClient[debug]} {
+	#if {$client[State][debug]} {
 		#var __debugTemp {%0};
 		#replace __debugTemp {\cm\n} {};
 		#format {__debugTemp} {%t SENT: %s} {{%Y-%m-%d %H:%M:%S}} {${__debugTemp}};
 		#line log {tmp/debug.$sessionName} {${__debugTemp}};
 		#unvar __debugTemp;
 	};
-	#var stateClient[gameIdle] 0;
+	#var client[State][gameIdle] 0;
 }
 
 /* Recieved a command from the user, reset clientIdle time */
@@ -103,11 +103,11 @@
 	#if {"$sessionName" == "gts"} {
 		#return
 	};
-	#if {$stateClient[debug]} {
+	#if {$client[State][debug]} {
 		#format {__debugTemp} {%t RCVD: %s} {{%Y-%m-%d %H:%M:%S}} {%0};
 		#line log {tmp/debug.$sessionName} {${__debugTemp}};
 		#unvar __debugTemp;
 	};
-	#var stateClient[clientIdle] 0;
+	#var client[State][clientIdle] 0;
 }
 /* }}} */

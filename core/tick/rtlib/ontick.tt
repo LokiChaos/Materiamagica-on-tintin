@@ -8,12 +8,12 @@
    Restarted on each tick to ensure it's synced with the main one
    Incriments Idle times and decriments the tillTick
 */
-#var stateClient[tillTick] {15};
+#var client[State][tillTick] {15};
 
 #tick {oneSecond} {
-	#math stateClient[tillTick] {$stateClient[tillTick] - 1};
-	#math stateClient[gameIdle] {$stateClient[gameIdle] + 1};
-	#math stateClient[clientIdle] {$stateClient[clientIdle] + 1};
+	#math client[State][tillTick] {$client[State][tillTick] - 1};
+	#math client[State][gameIdle] {$client[State][gameIdle] + 1};
+	#math client[State][clientIdle] {$client[State][clientIdle] + 1};
 } {1};
 /* }}} */
 

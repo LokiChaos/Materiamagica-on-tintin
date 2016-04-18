@@ -15,7 +15,7 @@
 	};
 	#unvar __bNum;
 	#unvar _mod_sort_bosses_list;
-	#var stateClient[autoContinue] 0;
+	#var client[State][autoContinue] 0;
 	_Class purge tmp/module/bossSort;
 }
 

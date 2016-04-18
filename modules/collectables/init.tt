@@ -6,20 +6,20 @@
 #act {^A stamp collector's book contains:$} {
 	_Class load tmp/module/collectables_sort modules/collectables/stamps.tt;
 	#unvar _tmpm_collectables_sort;
-	#var stateClient[autoContinue] 1;
+	#var client[State][autoContinue] 1;
 	_Event_oneshot {prompt_post} {mod_collectables_clean} {_Class purge tmp/module/collectables_sort; #nop};
 }
 
 #act {^A velvet-lined toybox contains:$} {
 	_Class load tmp/module/collectables_sort modules/collectables/plushies.tt;
 	#unvar _tmpm_collectables_sort;
-	#var stateClient[autoContinue] 1;
+	#var client[State][autoContinue] 1;
 	_Event_oneshot {prompt_post} {mod_collectables_clean} {_Class purge tmp/module/collectables_sort; #nop};
 }
 
 #act {^A portable glassware armoire contains:$} {
 	_Class tmp/module/collectables_sort modules/collectables/plates.tt;
 	#unvar _tmpm_collectables_sort;
-	#var stateClient[autoContinue] 1;
+	#var client[State][autoContinue] 1;
 	_Event_oneshot {prompt_post} {mod_collectables_clean} {_Class purge tmp/module/collectables_sort; #nop};
 }

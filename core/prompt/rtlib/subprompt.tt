@@ -8,7 +8,7 @@
 #alias {_PromptEcho} {
 	#loop {-$prefs[split][top]} {$prefs[split][bot]} {__pLine} {
 		#if {${__pLine} != 0 } {
-			#echo {{%.${stateClient[Cols]}s} {${__pLine}}} {$prompt[${__pLine}]};
+			#echo {{%.${client[State][Cols]}s} {${__pLine}}} {$prompt[${__pLine}]};
 		};
 	};
 	#unvar __pLine;
@@ -16,7 +16,7 @@
 /* }}} */
 
 #function {left_right} {
-	#math __pad[c] {$stateClient[Cols] - @std_str_len{%1}};
+	#math __pad[c] {$client[State][Cols] - @std_str_len{%1}};
 	#format __pad[r] {%.${__pad[c]}s} {%2};
 	#format result {%s%+${__pad[c]}s} {%1} {${__pad[r]}};
 	#unvar __pad;

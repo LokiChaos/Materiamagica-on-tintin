@@ -38,7 +38,7 @@
 } {3}
 
 #alias {^hin{|t}} {
-	#var stateClient[manualHint] {1};
+	#var client[State][manualHint] {1};
 	#send {hint};
 }
 

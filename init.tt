@@ -8,7 +8,7 @@
 #read init/ttConf.tt;
 
 /* Script Version */
-#var version[c] {0.2.0b};
+#var client[Version][c] {0.2.0b};
 
 /* Inialize Session Name to default tt++ Session*/
 #var sessionName {gts};

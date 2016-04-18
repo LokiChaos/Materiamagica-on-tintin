@@ -139,7 +139,7 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
+	#math client[State][muteLine] @std_dec2zero{$client[State][muteLine]};
 	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
@@ -168,7 +168,7 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	_PromptTick;
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
+	#math client[State][muteLine] @std_dec2zero{$client[State][muteLine]};
 	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
@@ -197,7 +197,7 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	_PromptTick;
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math stateClient[muteLine] @std_dec2zero{$stateClient[muteLine]};
+	#math client[State][muteLine] @std_dec2zero{$client[State][muteLine]};
 	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
@@ -216,7 +216,7 @@ _Event_register {tick} {promptTick} {_PromptTick};
 /* Handle Special "Continue" Prompt {{{ */
 #alias {_promptContinue} {
 	#nop %1;
-	#if {$stateClient[autoContinue]} {
+	#if {$client[State][autoContinue]} {
 		#line gag;
 		#send {continue}
 	};

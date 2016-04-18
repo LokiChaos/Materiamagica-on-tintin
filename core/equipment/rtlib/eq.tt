@@ -109,7 +109,7 @@
 	} {
 		#format __eq[PrintList] {%s, %s} {${__eq[PrintList]}} {${__eq[PrintListRace]}}
 	};
-	#if {$stateClient[muteLine] == 0} {
+	#if {$client[State][muteLine] == 0} {
 		#regex {${__eq[PrintList]}} {^$} {
 			#nop;
 		} {
@@ -139,7 +139,7 @@
 	#if {@classGetState{tmp/core/silentEq} == 1} {
 		_Class purge tmp/core/silentEq;
 	};
-	#if {$stateClient[muteLine]} {
+	#if {$client[State][muteLine]} {
 		#line {gag};
 	};
 }

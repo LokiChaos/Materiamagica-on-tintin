@@ -28,8 +28,8 @@
 		#if {${_login_menu_choice} > 0} {
 			#send {${_login_menu_choice}};
 		} {
-			#if {$prefs[loginChoice] > 0} {
-				#send {$prefs[loginChoice]};
+			#if {$client[Config][loginChoice] > 0} {
+				#send {$client[Config][loginChoice]};
 			};
 		};
 	} {5};

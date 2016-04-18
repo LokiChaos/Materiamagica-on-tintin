@@ -65,17 +65,17 @@ A Capture The Flag coordinator announces, ''
 		_ChannelLog {<159>%0} {$capPath[hints]};} {
 		_ChannelLog {<159>%1 <099>($navigation[Zone])<159> Hint: %2} {$capPath[hints]};
 	};
-	#if {"$prefs[showHints]" == "0" && "$stateClient[manualHint]" != "1"} {
+	#if {"$prefs[showHints]" == "0" && "$client[State][manualHint]" != "1"} {
 		#line gag;
 	};
-	#if {"$stateClient[manualHint]" != "1"} {
+	#if {"$client[State][manualHint]" != "1"} {
 		_Event_raise {tick_sync};
 	};
-	#var stateClient[manualHint] {0};
+	#var client[State][manualHint] {0};
 } {3}
 
 #act {^You will be able to get another hint in %*.}
 {
-	#var stateClient[manualHint] 0;
+	#var client[State][manualHint] 0;
 } {3}
 /* }}} */

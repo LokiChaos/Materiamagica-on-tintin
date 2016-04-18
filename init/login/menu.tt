@@ -11,8 +11,8 @@
 			#echo {};
 		};
 	};
-	#echo {<149>tintin version: <099>$version[tt]};
-	#echo {<149>Materiamagica for tintin++ system by Shinde. Version: <099>$version[c]<149>.};
+	#echo {<149>tintin version: <099>$client[Version][tt]};
+	#echo {<149>Materiamagica for tintin++ system by Shinde. Version: <099>$client[Version][c]<149>.};
 	#echo {<149>Please see readme.txt for more information.};
 	#echo {<149>Distributed under the BSD-like ISC License See doc/license.txt for details.}; 
 	#echo {<179>    ,-,-,-.       .          .     };

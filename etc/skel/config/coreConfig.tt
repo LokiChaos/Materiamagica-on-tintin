@@ -63,9 +63,9 @@
  ============================================================================*/
 
 /* Select Base Capture/Logging Path
-     a good default is $stateClient[root]/char/$charName/log                */
+     a good default is $client[State][root]/char/$charName/log                */
 
-#var capPath[base]		{${stateClient[root]}char/$sessionName/log};
+#var capPath[base]		{${client[State][root]}char/$sessionName/log};
 
 /* First person CT/AllyTalk
       You can choose how your clan/ally talk messages are logged
@@ -91,7 +91,7 @@
 
 /* Path to sound files (only used for local sounds
    If using remote sound, you may leave un-set                               */
-#var prefs[soundsDir]		{${stateClient[root]}sounds};
+#var prefs[soundsDir]		{${client[State][root]}sounds};
 
 /*============================================================================
 	Navigation Config 

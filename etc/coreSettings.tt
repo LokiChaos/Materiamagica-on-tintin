@@ -3,10 +3,10 @@
 /* 
 	This is the FULL path to your tintin++ directory
 		Default: /home/USER/.tt/                                       */
-#script {echo "#var stateClient[root] $HOME/.tt/"};
+#script {echo "#var client[State][root] $HOME/.tt/"};
 
 /* Uncomment this next line if you want to hard-code the path          */
-/*#var stateClient[root] {/home/EDIT ME/.tt/};*/
+/*#var client[State][root] {/home/EDIT ME/.tt/};*/
 
 
 /*
@@ -15,9 +15,9 @@
 	All to the left the the set value will be echoed or logged
 	Default level is INFO for echo and WARNING for logging.
 */
-#var clientConfig[messageEchoLevel]  {INFO};
-#var clientConfig[messageLogLevel]   {WARNING};
-#var clientConfig[messageLogPath]    {debug.log};
+#var client[Config][messageEchoLevel]  {INFO};
+#var client[Config][messageLogLevel]   {WARNING};
+#var client[Config][messageLogPath]    {debug.log};
 
 /*
 	Color mode
@@ -26,13 +26,13 @@
 	Default: both
 	Unknown values will be treated as 'both'
 */
-#var clientConfig[colorMode] {both};
+#var client[Config][colorMode] {both};
 
 /*
 	How long should the inital login menu wait for you to make a selection
 	before auto-connecting to the first entry.
 */
-#var prefs[loginTimeOut]  {30};
+#var client[Config][loginTimeOut]  {30};
 
 /*
 	Auto-Response to Server Login Menu
@@ -42,7 +42,7 @@
 	 2 - Social
 */
 
-#var prefs[loginChoice]    {1};
+#var client[Config][loginChoice]    {1};
 
 /*
 	Maximum number of login attempts.

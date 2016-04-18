@@ -12,8 +12,8 @@
 		#var _:DbTemp[color] {{CRITICAL}{<001>}{ERROR}{<119>}{WARNING}{<139>}{INFO}{<099>}{VERBOSE}{<099>}{message}{<129>}};
 		#var _:DbTemp[head]  {{CRITICAL}{CRITICAL: }{ERROR}{ERROR: }{WARNING}{WARNING: }{INFO}{}{VERBOSE}{}{message}{message: }};
 		#var _:DbTemp[format] {#format {_:DbTemp[print]} {%2}};
-		#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageEchoLevel]}]} ||
-		     ${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageLogLevel]}]}} {
+		#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${client[Config][messageEchoLevel]}]} ||
+		     ${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${client[Config][messageLogLevel]}]}} {
 			#var _:DbTemp[argc] 0;
 			#foreach {%0} {_:DbTemp[arg]} {
 				#math _:DbTemp[argc] {${_:DbTemp[argc]} + 1};
@@ -24,12 +24,12 @@
 			${_:DbTemp[format]};
 			#format {_:DbTemp[print]} {%s%s%s<099>} {${_:DbTemp[color][%1]}} {${_:DbTemp[head][%1]}} {${_:DbTemp[print]}};
 			#replace {_:DbTemp[print]} {<>} {${_:DbTemp[color][%1]}};
-			#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageEchoLevel]}]}} {
+			#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${client[Config][messageEchoLevel]}]}} {
 				#echo {${_:DbTemp[print]}};
 			};
-			#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${clientConfig[messageLogLevel]}]}} {
+			#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${client[Config][messageLogLevel]}]}} {
 				#format {_:DbTemp[print]} {%t %s} {{%Y-%m-%d %H:%M:%S}} {${_:DbTemp[print]}};
-				#line log {${clientConfig[messageLogPath]}} {${_:DbTemp[print]}};
+				#line log {${client[Config][messageLogPath]}} {${_:DbTemp[print]}};
 			};
 		};
 	};

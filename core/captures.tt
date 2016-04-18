@@ -29,6 +29,7 @@
 #var capPath[novice]          {novice};
 #var capPath[say]             {says};
 #var capPath[announce]        {announcements};
+#var capPath[dream]           {dream};
 /* }}} */
 
 /* Logging Helper Subroutines {{{ 

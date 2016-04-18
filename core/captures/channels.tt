@@ -205,26 +205,57 @@
 
 /* Say/Sayto/Wisper TODO: Test & Chat > Relay {{{ */
 /* Level 5.5 To let most other triggers take priority*/
-#act {@sgrInit{}^{|@sgrp{X}}@sgrp{!C}{You|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|(say|whisper)(| to .+)|(says|whispers)(| to you)}, '%*'@sgrp{X}@sgrFin{}$} {
+#act {@sgrInit{}^@sgrp{!C}{You|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|(say|whisper)(| to .+)|(says|whispers)(| to you)}, '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
 } {5.5}
 
-#act {@sgrInit{}^{|@sgrp{X}}@sgrp{!C}'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}. '%*'@sgrp{X}@sgrFin{}$} {
+#act {@sgrInit{}^@sgrp{!C}'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}. '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
 } {5.5}
 
-#act {@sgrInit{}^{|@sgrp{X}}@sgrp{!C}'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}.@sgrp{X}@sgrFin{}$} {
+#act {@sgrInit{}^@sgrp{!C}'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}.@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
 } {5.5}
+
+#act {@sgrInit{}^@sgrp{!G}[EM] %*@sgrp{X}@sgrFin{}$} {
+	_ChannelLog {%0} {$capPath[say]};
+	#if {"$stateChar[inChatRoom]" != ""} {
+		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
+	};
+}
+/* }}} */
+
+/* Dream  {{{ */
+#act {@sgrInit{}^[%d] people heard you dream, '%*'@sgrFin{}$} {
+	_ChannelLog {%0} {$capPath[dream]};
+	#switch {$prefs[firstP]} {
+		#case {0} {
+			#format {__dreamcap} {<099>[%d] people heard you dream, '%s'<099>} {%1} {%2};
+		};
+		#case {1} {
+			#format {__dreamcap} {<099>$charName dreams '%s'<099>} {%2};
+		};
+		#default  {
+			#format {__dreamcap} {<099>You dream '%s'<099>} {%2};
+		};
+	};
+	_ChannelLog {${__dreamcap}} {$capPath[dream]};
+	#unvar __dreamcap;
+}
+
+
+#act {@sgrInit{}^%S dreams '%*@sgrp{X}@sgrFin{}'$} {
+	_ChannelLog {%0} {$capPath[dream]};
+}
 /* }}} */
 
 /* Chat Relay {{{ */

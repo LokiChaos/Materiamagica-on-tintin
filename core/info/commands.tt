@@ -23,7 +23,7 @@
 		_Class load tmp/core/info/recall core/info/rtlib/recall.tt;
 		#send {recall list};
 	} {
-		#send {%0};
+		#send {recall %0};
 	};
 }
 /* }}} */

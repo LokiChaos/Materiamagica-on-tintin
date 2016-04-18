@@ -32,7 +32,6 @@
 	#var _:SGRP[CSI]   {\e[};
 	#var _:SGRP[SGR]   {m};
 	#var _:SGRP[error] {E{RRO}R};
-
 	#var _:SGRP[arg] {@sgrParseColor{%1}};
 
 	#switch {"${_:SGRP[arg][att]}"} {

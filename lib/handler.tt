@@ -9,6 +9,7 @@
 /* Define bootstap alias to initalize array iff does not exist */
 #if {&{_Events[]} == 0} {
 	#alias {__EventBootstrap} {
+		Print {DEBUG} {Creating _Events table};
 		#var _Events {};
 		#unalias {__EventBootstrap};
 	};
@@ -21,6 +22,7 @@
 */
 
 #alias {_Event_register} {
+	Print {DEBUG} {Regisered handler '<099>%2<>' to event '<099>%1<>'};
 	#var _Events[%1][%2] {%3};
 }
 /* }}} */
@@ -33,6 +35,7 @@
 */
 
 #alias {_Event_oneshot} {
+	Print {DEBUG} {Regisered oneshot handler '<099>%2<>' to event '<099>%1<>'};
 	#var _Events[%1][%2] {_Event_remove_specific {%1} {%2};%3};
 }
 /* }}} */
@@ -41,6 +44,7 @@
 	removes eventName completely
 */
 #alias {_Event_remove_event} {
+	Print {DEBUG} {Removed all handlers to event '<099>%1<>'};
 	#line substitute {variable} #unvar _Events[%1];
 }
 /* }}} */
@@ -49,6 +53,7 @@
 	removes handlerName from all events
 */
 #alias {_Event_remove_handler} {
+	Print {DEBUG} {Removed handler '<099>%1<>' from all events};
 	#foreach {${_Events[]}} {sublist} {
 		#line substitute {variable} #unvar _Events[$sublist][%1];
 		#if {"${_Events[$sublist]}" == ""} {
@@ -63,6 +68,7 @@
 */
 
 #alias {_Event_remove_specific} {
+	Print {DEBUG} {Removed handler '<099>%2<>' from event '<099>%1<>'};
 	#line substitute {variable} #unvar _Events[%1][%2];
 	#if {"${_Events[%1]}" == ""} {
 		#line substitute {variable} #unvar _Events[%1];
@@ -86,7 +92,7 @@
 #alias {_Event_raise} {
 	Print {DEBUG} {Event '<099>%0<>'};
 	#foreach {${_Events[%1][]}} {_:EHandler} {
-	Print {DEBUG} {Handler '<099>%s<>' called for '<099>%s<>'} {${_:EHandler}} {%1};
+		Print {DEBUG} {Handler '<099>%s<>' called for '<099>%s<>'} {${_:EHandler}} {%1};
 		#if {&{_Events[%1][${_:EHandler}]} != 0} {
 			event_eval {${_Events[%1][${_:EHandler}]}} {%0};
 		};

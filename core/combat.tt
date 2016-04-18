@@ -119,12 +119,12 @@ _Event_register {gmcp_char_combat} {combatround} {_combatRound};
 	#nop %0;
 	#var stateChar[Combat]    2;
 	#var combat[mobHealth] {${gmcp[Char][Combat][opponent_hp_percent]}};
-	#echo {<129>You hit %s %d, missing %d and defends %d.}
+	#echo {<129>You hit %s %d times, missing %d and defends %d.}
 	      {${gmcp[Char][Combat][opponent_name]}}
 	      {${gmcp[Char][Combat][you_hit]}}
 	      {${gmcp[Char][Combat][you_miss]}}
 	      {${gmcp[Char][Combat][opponent_defends]}};
-	#echo {<139>%n hits you %d, missing %d and defend %d.}
+	#echo {<139>%n hits you %d times, missing %d and defend %d.}
 	      {${gmcp[Char][Combat][opponent_name]}}
 	      {${gmcp[Char][Combat][opponent_hits]}}
 	      {${gmcp[Char][Combat][opponent_misses]}}

@@ -2,7 +2,7 @@
 /*
 	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
 */
-#nop CLASS: comabt;
+#nop CLASS: combat;
 #nop PROVIDES: core/combat;
 #nop REQUIRES: core/state core/prompt;
 /*
@@ -105,12 +105,12 @@ _Event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 }
 
 /* Superbrief combat */
-#act {^You hit %* %w, missing %w and %w defends %w, leaving %w at %d percent. You are hit %w, are missed %w, and defend %w.} {
-	#var stateChar[Combat]    2;
-	#var combat[mobHealth] {%5};
+#act {^You hit %* %w, missing %w and %w defends %w, leaving %w at %d percent. You are hit %w, are missed %w, and defend %w.$} {
 	#line gag;
+	#var stateChar[Combat]    2;
+	#var combat[mobHealth] {%7};
 	#echo {<129>You hit %1 %2, missing %3 and %4 defends %5.};
-	#echo {<139>%1 hits you %7, missing %8 and defend %8.};
+	#echo {<139>%n hits you %8, missing %9 and defend %10.} {%1};
 }
 
 /* Master combat trigger! */

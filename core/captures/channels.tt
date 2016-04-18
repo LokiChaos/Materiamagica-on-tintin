@@ -181,7 +181,19 @@
 	_ChannelLog {%0} {$capPath[novice]};
 }
 #act {@sgrInit{}^@sgrp{!Y}[%d] Novice clan member%? heard you say, '%*'@sgrp{X}@sgrFin{}$} {
-	_ChannelLog {%0} {$capPath[novice]};
+	#switch {$prefs[firstP]} {
+		#case {0} {
+			#format {__novicecap} {<139>[%d] Novice clan member%s heard you say, %s <099>} {%2} {%3} {%4};
+		};
+		#case {1} {
+			#format {__novicecap} {<139>[CLAN Novice Adventurers] $charName: %s <099>} {%4};
+		};
+		#default  {
+			#format {__novicecap} {<139>[CLAN Novice Adventurers] Me: %s <099>} {%4};
+		};
+	};
+	_ChannelLog {${__novicecap}} {$capPath[novice]};
+	#unvar __novicecap;
 }
 /* }}} */
 

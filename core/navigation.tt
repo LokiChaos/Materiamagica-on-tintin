@@ -15,14 +15,14 @@
 
 
 /* Displayes worldgates in a readable form when moon status is shown {{{ */
-#act {~^\e[1\;3{4|5}mTrigael: (\e[0m%D\e[1\;3{4|5}m)  Marabah: (\e[0m%D\e[1\;3{4|5}m)\e[0m} {
-	#var gtime[Trigael] {%2};
-	#var gtime[Marabah] {%4};
+#act {@sgrInit{}^@sgrp{*}Trigael: (@sgrp{X}%D@sgrp{*})  Marabah: (@sgrp{X}%D@sgrp{*})@sgrp{X}@sgrFin{}} {
+	#var gtime[Trigael] {%3};
+	#var gtime[Marabah] {%6};
 	_MoonCalc;
 	#if {$client[State][muteLine]} {
 		#nop;
 	} {
-		#echo {<1%s9>Current Worldgates:<099> %s<099>} {%1} {$gtime[Gates]};
+		#echo {%sCurrent Worldgates:<099> %s<099>} {%1} {$gtime[Gates]};
 	};
 }
 /* }}} */

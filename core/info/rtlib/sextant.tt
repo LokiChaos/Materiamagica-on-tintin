@@ -8,7 +8,7 @@
 	#gag {^It is %d:%d %w on %w, %w the %S, year %d.};
 	#gag {^You are currently at position %*, %* in %*.};
 	#gag {^You are not in a mappable location.};
-	#gag {~^\e[1\;3{4|5}mTrigael: (\e[0m%D\e[1\;3{4|5}m)  Marabah: (\e[0m%D\e[1\;3{4|5}m)\e[0m};
+	#gag {^Trigael: (%D)  Marabah: (%D)};
 	#gag {Worldgates in %*.};
 }
 

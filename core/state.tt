@@ -83,21 +83,21 @@ _Event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 /* }}} */
 
 /* Room State {{{ */
-#act {~^\e[1;34m(------------------------------------%*---)     %*}
+#act {@sgrInit{}^@sgrp{B}(------------------------------------%*---)     %*@sgrFin{}}
 {
 	#if {"$stateChar[justLooking]" != "1"}
 	{
 		_Class load tmp/core/state/room core/state/rtlib/roomstate.tt;
 		#var stateRoom {};
 		_parseRoomInfo;
-		#regex {%1} {Forested} {
+		#regex {%2} {Forested} {
 			#var stateRoom[wooded] 1;
 		};
 		#if {$stateChar[is_onSpeedWalk]} {
 			_Event_raise {speedStep};
 		} {
 			#line gag;
-			#echo {<149>(%s<149>)    %s}  {@makeRoomBar{}} {%2};
+			#echo {<149>(%s<149>)    %s}  {@makeRoomBar{}} {%3};
 			#var _roomExtraStr {@makeAuxRoomBar{}};
 			#if { @std_str_len{${_roomExtraStr}} } {
 				_Event_oneshot {visExits} {roomAux} {_EchoAccess};

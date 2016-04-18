@@ -167,12 +167,24 @@
 /* }}} */
 
 /* Guide Talk / Novice Channel TODO: Test, add pray {{{ */
-#act {@sgrInit{}^@sgrp{!W}[GUIDE] %*@sgrFin{}} {
+#act {@sgrInit{}^[GUIDE] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[guide]};
 }
 
-#act {@sgrInit{}^[%S] guide{|s} heard you say, '%*'@sgrp{X}@sgrFin{}$} {
-	_ChannelLog {%0} {$capPath[guide]};
+#act {@sgrInit{}^[%S] guide{|s} heard you say, '%*'@sgrFin{}} {
+	#switch {$prefs[firstP]} {
+		#case {0} {
+			#format {__guidecap} {<139>[%d] guide%s heard you say, %s <099>} {%2} {%3} {%4};
+		};
+		#case {1} {
+			#format {__guidecap} {<139>[GUIDE] $charName: %s <099>} {%4};
+		};
+		#default  {
+			#format {__guidecap} {<139>[GUIDE] Me: %s <099>} {%4};
+		};
+	};
+	_ChannelLog {${__guidecap}} {$capPath[guide]};
+	#unvar __guidecap;
 }
 
 #nop {^(%*) [%*] prays '%*'$};

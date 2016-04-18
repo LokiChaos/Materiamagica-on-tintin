@@ -84,6 +84,10 @@
 	_Event_raise {gmcp_char_affect_app};
 }
 
+#event {IAC SB GMCP char.combat_mxp IAC SE} {
+	#var gmcp[Char][Combat] {%0};
+	_Event_raise {gmcp_char_combat};
+}
 /* }}} */
 
  

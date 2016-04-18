@@ -104,6 +104,15 @@ _Event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 	_Event_raise {slain_opponent} {@std_str_dropcomma{%1}};
 }
 
+/* Superbrief combat */
+#act {^You hit %* %w, missing %w and %w defends %w, leaving %w at %d percent. You are hit %w, are missed %w, and defend %w.} {
+	#var stateChar[Combat]    2;
+	#var combat[mobHealth] {%5};
+	#line gag;
+	#echo {<129>You hit %1 %2, missing %3 and %4 defends %5.};
+	#echo {<139>%1 hits you %7, missing %8 and defend %8.};
+}
+
 /* Master combat trigger! */
 #act {~^\e[1\;35m%* {is in perfect health|has several minor scratches|has several minor wounds and bruises|has some significant wounds|has some very significant wounds and scratches|looks pretty beaten up|is in terrible condition|is vomiting blood|screams in agony|pales visibly as death nears|is barely clinging to life}.}
 {

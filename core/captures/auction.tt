@@ -45,7 +45,7 @@ Removed From Queue:
 AUCTION: %w has removed %* from the auction queue.
 }}} */
 
-#act {~^\e[1\;35m%* announces, '%*'\e[0m$} {
+#act {@sgrInit{}^@sgrp{!M}%* announces, '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {<159>%0} {$capPath[announce]};
 }
 

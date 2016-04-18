@@ -145,7 +145,7 @@
 
 
 /* TODO MOVE THIS!!! */
-#act {~%* has set your rank in Clan %* to %*} {
+#act {%S has set your rank in Clan %* to %*} {
 	_CaptureLog {<099>%0} {$capPath[important]};
 }
 

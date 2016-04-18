@@ -23,9 +23,9 @@
 	_Event_raise {given_item} {%1} {%2};
 } {6}
 
-#act {~^{[^\e]+} gives you \e[1;33m{[0-9,]+}\e[0m gold{ coins|}.$} {
+#act {@sgrInit{}^{[^\e]+} gives you @sgrp{!Y}{[0-9,]+}@sgrp{X} gold{ coins|}.@sgrFin{}$} {
 	_ChannelLog {<099>%0} {$capPath[transfers]};
-	_Event_raise {given_gold} {%1} {%2};
+	_Event_raise {given_gold} {%1} {%3};
 } {5.9}
 
 #act {~^You give %* to %*.$} {
@@ -33,9 +33,9 @@
 	_Event_raise {gave_item} {%2} {%1};
 } {6}
 
-#act {~^You give %* \e[1;33m%d\e[0m gold.$} {
+#act {@sgrInit{}^You give %* @sgrp{!Y}%d@sgrp{X} gold.@sgrFin{}$} {
 	_ChannelLog {<099>%0} {$capPath[transfers]};
-	_Event_raise {gave_gold} {%1} {%2};
+	_Event_raise {gave_gold} {%1} {%3};
 } {5.9}
 /* }}} */
 

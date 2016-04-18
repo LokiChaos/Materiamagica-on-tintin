@@ -7,7 +7,7 @@
 #nop REQUIRES: core/captures;
 
 /* Clan Talk {{{ */
-#act {~^\e[1\;33m[CLAN] %*} {
+#act {@sgrInit{}^@sgrp{!Y}[CLAN] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[clanTalk]};
 	#regex {%0} {[CLAN] %w has entered Materia Magica.} {
 		_Event_raise {clan} {login} {&1};
@@ -27,21 +27,21 @@
 
 } {3}
 
-#act {~^\e[1\;33m[CLAN NOTICE] %*} {
+#act {@sgrInit{}^@sgrp{!Y}[CLAN NOTICE] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[clanTalk]};
 	_Event_raise {clan} {notice} {%0};
 } {3}
 
-#act {~^\e[1\;33m[%d] clan member%? heard you say, %*} {
+#act {@sgrInit{}^@sgrp{!Y}[%d] clan member%? heard you say, %*@sgrFin{}} {
 	#switch {$prefs[firstP]} {
 		#case {0} {
-			#format {__clancap} {<139>[%d] clan member%s heard you say, %s <099>} {%1} {%2} {%3};
+			#format {__clancap} {<139>[%d] clan member%s heard you say, %s <099>} {%2} {%3} {%4};
 		};
 		#case {1} {
-			#format {__clancap} {<139>[CLAN] $charName: %s <099>} {%3};
+			#format {__clancap} {<139>[CLAN] $charName: %s <099>} {%4};
 		};
 		#default  {
-			#format {__clancap} {<139>[CLAN] Me: %s <099>} {%3};
+			#format {__clancap} {<139>[CLAN] Me: %s <099>} {%4};
 		};
 	};
 	_ChannelLog {${__clancap}} {$capPath[clanTalk]};
@@ -50,27 +50,27 @@
 /* }}} */
 
 /* Alliance Talk {{{ */
-#act {~^\e[1\;33m[ALLIED %d] %*} {
+#act {@sgrInit{}^@sgrp{!Y}[ALLIED %d] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[allianceTalk]};
 } {3}
 
-#act {~^\e[1\;33m[%d] alliance member%? heard you say, %*} {
+#act {@sgrInit{}^@sgrp{!Y}[%d] alliance member%? heard you say, %*@sgrFin{}} {
 	#switch {$prefs[firstP]} {
 		#case {0} {
-			#format {__allycap} {<139>[%d] alliance member%s heard you say, %s} {%1} {%2} {%3};
+			#format {__allycap} {<139>[%d] alliance member%s heard you say, %s} {%2} {%3} {%4};
 		};
 		#case {1} {
-			#format {__allycap} {<139>[ALLIED] $charName: %s} {%3};
+			#format {__allycap} {<139>[ALLIED] $charName: %s} {%4};
 		};
 		#case {2} {
-			#format {__allycap} {<139>[ALLIED] Me: %s} {%3};
+			#format {__allycap} {<139>[ALLIED] Me: %s} {%4};
 		};
 	};
 	_ChannelLog {${__allycap}} {$capPath[allianceTalk]};
 	#unvar __allycap;
 } {3}
 
-#act {~^\e[1\;33m[ALLIED NOTICE] %*} {
+#act {@sgrInit{}^@sgrp{!Y}[ALLIED NOTICE] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[allianceTalk]};
 	_ChannelLog {%0} {$capPath[allianceEvents]};
 	_Event_raise {alliance} {notice} {%0};
@@ -78,47 +78,47 @@
 /* }}} */
 
 /* PK Talk {{{ */ 
-#act {~^\e[1\;30m[TALK %w] %*} {
+#act {@sgrInit{}^@sgrp{!D}[TALK %w] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[pkTalk]};
 } {3}
 
-#act {~^\e[1\;30m[TALK\e[0m\e[1\;30m] %*} {
+#act {@sgrInit{}^@sgrp{!D}[TALK@sgrp{X}@sgrp{!D}] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[pkTalk]};
 } {3}
 
 /* }}} */
 
 /* Tells + Pages + Prays {{{ */ 
-#act {~^\e[1\;31m%* tells you %*} {
+#act {@sgrInit{}^@sgrp{!R}%* tells you %*@sgrFin{}} {
 	#nop Filters out shopkeepers, far from perfect;
-	#regex {%2} {'I can {sell|trade} you this item for %W {gold|reward units}.'} {
+	#regex {%3} {'I can {sell|trade} you this item for %W {gold|reward units}.'} {
 		#nop Stupid Shopkeeps;
 	}{
 		_ChannelLog {%0} {$capPath[tells]};
-		_Event_raise {tell_recieved} {%1} {<119>%2};
+		_Event_raise {tell_recieved} {%2} {<119>%3};
 	};
 } {3}
 
-#act {~^\e[1\;31mYou tell %*} {
+#act {@sgrInit{}^@sgrp{!R}You tell %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[tells]};
 } {3}
 
-#act {~^\e[1\;31m%w is {away|AWAY} and may not see your tell.} {
+#act {@sgrInit{}^@sgrp{!R}%w is {away|AWAY} and may not see your tell.@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[tells]};
 } {3}
 
-#act {~^\e[1\;31mMessage: %*} {
+#act {@sgrInit{}^@sgrp{!R}Message: %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[tells]};
 } {3}
 
-#act {~^\a\e[1;31m%* is paging you...\e[0m$} {
-	_ChannelLog {<119>%1 is paging you...} {$capPath[tells]};
-	#var _chanPager {%1};
+#act {@sgrInit{}^\a@sgrp{!R}%* is paging you...@sgrp{X}@sgrFin{}$} {
+	_ChannelLog {<119>%2 is paging you...} {$capPath[tells]};
+	#var _chanPager {%2};
 } {3}
 
-#act {~^\e[1\;31mReason: %*} {
+#act {@sgrInit{}^@sgrp{!R}Reason: %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[tells]};
-	_Event_raise {page_recieved} {${_chanPager}} {<119>%1};
+	_Event_raise {page_recieved} {${_chanPager}} {<119>%2};
 	#unvar _chanPager;
 } {3}
 
@@ -126,31 +126,31 @@
 	_ChannelLog {<099>%0} {$capPath[tells]};
 } {3}
 
-#act {~^Reason: %*}	{
+#act {@sgrInit{}^Reason: %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[tells]};
 } {3}
 
-#act {~^\e[1\;31m[%d] active Guides and [%d] visible Immortals heard you pray '%*'} {
+#act {@sgrInit{}^@sgrp{!R}[%d] active Guides and [%d] visible Immortals heard you pray '%*'@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[tells]};
 } {3}
 /* }}} */
 
 /*Form Talk {{{ */
-#act {~^\e[1\;36m%* tells the formation %*} {
+#act {@sgrInit{}^@sgrp{!C}%* tells the formation %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[formTalk]};
 } {3}
 
-#act {~^\e[1\;36mYou tell the formation %*}	{
+#act {@sgrInit{}^@sgrp{!C}You tell the formation %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[formTalk]};
 } {3}
 /* }}} */
 
 /* Archon Talk {{{ */ 
-#act {~^\e[0m\e[1\;34\;49m[\e[22\;37\;49m%d\e[1\;34\;49m]%*} {
+#act {@sgrInit{}^@sgrp{X}\e[1\;34\;49m[\e[22\;37\;49m%d\e[1\;34\;49m]%*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[archonTalk]};
 } {3}
 
-#act {~^\e[0m\e[1\;34\;49m[\e[22\;37\;49mARCHON\e[1\;34\;49m]%*} {
+#act {@sgrInit{}^@sgrp{X}\e[1\;34\;49m[\e[22\;37\;49mARCHON\e[1\;34\;49m]%*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[archonTalk]};
 } {3}
 /* }}} */
@@ -167,59 +167,59 @@
 /* }}} */
 
 /* Guide Talk / Novice Channel TODO: Test, add pray {{{ */
-#act {~^\e[1;37m[GUIDE] %*} {
+#act {@sgrInit{}^@sgrp{!W}[GUIDE] %*@sgrFin{}} {
 	_ChannelLog {%0} {$capPath[guide]};
 }
 
-#act {~^[%S] guide{|s} head you say, '%*'\e[0m$} {
+#act {@sgrInit{}^[%S] guide{|s} heard you say, '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[guide]};
 }
 
 #nop {^(%*) [%*] prays '%*'$};
 
-#act {~^\e[1;33m[CLAN Novice Adventurers] %*: '%*'\e[0m$} {
+#act {@sgrInit{}^@sgrp{!Y}[CLAN Novice Adventurers] %*: '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[novice]};
 }
-#act {~^\e[1;33m[%d] Novice clan member%? heard you say, '%*'\e[0m$} {
+#act {@sgrInit{}^@sgrp{!Y}[%d] Novice clan member%? heard you say, '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[novice]};
 }
 /* }}} */
 
 /* Shouts & Yells {{{ */
-#act {~^\e[1\;35m%* {shouts|SHOUTS} '%*'\e[0m$} {
+#act {@sgrInit{}^@sgrp{!M}%* {shouts|SHOUTS} '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[shout]};
 } {3}
 
-#act {~^\e[1\;35m[%S] people heard you shout '%*'\e[0m$} {
+#act {@sgrInit{}^@sgrp{!M}[%S] people heard you shout '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[shout]};
 } {3}
 
-#act {~^\e[1\;33m%* yells '%*'\e[0m$} {
+#act {@sgrInit{}^@sgrp{!Y}%* yells '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[yell]};
 } {3}
 
-#act {~^\e[1\;33mYou yell '%*'\e[0m$} {
+#act {@sgrInit{}^@sgrp{!Y}You yell '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[yell]};
 } {3}
 /* }}} */
 
 /* Say/Sayto/Wisper TODO: Test & Chat > Relay {{{ */
 /* Level 5.5 To let most other triggers take priority*/
-#act {~^{|\e[0m}\e[1;36m{You|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|(say|whisper)(| to .+)|(says|whispers)(| to you)}, '%*'\e[0m$} {
+#act {@sgrInit{}^{|@sgrp{X}}@sgrp{!C}{You|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|(say|whisper)(| to .+)|(says|whispers)(| to you)}, '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
 } {5.5}
 
-#act {~^{|\e[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}. '%*'\e[0m$} {
+#act {@sgrInit{}^{|@sgrp{X}}@sgrp{!C}'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}. '%*'@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
 } {5.5}
 
-#act {~^{|\e[0m}\e[1;36m'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}.\e[0m$} {
+#act {@sgrInit{}^{|@sgrp{X}}@sgrp{!C}'%*' {you|.+} {ask(| .+)|asks(| you)|exclaim(| to .+)|exclaims(| to you)|say(| to .+)|says(| to you)}.@sgrp{X}@sgrFin{}$} {
 	_ChannelLog {%0} {$capPath[say]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
@@ -242,31 +242,31 @@
 	};
 }
 
-#act {~^\e[1\;33m[%d] people in #%* heard you relay '%*} {
-	_ChannelLog {%0} {@relayPath{%2}};
+#act {@sgrInit{}^@sgrp{!Y}[%d] people in #%* heard you relay '%*@sgrFin{}} {
+	_ChannelLog {%0} {@relayPath{%3}};
 } {3}
 
-#act {~^\e[1\;33m%*@#%S is now relaying messages from this chat room.} {
-	_ChannelLog {%0} {@relayPath{%2}};
+#act {@sgrInit{}^@sgrp{!Y}%*@#%S is now relaying messages from this chat room.@sgrFin{}} {
+	_ChannelLog {%0} {@relayPath{%3}};
 } {3}
 
-#act {~^\e[1\;33m%*@#%S is no longer relaying from this chat room.%*} {
-	_ChannelLog {%0} {@relayPath{%2}};
+#act {@sgrInit{}^@sgrp{!Y}%*@#%S is no longer relaying from this chat room.%*@sgrFin{}} {
+	_ChannelLog {%0} {@relayPath{%3}};
 } {3}
 
-#act {~^\e[1\;33m%w@#%S: %*} {
-	_ChannelLog {%0} {@relayPath{%2}};
+#act {@sgrInit{}^@sgrp{!Y}%w@#%S: %*@sgrFin{}} {
+	_ChannelLog {%0} {@relayPath{%3}};
 } {3}
 
 #act {^You are now relaying messages from chat room #%*.} {
 	_ChannelLog {%0} {@relayPath{%1}};
 } {3}
 
-#act {~^You are no longer relaying from chat room #%*.%*} {
+#act {@sgrInit{}^You are no longer relaying from chat room #%*.%*@sgrFin{}} {
 	_ChannelLog {%0} {@relayPath{%1}};
 } {3}
 
-#act {^You are banned from chat room #%*.} {
+#act {@sgrInit{}^You are banned from chat room #%*.%*@sgrFin{}} {
 	_ChannelLog {%0} {@relayPath{%1}};
 } {3}
 /* }}} */

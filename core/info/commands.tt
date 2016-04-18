@@ -18,9 +18,13 @@
 /* }}} */
 
 /* Recall Where Augmentation {{{ */
-#alias {recall where} {
-	_Class load tmp/core/info/recall core/info/rtlib/recall.tt;
-	#send {recall list};
+#alias {recall} {
+	#if {"%1" == "where"} {
+		_Class load tmp/core/info/recall core/info/rtlib/recall.tt;
+		#send {recall list};
+	} {
+		#send {%0};
+	};
 }
 /* }}} */
 

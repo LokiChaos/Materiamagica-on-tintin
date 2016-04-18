@@ -83,7 +83,7 @@ _Event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 /* }}} */
 
 /* Room State {{{ */
-#act {@sgrInit{}^@sgrp{B}(------------------------------------%*---)     %*@sgrFin{}}
+#act {@sgrInit{}^@sgrp{!B}(------------------------------------%*---)     %*@sgrFin{}}
 {
 	#if {"$stateChar[justLooking]" != "1"}
 	{

@@ -22,7 +22,7 @@
 	#if {$client[State][muteLine]} {
 		#nop;
 	} {
-		#echo {%sCurrent Worldgates:<099> %s<099>} {%1} {$gtime[Gates]};
+		#echo {%sCurrent Worldgates:<099> %s<099>} {@sgrc{%1}} {$gtime[Gates]};
 	};
 }
 /* }}} */

@@ -132,7 +132,7 @@ _Event_register {gmcp_char_combat} {combatround} {_combatRound};
 }
 
 /* Master combat trigger! For non-superbiref and "mxp" (GMCP) modes */
-#act {@sgrInit{}^@sgrp{M}%* {is in perfect health|has several minor scratches|has several minor wounds and bruises|has some significant wounds|has some very significant wounds and scratches|looks pretty beaten up|is in terrible condition|is vomiting blood|screams in agony|pales visibly as death nears|is barely clinging to life}.@sgrFin{}}
+#act {@sgrInit{}^@sgrp{!M}%* {is in perfect health|has several minor scratches|has several minor wounds and bruises|has some significant wounds|has some very significant wounds and scratches|looks pretty beaten up|is in terrible condition|is vomiting blood|screams in agony|pales visibly as death nears|is barely clinging to life}.@sgrFin{}}
 {
 	#var __HPTable {
 	{is in perfect health}{100}

@@ -227,3 +227,7 @@
 #var prefs[ignoredEquipmentSlots] {shoulder1;shoulder2;face};
 
 /* ===== END USER CONFIG =================================================== */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

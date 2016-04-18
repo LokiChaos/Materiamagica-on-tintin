@@ -15,3 +15,7 @@
  =========================================================================== */
 
 #var prefs[modules][missing_aff][want] {sanctuary;stone skin;shield;armor;haste;levitation;bless;augment aura};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

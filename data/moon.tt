@@ -13,3 +13,7 @@
 
 #var __phaseHash {{new}{<109>n}{crescent waxing}{<079>C}{half waxing}{<079>H}{gibbous waxing}{<079>G}
                   {full}{<179>F}{gibbous waning}{<079>g}{half waning}{<079>h}{crescent waning}{<079>c}};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

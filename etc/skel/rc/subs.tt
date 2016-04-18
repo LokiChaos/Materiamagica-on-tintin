@@ -1,2 +1,6 @@
 #showme {<aef>Loading: <faa>user/subs.tt}
 
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

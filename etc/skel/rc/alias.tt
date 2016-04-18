@@ -9,3 +9,7 @@
 #alias {usedr}  {ReagentDo Used};
 #alias {clearr} {ReagentDo UsedClear};
 #alias {getb}   {BoTGet};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

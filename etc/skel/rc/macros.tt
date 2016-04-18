@@ -3,3 +3,7 @@
 /* General Macros*/
 #macro {\cs} {score}
 #macro {\cw} {auction info}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

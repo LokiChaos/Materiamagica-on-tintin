@@ -60,3 +60,7 @@
 	-1 = Always try to reconnect, no limit.
 */
 #var _reconnect[attMax]                {-1};
+
+/* Verify loading*/
+#var loadState {1};
+/* EOF */

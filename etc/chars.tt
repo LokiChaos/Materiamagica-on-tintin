@@ -2,3 +2,7 @@
 #list charList add {{{name}{Kamiko}{cname}{Kamiko}{menu}{2}{server}{materiamagica.com}{port}{8000}}}
 #list charList add {{{name}{Shinde-Dev}{cname}{Shinde}{menu}{1}{server}{dev.ingenii.com}{port}{4444}}}
 #list charList add {{{name}{Testing}{cname}{Noconnect}{menu}{1}{server}{materiamagica.com}{port}{4445}}}
+
+/* Verify loading*/
+#var loadState {1};
+/* EOF */

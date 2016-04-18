@@ -50,17 +50,15 @@
 			#var _:SGRP[pattern] {[0-9\;]+};
 		};
 		#default {
-			#if {"$clientConfig[colorMode]" == "16" && ( ${_:SGRP[arg][c][fg]} > 15 || ${_:SGRP[arg][c][bg]} > 15 ) } {
+			#if {"$clientConfig[colorMode]" != "16"} {
+				#var _:SGRP[pat][256] {@sgr256{ ${_:SGRP[arg][c]} }};
+			};
+			#elseif {${_:SGRP[arg][c][fg]} > 15 || ${_:SGRP[arg][c][bg]} > 15} {
 				Print {ERROR} {Color '<099>%1<>' is beyond standard 16 color range};
 			};
-			#var _:SGRP[pat][16]  {@sgr16{ ${_:SGRP[arg][c]} }};
-			#var _:SGRP[pat][256] {@sgr256{ ${_:SGRP[arg][c]} }};
 
-			#if {"$clientConfig[colorMode]" == "16"} {
-				#var _:SGRP[pat][256] {};
-			};
-			#elseif {"$clientConfig[colorMode]" == "256" && "${_:SGRP[pat][256]}" != ""} {
-				#var _:SGRP[pat][16] {};
+			#if {"$clientConfig[colorMode]" != "256" || "${_:SGRP[pat][256]}" == ""} {
+				#var _:SGRP[pat][16]  {@sgr16{ ${_:SGRP[arg][c]} }};
 			};
 
 			#var _:SGRP[pattern] {@sgrRegex{ {${_SGRstate[att]}} {${_:SGRP[arg]}} {${_:SGRP[pat][256]}} {${_:SGRP[pat][16]}} }};
@@ -81,7 +79,7 @@
 	Usage: @sgrInit{[<?>]}
 	Start's new pattern and Resets _SGRstate to default or unknown state
 	Called at start of an action to ensure clean state
-	Returns ~ for #act
+	Returns: ~ for #act
 */
 #function {sgrInit} {
 	#if {"%0" == "?"} {
@@ -96,7 +94,7 @@
 	Usage: @sgrFin{}
 	Marks end of a pattern and cleans up _SGRstate
 	Called at end of an action's pattern
-	Returns nothing for #act
+	Returns: nothing for #act
 */
 #function {sgrFin} {
 	#unvar _SGRstate {};
@@ -105,7 +103,7 @@
 
 /*
 	Usage: @sgrc{<stripped sequence>}
-	Returns the ANSI control sequence based on the stripped sequence.
+	Returns: the ANSI control sequence based on the stripped sequence.
 	eg: @sgrc{0\;32} returns '\e[0\;32m' (aka reset and fg set to green)
 */
 #function {sgrc} {

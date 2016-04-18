@@ -119,4 +119,9 @@
 #act {^* * You are currently %*.} {
 	#nop TODO sit/sleep/stand;
 }
+
+#alias {_InfoScoreCleanup} {
+	#nop %0;
+	_Class purge tmp/core/info/score;
+}
 /* }}} */

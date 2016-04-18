@@ -32,7 +32,7 @@
 		#case {"fakeload"} {
 			__Class_fakeload {%2} {%3};
 		};
-		#case {"{unload|reload|purge|kill|replace}"} {
+		#case {"{?|}{unload|reload|purge|kill|replace}"} {
 			#switch {@iclassGetState{%2}} {
 				#case {1} {
 					__Class_%1 {%2} {%3};
@@ -41,10 +41,14 @@
 					__Class_%1 {%2} {%3};
 				};
 				#case {0} {
-					Print {ERROR} {class '<099>%2<>' is not in loaded.};
+					#if {"%1" != "?%*"} {
+						Print {ERROR} {class '<099>%2<>' is not in loaded.};
+					};
 				};
 				#default {
-					Print {ERROR} {class '<099>%2<>' is not in class manifest.};
+					#if {"%1" != "?%*"} {
+						Print {ERROR} {class '<099>%2<>' is not in class manifest.};
+					};
 				};
 			};
 		};

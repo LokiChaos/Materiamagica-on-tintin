@@ -8,8 +8,6 @@
 /* Uncomment this next line if you want to hard-code the path          */
 /*#var client[State][root] {/home/EDIT ME/.tt/};*/
 
-
-
 /*
 	Class loading settings
 	debugRead will cause scripts to be loaded verbosely
@@ -27,7 +25,25 @@
 */
 #var client[Config][messageEchoLevel]  {INFO};
 #var client[Config][messageLogLevel]   {WARNING};
+
+/*
+	Path for Message log, this is where errors and debug messages go
+*/
 #var client[Config][messageLogPath]    {debug.log};
+
+/*
+	Levels below this will echo a bell, set to NONE to disable bell
+	Default: CRITICAL
+*/
+#var client[Config][messageBellLevel]  {CRITICAL};
+
+/*
+	Timestamp format:
+	Default: YYYY-MM-DD HH:MM:SS
+
+	This is used for the Message logging as well as captures.
+*/
+#var client[Config][timeStampForm]      {%Y-%m-%d %H:%M:%S};
 
 /*
 	Color mode

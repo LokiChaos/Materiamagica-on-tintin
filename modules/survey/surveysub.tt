@@ -1,7 +1,7 @@
 #nop survey module
 
 
-#act {~^\e[1;37m  %* to the %*, you see %*.\e[0m$} {
+#act {@sgrInit{}^@sgrp{!W}  %* to the %*, you see %*.@sgrp{X}@sgrFin{}$} {
 	#line gag;
 	#echo {  <179>%s %s steps to the %s.}
 	      {@mod_survey_lookup{%3}} 
@@ -9,13 +9,13 @@
 		  @std_str_toUpper{@std_dir_short{%2}};
 }
 
-#act {~^\e[1;37m  Right here, you see %*.\e[0m$} {
+#act {@sgrInit{}^@sgrp{!W}  Right here, you see %*.@sgrp{X}@sgrFin{}$} {
 	#line gag;
 	#echo {  <179>%s is right here.}
 	      {@mod_survey_lookup{%1}};
 }
 
-#act {~  %* to the %*, you see %*.$} {
+#act {@sgrInit{}  %* to the %*, you see %*.@sgrFin{}$} {
 	#line gag;
 }
 

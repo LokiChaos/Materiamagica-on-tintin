@@ -6,58 +6,58 @@
 #nop PROVIDES: lib/zmudsw;
 
 #function {std_zmudsw_parse} {
-	#var __zpath[path] {};
-	#var __zpath[count] {};
-	#var __zpath[mode] 1;
-	#var __zpath[dirTbl] {{j}{ne}{h}{nw}{k}{sw}{l}{se}};
+	#var _:zpath[path] {};
+	#var _:zpath[count] {};
+	#var _:zpath[mode] 1;
+	#var _:zpath[dirTbl] {{j}{ne}{h}{nw}{k}{sw}{l}{se}};
 
-	#parse {%1} {__zpath[step]} {
-		#if { ${__zpath[mode]} == 1 } {
-			#switch {"${__zpath[step]}"} {
+	#parse {%1} {_:zpath[step]} {
+		#if { ${_:zpath[mode]} == 1 } {
+			#switch {"${_:zpath[step]}"} {
 				#case {"%d"} {
-					#var __zpath[count] {${__zpath[count]}${__zpath[step]}};	
+					#var _:zpath[count] {${_:zpath[count]}${_:zpath[step]}};	
 				};
 				#case {"{n|s|e|w|u|d}"} {
-					#if { "${__zpath[count]}" != "" } {
-						#${__zpath[count]} #var __zpath[path] {${__zpath[path]};${__zpath[step]}};
-						#var __zpath[count] {};
+					#if { "${_:zpath[count]}" != "" } {
+						#${_:zpath[count]} #var _:zpath[path] {${_:zpath[path]};${_:zpath[step]}};
+						#var _:zpath[count] {};
 					} {
-						#var __zpath[path] {${__zpath[path]};${__zpath[step]}};
+						#var _:zpath[path] {${_:zpath[path]};${_:zpath[step]}};
 					};
 				};
 				#case {"{h|j|k|l}"} {
-					#if { "${__zpath[count]}" != "" } {
-						#${__zpath[count]} #var __zpath[path] {${__zpath[path]};${__zpath[dirTbl][${__zpath[step]}]}};
-						#var __zpath[count] {};
+					#if { "${_:zpath[count]}" != "" } {
+						#${_:zpath[count]} #var _:zpath[path] {${_:zpath[path]};${_:zpath[dirTbl][${_:zpath[step]}]}};
+						#var _:zpath[count] {};
 					} {
-						#var __zpath[path] {${__zpath[path]};${__zpath[dirTbl][${__zpath[step]}]}};
+						#var _:zpath[path] {${_:zpath[path]};${_:zpath[dirTbl][${_:zpath[step]}]}};
 					};	
 				};
 				#case {"("} {
-					#var __zpath[mode] 2;
+					#var _:zpath[mode] 2;
 
 				};
 			};
 		} {
-			#switch {"${__zpath[step]}"} {
+			#switch {"${_:zpath[step]}"} {
 				#case {")"} {
-					#if { "${__zpath[count]}" != "" } {
-						#${__zpath[count]} #var __zpath[path] {${__zpath[path]};${__zpath[cmd]}};
-						#var __zpath[count] {};
+					#if { "${_:zpath[count]}" != "" } {
+						#${_:zpath[count]} #var _:zpath[path] {${_:zpath[path]};${_:zpath[cmd]}};
+						#var _:zpath[count] {};
 					} {
-						#var __zpath[path] {${__zpath[path]};${__zpath[cmd]}};
+						#var _:zpath[path] {${_:zpath[path]};${_:zpath[cmd]}};
 					};	
-					#var __zpath[cmd] {};
-					#var __zpath[mode] 1;
+					#var _:zpath[cmd] {};
+					#var _:zpath[mode] 1;
 				};
 				#default {
-					#var __zpath[cmd] {${__zpath[cmd]}${__zpath[step]}};
+					#var _:zpath[cmd] {${_:zpath[cmd]}${_:zpath[step]}};
 				};
 			};
 		};
 	};
-	#var result {${__zpath[path]}};
-	#unvar __zpath;
+	#var result {${_:zpath[path]}};
+	#unvar _:zpath;
 }
 
 /* Verify loading */

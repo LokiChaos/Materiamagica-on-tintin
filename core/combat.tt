@@ -17,7 +17,7 @@
 _Event_register {combat_start} {initcombat} {_startCombat};
 _Event_register {prompt_post}  {combatecho} {_combatEcho};
 _Event_register {prompt_pre}   {combatform} {_combatGetFormHP};
-
+_Event_register {gmcp_char_combat} {combatround} {_combatRound};
 #alias {_startCombat}
 {
 	#nop %1;
@@ -105,12 +105,29 @@ _Event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 }
 
 /* Superbrief combat */
-#act {^You hit %* %w, missing %w and %w defends %w, leaving %w at %d percent. You are hit %w, are missed %w, and defend %w.$} {
+#act {^You hit %* %*, missing %* and %* defends %*, leaving %w at %d percent. You are hit %*, are missed %*, and defend %*.$} {
 	#line gag;
 	#var stateChar[Combat]    2;
 	#var combat[mobHealth] {%7};
+	#var __NumTable {{none}{0}{once}{1}{twice}{2}{thrice}{3}{four times}{4}{five times}{5}{six times}{6}};
 	#echo {<129>You hit %1 %2, missing %3 and %4 defends %5.};
 	#echo {<139>%n hits you %8, missing %9 and defend %10.} {%1};
+	#unvar __NumTable;
+}
+
+#alias {_combatRound} {
+	#var stateChar[Combat]    2;
+	#var combat[mobHealth] {${gmcp[Char][Combat][opponent_hp_percent]}};
+	#echo {<129>You hit %s %d, missing %d and defends %d.}
+	      {${gmcp[Char][Combat][opponent_name]}}
+	      {${gmcp[Char][Combat][you_hit]}}
+	      {${gmcp[Char][Combat][you_miss]}}
+	      {${gmcp[Char][Combat][opponent_defends]}};
+	#echo {<139>%n hits you %d, missing %d and defend %d.}
+	      {${gmcp[Char][Combat][opponent_name]}}
+	      {${gmcp[Char][Combat][opponent_hits]}}
+	      {${gmcp[Char][Combat][opponent_misses]}}
+	      {${gmcp[Char][Combat][you_defend]}};
 }
 
 /* Master combat trigger! */

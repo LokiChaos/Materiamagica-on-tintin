@@ -49,3 +49,4 @@ _Class load init/events init/events.tt;
 
 /* Login Menu and Welcome Screen */
 _Class load init/login/menu init/login/menu.tt;
+/* EOF */

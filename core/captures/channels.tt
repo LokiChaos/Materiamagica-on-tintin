@@ -227,7 +227,7 @@
 } {5.5}
 
 #act {@sgrInit{}^@sgrp{!G}[EM] %*@sgrp{X}@sgrFin{}$} {
-	_ChannelLog {%0} {$capPath[say]};
+	_ChannelLog {%0} {$capPath[emote]};
 	#if {"$stateChar[inChatRoom]" != ""} {
 		_ChannelLog {%0} {@relayPath{$stateChar[inChatRoom]}};
 	};
@@ -236,7 +236,6 @@
 
 /* Dream  {{{ */
 #act {@sgrInit{}^[%d] people heard you dream, '%*'@sgrFin{}$} {
-	_ChannelLog {%0} {$capPath[dream]};
 	#switch {$prefs[firstP]} {
 		#case {0} {
 			#format {__dreamcap} {<099>[%d] people heard you dream, '%s'<099>} {%1} {%2};

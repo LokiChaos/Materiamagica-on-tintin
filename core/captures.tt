@@ -28,6 +28,7 @@
 #var capPath[guideTalk]       {guide};
 #var capPath[novice]          {novice};
 #var capPath[say]             {says};
+#var capPath[emote]           {says};
 #var capPath[announce]        {announcements};
 #var capPath[dream]           {dream};
 /* }}} */

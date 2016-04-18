@@ -36,3 +36,7 @@ _Event_oneshot {confirm} {zzzzconfirm_cleanup} {confirm_cleanup};
 	_Class purge tmp/confirm;
 	#unvar __confirm;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

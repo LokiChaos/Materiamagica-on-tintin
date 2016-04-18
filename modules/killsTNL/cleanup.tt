@@ -1,3 +1,7 @@
 #nop
 
 _Event_remove_specific {slain_opponent} {mod_killstnl};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

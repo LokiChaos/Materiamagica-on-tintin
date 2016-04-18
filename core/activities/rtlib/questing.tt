@@ -125,3 +125,7 @@
 	#unvar qMaster;#unvar lastQuest; #unvar timeNow; #unvar lastTwo; #unvar lastSix; #unvar num;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

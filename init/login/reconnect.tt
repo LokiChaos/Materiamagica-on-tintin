@@ -67,3 +67,7 @@
 	_Class purge init/reconnect;
 	_Class load init/login/menu init/login/menu.tt;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

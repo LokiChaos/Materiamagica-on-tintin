@@ -22,14 +22,14 @@
 #class lib/classLoader read lib/class.tt;
 __ClassBootstrap;
 
-#class lib/eventHander read lib/handler.tt;
+#class lib/eventHandler read lib/handler.tt;
 __EventBootstrap;
 
 
 _Class fakeload config/core etc/coreSettings.tt;
 _Class fakeload lib/print lib/message.tt;
 _Class fakeload lib/classLoader lib/class.tt;
-_Class fakeload lib/eventHander lib/handler.tt;
+_Class fakeload lib/eventHandler lib/handler.tt;
 
 _Class load lib/scriptLoader lib/rcload.tt;
 

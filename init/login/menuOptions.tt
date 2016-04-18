@@ -14,3 +14,7 @@
 
 #line substitute variables {#alias {_loginAuto} {_loginMM  {$charList[1][name]} {$charList[1][cname]} {$charList[1][server]} {$charList[1][port]};} {$charList[1][menu]}};
 #unvar __idx;
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

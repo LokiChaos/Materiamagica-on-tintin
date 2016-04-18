@@ -159,3 +159,7 @@
 	_Class purge tmp/core/activities/questCmd;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

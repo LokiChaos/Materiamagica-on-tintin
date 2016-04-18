@@ -2,3 +2,7 @@
 
 _promptFlagDel {BOT};
 _Class purge tmp/module/bagoftricks/get;
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

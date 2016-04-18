@@ -63,3 +63,7 @@
 	#var _mod_keypad[act] {default};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

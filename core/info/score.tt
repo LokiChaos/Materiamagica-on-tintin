@@ -17,3 +17,7 @@
 	#var charScore[alignentLong] {%2};
 	#var charScore[alignmentTrend] {%3};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

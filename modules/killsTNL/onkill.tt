@@ -10,3 +10,7 @@
 	#var _mod_killsTNL_lastExp {%2};
 	_Class purge tmp/module/killstnl;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

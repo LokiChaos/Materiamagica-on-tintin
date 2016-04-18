@@ -148,3 +148,7 @@
 #act {~%* has set your rank in Clan %* to %*} {
 	_CaptureLog {<099>%0} {$capPath[important]};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

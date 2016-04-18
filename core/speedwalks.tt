@@ -131,3 +131,7 @@ _Event_register {speedStep} {sw_walker} {_SpeedWalkStep};
 	};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

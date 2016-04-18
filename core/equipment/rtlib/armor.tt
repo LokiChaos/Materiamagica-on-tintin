@@ -10,3 +10,7 @@
 #gag {^Equipped weapon damage:}
 #gag {points of damage against}
 #gag {Excepting defenses and dynamic modifiers, you will hit %d% of the time.}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

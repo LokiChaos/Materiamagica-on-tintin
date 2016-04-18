@@ -3,3 +3,7 @@
 /* Save module settings */
 @std_value_save{_mod_scan_aid_settings};
 #unvar _mod_scan_aid_settings;
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

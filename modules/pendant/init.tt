@@ -12,3 +12,7 @@
 	#echo {<149>%n.} {${__pendColors[%2]}};
 	#unvar __pendColors;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

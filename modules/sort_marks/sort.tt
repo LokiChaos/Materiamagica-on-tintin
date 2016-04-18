@@ -24,3 +24,7 @@
 	#var client[State][autoContinue] 0;
 	_Class purge tmp/module/sort_marks;
 } {4}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -5,3 +5,7 @@
 #nop CLASS: sound;
 #nop PROVIDES: lib/sound;
 #nop REQUIRES: lib/shell;
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

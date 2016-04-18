@@ -26,3 +26,7 @@
 	#unvar __nowTime;
 	#unvar __diffTime;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -18,3 +18,7 @@
 	};
 	_Class load tmp/confirm lib/rtlib/confirm.tt;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

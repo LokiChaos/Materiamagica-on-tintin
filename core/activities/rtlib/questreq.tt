@@ -30,3 +30,7 @@
 	#unvar __questEcho;
 	_Class purge tmp/core/activities/questRequest;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

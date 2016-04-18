@@ -9,6 +9,16 @@
 /*#var client[State][root] {/home/EDIT ME/.tt/};*/
 
 
+
+/*
+	Class loading settings
+	debugRead will cause scripts to be loaded verbosely
+	verifyRead will have the class loader verify a script
+	finished loading and error if it does not.
+*/
+#var client[Config][debugRead]         {0};
+#var client[Config][verifyRead]        {1};
+
 /*
 	Client verbosity, 
 	Valid Levels: CRITICAL ERROR WARNING [INFO] VERBOSE DEBUG
@@ -26,13 +36,13 @@
 	Default: both
 	Unknown values will be treated as 'both'
 */
-#var client[Config][colorMode] {both};
+#var client[Config][colorMode]         {both};
 
 /*
 	How long should the inital login menu wait for you to make a selection
 	before auto-connecting to the first entry.
 */
-#var client[Config][loginTimeOut]  {30};
+#var client[Config][loginTimeOut]      {30};
 
 /*
 	Auto-Response to Server Login Menu
@@ -41,8 +51,7 @@
 	 1 - Alyria
 	 2 - Social
 */
-
-#var client[Config][loginChoice]    {1};
+#var client[Config][loginChoice]       {1};
 
 /*
 	Maximum number of login attempts.
@@ -50,4 +59,4 @@
 	 0 = Never automatically reconnect.
 	-1 = Always try to reconnect, no limit.
 */
-#var _reconnect[attMax]   {-1};
+#var _reconnect[attMax]                {-1};

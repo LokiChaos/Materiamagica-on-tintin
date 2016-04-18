@@ -111,3 +111,7 @@
 	#var client[State][clientIdle] 0;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

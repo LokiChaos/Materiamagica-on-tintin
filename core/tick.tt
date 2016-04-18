@@ -57,3 +57,7 @@ _Event_register {tick_sync} {sync} {_SyncTick};
 	_Class purge tmp/core/sysinfo;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

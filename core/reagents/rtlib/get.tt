@@ -23,3 +23,7 @@ _Event_register {item} {reagGet} {_reagNoRoom};
 	_Event_remove_specific {item} {reagGet};
 	_Class purge tmp/core/reagent/get; 
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

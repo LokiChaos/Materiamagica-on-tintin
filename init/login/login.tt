@@ -50,3 +50,7 @@
 	#unvar _login_menu_choice;
 	_Event_raise {session_login} {reconnect};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

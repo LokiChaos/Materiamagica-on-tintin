@@ -146,3 +146,7 @@
        Example:<099> whereis ^A <149>will return all that start with an A<099>};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

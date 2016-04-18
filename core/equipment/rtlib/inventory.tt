@@ -25,3 +25,7 @@
 		{#var stateChar[Overweight] 0};         
 	_Class purge tmp/core/info/inv;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

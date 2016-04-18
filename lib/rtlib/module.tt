@@ -130,3 +130,7 @@
 		Print {INFO} {<139>Module '%1' has no helpfile!};
 	};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

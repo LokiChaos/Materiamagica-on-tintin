@@ -5,3 +5,7 @@
 	_Class load tmp/module/survey modules/survey/surveysub.tt;
 	_Event_oneshot {prompt_post} {surveyClean} {_mod_survey_clean};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

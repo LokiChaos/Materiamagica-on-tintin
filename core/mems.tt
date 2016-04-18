@@ -66,3 +66,7 @@
 	_Event_raise {mems} {fail} {complexity};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -59,3 +59,7 @@
 	#var result {${__zpath[path]}};
 	#unvar __zpath;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

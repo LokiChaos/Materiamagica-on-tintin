@@ -153,3 +153,7 @@ _Event_register {nav_changezone} {updateNav} {_UpdateZone};
 	{#if {$navigation[blinkRecall]} {recall where};};
 #act {^You feel a rushing sense of motion...$}
 	{_Event_raise {cast} {word of recall};}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

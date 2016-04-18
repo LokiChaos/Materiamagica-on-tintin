@@ -359,3 +359,7 @@
 	#unvar _:SGRCT;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

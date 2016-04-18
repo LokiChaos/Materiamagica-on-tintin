@@ -51,3 +51,7 @@
 						 {hema}{0}{focus}{0}};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

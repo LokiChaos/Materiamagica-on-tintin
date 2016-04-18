@@ -228,3 +228,7 @@ _Event_register {tick} {promptTick} {_PromptTick};
 	#nop %1;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -136,3 +136,7 @@ _Event_register {session_disconnect} {moduleRecallSave} {_modules_save};
 	@std_value_load{mod};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

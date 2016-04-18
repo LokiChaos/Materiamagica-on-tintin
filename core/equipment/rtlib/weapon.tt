@@ -9,3 +9,7 @@
 #gag {^$}
 #gag {Current Armor Resistance (AR):}
 #gag {^(}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

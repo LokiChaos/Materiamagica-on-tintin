@@ -45,3 +45,7 @@
 #if {"${_mod_scan_aid_settings}" == ""} {
 	#var _mod_scan_aid_settings {{color}{<149>} {patterns}{}};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

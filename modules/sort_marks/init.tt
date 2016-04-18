@@ -4,3 +4,7 @@
 #act {^You have obtained the following Marks:$} {
 	_Class load tmp/module/sort_marks modules/sort_marks/sort.tt;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

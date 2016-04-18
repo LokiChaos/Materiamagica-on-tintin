@@ -6,3 +6,7 @@
 
 #gag {^You aren't carrying anything that will fit into a};
 #gag {^$};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

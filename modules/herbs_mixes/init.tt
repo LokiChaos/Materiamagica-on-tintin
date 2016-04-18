@@ -77,3 +77,7 @@
 #sub {a sprig of %w %w} {@mod_herbs_n_mixes_nameSprig{ {%0} {%1 %2} }} {5.9};
 #sub {a sprig of %w}    {@mod_herbs_n_mixes_nameSprig{ {%0} {%1} }} {6};
 
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

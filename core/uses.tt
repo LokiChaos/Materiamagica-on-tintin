@@ -36,3 +36,7 @@
 	#var result {$uses[%1]};
 	#unvar uses;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

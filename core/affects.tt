@@ -49,3 +49,7 @@
 #act {^%*'s the legendary timepiece '%*' glows brightly at it strips '%*' off of %*.$} {
 	_Event_raise {affect_redemption} {%1} {%3} {%4};
 };
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

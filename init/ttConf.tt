@@ -39,3 +39,7 @@
 #debug            {all}           {OFF}
 #message          {all}           {OFF}
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

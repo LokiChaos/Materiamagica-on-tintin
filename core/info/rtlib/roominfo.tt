@@ -24,3 +24,7 @@
 	#unvar __colorConvertTbl;
 };
 #echo {<139> * <149>Exits: %p<099>} {${_exitsC}};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

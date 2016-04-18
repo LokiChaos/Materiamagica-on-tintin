@@ -14,3 +14,7 @@
 	#var client[State][autoContinue] 0;
 }
 
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

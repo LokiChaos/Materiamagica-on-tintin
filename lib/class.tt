@@ -38,21 +38,22 @@
 	Returns: class state:
 		0 = Unloaded
 		1 = Loaded
-		-1 = Not in class manifest
+		-1 = Load Error
+		-2 = Not in class manifest
 */
 #function {classGetState} {
 	#var {_:CFtemp} {@classGetIndex{%1}};
 	#if {${_:CFtemp} != 0} {
 		#var result {${_Classes[${_:CFtemp}][loaded]}};
 	} {
-		#var result {-1};
+		#var result {-2};
 	};
 	#unvar _:CFtemp;
 }
 
 /*
-	Usage: @classGetClassList{[0|1]}
-	Argument filters by unloaded (0), or loaded (1).
+	Usage: @classGetClassList{[0|1|-1]}
+	Argument filters by unloaded (0), loaded (1), or error (-1).
 	Returns: list of class names.
 */
 #function {classGetList} {
@@ -66,8 +67,8 @@
 }
 
 /*
-	Usage: @classGetClassCount{[0|1]}
-	Argument filters by unloaded (0), or loaded (1).
+	Usage: @classGetClassCount{[0|1|-1]}
+	Argument filters by unloaded (0), loaded (1), or error (-1).
 	Returns: number of listed classes
 */
 #function {classGetCount} {
@@ -137,13 +138,14 @@
 	Returns: load state of <path> in <class>'s manifest entry.
 		0 = Unloaded
 		1 = Loaded
-		-1 = Path not in class' manifest listing
-		-2 = Class not in manifest
+		-1 = Load Error
+		-2 = Path not in class' manifest listing
+		-3 = Class not in manifest
 */
 #function {classGetPathState} {
-	#if {@classGetState{%1} != -1} {
+	#if {@classGetState{%1} != -2} {
 		#var _:CFtemp[patht] {@classGetPathTable{%1}};
-		#var result {-1};
+		#var result {-2};
 		#foreach {${_:CFtemp[patht][]}} {_:CFtemp[pidx]} {
 			#if {"${_:CFtemp[patht][${_:CFtemp[pidx]}][p]}" == "%2"} {
 				#var result {${_:CFtemp[patht][${_:CFtemp[pidx]}][l]}};
@@ -152,7 +154,7 @@
 		};
 		#unvar _:CFtemp;
 	} {
-		#var result {-2};
+		#var result {-3};
 	};
 }
 /* }}} */
@@ -172,3 +174,7 @@
 		#unalias __ClassBootstrap;
 	};
 };
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

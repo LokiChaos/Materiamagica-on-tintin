@@ -144,3 +144,7 @@
 		#math result { 0 != @std_list_findValue{{%1}{%2}} || "${%2[0]}" == "%1" };
 	};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

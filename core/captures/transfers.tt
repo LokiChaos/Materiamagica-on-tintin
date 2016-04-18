@@ -89,3 +89,7 @@
 	_Event_raise {classgems_transfer} {to} {%2} {%1};
 } {3}
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

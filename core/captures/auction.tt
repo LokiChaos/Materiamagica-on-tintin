@@ -79,3 +79,7 @@ A Capture The Flag coordinator announces, ''
 	#var client[State][manualHint] 0;
 } {3}
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -57,3 +57,7 @@ bounty;daily;crystal
 #unvar _ttCmdTabList;
 #unvar charCmdTabList;
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

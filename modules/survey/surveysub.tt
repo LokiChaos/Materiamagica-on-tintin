@@ -207,3 +207,7 @@ survey_strings = {
 */
 
 
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

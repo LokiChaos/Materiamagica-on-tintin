@@ -270,3 +270,7 @@
 	_ChannelLog {%0} {@relayPath{%1}};
 } {3}
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

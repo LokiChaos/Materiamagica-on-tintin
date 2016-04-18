@@ -109,3 +109,7 @@ _Event_register {nav_changezone} {mapper} {_mapChangeZone};
 
 /* Initalize Mapper, and flag it as such */
 #var mapper[initalized] 1;
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

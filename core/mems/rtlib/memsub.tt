@@ -92,3 +92,7 @@ max memorize amount:
 
 min of 3, max of 25
 }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -36,3 +36,7 @@
 #high {A small pinkish crystal has been carelessly left here.} {<115>}
 #high {A massive pinkish crystal has been dropped here.} {<115>}
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

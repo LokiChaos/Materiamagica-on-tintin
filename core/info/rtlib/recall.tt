@@ -21,3 +21,7 @@
 	_Class purge tmp/core/info/recall;
 };
 
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

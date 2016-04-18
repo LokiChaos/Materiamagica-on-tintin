@@ -35,3 +35,7 @@ Print {INFO} {<129>Fetching sysinfo from server...};
 _UpdateSysInfo;
 
 Print {INFO} {<129>Core loaded};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -55,3 +55,7 @@
   #send {$tel[IAC]$tel[SB]$tel[GMCP] Core.Supports.Set [ "Room 1", "Char 1", "Comm 1", "Char.Items 1", "Char.Skills 1", "IRE.Composer" ] $tel[IAC]$tel[SE]\};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

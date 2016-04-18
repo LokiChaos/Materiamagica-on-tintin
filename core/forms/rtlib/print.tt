@@ -106,3 +106,7 @@
 	#unvar __formRow;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -105,3 +105,7 @@
 	_Class purge tmp/core/reagent/act;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

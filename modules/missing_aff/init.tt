@@ -25,3 +25,7 @@ _Event_register {affect_refresh} {missingAff} {_mod_missing_aff_missing};
 	#unvar __missing_str;
 	#unvar __i;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

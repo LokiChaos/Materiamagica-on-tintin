@@ -33,3 +33,7 @@
 
 /* Not enabled, bugged in game */
 /*#act {^You have gotten each of the four daily rewards every day for %d days in a row!} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

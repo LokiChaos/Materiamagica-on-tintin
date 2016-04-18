@@ -123,3 +123,7 @@
 	Print {ERROR} {Bad _Alias: '<099>%0<>'};
 } {10};
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

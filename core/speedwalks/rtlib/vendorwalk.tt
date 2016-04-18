@@ -32,3 +32,7 @@
 	};
 	#send {vendor where %1};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

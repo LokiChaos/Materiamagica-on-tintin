@@ -23,3 +23,7 @@
 	#var client[State][autoContinue] 1;
 	_Event_oneshot {prompt_post} {mod_collectables_clean} {_Class purge tmp/module/collectables_sort; #nop};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -64,3 +64,7 @@
 #function {std_dec2zero} {
 	#var result @std_math_max{ {0} {@std_decrement{%1}} };
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

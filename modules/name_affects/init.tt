@@ -11,3 +11,7 @@ _Event_register {affect_change} {aff_namer} {_mod_name_affects_name};
 		#echo {<174>Affect: %2 OFF<099> \};
 	};
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -22,3 +22,7 @@
 #high {A tin cylinder labelled 'Milk' has been placed here.} {<122>}
 #high {A squat, orange copper can of something has been left here.} {<122>}
 #high {A metal rack is here, cooling off a sheet of pie crust.} {<122>}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

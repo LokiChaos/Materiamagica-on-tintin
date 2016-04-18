@@ -49,3 +49,7 @@
 	#nop %1;
 	_Class purge tmp/core/activites/questComplete;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

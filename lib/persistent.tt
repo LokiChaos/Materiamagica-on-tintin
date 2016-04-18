@@ -96,3 +96,7 @@ _Event_register {session_disconnect} {remember} {_std_remember_save};
 }
 
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

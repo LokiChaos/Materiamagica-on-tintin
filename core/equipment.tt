@@ -191,3 +191,7 @@
 	_Event_raise {equip} {disarmed} {%2} {%1};
 	_Notice {<119>DISARMED<099> - %3};
 };
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

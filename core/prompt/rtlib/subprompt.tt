@@ -233,3 +233,7 @@
 		  {$reagent[count][air]} {$reagent[count][gem]} {$reagent[count][ethereal]};
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

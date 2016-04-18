@@ -12,3 +12,7 @@
 #gag {^Equipped weapon damage:}
 #gag {^With your knowledge}
 #gag {Excepting defenses and dynamic modifiers, you will hit %d% of the time.}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

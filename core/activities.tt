@@ -16,3 +16,7 @@
 /* Set logging paths for activites and noteworthy events */
 #var capPath[act] 	    {$capPath[base]/activities};
 #var capPath[important] {$capPath[base]/noteworthy};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -98,3 +98,7 @@
 #nop split 1 1;
 
 #delay {1} {_printWelcome;_loadChars;_printMenu;_AutoLogin};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

@@ -125,3 +125,7 @@ _Event_register {prompt_pre}   {combatform} {_combatGetFormHP};
 	#line gag;
 	#var stateChar[Combat]    2;
 }
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

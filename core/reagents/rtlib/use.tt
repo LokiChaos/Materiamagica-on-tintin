@@ -67,3 +67,7 @@
 		};
 	#unvar _rea;
 };
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

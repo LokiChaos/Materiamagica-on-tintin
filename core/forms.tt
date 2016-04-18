@@ -128,3 +128,7 @@
 		ally rem <name> - remove ally list
 		ally purge - remove all from ally list, then regen from form/perm list
 */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

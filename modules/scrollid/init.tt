@@ -11,3 +11,7 @@
 
 #sub {{A|An|a|an} %* scroll} {%0@mod_scrollid_id{@std_str_toLower{%0}}};
 #sub {{A|a} scroll %* {hide|skin}} {%0@mod_scrollid_id{@std_str_toLower{%0}}};
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

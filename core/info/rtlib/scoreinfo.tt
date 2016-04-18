@@ -125,3 +125,7 @@
 	_Class purge tmp/core/info/score;
 }
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

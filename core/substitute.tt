@@ -27,3 +27,7 @@
 
 /* Make dmg immunites obvious */
 #high {^Your %* didn't seem to have any effect on %*.$} {light red}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

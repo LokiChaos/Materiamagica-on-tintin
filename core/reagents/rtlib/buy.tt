@@ -55,3 +55,7 @@
 			  {focus}{{default}{a clear focusing crystal}}
 			  {summon}{{default}{a summoning stone}}};
 */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

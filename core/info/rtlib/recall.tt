@@ -10,7 +10,7 @@
 #gag {^* Your default recall point is:};
 
 #act {[1 ] Nearest area recall point (%* in %*)$} {
-	#echo {<149>You are in the recall zone for <099>%%2<149>.<099>};
+	#echo {<149>You are in the recall zone for <099>%2<149>.<099>};
 	#var navigation[recall_Room] {%1};
 	#var navigation[recall_Area] {%2};
 	#line gag;

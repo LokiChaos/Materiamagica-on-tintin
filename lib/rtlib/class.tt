@@ -135,10 +135,17 @@
 }
 
 #alias {__Class_load_path} {
+	#unvar loadState;
 	#if {${client[Config][debugRead]}} {
 		#line verbose #class {%1} read {%2};
 	} {
 		#class {%1} read {%2};
+	};
+	#if {${client[Config][verifyRead]} && "$loadState" != "1" } {
+		Print {CRITICAL} {File %2 failed to load!};
+		__Class_list {%1} {%2} {-1};
+	} {
+		__Class_list {%1} {%2} {1};
 	};
 	Print {VERBOSE} {Loaded file '%2' as class '%1' (No File Check)};
 	_Event_raise {class} {loaded} {%1} {%2};

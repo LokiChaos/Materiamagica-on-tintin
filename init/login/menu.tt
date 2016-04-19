@@ -77,7 +77,7 @@
 
 #alias {{n|new}} {
 	#undelay autoLogin;
-	#run {mtt} {lib/mknewses.sh};
+	#run {mtt} {libexec/mknewses.sh};
 }
 
 #alias {{N|New}} {

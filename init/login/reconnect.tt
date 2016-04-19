@@ -6,22 +6,22 @@
 
 #var __timeOuts {{1}{15}{2}{30}{3}{60}{4}{120}{5}{300}{6}{600}};
 
-#math _reconnect[attMade] {${_reconnect[attMade]} + 1};
+#math client[State][recAtt] {${client[State][recAtt]} + 1};
 
-#if {${_reconnect[attMade]} > 6} {
+#if {${client[State][recAtt]} > 6} {
 	#var __delay {${__timeOuts[6]}};
 } {
-	#var __delay {${__timeOuts[${_reconnect[attMade]}]}};
+	#var __delay {${__timeOuts[${client[State][recAtt]}]}};
 };
 
 #unvar __timeOuts;
 
 #delay {0.5} {
-	#if {${_reconnect[attMax]} == -1 || ${_reconnect[attMax]} >= ${_reconnect[attMade]}} {
+	#if {${client[Config][reconMax]} == -1 || ${client[Config][reconMax]} >= ${client[State][recAtt]}} {
 		#delay {relog} {
 			_Reconnect;
 		} {${__delay}};
-		#echo {\n\n\n<149>Reconnect attempt <099>%d<149> in <099>%d<149> seconds... Enter <099>r<149> to reconnect immediately.} {${_reconnect[attMade]}} {${__delay}};
+		#echo {\n\n\n<149>Reconnect attempt <099>%d<149> in <099>%d<149> seconds... Enter <099>r<149> to reconnect immediately.} {${client[State][recAtt]}} {${__delay}};
 		#echo {<149>Will reconnect session '<099>%s<149>' as <099>%s\@%s:%s<149>.}
 		      {$lastSession[sessionName]} {$lastSession[charName]} {$lastSession[server]} {$lastSession[port]};
 		#echo {<149>Press <099>Ctrl-c <149>to cancel reconnect and return to login menu.};

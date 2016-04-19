@@ -39,12 +39,14 @@
 */
 #event {SESSION CONNECTED} {
 	#var sessionName {%0};
-	#gts {#var lastSession {}; #var _reconnect[attMade] 0;};
+	#gts {#var lastSession {}; #var client[State][recAtt] 0;};
 	#history read char/${sessionName}/var/cmdhistory.hist;
 	#read init/core.tt;
 	_Event_raise {session_connect};
 	#showme {\033k${sessionName}\033\\};
-	#system {makeCaps ${sessionName}};
+	#if {$client[Config][login][makeCaps]} {
+		#system {makeCaps ${sessionName}};
+	};
 	_Class load tmp/init/login init/login/login.tt;
 }
 

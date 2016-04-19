@@ -43,7 +43,7 @@
 
 	This is used for the Message logging as well as captures.
 */
-#var client[Config][timeStampForm]      {%Y-%m-%d %H:%M:%S};
+#var client[Config][timeStampForm]     {%Y-%m-%d %H:%M:%S};
 
 /*
 	Color mode
@@ -54,11 +54,20 @@
 */
 #var client[Config][colorMode]         {both};
 
+
+
+/*
+	Should capture window be created on session start
+	0 = Do not create capture window
+	1 = Autospawn capture window
+*/
+#var client[Config][login][makeCaps]    {1};
+
 /*
 	How long should the inital login menu wait for you to make a selection
 	before auto-connecting to the first entry.
 */
-#var client[Config][loginTimeOut]      {30};
+#var client[Config][login][autoTimeOut] {30};
 
 /*
 	Auto-Response to Server Login Menu
@@ -67,7 +76,7 @@
 	 1 - Alyria
 	 2 - Social
 */
-#var client[Config][loginChoice]       {1};
+#var client[Config][login][choice]     {1};
 
 /*
 	Maximum number of login attempts.
@@ -75,7 +84,7 @@
 	 0 = Never automatically reconnect.
 	-1 = Always try to reconnect, no limit.
 */
-#var _reconnect[attMax]                {-1};
+#var client[Config][login][reconMax]   {-1};
 
 /* Verify loading*/
 #var loadState {1};

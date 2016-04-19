@@ -57,7 +57,7 @@
 
 #alias {_loginMM}
 {
-	#var _reconnect[attMade] {0};
+	#var client[State][recAtt] {0};
 	#var charName {%2};
 	#var _login_menu_choice {%5};
 	#unvar charList;
@@ -92,7 +92,7 @@
 	_Class load init/login/menuOpt init/login/menuOptions.tt;
 };
 
-#var _reconnect[attMade] {0};
+#var client[State][recAtt] {0};
 
 /* Let things Settle Down before we show the menu...*/
 #nop split 1 1;

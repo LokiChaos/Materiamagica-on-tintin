@@ -1,0 +1,13 @@
+#nop <PATH>.tt
+/*
+	Author: <NAME> ©<YEAR> Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: <CLASSNAME>;
+#nop PROVIDES: <TAG>;
+#nop REQUIRES: <TAG>;
+
+
+
+/* Verify loading*/
+#var loadState {1};
+/* EOF */

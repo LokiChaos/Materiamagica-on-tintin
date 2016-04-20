@@ -16,6 +16,16 @@
 }
 /* }}} */
 
+#event {SCREEN RESIZE} {
+	#var client[State][Rows] {%1};
+	#var client[State][Cols] {%0};
+	#if {"$sessionName" != "gts" && $client[State][Rows] != $client[State][OldRows] || $client[State][Cols] != $client[State][OldCols]} {
+		_Event_raise {screen_resize} {$client[State][Rows]} {$client[State][Cols]} {$client[State][OldRows]}  {$client[State][OldCols]}
+	};
+	#var client[State][OldRows] {$client[State][Rows]};
+	#var client[State][OldCols] {$client[State][Cols]};
+}
+
 /* Connect & Disconnect Events {{{ */
 /*
 	Called when connected sucessfully to the game server

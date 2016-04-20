@@ -17,7 +17,7 @@
 #unvar __timeOuts;
 
 #delay {0.5} {
-	#if {${client[Config][reconMax]} == -1 || ${client[Config][reconMax]} >= ${client[State][recAtt]}} {
+	#if {${client[Config][login][reconMax]} == -1 || ${client[Config][login][reconMax]} >= ${client[State][recAtt]}} {
 		#delay {relog} {
 			_Reconnect;
 		} {${__delay}};

@@ -1,0 +1,55 @@
+#nop core/events.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: events;
+#nop PROVIDES: core/events;
+
+/* Screen Resize Event */
+#event {SCREEN RESIZE} {
+	#var client[State][Rows] {%1};
+	#var client[State][Cols] {%0};
+	#if {"$sessionName" != "gts" && $client[State][Rows] != $client[State][OldRows] || $client[State][Cols] != $client[State][OldCols]} {
+		_Event_raise {screen_resize} {$client[State][Rows]} {$client[State][Cols]} {$client[State][OldRows]}  {$client[State][OldCols]}
+	};
+	#var client[State][OldRows] {$client[State][Rows]};
+	#var client[State][OldCols] {$client[State][Cols]};
+}
+
+#event {RECEIVED OUTPUT} {
+	#var _lastOutput {%0};
+}
+
+/* Events to track entered and sent commands  */
+/* Sent %0 to the game, reset gameIdle time */
+#event {SEND OUTPUT} {
+	#if {"$sessionName" == "gts"} {
+		#return
+	};
+	#var __lastCmd {%0};
+	#replace __lastCmd {\cm\n} {};
+	#if {$client[State][debug]} {
+		Print {DEBUG} {Sent Command: '${__lastCmd}'};
+	};
+	#list client[State][cmdHist] insert {1} {${__lastCmd}};
+	#if {@std_list_length{client[State][cmdHist]} > 10} {
+		#list client[State][cmdHist] delete 11;
+	};
+	#unvar __lastCmd;
+	#var client[State][gameIdle] 0;
+}
+
+/* Recieved a command from the user, reset clientIdle time */
+#event {RECEIVED INPUT} {
+	#if {"$sessionName" == "gts"} {
+		#return
+	};
+	#if {$client[State][debug]} {
+		Print {DEBUG} {Rcvd Command: '%0'};
+	};
+	#var client[State][clientIdle] 0;
+}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

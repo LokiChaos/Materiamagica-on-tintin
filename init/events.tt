@@ -16,18 +16,6 @@
 }
 /* }}} */
 
-/* Screen Resize Event {{{ */
-#event {SCREEN RESIZE} {
-	#var client[State][Rows] {%1};
-	#var client[State][Cols] {%0};
-	#if {"$sessionName" != "gts" && $client[State][Rows] != $client[State][OldRows] || $client[State][Cols] != $client[State][OldCols]} {
-		_Event_raise {screen_resize} {$client[State][Rows]} {$client[State][Cols]} {$client[State][OldRows]}  {$client[State][OldCols]}
-	};
-	#var client[State][OldRows] {$client[State][Rows]};
-	#var client[State][OldCols] {$client[State][Cols]};
-}
-/* }}} */
-
 /* Connect & Disconnect Events {{{ */
 /*
 	Called when connected sucessfully to the game server
@@ -83,36 +71,6 @@
 /* Gag Session lines */
 #gag {^#SESSION}
 #gag {^#TRYING TO LAUNCH}
-
-/* Events to track entered and sent commands {{{ */
-/* Sent %0 to the game, reset gameIdle time */
-#event {SEND OUTPUT} {
-	#if {"$sessionName" == "gts"} {
-		#return
-	};
-	#if {$client[State][debug]} {
-		#var __debugTemp {%0};
-		#replace __debugTemp {\cm\n} {};
-		#format {__debugTemp} {%t SENT: %s} {{%Y-%m-%d %H:%M:%S}} {${__debugTemp}};
-		#line log {tmp/debug.$sessionName} {${__debugTemp}};
-		#unvar __debugTemp;
-	};
-	#var client[State][gameIdle] 0;
-}
-
-/* Recieved a command from the user, reset clientIdle time */
-#event {RECEIVED INPUT} {
-	#if {"$sessionName" == "gts"} {
-		#return
-	};
-	#if {$client[State][debug]} {
-		#format {__debugTemp} {%t RCVD: %s} {{%Y-%m-%d %H:%M:%S}} {%0};
-		#line log {tmp/debug.$sessionName} {${__debugTemp}};
-		#unvar __debugTemp;
-	};
-	#var client[State][clientIdle] 0;
-}
-/* }}} */
 
 /* Verify loading */
 #var loadState {1};

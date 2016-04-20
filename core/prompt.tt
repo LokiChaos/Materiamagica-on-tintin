@@ -92,6 +92,9 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	#elseif {"%1" == "%*(%Shull %Sdir %S %Swind%*"}
 		{#var __promptType {Ship};
 	};
+	#elseif {"%1" == "] "}
+		{#var __promptType {Write};
+	};
 	
 	_Event_raise {prompt_pre} {${__promptType}} {%1};
 	_prompt${__promptType} {%1};
@@ -220,6 +223,13 @@ _Event_register {tick} {promptTick} {_PromptTick};
 		#line gag;
 		#send {continue}
 	};
+}
+/* }}} */
+
+/* Handle Special "Write" Prompt {{{ */
+#alias {_promptWrite} {
+	#nop %1;
+	#line gag;
 }
 /* }}} */
 

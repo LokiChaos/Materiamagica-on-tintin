@@ -6,6 +6,21 @@
 #nop PROVIDES: lib/list;
 #nop REQUIRES: lib/debug;
 
+
+/*
+	Usage: @std_list_length{ {<list>} }
+	Returns: length of list
+*/
+#function {std_list_length} {
+	#if {&{%1} == 0} {
+		Print {ERROR} {std_list_findKey: argument error};
+		#var result {error};
+	};
+	#else {
+		#list {%1} {size} {result};
+	}
+}
+
 /*
 	Usage: @std_list_findKey{ {<key>} {<list>} }
 	Returns: 0 if <key> isn't in list, else it returns the positional index

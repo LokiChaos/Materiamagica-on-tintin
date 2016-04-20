@@ -38,8 +38,6 @@
 	Syntax:
 		_ChannelLog {%0} {$cappath[<CHANNEL>]};
 		_CaptureLog {%0} {<path to file>};
-	TODO: You can set alternate timestamp formats in
-	$prefs[timeStamp]
 */
 
 #alias {_ChannelLog} {
@@ -52,7 +50,7 @@
 
 /* More Generic, for general timestamp logging */
 #alias {_CaptureLog} {
-	#format {__captemp} {%t %s <099>} {{%Y-%m-%d %H:%M:%S}} {%1};
+	#format {__captemp} {%t %s <099>} {${client[Config][timeStampForm]}} {%1};
 	#line log {%2} {${__captemp}};
 	#unvar __captemp;
 } {2}

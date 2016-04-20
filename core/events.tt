@@ -31,14 +31,15 @@
 	#if {$client[State][debug]} {
 		Print {DEBUG} {Sent Command: '${__lastCmd}'};
 	};
+	#unvar __lastCmd;
+	#var client[State][gameIdle] 0;
+}
+/* TODO make this not capture login...
 	#list client[State][cmdHist] insert {1} {${__lastCmd}};
 	#if {@std_list_length{client[State][cmdHist]} > 10} {
 		#list client[State][cmdHist] delete 11;
 	};
-	#unvar __lastCmd;
-	#var client[State][gameIdle] 0;
-}
-
+*/
 /* Recieved a command from the user, reset clientIdle time */
 #event {RECEIVED INPUT} {
 	#if {"$sessionName" == "gts"} {

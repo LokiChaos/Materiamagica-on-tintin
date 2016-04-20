@@ -229,7 +229,6 @@ _Event_register {tick} {promptTick} {_PromptTick};
 /* Handle Special "Write" Prompt {{{ */
 #alias {_promptWrite} {
 	#nop %1;
-	#line gag;
 }
 /* }}} */
 

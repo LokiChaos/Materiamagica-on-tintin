@@ -30,6 +30,42 @@
 }
 
 /*
+	Usage: @std_getEpoch{}
+	Returns: current Unix Epoch time
+*/
+#function {std_getEpoch} {
+	#format {result} {%T};
+}
+
+/*
+	Usage: @std_getuEpoch{}
+	Returns: current micro Unix Epoch time
+*/
+#function {std_getuEpoch} {
+	#format {result} {%U};
+}
+
+/*
+	Usage: @std_getTimeDelta{ <time> }
+	<time> = Unix Epoch time
+	Returns: time difference between current time and <time> in seconds
+	         A negative value means <time> is in the future
+*/
+#function {std_getTimeDelta} {
+	#math result {@std_getEpoch{} - %1};
+}
+
+/*
+	Usage: @std_getuTimeDelta{ <utime> }
+	<utime> = micro Unix Epoch time
+	Returns: time difference between current time and <time> in microseconds
+	         A negative value means <utime> is in the future
+*/
+#function {std_getuTimeDelta} {
+	#math result {@std_getuEpoch{} - %1};
+}
+
+/*
 	Usage: @std_unixToTime{ {<unix Epoch time>} [{<format>}]}
 	Returns: given Unix epoch time in format or default %c
 */

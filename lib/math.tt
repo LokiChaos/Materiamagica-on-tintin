@@ -42,10 +42,22 @@
 	Returns: the absolute value of the argument
 */
 #function {std_math_abs} {
-	#if { (%0) >= 0} {
-		#return %0;
-	} {
-		#math result { -1 * %0};
+	#math result { @std_math_sign{%0} * %0};
+}
+
+/*
+	Usage: @std_math_sign{ <value> }
+	Returns: 1 if value is positive, -1 if negative, and 0 if zero
+*/
+#function {std_math_sign} {
+	#if { %0 > 0} {
+		#var result 1;
+	};
+	#elseif { %0 < 0 } {
+		#var result {-1};
+	};
+	#else {
+		#var result 0;
 	};
 }
 

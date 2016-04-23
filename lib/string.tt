@@ -80,8 +80,7 @@
 	         eg: 1,337 -> 1337
 */
 #function {std_str_dropcomma} {
-	#var result {%0};
-	#replace result {,} {};
+	#format result {%d} {%0}
 }
 
 /*
@@ -162,6 +161,28 @@
 		#var result {&2};
 	} {
 		#var result {};
+	};
+}
+
+/*
+	Usage: @std_str_contains{ {<stringA>} {<stringB>} }
+	<string> = a string
+	Returns: 1 if <stringA> appears anywhere in <stringB> else 0.
+*/
+#function {std_str_contains} {
+	#math result {"%2" == "%*%1%*"};
+}
+
+/*
+	Usage: @std_str_containsWord{ {<stringA>} {<stringB>} }
+	<string> = a string
+	Returns: 1 if <stringA> appears as a word in <stringB> else 0.
+*/
+#function {std_str_containsWord} {
+	#regex {%2} {{\b%1\b}} {
+		#var result 1;
+	} {
+		#var result 0;
 	};
 }
 

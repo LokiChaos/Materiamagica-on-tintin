@@ -4,7 +4,7 @@
 */
 #nop CLASS: vt;
 #nop PROVIDES: lib/vt;
-#nop REQUIRES: lib/debug;
+#nop REQUIRES: lib/print;
 
 /*
 	Various functions for helping with ANSI Escape Sequences and SGR control codes

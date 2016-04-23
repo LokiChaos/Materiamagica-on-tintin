@@ -4,7 +4,7 @@
 */
 #nop CLASS: cmdQueue;
 #nop PROVIDES: lib/cmdQueue;
-#nop REQUIRES: lib/utility;
+#nop REQUIRES: lib/adt;
 /*
 	This is a simple command queue system based off the generic queue.
 	Usage:

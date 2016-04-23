@@ -1,0 +1,81 @@
+#nop lib/types.tt
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: types;
+#nop PROVIDES: lib/adt;
+
+/* Queue Functions  */
+#function {std_queue_push} {
+	#list {%1} {insert} {-1} {%2};
+	#return {#nop ;};
+}
+
+#function {std_queue_pop} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+		#list {%1} {delete} {1};
+	};
+}
+
+#function {std_queue_peek} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+	};
+}
+
+#function {std_queue_purge} {
+	#var {%1} {};
+	#return {#nop ;};
+}
+
+#function {std_queue_delete} {
+	#unvar {%1};
+	#return {#nop ;};
+}
+
+#function {std_queue_depth} {
+	#return &{%1[]};
+}
+
+/* Stack Functions */
+#function {std_stack_push} {
+	#list {%1} {insert} {1} {%2};
+	#return {#nop ;};
+}
+
+#function {std_stack_pop} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+		#list {%1} {delete} {1};
+	};
+}
+
+#function {std_stack_peek} {
+	#if {&{%1[]}} {
+		#var result {${%1[1]}};
+	};
+}
+
+#function {std_stack_purge} {
+	#var {%1} {};
+	#return {#nop ;};
+}
+
+#function {std_stack_delete} {
+	#unvar {%1};
+	#return {#nop ;};
+}
+
+#function {std_stack_depth} {
+	#return &{%1[]};
+}
+
+/* Set Fuctions */
+
+/* TODO: set add, set del, set member, set merge, set interset, set complement, set symm complement */
+/* TODO mset pqueue */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

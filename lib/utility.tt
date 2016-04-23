@@ -5,76 +5,8 @@
 #nop CLASS: utility;
 #nop PROVIDES: lib/utility;
 
-/* Queue Functions {{{ */
 
-#function {std_queue_push} {
-	#list {%1} {insert} {-1} {%2};
-	#return {#nop ;};
-}
-
-#function {std_queue_pop} {
-	#if {&{%1[]}} {
-		#var result {${%1[1]}};
-		#list {%1} {delete} {1};
-	};
-}
-
-#function {std_queue_peek} {
-	#if {&{%1[]}} {
-		#var result {${%1[1]}};
-	};
-}
-
-#function {std_queue_purge} {
-	#var {%1} {};
-	#return {#nop ;};
-}
-
-#function {std_queue_delete} {
-	#unvar {%1};
-	#return {#nop ;};
-}
-
-#function {std_queue_depth} {
-	#return &{%1[]};
-}
-/* }}} */
-
-/* Stack Functions {{{ */
-#function {std_stack_push} {
-	#list {%1} {insert} {1} {%2};
-	#return {#nop ;};
-}
-
-#function {std_stack_pop} {
-	#if {&{%1[]}} {
-		#var result {${%1[1]}};
-		#list {%1} {delete} {1};
-	};
-}
-
-#function {std_stack_peek} {
-	#if {&{%1[]}} {
-		#var result {${%1[1]}};
-	};
-}
-
-#function {std_stack_purge} {
-	#var {%1} {};
-	#return {#nop ;};
-}
-
-#function {std_stack_delete} {
-	#unvar {%1};
-	#return {#nop ;};
-}
-
-#function {std_stack_depth} {
-	#return &{%1[]};
-}
-/* }}} */
-
-/* Direction functions {{{ */
+/* Direction functions */
 #function {std_dir_reverse} {
 	#var __dirTable {{n}{s}{s}{n}{e}{w}{w}{e}{u}{d}{d}{u}{ne}{sw}{sw}{ne}{nw}{se}{se}{nw}};
 	#var result ${__dirTable[%0]};
@@ -100,9 +32,17 @@
 	#replace result {up}    {u};
 	#replace result {down}  {d};
 }
-/* }}} */
 
-/* One-Shot Alias/Action Def {{{*/
+/* Terniary Conditional */
+#function {_} {
+	#if {%1} {
+		#return {%2};
+	} {
+		#return {%3};
+	};
+}
+
+/* One-Shot Alias/Action */
 #alias {std_action_oneshot} {
 	#act {%1} {
 		%2;#unact {%1};
@@ -114,15 +54,14 @@
 		%2;#unalias {%1};
 	};
 }
-/* }}} */
 
-/*	Catch bad _Alias calls and report them {{{
+/*
+	Catch bad _Alias calls and report them
 	If you see this message, an error had occured.
 */
 #alias {_%*} {
 	Print {ERROR} {Bad _Alias: '<099>%0<>'};
 } {10};
-/* }}} */
 
 /* Verify loading */
 #var loadState {1};

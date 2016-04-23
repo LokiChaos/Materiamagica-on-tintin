@@ -1,0 +1,488 @@
+#nop lib/var.tt
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: var;
+#nop PROVIDES: lib/var;
+
+/*
+	Usage: @var_exists{<var>}
+	Returns: 0 if var is not defined, 1 if it is defined
+*/
+#function {var_exists} {
+	#math result {&{%0} != 0}
+}
+
+/*
+	Usage: @var_isNil{<var>}
+	Returns: 1 if value of <var> is nil {}, else 0
+*/
+#function {var_isNil} {
+	#math result {"${%0}" == "" && @var_exists{%0}};
+}
+
+#function {var_isTable} {
+	#math result {&{%0[]} != 0 && "%0" != ""};
+}
+
+#function {var_isList} {
+	#if {@var_isTable{%0}} {
+		#var result {1};
+		#forall {${%0[]}} {
+			#if {"&{%0[&0]}" != "&0"} {
+				#var result {0};
+			};
+		};
+	} {
+		#var result 0;
+	};
+}
+
+#function {var_isValue} {
+	#math result {@var_exists{%0} && @var_isNil{%0} == 0 && @var_isTable{%0} == 0};
+}
+
+#function {var_isNumber} {
+	#math _:IsNum {${%0}};
+	#math result {"${_:IsNum}" == "${%0}"};
+	#unvar _:IsNum;
+}
+
+#function {var_isInt} {
+	#var result 0;
+	#if {@var_isNumber{%0}} {
+		#format _:VarisInt {%d} {${%0}};
+		#math result {"${%0}" == "${_:VarisInt}"};
+		#unvar _:VarisInt;
+	}
+}
+
+#function {var_isFloat} {
+	#math result {@var_isNumber{%0} && ! @var_isInt{%0}};
+}
+
+
+#function {var_isString} {
+	#math result {@var_isValue{%0} && @var_isNumber{%0} == 0};
+}
+
+
+#function {var_isRef} {
+	#var result 0;
+	#if {@var_isValue{%0}} {
+		#if {@var_exists{${%0}}} {
+			#var result 1;
+		};
+	};
+}
+
+#function {var_refNil} {
+	#var result {@var_isNil{${%0}}};
+}
+
+#function {var_refTable} {
+	#var result {@var_isTable{${%0}}};
+}
+
+#function {var_refList} {
+	#var result {@var_isList{${%0}}};
+}
+
+#function {var_refValue} {
+	#var result {@var_isValue{${%0}}};
+}
+
+#function {var_refNumber} {
+	#var result {@var_isNumber{${%0}}};
+}
+
+#function {var_refString} {
+	#var result {@var_isString{${%0}}};
+}
+
+#function {var_refGetType} {
+	#var result {*@var_getType{${%0}}};
+}
+
+#function {var_refIsType} {
+	#var result {@var_isType{ {%1} {${%2}} }};
+}
+
+#function {var_valIsNil} {
+	#math result {"%0" == ""};
+}
+
+#function {var_valIsTable} {
+	#var _:VarDV {%0};
+	#var result {@var_isTable{_:VarDV}};
+	#unvar _:VarDV;
+}
+
+#function {var_valIsList} {
+	#var _:VarDV {%0};
+	#var result {@var_isList{_:VarDV}};
+	#unvar _:VarDV;
+}
+
+#function {var_valIsValue} {
+	#var _:VarDV {%0};
+	#var result {@var_isValue{_:VarDV}};
+	#unvar _:VarDV;
+}
+
+#function {var_valIsNumber} {
+	#var _:VarDV {%0};
+	#var result {@var_isNumber{_:VarDV}};
+	#unvar _:VarDV;
+}
+
+#function {var_valIsString} {
+	#var _:VarDV {%0};
+	#var result {@var_isString{_:VarDV}};
+	#unvar _:VarDV;
+}
+
+#function {var_valGetType} {
+	#var _:VarDV {%0};
+	#var result {@var_getType{_:VarDV}};
+	#unvar _:VarDV;
+}
+
+#function {var_valIsType} {
+	#var _:VarDV {%2};
+	#var result {@var_isType{ {%1} {_:VarDV}}};
+	#unvar _:VarDV;
+}
+
+#function {var_getType} {
+	#if {"%0" == ""} {
+		Print {ERROR} {std_var_getType: argument error};
+		#var result {error};
+	};
+	#else {
+		#if {@var_exists{%0} == 0} {
+			#var result {undef};
+		};
+		#elseif {@var_isNil{%0}} {
+			#var result {nil}
+		};
+		#elseif {@var_isTable{%0}} {
+			#if {@var_isList{%0}} {
+				#var result {list}
+			};
+			#else {
+				#var result {table}
+			};
+		};
+		#else {
+			#if {@var_isNumber{%0}} {
+				#if {@var_isInt{%0}} {
+					#var result {int};
+				};
+				#else {
+					#var result {float};
+				};
+			};
+			#else {
+				#var result {string}
+			};
+		};
+	};
+}
+
+#function {var_isType} {
+	#if {"%0" == ""} {
+		Print {ERROR} {std_var_getType: argument error};
+		#var result {error};
+	};
+	#else {
+		#var _:VarIT[T] {
+		     {undef} {{undef}{1}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
+		     {nil}   {{undef}{0}{nil}{1}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
+		     {table} {{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{0}{float}{0}{string}{0}}
+		     {list}  {{undef}{0}{nil}{0}{table}{0}{list}{1}{int}{0}{float}{0}{string}{0}}
+		     {value} {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{1}{string}{1}}
+		     {number}{{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{1}{string}{0}}
+		     {int}   {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{0}{string}{0}}
+		     {float} {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{1}{string}{0}}
+		     {string}{{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{1}}
+		     {any}   {{undef}{1}{nil}{1}{table}{1}{list}{1}{int}{0}{float}{1}{string}{1}}
+		     {def}   {{undef}{0}{nil}{1}{table}{1}{list}{1}{int}{0}{float}{1}{string}{1}}
+		     {!nil}  {{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{0}{float}{1}{string}{1}}
+		};
+		#var result {${_:VarIT[T][%1][@var_getType{%2}]}};
+		#unvar _:VarIT;
+	};
+}
+
+/*
+	Usage: @var_checkArgs{ {<function name>} {<argtype list>} {<args>}
+	<funtion name> - string, just used for error printing
+	<argtype list> - a list of the expected arguments
+	<args> - Normally %0 of the calling function
+
+*/
+#function {var_checkArgs} {
+	#var _:ChkArg[right]        {1};
+	#if {1} {
+		#var _:ChkArg[fname]        {%1};
+		#var _:ChkArg[expected]     {%2};
+		#list _:ChkArg[args] create {%3};
+		#foreach {${_:ChkArg[expected][]}} {_:ChkArg[idx]} {
+			#regex {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {^\*%*$} {
+				#if {!@var_refIsType{ {&1} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
+					#echo {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
+						  {${_:ChkArg[idx]}}
+						  {${_:ChkArg[fname]}}
+						  {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
+						  {@var_refGetType{_:ChkArg[args][${_:ChkArg[idx]}]}};
+					#var _:ChkArg[right] {0};
+				};
+			} {
+				#if {!@var_isType{ {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
+					#echo {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
+						  {${_:ChkArg[idx]}}
+						  {${_:ChkArg[fname]}}
+						  {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
+						  {@var_getType{_:ChkArg[args][${_:ChkArg[idx]}]}};
+					#var _:ChkArg[right] {0};
+				};
+			};
+			#if {${_:ChkArg[isBad]}} {
+			};
+		};
+	};
+	#var result {${_:ChkArg[right]}};
+	#unvar _:ChkArg;
+}
+
+
+#alias {printVar} {
+	#if {"%1" == ""} {
+		#echo {printVar needs a variable name};
+	};
+	#else {
+		#if {"&{%1}" == "0"} {
+			#echo {\${%s} does not exist.} {%1};
+		};
+		#else {
+			#switch {"%2"} {
+				#case {"nocolor"} {
+					#var _:DVC[format] {nocolor};
+				};
+				#case {"{tintin|tt}"} {
+					#var _:DVC[format] {tintin};
+				};
+				#case {"json"} {
+					#var _:DVC[format] {json};
+				};
+				#case {"lua"} {
+					#var _:DVC[format] {lua};
+				};
+				#default {
+					#var _:DVC[format] {color};
+				};
+			};
+			_procVar {%1} {print} {${_:DVC[format]}} {nil} {2};
+			#unvar _:DVC;
+		};
+	};
+}
+
+#alias {dumpVar} {
+	#if {"%1" == ""} {
+		#echo {dumpVar needs a variable name};
+	};
+	#else {
+		#if {"&{%1}" == "0"} {
+			#echo {\${%s} does not exist.} {%1};
+		};
+		#else {
+			#switch {"%2"} {
+				#case {"color"} {
+					#var _:DVC[format] {color};
+				};
+				#case {"{tintin|tt}"} {
+					#var _:DVC[format] {tintin};
+				};
+				#case {"json"} {
+					#var _:DVC[format] {json};
+				};
+				#case {"lua"} {
+					#var _:DVC[format] {lua};
+				};
+				#default {
+					#var _:DVC[format] {nocolor};
+				};
+			};
+			#if {"%3" == ""} {
+				#var _:DVC[file] {dump.var};
+			} {
+				#var _:DVC[file] {%3};
+			};
+			#echo {Dumping '\$\{%1\}' to file %s...} {${_:DVC[file]}};
+			_procVar {%1} {dump} {${_:DVC[format]}} {${_:DVC[file]}} {4};
+			#unvar _:DVC;
+		};
+	};
+}
+
+#alias {dumpAllVar} {
+	#forall {${[]}} {
+		dumpVar {&0} {%2} {%3};
+	};
+};
+
+#alias {listVar} {
+	#forall {${[]}} {
+		#echo { %s} {&0};
+	};
+	#echo {%d variables} {&{[]}};
+}
+
+/* varName dump/print format filename */
+#alias {_procVar} {
+	#var _:DV[cmdTbl] {
+		{print}{#echo {%s}}
+		{dump}{#line log {%4}}
+	};
+	#var _:DV[cmd]    {${_:DV[cmdTbl][%2]}};
+	#var _:DV[fmt]    {%3};
+	#var _:DV[indent] {%5};
+	#var _:DV[format] {
+		{nocolor}{
+			{varVal}{\$\{%s\} = '%s'}
+			{varNil}{\$\{%s\} = nil}
+			{varInt}{\$\{%s\} = %s}
+			{varList}{\$\{%s\} = \x7B}
+			{varEnd}{ \x7D}
+			{listStart}{%s = \x7B}
+			{keyVal}{%s = '%s'}
+			{keyNil}{%s = nil}
+			{keyInt}{%s = %s}
+			{listEnd}{ \x7D}
+		}
+		{color}{
+			{varVal}{<169>\$\{<149>%s<169>\} <139>=<099> '%s'<099>}
+			{varNil}{<169>\$\{<149>%s<169>\} <139>= <119>nil<099>}
+			{varInt}{<169>\$\{<149>%s<169>\} <139>= <129>%s<099>}
+			{varList}{<169>\$\{<149>%s<169>\} <139>= <169>\x7B<099>}
+			{varEnd}{ <169>\x7D<099>}
+			{listStart}{<149>%s <139>= <169>\x7B<099>}
+			{keyVal}{<149>%s <139>=<099> '%s'<099>}
+			{keyNil}{<149>%s <139>= <119>nil<099>}
+			{keyInt}{<149>%s <139>= <129>%s<099>}
+			{listEnd}{ <169>\x7D<099>}
+		}
+		{tintin}{
+			{varVal}{#VAR \x7B%s\x7D \x7B%s\x7D}
+			{varNil}{#VAR \x7B%s\x7D \x7B\x7D}
+			{varInt}{#VAR \x7B%s\x7D \x7B%s\x7D}
+			{varList}{#VAR \x7B%s\x7D \x7B}
+			{varEnd}{\x7D}
+			{listStart}{\x7B%s\x7D\x7B}
+			{keyVal}{\x7B%s\x7D\x7B%s\x7D}
+			{keyNil}{\x7B%s\x7D\x7B%s\x7D}
+			{keyInt}{\x7B%s\x7D\x7B%s\x7D}
+			{listEnd}{\x7D}
+		}
+		{json}{
+			{varVal}{\x7B\n "%s": "%s"\n\x7D}
+			{varNil}{\x7B\n "%s": nil\n\x7D}
+			{varInt}{\x7B\n "%s": %s\n\x7D}
+			{varList}{\x7B\n "%s": \x7B}
+			{varEnd}{ \x7D\n\x7D}
+			{listStart}{"%s": \x7B}
+			{keyVal}{"%s": "%s"}
+			{keyNil}{"%s": nil}
+			{keyInt}{"%s": %s}
+			{listEnd}{\x7D}
+		}
+		{lua}{
+			{varVal}{%s = "%s"}
+			{varNil}{%s = nil}
+			{varInt}{%s = %s}
+			{varList}{%s = \x7B}
+			{varEnd}{ \x7D}
+			{listStart}{["%s"] = \x7B}
+			{keyVal}{["%s"] = "%s"}
+			{keyNil}{["%s"] = nil}
+			{keyInt}{["%s"] = %s}
+			{listEnd}{ \x7D}
+		}
+	};
+	#if {"&{%1[]}" == "0"} {
+		#if {"${%1}" == ""} {
+				#format _:DV[print] {${_:DV[format][${_:DV[fmt]}][varNil]}} {%1};
+		};
+		#else {
+			#regex {${%1}} {^{[0-9-]+}$} {
+				#format _:DV[print] {${_:DV[format][${_:DV[fmt]}][varInt]}} {%1} {${%1}};
+			
+			} {
+				#format _:DV[print] {${_:DV[format][${_:DV[fmt]}][varVal]}} {%1} {${%1}};
+			};
+		};
+		${_:DV[cmd]} {${_:DV[print]}};
+	};
+	#else {
+		#format _:DV[print] {${_:DV[format][${_:DV[fmt]}][varList]}} {%1};
+		${_:DV[cmd]} {${_:DV[print]}};
+		_procTable {%1} {0};
+		#unvar _:TP;
+		#format _:DV[print] {${_:DV[format][${_:DV[fmt]}][varEnd]}};
+		${_:DV[cmd]} {${_:DV[print]}};
+	};
+	#unvar _:DV;
+};
+
+#alias {_procTable} {
+	#var _:TP[%1][table]  {${%1}};
+	#math _:TP[%1][indent] {%2 + ${_:DV[indent]}};
+	#foreach {${_:TP[%1][table][]}} {_:TP[%1][key]} {
+		#if {"&{_:TP[%1][table][${_:TP[%1][key]}][]}" != "0"} {
+			#format _:TP[print] {%+${_:TP[%1][indent]}s${_:DV[format][${_:DV[fmt]}][listStart]}}  { } {${_:TP[%1][key]}};
+			${_:DV[cmd]} {${_:TP[print]}};
+			_procTable {_:TP[%1][table][${_:TP[%1][key]}]} {${_:TP[%1][indent]}};
+			#format _:TP[print] {%+${_:TP[%1][indent]}s${_:DV[format][${_:DV[fmt]}][listEnd]}} { };
+			#if {"${_:DV[fmt]}" == "json" || "${_:DV[fmt]}" == "lua"} {
+				#list _:TPT create {${_:TP[%1][table][]}};
+				#if {"${_:TP[%1][key]}" != "${_:TPT[-1]}"} {
+					#var _:TP[print] {${_:TP[print]},};
+				};
+				#unvar _:TPT;
+			};
+			${_:DV[cmd]} {${_:TP[print]}};
+		};
+		#else {
+			#if {"${_:TP[%1][table][${_:TP[%1][key]}]}" == ""} {
+				#format _:TP[print] {%+${_:TP[%1][indent]}s${_:DV[format][${_:DV[fmt]}][keyNil]}} { } {${_:TP[%1][key]}};
+			};
+			#else {
+				#var {_:TPV} {${_:TP[%1][table][${_:TP[%1][key]}]}};
+				#if {"${_:DV[fmt]}" == "json" || "${_:DV[fmt]}" == "tintin"} {
+					#replace {_:TPV} {<} {\x3C};
+					#replace {_:TPV} {>} {\x3E};
+				};
+				#regex {${_:TP[%1][table][${_:TP[%1][key]}]}} {^{[0-9-]+}$} {
+					#format _:TP[print] {%+${_:TP[%1][indent]}s${_:DV[format][${_:DV[fmt]}][keyInt]}} { } {${_:TP[%1][key]}} {${_:TPV}};
+				} {
+					#format _:TP[print] {%+${_:TP[%1][indent]}s${_:DV[format][${_:DV[fmt]}][keyVal]}} { } {${_:TP[%1][key]}} {${_:TPV}};
+				};
+				#unvar _:TPV;
+			};
+			#if {"${_:DV[fmt]}" == "json" || "${_:DV[fmt]}" == "lua"} {
+				#list _:TPT create {${_:TP[%1][table][]}};
+				#if {"${_:TP[%1][key]}" != "${_:TPT[-1]}"} {
+					#var _:TP[print] {${_:TP[print]},};
+				};
+				#unvar _:TPT;
+			};
+			${_:DV[cmd]} {${_:TP[print]}};
+		};
+	};
+	#var _:TP[%1] {};
+}
+
+
+#var loadState 1;

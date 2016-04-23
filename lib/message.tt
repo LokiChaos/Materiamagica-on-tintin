@@ -3,7 +3,7 @@
 	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
 */
 #nop CLASS: print;
-#nop PROVIDES: lib/debug lib/print;
+#nop PROVIDES: lib/print;
 
 /* Usage: Print {LEVEL} {MESSAGE} [{args}...]; */
 #alias {Print} {

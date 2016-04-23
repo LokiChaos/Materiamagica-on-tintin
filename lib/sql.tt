@@ -4,7 +4,7 @@
 	*/
 #nop CLASS: sqlite;
 #nop PROVIDES: lib/sql;
-#nop REQUIRES: lib/debug;
+#nop REQUIRES: lib/print;
 
 /*
   Generic SQLite Database Connector 

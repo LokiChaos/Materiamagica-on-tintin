@@ -6,68 +6,68 @@
 #nop PROVIDES: lib/adt;
 
 /* Queue Functions  */
-#function {std_queue_push} {
+#function {queue_push} {
 	#list {%1} {insert} {-1} {%2};
 	#return {#nop ;};
 }
 
-#function {std_queue_pop} {
+#function {queue_pop} {
 	#if {&{%1[]}} {
 		#var result {${%1[1]}};
 		#list {%1} {delete} {1};
 	};
 }
 
-#function {std_queue_peek} {
+#function {queue_peek} {
 	#if {&{%1[]}} {
 		#var result {${%1[1]}};
 	};
 }
 
-#function {std_queue_purge} {
+#function {queue_purge} {
 	#var {%1} {};
 	#return {#nop ;};
 }
 
-#function {std_queue_delete} {
+#function {queue_delete} {
 	#unvar {%1};
 	#return {#nop ;};
 }
 
-#function {std_queue_depth} {
+#function {queue_depth} {
 	#return &{%1[]};
 }
 
 /* Stack Functions */
-#function {std_stack_push} {
+#function {stack_push} {
 	#list {%1} {insert} {1} {%2};
 	#return {#nop ;};
 }
 
-#function {std_stack_pop} {
+#function {stack_pop} {
 	#if {&{%1[]}} {
 		#var result {${%1[1]}};
 		#list {%1} {delete} {1};
 	};
 }
 
-#function {std_stack_peek} {
+#function {stack_peek} {
 	#if {&{%1[]}} {
 		#var result {${%1[1]}};
 	};
 }
 
-#function {std_stack_purge} {
+#function {stack_purge} {
 	#var {%1} {};
 	#return {#nop ;};
 }
 
-#function {std_stack_delete} {
+#function {stack_delete} {
 	#unvar {%1};
 	#return {#nop ;};
 }
 
-#function {std_stack_depth} {
+#function {stack_depth} {
 	#return &{%1[]};
 }
 

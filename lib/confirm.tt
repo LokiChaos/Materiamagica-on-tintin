@@ -7,10 +7,10 @@
 #nop REQUIRES: lib/class;
 
 /*
-	std_confirm_prompt {promot string} {timeout}
+	confirm_prompt {promot string} {timeout}
 */
 
-#alias {std_confirm_prompt} {
+#alias {confirm_prompt} {
 	#echo {%1};
 	#var __confirm[prompt] {%1};
 	#if {"%2" == "%d"} {

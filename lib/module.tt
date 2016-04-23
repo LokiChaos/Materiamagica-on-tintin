@@ -127,13 +127,13 @@ _Event_register {session_disconnect} {moduleRecallSave} {_modules_save};
 #alias {_modules_save} {
 	#nop %1;
 	Print {INFO} {<139>Saving persistent module data.};
-	@std_value_save{mod};
+	@value_save{mod};
 }
 
 #alias {_modules_load} {
 	#nop %1;
 	Print {INFO} {<139>Loading persistent module data.};
-	@std_value_load{mod};
+	@value_load{mod};
 }
 /* }}} */
 

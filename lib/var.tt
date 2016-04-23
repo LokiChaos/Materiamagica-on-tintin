@@ -156,7 +156,7 @@
 
 #function {var_getType} {
 	#if {"%0" == ""} {
-		Print {ERROR} {std_var_getType: argument error};
+		Print {ERROR} {var_getType: argument error};
 		#var result {error};
 	};
 	#else {
@@ -192,7 +192,7 @@
 
 #function {var_isType} {
 	#if {"%0" == ""} {
-		Print {ERROR} {std_var_getType: argument error};
+		Print {ERROR} {var_getType: argument error};
 		#var result {error};
 	};
 	#else {

@@ -49,7 +49,7 @@
 
 /* Print Record of Used Reagents {{{ */
 #alias {_ReagentUsed} {
-	#echo {You have used since %s:} {@std_unixToTime{$reagent[used][since]}};
+	#echo {You have used since %s:} {@unixToTime{$reagent[used][since]}};
 	#echo {               <118>%+3s fire <168>%+3s water <128>%+3s earth <138>%+3s air}
 	      {$reagent[used][fire]} {$reagent[used][water]} {$reagent[used][earth]} {$reagent[used][air]};
 	#echo {               <178>%+3s gem  <108>%+3s ethereal<098>}

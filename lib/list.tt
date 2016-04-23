@@ -14,13 +14,13 @@
 
 
 /*
-	Usage: @std_list_length{ {<list>} }
+	Usage: @list_length{ {<list>} }
 	<list> = name of list
 	Returns: length of list
 */
-#function {std_list_length} {
+#function {list_length} {
 	#if {"%1" == ""} {
-		Print {ERROR} {std_list_findKey: argument error};
+		Print {ERROR} {list_findKey: argument error};
 		#var result {error};
 	};
 	#else {
@@ -29,15 +29,15 @@
 }
 
 /*
-	Usage: @std_list_getNthKey{ {<index>} {<list>} }
+	Usage: @list_getNthKey{ {<index>} {<list>} }
 	<index> = integer value (positive of negative)
 	<list> = name of list
 	Returns: key at position <index> negative values will return relative to end of list
 	         Or {} if there is no <index>th key in <list>
 */
-#function {std_list_getNthKey} {
+#function {list_getNthKey} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_getNthKey: argument error};
+		Print {ERROR} {list_getNthKey: argument error};
 		#var result {error};
 	};
 	#else {
@@ -48,15 +48,15 @@
 }
 
 /*
-	Usage: @std_list_getNthKeypair{ {<index>} {<list>} }
+	Usage: @list_getNthKeypair{ {<index>} {<list>} }
 	<index> = integer value (positive of negative)
 	<list> = name of list
 	Returns: key pair at position <index> negative values will return relative to end of list
 	         Or {} if there is no <index>th keypair in <list>
 */
-#function {std_list_getNthKeypair} {
+#function {list_getNthKeypair} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_getNthKey: argument error};
+		Print {ERROR} {list_getNthKey: argument error};
 		#var result {error};
 	};
 	#else {
@@ -68,12 +68,12 @@
 }
 
 /*
-	Usage: @std_list_findKey{ {<key>} {<list>} }
+	Usage: @list_findKey{ {<key>} {<list>} }
 	Returns: 0 if <key> isn't in list, else it returns the positional index
 */
-#function {std_list_findKey} {
+#function {list_findKey} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_findKey: argument error};
+		Print {ERROR} {list_findKey: argument error};
 		#var result {error};
 	};
 	#else {
@@ -84,29 +84,29 @@
 }
 
 /*
-	Usage: @std_list_isKey{ {<key>} {<list>} }
+	Usage: @list_isKey{ {<key>} {<list>} }
 	Returns: 0 if <key> isn't in list, of 1 if it is.
 */
-#function {std_list_isKey} {
+#function {list_isKey} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_isKey: argument error};
+		Print {ERROR} {list_isKey: argument error};
 		#var result {error};
 	};
 	#else {
 		#list _:ListKeys create ${%2[]};
-		#math result { 0 != @std_list_findValue{{%1}{_:ListKeys}} };
+		#math result { 0 != @list_findValue{{%1}{_:ListKeys}} };
 		#unvar _:ListKeys;
 	};
 }
 
 /*
-	Usage: @std_list_findValue{ {<value>} {<list>} }
+	Usage: @list_findValue{ {<value>} {<list>} }
 	Returns: 0 if value isn't in list, else it returns the position
 	Note: it returns the FIRST match to <value>
 */
-#function {std_list_findValue} {
+#function {list_findValue} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_findValue: argument error};
+		Print {ERROR} {list_findValue: argument error};
 		#var result {error};
 	};
 	#else {
@@ -115,13 +115,13 @@
 }
 
 /*
-	Usage: @std_list_findValueKey{ {<value>} {<list>} }
+	Usage: @list_findValueKey{ {<value>} {<list>} }
 	Returns: {} if value isn't in list, else it returns the key
 	Note: it returns the FIRST match to <value>
 */
-#function {std_list_findValueKey} {
+#function {list_findValueKey} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_findValueKey: argument error};
+		Print {ERROR} {list_findValueKey: argument error};
 		#var result {error};
 	};
 	#else {
@@ -134,26 +134,26 @@
 }
 
 /*
-	Usage: @std_list_isValue{ {<value>} {<list>} }
+	Usage: @list_isValue{ {<value>} {<list>} }
 	Returns: 0 if <value> is not is <list> or 1 if it is.
 */
-#function {std_list_isValue} {
+#function {list_isValue} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_isValue: argument error};
+		Print {ERROR} {list_isValue: argument error};
 		#var result {error};
 	};
 	#else {
-		#math result { 0 != @std_list_findValue{{%1}{%2}} || "${%2[0]}" == "%1" };
+		#math result { 0 != @list_findValue{{%1}{%2}} || "${%2[0]}" == "%1" };
 	};
 }
 
 /*
-	Usage: @std_list_findAllValue{ {<value>} {<list>} }
+	Usage: @list_findAllValue{ {<value>} {<list>} }
 	Returns: {} if value isn't in list, else it returns a list of all indexes with matching value
 */
-#function {std_list_findAllValue} {
+#function {list_findAllValue} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_findAllValue: argument error};
+		Print {ERROR} {list_findAllValue: argument error};
 		#var result {error};
 	};
 	#else {
@@ -168,12 +168,12 @@
 }
 
 /*
-	Usage: @std_list_findAllValueKey{ {<value>} {<list>} }
+	Usage: @list_findAllValueKey{ {<value>} {<list>} }
 	Returns: {} if value isn't in list, else it returns a list of all keys with matching value
 */
-#function {std_list_findAllValueKey} {
+#function {list_findAllValueKey} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_findAllValueKey: argument error};
+		Print {ERROR} {list_findAllValueKey: argument error};
 		#var result {error};
 	};
 	#else {
@@ -187,12 +187,12 @@
 }
 
 /*
-	Usage: @std_list_findAllValueCount{ {<value>} {<list>} }
+	Usage: @list_findAllValueCount{ {<value>} {<list>} }
 	Returns: 0 if value isn't in list, else it returns a count of how many times it appears
 */
-#function {std_list_findAllValueCount} {
+#function {list_findAllValueCount} {
 	#if {"%1" == "" || &{%2} == 0} {
-		Print {ERROR} {std_list_findAllValueKey: argument error};
+		Print {ERROR} {list_findAllValueKey: argument error};
 		#var result {error};
 	};
 	#else {
@@ -207,7 +207,7 @@
 }
 
 /*
-	Usage: @std_list_swapPair{ {<list>} }
+	Usage: @list_swapPair{ {<list>} }
 	Flips key <=> values
 	Returns: a list based on <list> with the keys and values swapped
 	Note:
@@ -215,9 +215,9 @@
 		* Will omit any pairs with a table value
 		* Will behave oddly for duplicate values
 */
-#function {std_list_swapPair} {
+#function {list_swapPair} {
 	#if {&{%1} == 0} {
-		Print {ERROR} {std_list_swapPair: argument error};
+		Print {ERROR} {list_swapPair: argument error};
 		#var result {error};
 	};
 	#else {
@@ -226,7 +226,7 @@
 			#if {${%1[&0][]} == 0} {
 				#var result[${%1[&0]}] {&0};
 			} {
-				Print {DEBUG} {std_list_swapPair: omitting table value @ key '&0'};
+				Print {DEBUG} {list_swapPair: omitting table value @ key '&0'};
 			};
 		};
 	};

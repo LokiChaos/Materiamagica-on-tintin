@@ -58,7 +58,7 @@
 	};
 
 	#regex {%2} {^{n|s|e|w|u|d|ne|nw|se|sw|ne}$} {
-		#send {%1 @std_dir_full{%2}};
+		#send {%1 @dir_full{%2}};
 	} {
 		#send {%0};
 	};

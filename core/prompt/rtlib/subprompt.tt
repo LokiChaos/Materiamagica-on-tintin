@@ -16,7 +16,7 @@
 /* }}} */
 
 #function {left_right} {
-	#math __pad[c] {$client[State][Cols] - @std_str_len{%1}};
+	#math __pad[c] {$client[State][Cols] - @string_len{%1}};
 	#format __pad[r] {%.${__pad[c]}s} {%2};
 	#format result {%s%+${__pad[c]}s} {%1} {${__pad[r]}};
 	#unvar __pad;
@@ -73,7 +73,7 @@
 	};
 	#if {$stateChar[Flying]} {
 		#format {prompt[3]} {%s<138>Flying %-2n (%+2s)<098>][}
-			   {$prompt[3]} {@std_dir_short{$navigation[flightBearing]}} {$navigation[click]}
+			   {$prompt[3]} {@dir_short{$navigation[flightBearing]}} {$navigation[click]}
 	};
 
 
@@ -90,7 +90,7 @@
 
 /* Handles Color Codes of vitals based on thier % of max value */
 #function {vitalcolscale} {
-	#return ${__vitalsColors[@std_math_min{10;@std_math_eval{10 * %1 / %2}}]};
+	#return ${__vitalsColors[@math_min{10;@math_eval{10 * %1 / %2}}]};
 }
 
 /* Handles Colors for Vital Changes eg: +GREEN =WHITE -RED */

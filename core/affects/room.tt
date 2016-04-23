@@ -20,7 +20,7 @@
 
 #alias {_roomAffect} {
 	#if {$stateChar[justLooking] != 1 || "%2" == "2"} {
-		#var stateRoom[%1] {@std_math_eval{"%2" != "0"}};
+		#var stateRoom[%1] {@math_eval{"%2" != "0"}};
 	};
 	#var __affName {%1};
 	#replace {__affName} { } {_};

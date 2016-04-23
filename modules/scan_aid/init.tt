@@ -8,7 +8,7 @@
 };
 
 #alias {sca{|n} {list|add|del|purge}{ .*|}} {
-	#var __aug {@std_str_trim{%3}};
+	#var __aug {@string_trim{%3}};
 	#if {"%2" == "list"} {
 		#if {&{_mod_scan_aid_settings[patterns][]} > 0} {
 			#echo {Patterns to highlight on scan:};
@@ -24,7 +24,7 @@
 		#echo {<149>Added '<099>${__aug}<149>' to scan highlighting.};
 	};
 	#elseif {"%2" == "del"} {
-		#var __toDel {@std_list_findValue{ {${__aug}} {_mod_scan_aid_settings[patterns]} }};
+		#var __toDel {@list_findValue{ {${__aug}} {_mod_scan_aid_settings[patterns]} }};
 		#if {${__toDel}} {
 			#list _mod_scan_aid_settings[patterns] del {${__toDel}};
 			#echo {<149>Removed '<099>${__aug}<149>' from scan highlighting.};
@@ -40,7 +40,7 @@
 } {4};
 
 /* Restore settings, if none load defaults */
-@std_value_restore{_mod_scan_aid_settings};
+@value_restore{_mod_scan_aid_settings};
 
 #if {"${_mod_scan_aid_settings}" == ""} {
 	#var _mod_scan_aid_settings {{color}{<149>} {patterns}{}};

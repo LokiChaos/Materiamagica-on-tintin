@@ -120,10 +120,10 @@
 }
 
 #act {^(%D) Pierce: %d%s Bash: %d%s Slash: %d%s Exotic: %d} {
-	#var charScore[ar][@std_str_trim{%1}][pierce]  {%2};
-	#var charScore[ar][@std_str_trim{%1}][bash]    {%4};
-	#var charScore[ar][@std_str_trim{%1}][slash]   {%6};
-	#var charScore[ar][@std_str_trim{%1}][exotic]  {%8};
+	#var charScore[ar][@string_trim{%1}][pierce]  {%2};
+	#var charScore[ar][@string_trim{%1}][bash]    {%4};
+	#var charScore[ar][@string_trim{%1}][slash]   {%6};
+	#var charScore[ar][@string_trim{%1}][exotic]  {%8};
 }
 /* }}} */
 

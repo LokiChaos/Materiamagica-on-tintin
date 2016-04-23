@@ -7,13 +7,13 @@
 
 
 /* Direction functions */
-#function {std_dir_reverse} {
+#function {dir_reverse} {
 	#var __dirTable {{n}{s}{s}{n}{e}{w}{w}{e}{u}{d}{d}{u}{ne}{sw}{sw}{ne}{nw}{se}{se}{nw}};
 	#var result ${__dirTable[%0]};
 	#unvar __dirTable;
 }
 
-#function {std_dir_full} {
+#function {dir_full} {
 	#var result %0;
 	#replace result {^n}  {north};
 	#replace result {^s}  {south};
@@ -23,7 +23,7 @@
 	#replace result {^d$} {down};
 }
 
-#function {std_dir_short} {
+#function {dir_short} {
 	#var result %0;
 	#replace result {north} {n};
 	#replace result {south} {s};
@@ -43,13 +43,13 @@
 }
 
 /* One-Shot Alias/Action */
-#alias {std_action_oneshot} {
+#alias {action_oneshot} {
 	#act {%1} {
 		%2;#unact {%1};
 	};
 }
 
-#alias {std_alias_oneshot} {
+#alias {alias_oneshot} {
 	#alias {%1} {
 		%2;#unalias {%1};
 	};

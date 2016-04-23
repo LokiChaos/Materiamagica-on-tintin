@@ -6,7 +6,7 @@
 #nop PROVIDES: lib/persistent;
 #nop REQUIRES: lib/eventHandler lib/list;
 
-#function {std_value_save} {
+#function {value_save} {
 	__persistent_init;
 	#class persistent open;
 	#var   {:%1} ${%1};
@@ -15,20 +15,20 @@
 	#return {#nop ;};
 }
 
-#function {std_value_get} {
+#function {value_get} {
 	__persistent_init;
 	#var result ${:%1};
 	__persistent_cleanup;
 }
 
-#function {std_value_restore} {
+#function {value_restore} {
 	__persistent_init;
 	#var %1 ${:%1};
 	__persistent_cleanup;
 	#return {#nop ;};
 }
 
-#function {std_value_clear} {
+#function {value_clear} {
 	__persistent_init;
 	#unvar {:%1};
 	__persistent_save;
@@ -36,22 +36,22 @@
 }
 
 /* Automatically save and restore "remembered" values on session disconnect/connect */
-#function {std_remember} {
+#function {remember} {
 	#list _remember add {%1};
 	#return {#nop ;};
 }
 
-#function {std_unremember} {
-	#list _remember del {@std_list_findValue{ {%1} {_remember} }};
-	@std_value_clear{%1};
+#function {unremember} {
+	#list _remember del {@list_findValue{ {%1} {_remember} }};
+	@value_clear{%1};
 	#return {#nop ;};
 }
 
-_Event_register {session_connect}    {remember} {_std_remember_load};
-_Event_register {session_disconnect} {remember} {_std_remember_save};
+_Event_register {session_connect}    {remember} {_remember_load};
+_Event_register {session_disconnect} {remember} {_remember_save};
 
 /* Internal Remeber System Helpers {{{ */
-#alias {_std_remember_save} {
+#alias {_remember_save} {
 	#nop %1;
 	__persistent_init;
 	#class persistent open;
@@ -67,7 +67,7 @@ _Event_register {session_disconnect} {remember} {_std_remember_save};
 	__persistent_save;
 }
 
-#alias {_std_remember_load} {
+#alias {_remember_load} {
 	#nop %1;
 	__persistent_init;
 	#var {_remember} {${:_remember}};

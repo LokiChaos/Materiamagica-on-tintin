@@ -63,7 +63,7 @@
 /* Chain paths on the speedwalk queue or cleanup if queue is empty */
 #event {END OF PATH}
 {
-	#if {@std_queue_depth{_pathQueue}} {
+	#if {@queue_depth{_pathQueue}} {
 		#echo {<159>Loading next state of speedwalk...<099>};
 		_Event_raise {speedwalk_loadnext};
 		_loadPathQueue;
@@ -124,9 +124,9 @@ _Event_register {speedStep} {sw_walker} {_SpeedWalkStep};
 
 
 #alias {_loadPathQueue} {
-	#if {@std_queue_depth{_pathQueue}} {
+	#if {@queue_depth{_pathQueue}} {
 		_Class load tmp/core/sw/paths data/paths.tt;
-		#path load @std_queue_pop{_pathQueue};
+		#path load @queue_pop{_pathQueue};
 		_Class purge tmp/core/sw/paths;
 	};
 }

@@ -25,7 +25,7 @@
 }
 /* TODO make this not capture login...
 	#list client[State][cmdHist] insert {1} {${__lastCmd}};
-	#if {@std_list_length{client[State][cmdHist]} > 10} {
+	#if {@list_length{client[State][cmdHist]} > 10} {
 		#list client[State][cmdHist] delete 11;
 	};
 */

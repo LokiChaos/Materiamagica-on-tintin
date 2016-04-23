@@ -6,72 +6,72 @@
 #nop PROVIDES: lib/time;
 
 /*
-	Usage: @std_getTime{}
+	Usage: @getTime{}
 	Returns: current time in HH:MM:SS format
 */
-#function {std_getTime} {
+#function {getTime} {
 	#format {result} {%t} {%H:%M:%S};
 }
 
 /*
-	Usage: @std_getDate{}
+	Usage: @getDate{}
 	Returns: current time in YYYY-MM-DD format
 */
-#function {std_getDate} {
+#function {getDate} {
 	#format {result} {%t} {%Y-%m-%d};
 }
 
 /*
-	Usage: @std_getTimestamp{}
+	Usage: @getTimestamp{}
 	Returns: current time in YYYY-MM-DD HH:MM:SS format
 */
-#function {std_getTimestamp} {
+#function {getTimestamp} {
 	#format {result} {%t} {%Y-%m-%d %H:%M:%S};
 }
 
 /*
-	Usage: @std_getEpoch{}
+	Usage: @getEpoch{}
 	Returns: current Unix Epoch time
 */
-#function {std_getEpoch} {
+#function {getEpoch} {
 	#format {result} {%T};
 }
 
 /*
-	Usage: @std_getuEpoch{}
+	Usage: @getuEpoch{}
 	Returns: current micro Unix Epoch time
 */
-#function {std_getuEpoch} {
+#function {getuEpoch} {
 	#format {result} {%U};
 }
 
 /*
-	Usage: @std_getTimeDelta{ <time> }
+	Usage: @getTimeDelta{ <time> }
 	<time> = Unix Epoch time
 	Returns: time difference between current time and <time> in seconds
 	         A negative value means <time> is in the future
 */
-#function {std_getTimeDelta} {
-	#math result {@std_getEpoch{} - %1};
+#function {getTimeDelta} {
+	#math result {@getEpoch{} - %1};
 }
 
 /*
-	Usage: @std_getuTimeDelta{ <utime> }
+	Usage: @getuTimeDelta{ <utime> }
 	<utime> = micro Unix Epoch time
 	Returns: time difference between current time and <time> in microseconds
 	         A negative value means <utime> is in the future
 */
-#function {std_getuTimeDelta} {
-	#math result {@std_getuEpoch{} - %1};
+#function {getuTimeDelta} {
+	#math result {@getuEpoch{} - %1};
 }
 
 /*
-	Usage: @std_unixToTime{ {<unix Epoch time>} [{<format>}]}
+	Usage: @unixToTime{ {<unix Epoch time>} [{<format>}]}
 	Returns: given Unix epoch time in format or default %c
 */
-#function {std_unixToTime} {
+#function {unixToTime} {
 	#if {"%1" == ""} {
-		Print {ERROR} {std_unixToTime: argument error};
+		Print {ERROR} {unixToTime: argument error};
 	};
 	#else {
 		#if {"%2" != ""} {

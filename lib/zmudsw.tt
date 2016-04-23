@@ -5,7 +5,7 @@
 #nop CLASS: zMudSW;
 #nop PROVIDES: lib/zmudsw;
 
-#function {std_zmudsw_parse} {
+#function {zmudsw_parse} {
 	#var _:zpath[path] {};
 	#var _:zpath[count] {};
 	#var _:zpath[mode] 1;

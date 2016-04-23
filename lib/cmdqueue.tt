@@ -31,11 +31,11 @@
 }
 
 #alias {queueCmd} {
-	@std_queue_push{ {cmdQueue} {{cmd}{%1}{delay}{%2}} };
+	@queue_push{ {cmdQueue} {{cmd}{%1}{delay}{%2}} };
 }
 
 #alias {clearCmdQueue} {
-	@std_queue_delete{cmdQueue};
+	@queue_delete{cmdQueue};
 }
 
 #alias {abortCmdQueue} {
@@ -49,7 +49,7 @@
 #alias {_PopQueue} {
 	#nop %1;
 	#if {&{cmdQueue[]}} {
-		#var __poppedCmd {@std_queue_pop{cmdQueue}};
+		#var __poppedCmd {@queue_pop{cmdQueue}};
 		${__poppedCmd[cmd]};
 		#if {&{cmdQueue[]} > 1} {
 			#if {"${__poppedCmd[delay]}" != "0" } {
@@ -61,7 +61,7 @@
 		};
 		#unvar __poppedCmd;
 	} {
-		@std_queue_delete{cmdQueue};
+		@queue_delete{cmdQueue};
 		_Event_remove_specific {prompt_post} {quickQueue};
 		_Event_raise {cmdQueue_end};
 	};

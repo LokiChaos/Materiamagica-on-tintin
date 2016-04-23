@@ -38,7 +38,7 @@
 		#line log {tmp/map.$sessionName} {${_vmap[alyira][${__r}]}};
 	} {
 		#format __line {%r} {${_vmap[alyira][${__r}]}};
-		#format __line {%.@std_math_eval{69 - ${__col}}s} {${__line}};
+		#format __line {%.@math_eval{69 - ${__col}}s} {${__line}};
 		#format __line {%.${__col}s<159>\@<099>%r} {${_vmap[alyira][${__r}]}} {${__line}};
 		#line log {tmp/map.$sessionName} {${__line}};
 	};

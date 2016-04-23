@@ -99,7 +99,7 @@ _Event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 			#line gag;
 			#echo {<149>(%s<149>)    %s}  {@makeRoomBar{}} {%3};
 			#var _roomExtraStr {@makeAuxRoomBar{}};
-			#if { @std_str_len{${_roomExtraStr}} } {
+			#if { @string_len{${_roomExtraStr}} } {
 				_Event_oneshot {visExits} {roomAux} {_EchoAccess};
 			} {
 				#unvar _roomExtraStr;

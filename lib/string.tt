@@ -5,17 +5,17 @@
 #nop CLASS: string;
 #nop PROVIDES: lib/string;
 
-#function {std_str_sanitize} {
+#function {string_sanitize} {
 	#var result {%0};
 	#replace {result} {'} {\047};
 }
 
 /*
-	Usage: @std_string_esc{ <string> }
+	Usage: @stringing_esc{ <string> }
 	<string> = a string
 	Returns: <string> with all non-Alphanum, _, and - escaped.
 */
-#function {std_str_esc} {
+#function {string_esc} {
 	#var result {%0};
 	#replace {"} {\\"};
 	#script {result} {echo "$(echo "%0" | sed 's/[^-A-Za-z0-9_]/\\&/g')"};
@@ -23,7 +23,7 @@
 }
 
 /*
-	Usage: @std_string_escape{ {<string>} {<pat>;<rep>} [...] }
+	Usage: @stringing_escape{ {<string>} {<pat>;<rep>} [...] }
 	<string> = a string
 	<pat> = a patter to be replaced
 	<rep> = what to replace <pat> with
@@ -32,7 +32,7 @@
 	Generally, it is called by another specific-case escape function.
 	Returns: <string> will every instance of every <pat> replaced with their corrisponding <rep>
 */
-#func {std_str_escape} {
+#func {string_escape} {
 	#var result %1;
 	#var _:esctmp[aidx] 0;
 	#foreach {%0} {_:esctmp[arg]} {
@@ -53,17 +53,17 @@
 
 /* Escape Un-safe for sh/awk/sed*/
 /*
-	Usage: @std_string_escape_shell{ <string> }
+	Usage: @stringing_escape_shell{ <string> }
 	<string> = a string
 	Returns: <string> with all non-Alphanum, _, and - escaped.
 */
-#function {std_str_escape_shell} {
-	#var result @std_str_escape{ {%0} {\';\047} {\";\\"} };
+#function {string_escape_shell} {
+	#var result @string_escape{ {%0} {\';\047} {\";\\"} };
 };
 
 /* Escaped URI */
-#function {std_str_escape_uri} {
-	#var result @std_str_escape{ {%0}
+#function {string_escape_uri} {
+	#var result @string_escape{ {%0}
 	{\{;\0457B} {\};\0457D}
 	{\ ;\04520} {\=;\0453D} {\&;\04526}
 	{\:;\0453A} {\\\;;\0453B} {\/;\0452F} {\\;\0455C}
@@ -74,89 +74,89 @@
 };
 
 /*
-	Usage: @std_str_dropcomma{ <string> }
+	Usage: @string_dropcomma{ <string> }
 	<string> = a string
 	Returns: the <string> with commas removed, intended for numbers
 	         eg: 1,337 -> 1337
 */
-#function {std_str_dropcomma} {
+#function {string_dropcomma} {
 	#format result {%d} {%0}
 }
 
 /*
-	Usage: @std_str_strip{ <string> }
+	Usage: @string_strip{ <string> }
 	<string> = a string
 	Returns: <string> will all SGR codes, tintin color codes, etc removed
 */
-#function {std_str_strip} {
+#function {string_strip} {
 	#line strip {#var result {%0}};
 	#replace result {<%.%.%.>} {};
 }
 
 /*
-	Usage: @std_str_len{ <string> }
+	Usage: @string_len{ <string> }
 	<string> = a string
 	Returns: the length of <string>
 */
-#function {std_str_len} {
+#function {string_len} {
 	#format result {%L} {%0};
 }
 
 /*
-	Usage: @std_str_trim{ <string> }
+	Usage: @string_trim{ <string> }
 	<string> = a string
 	Returns: <string> with all leading and trailing spaces stripped
 */
-#function {std_str_trim} {
+#function {string_trim} {
 	#regex {%0} {^{ *}%*{ *}$} {
 		#var result {&2};
 	};
 }
 
 /*
-	Usage: @std_str_toLower{ <string> }
+	Usage: @string_toLower{ <string> }
 	<string> = a string
 	Returns: <string> with all upper case converted to lower
 */
-#function {std_str_toLower} {
+#function {string_toLower} {
 	#format result {%l} {%0};
 }
 
 /*
-	Usage: @std_str_toUpper{ <string> }
+	Usage: @string_toUpper{ <string> }
 	<string> = a string
 	Returns: <string> with all lower case converted to upper
 */
-#function {std_str_toUpper} {
+#function {string_toUpper} {
 	#format result {%u} {%0};
 }
 
 /*
-	Usage: @std_str_tokenize{ <string> }
+	Usage: @string_tokenize{ <string> }
 	<string> = a string
 	Returns: a list of the words in <string>, in the order they appear in
 */
-#function {std_str_tokenize} {
+#function {string_tokenize} {
 	#list result create %0;
 }
 
 /*
-	Usage: @std_str_reverse{ <string> }
+	Usage: @string_reverse{ <string> }
 	<string> = a string
 	Returns: <string> mirrored/fliped/reversed
 	        e.g.: foobar -> raboof
 */
-#function {std_str_reverse} {
+#function {string_reverse} {
 	#format result {%r} {%0};
 }
 
 /*
-	Usage: @std_str_substr{ {<string>} {<pos>} {<length>} }
+	Usage: @string_substr{ {<string>} {<pos>} {<length>} }
 	<pos> = integer position of substring
 	<length> = integer length of substring
 	Returns: nil or substring of <length> starting at <posistion> in <string>.
 */
-#function {std_str_substr} {
+#function {string_substr} {
 	#regex {%1} {^{.{%2}}{.{%3}}%*} {
 		#var result {&2};
 	} {
@@ -165,20 +165,20 @@
 }
 
 /*
-	Usage: @std_str_contains{ {<stringA>} {<stringB>} }
+	Usage: @string_contains{ {<stringA>} {<stringB>} }
 	<string> = a string
 	Returns: 1 if <stringA> appears anywhere in <stringB> else 0.
 */
-#function {std_str_contains} {
+#function {string_contains} {
 	#math result {"%2" == "%*%1%*"};
 }
 
 /*
-	Usage: @std_str_containsWord{ {<stringA>} {<stringB>} }
+	Usage: @string_containsWord{ {<stringA>} {<stringB>} }
 	<string> = a string
 	Returns: 1 if <stringA> appears as a word in <stringB> else 0.
 */
-#function {std_str_containsWord} {
+#function {string_containsWord} {
 	#regex {%2} {{\b%1\b}} {
 		#var result 1;
 	} {

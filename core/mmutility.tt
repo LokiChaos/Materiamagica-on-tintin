@@ -39,7 +39,7 @@
 
 /* Zone/Location Lookups from data table {{{ */
 #function {repopTime} {
-	#script result {awk -F: '$1 == "@std_str_escape_shell{%0}" {print $12}' data/locations.txt};
+	#script result {awk -F: '$1 == "@string_escape_shell{%0}" {print $12}' data/locations.txt};
 	#if {&{result[]} && "${result[1]}" != "NA"} {
 		#var result ${result[1]};
 	}{
@@ -48,7 +48,7 @@
 }
 
 #function {zoneType} {
-	#script result {awk -F: '$1 == "@std_str_escape_shell{%0}" {print $5}' data/locations.txt};
+	#script result {awk -F: '$1 == "@string_escape_shell{%0}" {print $5}' data/locations.txt};
 	#if {&{result[]}} {
 		#var result ${result[1]};
 	}{

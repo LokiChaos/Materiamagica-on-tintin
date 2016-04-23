@@ -11,7 +11,7 @@
 	#var __markPrint {};
 	#forall {${_mod_sort_marks_list[]}} {
 		#format __markPrint {%s%-25s} {${__markPrint}} {${_mod_sort_marks_list[&0]}};
-		#if { @std_math_eval{ &0 % 3 } == 0 } {
+		#if { @math_eval{ &0 % 3 } == 0 } {
 			#echo {<139>%s} {${__markPrint}};
 			#unvar __markPrint;
 		};

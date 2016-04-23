@@ -6,7 +6,7 @@
 	#echo {  <179>%s %s steps to the %s.}
 	      {@mod_survey_lookup{%4}} 
 	      {${_mod_survey_dist_table[%2]}} 
-		  @std_str_toUpper{@std_dir_short{%3}};
+		  @string_toUpper{@dir_short{%3}};
 }
 
 #act {@sgrInit{}^@sgrp{!W}  Right here, you see %*.@sgrp{X}@sgrFin{}$} {
@@ -35,7 +35,7 @@
 }
 
 #function {mod_survey_lookup} {
-	#script result {awk -F: '$13 == "@std_str_escape_shell{%0}." {print $1}' data/locations.txt};
+	#script result {awk -F: '$13 == "@string_escape_shell{%0}." {print $1}' data/locations.txt};
 	#if {&result[]} {
 		#var result {$result[1]};
 	} {

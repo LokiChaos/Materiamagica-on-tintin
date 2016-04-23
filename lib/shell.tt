@@ -6,9 +6,9 @@
 #nop PROVIDES: lib/shell;
 #nop REQUIRES: lib/print;
 
-#function {std_file_exists} {
+#function {file_exists} {
 	#if {"%0" == ""} {
-		Print {ERROR} {std_file_exists: argument error};
+		Print {ERROR} {file_exists: argument error};
 		#var result {0};
 	};
 	#else {
@@ -17,9 +17,9 @@
 	};
 }
 
-#function {std_dir_exists} {
+#function {dir_exists} {
 	#if {"%0" == ""} {
-		Print {ERROR} {std_dir_exists: argument error};
+		Print {ERROR} {dir_exists: argument error};
 		#var result {0};
 	};
 	#else {
@@ -28,9 +28,9 @@
 	};
 }
 
-#function {std_file_type} {
+#function {file_type} {
 	#if {"%0" == ""} {
-		Print {ERROR} {std_file_type: argument error};
+		Print {ERROR} {file_type: argument error};
 		#var result {0};
 	};
 	#else {
@@ -39,9 +39,9 @@
 	};
 }
 
-#function {std_file_mime} {
+#function {file_mime} {
 	#if {"%0" == ""} {
-		Print {ERROR} {std_file_mime: argument error};
+		Print {ERROR} {file_mime: argument error};
 		#var result {0};
 	};
 	#else {
@@ -50,28 +50,28 @@
 	};
 }
 
-#function {std_envget} {
+#function {envget} {
 	#script result {echo $%1};
 	#return $result[1];
 }
 
-#function {std_uuidgen} {
+#function {uuidgen} {
 	#script result {uuidgen};
 	#return $result[1];
 }
 
-#function {std_mktemp} {
+#function {mktemp} {
 	#script result {mktemp};
 	#return $result[1];
 }
 
-#function {std_mkdir} {
+#function {mkdir} {
 	#if {"%0" == ""} {
-		Print {ERROR} {std_mkdir: argument error};
+		Print {ERROR} {mkdir: argument error};
 		#var result {0};
 	};
-	#elseif {@std_dir_exists{%0} == 1} {
-		Print {WARNING} {std_mkdir: '<099>%0<>' already exists};
+	#elseif {@dir_exists{%0} == 1} {
+		Print {WARNING} {mkdir: '<099>%0<>' already exists};
 		#var result {0};
 	};
 	#else {

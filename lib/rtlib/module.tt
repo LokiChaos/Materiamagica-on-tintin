@@ -83,7 +83,7 @@
 }
 
 #alias {_module_remove} {
-	#if {@std_file_exists{@moduleGetPath{%1}/cleanup.tt}} {
+	#if {@file_exists{@moduleGetPath{%1}/cleanup.tt}} {
 		#read {@moduleGetPath{%1}/cleanup.tt};
 	};
 	_Class purge {module/%1};
@@ -121,7 +121,7 @@
 }
 
 #alias {_module_help} {
-	#if {@std_file_exists{@moduleGetPath{%1}/help}} {
+	#if {@file_exists{@moduleGetPath{%1}/help}} {
 		#script _:MCtemp[help] {cat @moduleGetPath{%1}/help};
 		#forall {${_:MCtemp[help][]}} {
 			#echo {${_:MCtemp[help][&0]}};

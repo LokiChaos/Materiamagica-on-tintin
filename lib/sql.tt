@@ -12,23 +12,23 @@
   db_submit works the same way as #format
   NB: You must enclose each argument in {}
 
-  Usage: std_db_submit {returnvar} {db file} {sql expression} [{format-style args}]
+  Usage: db_submit {returnvar} {db file} {sql expression} [{format-style args}]
        {select * from tablename where fieldname = '%s'} {match text}
 
   Parses the output and puts it into an associative array:
        $returnvar[recordnumber][fieldname]
    E.G. to get the data from HP field of the first record returned:
        #var {varname} {$returnvar[1][HP]}
-  Usage: @std_db_submit{ {db file} {sql expression} [{format-style args}] }
+  Usage: @db_submit{ {db file} {sql expression} [{format-style args}] }
 	Similar to the alias, but in function form.
 	}}}
 */
 
-#function {std_db_submit} {
-	std_db_submit result %0;
+#function {db_submit} {
+	db_submit result %0;
 }
 
-#alias {std_db_submit} {
+#alias {db_submit} {
 	#if {"%0" != ""} {
 		#nop generate #format command and execute it;
 		#var _:dbFormat {#format {_:db[Command]} {%3}};

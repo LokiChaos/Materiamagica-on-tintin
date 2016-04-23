@@ -18,21 +18,21 @@
 /*_Event_register {skilluse} {useCounter} {_IncUses %1;#nop}; */
 
 #alias {_IncUses} {
-	@std_value_restore{uses};
+	@value_restore{uses};
 	#math uses[%1] {$uses[%1] + 1};	
-	@std_value_save{uses};
+	@value_save{uses};
 	#unvar uses;
 };
 
 #alias {_ResetUses} {
-	@std_value_restore{uses};
+	@value_restore{uses};
 	#var uses[%1] {0};
-	@std_value_save{uses};
+	@value_save{uses};
 	#unvar uses;
 }
 
 #function {getUses} {
-	@std_value_restore{uses};
+	@value_restore{uses};
 	#var result {$uses[%1]};
 	#unvar uses;
 }

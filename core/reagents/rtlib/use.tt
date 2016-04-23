@@ -22,7 +22,7 @@
 	#var _rea {{fire}{0}{water}{0}{air}{0}{earth}{0}
 	          {gem}{0}{ethereal}{0}
 			  {astral}{0}{summon}{0}{focus}{0}};
-	#var __rstring @std_str_trim{@std_str_toLower{%1}};
+	#var __rstring @string_trim{@string_toLower{%1}};
 	#replace {__rstring} {and } {};
 	#replace {__rstring} {, } {;};
 	#foreach {${__rstring}} {__reaT} {

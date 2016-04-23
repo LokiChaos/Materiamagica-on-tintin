@@ -22,7 +22,7 @@
 		};
 		#if {"${__ready}" == "1"} {
 			_Event_oneshot {confirm} {speedwalkrun} {_SpeedWalkRunConfirm};
-			std_confirm_prompt {<119>Are you sure you want to run it anyway? (y/N)} {15};
+			confirm_prompt {<119>Are you sure you want to run it anyway? (y/N)} {15};
 		} {
 		    _SpeedWalkRun;
 		};

@@ -21,7 +21,7 @@
 
 	#foreach {fire;water;earth;air;gem;ethereal;hema;summon;focus} {__rea} {
 		#math __need[${__rea}] {$reagent[max][${__rea}] - $reagent[count][${__rea}]};
-		#var  __need[${__rea}] {@std_math_max{{0} {${__need[${__rea}]}}}};
+		#var  __need[${__rea}] {@math_max{{0} {${__need[${__rea}]}}}};
 #echo {Would buy %d of %s.} {${__need[${__rea}]}} {${__rea}};
 	};
 	#unvar __need;

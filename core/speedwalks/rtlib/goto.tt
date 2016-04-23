@@ -9,7 +9,7 @@
 	#unvar _pathQueue;
 	#var __goto[origin] @findOrigin{};
 	#if {${__goto[origin]} != 0 } {
-		#var __goto[destStr] @std_str_toLower{%1};
+		#var __goto[destStr] @string_toLower{%1};
 		#replace __goto[destStr] {goto } {};
 		#var __goto[dest] @findDest{${__goto[destStr]}};
 		#if {${__goto[dest]} != 0 } {

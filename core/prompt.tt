@@ -119,8 +119,8 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 		#var vitals[c][st] {&3};
 	};
 
-	#math stateChar[mounted] @std_dec2zero{$stateChar[mounted]};
-	#math stateChar[Combat]  @std_dec2zero{$stateChar[Combat]};
+	#math stateChar[mounted] @dec2zero{$stateChar[mounted]};
+	#math stateChar[Combat]  @dec2zero{$stateChar[Combat]};
 
 	#var stateChar[inSocial] 0;
 	#var stateChar[OnShip]   0;
@@ -142,7 +142,7 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math client[State][muteLine] @std_dec2zero{$client[State][muteLine]};
+	#math client[State][muteLine] @dec2zero{$client[State][muteLine]};
 	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
@@ -171,7 +171,7 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	_PromptTick;
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math client[State][muteLine] @std_dec2zero{$client[State][muteLine]};
+	#math client[State][muteLine] @dec2zero{$client[State][muteLine]};
 	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */
@@ -200,7 +200,7 @@ _Event_register {affect_refresh} {updatePrompt} {_UpdatePromptAffects};
 	_PromptTick;
 	#line gag;
 	#var stateChar[justLooking] 0;
-	#math client[State][muteLine] @std_dec2zero{$client[State][muteLine]};
+	#math client[State][muteLine] @dec2zero{$client[State][muteLine]};
 	_Class purge tmp/core/prompt/lines;
 }
 /* }}} */

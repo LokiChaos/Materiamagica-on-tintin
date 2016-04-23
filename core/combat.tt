@@ -101,7 +101,7 @@ _Event_register {gmcp_char_combat} {combatround} {_combatRound};
 
 /* Exp Gain on Killing an opponent*/
 #act {You receive %S experience points.} {
-	_Event_raise {slain_opponent} {@std_str_dropcomma{%1}};
+	_Event_raise {slain_opponent} {@string_dropcomma{%1}};
 }
 
 /* Superbrief combat */

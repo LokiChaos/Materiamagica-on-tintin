@@ -8,10 +8,10 @@
 	#math __goto[X] { (%1 % 2300 ) - $navigation[X] };
 	#math __goto[Y] { (%2 % 1500 ) - $navigation[Y] };
 	#nop Intelligent Wrap-Around the toroidal world;
-	#if { @std_math_abs{${__goto[X]}} > 1150 } {
+	#if { @math_abs{${__goto[X]}} > 1150 } {
 		#math __goto[X] { (${__goto[X]} + 2300) % 2300 };
 	};
-	#if { @std_math_abs{${__goto[Y]}} > 750 } {
+	#if { @math_abs{${__goto[Y]}} > 750 } {
 		#math __goto[Y] { (${__goto[Y]} + 1500) % 1500 };
 	};
 	#nop sign determines direction;
@@ -28,10 +28,10 @@
 	#var __goto[dirC] {${__goto[dirY]}${__goto[dirX]}};
 
 	#nop strip sign;
-	#math __goto[X] { @std_math_abs{${__goto[X]}} };
-	#math __goto[Y] { @std_math_abs{${__goto[Y]}} };
+	#math __goto[X] { @math_abs{${__goto[X]}} };
+	#math __goto[Y] { @math_abs{${__goto[Y]}} };
 	#nop stack n/s+e/w into nw/se/ne/sw;
-	#math __goto[C] { @std_math_min{ {${__goto[Y]}} {${__goto[X]}} } };
+	#math __goto[C] { @math_min{ {${__goto[Y]}} {${__goto[X]}} } };
 	#math __goto[X] { ${__goto[X]} - ${__goto[C]} };
 	#math __goto[Y] { ${__goto[Y]} - ${__goto[C]} };
 	

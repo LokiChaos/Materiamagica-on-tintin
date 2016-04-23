@@ -13,7 +13,7 @@
 					      {flags}{$gmcp[Room][flags]}
 						  {size}{$gmcp[Room][size]}
 						  {shape}{$gmcp[Room][shape]}};
-	#if { @std_str_len{$gmcp[Room][coord][sym]} != 0} {
+	#if { @string_len{$gmcp[Room][coord][sym]} != 0} {
 		_mapperVMapRoomSymbol;
 	};
 	_mapperZoneRoomColor;

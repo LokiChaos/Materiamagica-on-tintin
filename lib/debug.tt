@@ -232,5 +232,6 @@
 	#var _:TP[%1] {};
 }
 
-
-#var loadState 1;
+/* Verify loading*/
+#var loadState {1};
+/* EOF */

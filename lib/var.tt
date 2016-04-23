@@ -4,6 +4,7 @@
 */
 #nop CLASS: var;
 #nop PROVIDES: lib/var;
+#nop REQUIRES: lib/print;
 
 /*
 	Usage: @var_exists{<var>}
@@ -150,14 +151,13 @@
 
 #function {var_valIsType} {
 	#var _:VarDV {%2};
-	#var result {@var_isType{ {%1} {_:VarDV}}};
+	#var result {@var_isType{ {%1} {_:VarDV} }};
 	#unvar _:VarDV;
 }
 
 #function {var_getType} {
 	#if {"%0" == ""} {
-		Print {ERROR} {var_getType: argument error};
-		#var result {error};
+		#var result {none};
 	};
 	#else {
 		#if {@var_exists{%0} == 0} {
@@ -192,8 +192,7 @@
 
 #function {var_isType} {
 	#if {"%0" == ""} {
-		Print {ERROR} {var_getType: argument error};
-		#var result {error};
+		#var result {none};
 	};
 	#else {
 		#var _:VarIT[T] {
@@ -220,35 +219,34 @@
 	<funtion name> - string, just used for error printing
 	<argtype list> - a list of the expected arguments
 	<args> - Normally %0 of the calling function
-
 */
 #function {var_checkArgs} {
 	#var _:ChkArg[right]        {1};
-	#if {1} {
+	#if {${client[Config][verifyArgs]}} {
 		#var _:ChkArg[fname]        {%1};
 		#var _:ChkArg[expected]     {%2};
 		#list _:ChkArg[args] create {%3};
 		#foreach {${_:ChkArg[expected][]}} {_:ChkArg[idx]} {
 			#regex {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {^\*%*$} {
 				#if {!@var_refIsType{ {&1} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
-					#echo {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
-						  {${_:ChkArg[idx]}}
-						  {${_:ChkArg[fname]}}
-						  {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
-						  {@var_refGetType{_:ChkArg[args][${_:ChkArg[idx]}]}};
+					Print {${client[Config][argEchoLvl]}}
+					      {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
+					      {${_:ChkArg[idx]}}
+					      {${_:ChkArg[fname]}}
+					      {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
+					      {@var_refGetType{_:ChkArg[args][${_:ChkArg[idx]}]}};
 					#var _:ChkArg[right] {0};
 				};
 			} {
 				#if {!@var_isType{ {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
-					#echo {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
-						  {${_:ChkArg[idx]}}
-						  {${_:ChkArg[fname]}}
-						  {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
-						  {@var_getType{_:ChkArg[args][${_:ChkArg[idx]}]}};
+					Print {${client[Config][argEchoLvl]}}
+					      {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
+					      {${_:ChkArg[idx]}}
+					      {${_:ChkArg[fname]}}
+					      {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
+					      {@var_getType{_:ChkArg[args][${_:ChkArg[idx]}]}};
 					#var _:ChkArg[right] {0};
 				};
-			};
-			#if {${_:ChkArg[isBad]}} {
 			};
 		};
 	};

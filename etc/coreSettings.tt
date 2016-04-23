@@ -18,6 +18,15 @@
 #var client[Config][verifyRead]        {1};
 
 /*
+	Argument checking
+	Should calls to functions in lib check their arguments.
+	Doing so is a performance hit, but greatly assists in debugging.
+	argEchoLvl sets what priority the error message is sent at
+*/
+#var client[Config][verifyArgs]        {1};
+#var client[Config][argEchoLvl]    {ERROR};
+
+/*
 	Client verbosity, 
 	Valid Levels: CRITICAL ERROR WARNING [INFO] VERBOSE DEBUG
 	All to the left the the set value will be echoed or logged

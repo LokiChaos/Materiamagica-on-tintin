@@ -206,9 +206,9 @@
 		     {int}   {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{0}{string}{0}}
 		     {float} {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{1}{string}{0}}
 		     {string}{{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{1}}
-		     {any}   {{undef}{1}{nil}{1}{table}{1}{list}{1}{int}{0}{float}{1}{string}{1}}
-		     {def}   {{undef}{0}{nil}{1}{table}{1}{list}{1}{int}{0}{float}{1}{string}{1}}
-		     {!nil}  {{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{0}{float}{1}{string}{1}}
+		     {any}   {{undef}{1}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
+		     {def}   {{undef}{0}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
+		     {!nil}  {{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
 		};
 		#var result {${_:VarIT[T][%1][@var_getType{%2}]}};
 		#unvar _:VarIT;

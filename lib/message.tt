@@ -9,8 +9,8 @@
 #alias {Print} {
 	#var _:DbTemp[lvl]   {{NONE}{0}{CRITICAL}{1}{ERROR}{2}{WARNING}{3}{INFO}{4}{VERBOSE}{5}{DEBUG}{6}};
 	#if {"${_:DbTemp[lvl][%1]}" != "" } {
-		#var _:DbTemp[color] {{CRITICAL}{<001>}{ERROR}{<119>}{WARNING}{<139>}{INFO}{<099>}{VERBOSE}{<099>}{message}{<129>}};
-		#var _:DbTemp[head]  {{CRITICAL}{CRITICAL: }{ERROR}{ERROR: }{WARNING}{WARNING: }{INFO}{}{VERBOSE}{}{message}{message: }};
+		#var _:DbTemp[color] {{CRITICAL}{<001>}{ERROR}{<119>}{WARNING}{<139>}{INFO}{<099>}{VERBOSE}{<099>}{DEBUG}{<129>}};
+		#var _:DbTemp[head]  {{CRITICAL}{CRITICAL: }{ERROR}{ERROR: }{WARNING}{WARNING: }{INFO}{}{VERBOSE}{}{DEBUG}{DEBUG: }};
 		#var _:DbTemp[format] {#format {_:DbTemp[print]} {%2}};
 		#if {${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${client[Config][messageEchoLevel]}]} ||
 		     ${_:DbTemp[lvl][%1]} <= ${_:DbTemp[lvl][${client[Config][messageLogLevel]}]}} {

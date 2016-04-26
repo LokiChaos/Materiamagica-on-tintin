@@ -4,7 +4,7 @@
 */
 #nop CLASS: utility;
 #nop PROVIDES: lib/utility;
-
+#nop REQUIRES: lib/var;
 
 /* Direction functions */
 #function {dir_reverse} {
@@ -41,6 +41,131 @@
 		#return {%3};
 	};
 }
+
+/* Functional Evaluate */
+#function {e} {
+	#math result {%0};
+}
+
+/* Fuctional Format */
+#function {f} {
+	#format result %0;
+}
+
+/*
+	Usage: @checkArgs{ {<function name>} {<argtype list>} {<args>}
+	<funtion name> - string, just used for error printing
+	<argtype list> - a list of the expected arguments
+	<args> - Normally %0 of the calling function
+*/
+#function {checkArgs} {
+	#var _:ChkArg[right]        {1};
+	#if {${client[Config][verifyArgs]}} {
+		#var _:ChkArg[fname]        {%1};
+		#var _:ChkArg[expected]     {%2};
+		#list _:ChkArg[args] create {%3};
+		#regex {%3} {{ +}$} {
+			#if {"${_:ChkArg[args][-1]}" == ""} {
+				#list _:ChkArg[args] delete {-1};
+			};
+		};
+		#foreach {${_:ChkArg[expected][]}} {_:ChkArg[idx]} {
+			#if {"${_:ChkArg[expected][${_:ChkArg[idx]}]}" == "..."} {
+				#break;
+			};
+			#var _:ChkArg[bad] {0};
+			#regex {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {^\*%*$} {
+				#if {!@var_refIsType{ {&1} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
+					#var _:ChkArg[type] {@var_refGetType{_:ChkArg[args][${_:ChkArg[idx]}]}};
+					#var _:ChkArg[bad] {1};
+				};
+			} {
+				#if {!@var_isType{ {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
+					#var _:ChkArg[type] {@var_getType{_:ChkArg[args][${_:ChkArg[idx]}]}};
+					#var _:ChkArg[bad] {1};
+				};
+			};
+			#if {${_:ChkArg[bad]}} {
+				Print {${client[Config][argEchoLvl]}}
+				      {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
+				      {${_:ChkArg[idx]}}
+				      {${_:ChkArg[fname]}}
+				      {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
+				      {${_:ChkArg[type]}};
+				#var _:ChkArg[right] {0};
+			};
+		};
+		#if {"${_:ChkArg[expected][-1]}" != "..." &&  &{_:ChkArg[args][]} > &{_:ChkArg[expected][]}} {
+			Print {${client[Config][argEchoLvl]}}
+			      {Extra args: Function '%s' was expecting %d arguments but got %d.}
+			      {${_:ChkArg[fname]}}
+			      {&{_:ChkArg[expected][]}}
+			      {&{_:ChkArg[args][]}};
+			#var _:ChkArg[right] {0};
+		};
+	};
+	#var result {${_:ChkArg[right]}};
+	#unvar _:ChkArg;
+}
+
+#function {__checkArgParse} {
+	#var _:ChkAT[arg] {%0};
+	#var _:ChkAT[return] {
+		{ref}{0}
+		{opt}{0}
+		{tbl}{0}
+		{type}{none}
+		{stype}{any}
+	};
+	#regex {${_:ChkAT[arg]}} {^\?%*} {
+		#var _:ChkAT[return][opt] 1;
+		#var _:ChkAT[arg] {&1};
+	};
+	#regex {${_:ChkAT[arg]}} {^\*%*} {
+		#var _:ChkAT[return][ref] 1;
+		#var _:ChkAT[arg] {&1};
+	};
+	#switch {"${_:ChkAT[arg]}"} {
+		#case {"{nil|value|number|int|float|string|any|def|!nil}"} {
+			#var _:ChkAT[return][type] {${_:ChkAT[arg]}};
+		};
+		#case {"{table|list}"} {
+			#var _:ChkAT[return][type] {${_:ChkAT[arg]}};
+			#var _:ChkAT[return][tbl] 1;
+		};
+		#case {"{table|list}:{nil|value|int|float|string|list|table|any|!nil|mixed}"} {
+			#var _:ChkAT[return][tbl] 1;
+			#regex {${_:ChkAT[arg]}} {^%+:%+$} {
+				#var _:ChkAT[return][type] {&1};
+				#var _:ChkAT[return][stype] {&2};
+			};
+		};
+		#case {"{set|mset}"} {
+			#var _:ChkAT[return][type] {table};
+			#var _:ChkAT[return][stype] {int};
+			#var _:ChkAT[return][tbl] 1;
+		};
+		#case {"{queue|pqueue|stack}"} {
+			#var _:ChkAT[return][type] {list};
+			#var _:ChkAT[return][tbl] 1;
+		};
+		#case {"..."} {
+			#var _:ChkAT[return][type] {variadic};
+		};
+		#case {"...:{nil|value|int|float|string|list|table|any|!nil}"} {
+			#regex {${_:ChkAT[arg]}} {^...:%+$} {
+				#var _:ChkAT[return][type] {variadic};
+				#var _:ChkAT[return][stype] {&1};
+			};
+		};
+		#default {
+			Print {ERROR} {Bad arg type '%0'};
+		};
+	};
+	#var result {${_:ChkAT[return]}};
+	#unvar _:ChkAT;
+}
+
 
 /* One-Shot Alias/Action */
 #alias {action_oneshot} {

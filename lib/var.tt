@@ -40,7 +40,7 @@
 }
 
 #function {var_isValue} {
-	#math result {@var_exists{%0} && @var_isNil{%0} == 0 && @var_isTable{%0} == 0};
+	#math result {@var_exists{%0} && !@var_isNil{%0} && !@var_isTable{%0}};
 }
 
 #function {var_isNumber} {
@@ -59,14 +59,12 @@
 }
 
 #function {var_isFloat} {
-	#math result {@var_isNumber{%0} && ! @var_isInt{%0}};
+	#math result {@var_isNumber{%0} && !@var_isInt{%0}};
 }
-
 
 #function {var_isString} {
-	#math result {@var_isValue{%0} && @var_isNumber{%0} == 0};
+	#math result {@var_isValue{%0} && !@var_isNumber{%0}};
 }
-
 
 #function {var_isRef} {
 	#var result 0;
@@ -102,7 +100,12 @@
 }
 
 #function {var_refGetType} {
-	#var result {*@var_getType{${%0}}};
+	#if {@var_isValue{%0}} {
+		#var result {*@var_getType{${%0}}};
+	};
+	#else {
+		#var result {@var_getType{%0}};
+	};
 }
 
 #function {var_refIsType} {
@@ -155,12 +158,130 @@
 	#unvar _:VarDV;
 }
 
+/* Table typing */
+#function {var_tableIsNil} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isNil{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableIsTable} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isTable{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableIsList} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isList{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableIsValue} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isValue{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableIsNumber} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isNumber{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableIsInt} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isInt{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableIsFloat} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isFloat{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableIsString} {
+	#var result 0;
+	#if {@var_isTable{%0}} {
+		#var result 1;
+		#forall {${%0[]}} {
+			#if {!@var_isString{%0[&0]}} {
+				#var result 0;
+			};
+		};
+	};
+}
+
+#function {var_tableGetTypes} {
+	#var _:Vtt {};
+	#if {@var_isTable{%0}} {
+		#forall {${%0[]}} {
+			#list _:Vtt add {@var_getType{%0[&0]}};
+		};
+	};
+	#var result ${_:Vtt};
+	#unvar _:Vtt;
+}
+
+#function {var_tableIsType} {
+	#var _:Vit {${%2}};
+	#var result 1;
+	#forall {${_:Vit[]}} {
+		#if {!@var_isType{ {%1} {_:Vit[&0]}}} {
+			#var result 0;
+		};
+	};
+}
+
 #function {var_getType} {
 	#if {"%0" == ""} {
 		#var result {none};
 	};
 	#else {
-		#if {@var_exists{%0} == 0} {
+		#if {!@var_exists{%0}} {
 			#var result {undef};
 		};
 		#elseif {@var_isNil{%0}} {
@@ -191,69 +312,23 @@
 }
 
 #function {var_isType} {
-	#if {"%0" == ""} {
-		#var result {none};
+	#var _:VarIT[T] {
+	     {undef} {{none}{0}{undef}{1}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
+	     {nil}   {{none}{0}{undef}{0}{nil}{1}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
+	     {table} {{none}{0}{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{0}{float}{0}{string}{0}}
+	     {list}  {{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{1}{int}{0}{float}{0}{string}{0}}
+	     {value} {{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{1}{string}{1}}
+	     {number}{{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{1}{string}{0}}
+	     {int}   {{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{0}{string}{0}}
+	     {float} {{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{1}{string}{0}}
+	     {string}{{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{1}}
+	     {any}   {{none}{0}{undef}{1}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
+	     {def}   {{none}{0}{undef}{0}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
+	     {!nil}  {{none}{0}{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
 	};
-	#else {
-		#var _:VarIT[T] {
-		     {undef} {{undef}{1}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
-		     {nil}   {{undef}{0}{nil}{1}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
-		     {table} {{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{0}{float}{0}{string}{0}}
-		     {list}  {{undef}{0}{nil}{0}{table}{0}{list}{1}{int}{0}{float}{0}{string}{0}}
-		     {value} {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{1}{string}{1}}
-		     {number}{{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{1}{string}{0}}
-		     {int}   {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{0}{string}{0}}
-		     {float} {{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{1}{string}{0}}
-		     {string}{{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{1}}
-		     {any}   {{undef}{1}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
-		     {def}   {{undef}{0}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
-		     {!nil}  {{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
-		};
-		#var result {${_:VarIT[T][%1][@var_getType{%2}]}};
-		#unvar _:VarIT;
-	};
+	#var result {${_:VarIT[T][%1][@var_getType{%2}]}};
+	#unvar _:VarIT;
 }
-
-/*
-	Usage: @var_checkArgs{ {<function name>} {<argtype list>} {<args>}
-	<funtion name> - string, just used for error printing
-	<argtype list> - a list of the expected arguments
-	<args> - Normally %0 of the calling function
-*/
-#function {var_checkArgs} {
-	#var _:ChkArg[right]        {1};
-	#if {${client[Config][verifyArgs]}} {
-		#var _:ChkArg[fname]        {%1};
-		#var _:ChkArg[expected]     {%2};
-		#list _:ChkArg[args] create {%3};
-		#foreach {${_:ChkArg[expected][]}} {_:ChkArg[idx]} {
-			#regex {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {^\*%*$} {
-				#if {!@var_refIsType{ {&1} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
-					Print {${client[Config][argEchoLvl]}}
-					      {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
-					      {${_:ChkArg[idx]}}
-					      {${_:ChkArg[fname]}}
-					      {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
-					      {@var_refGetType{_:ChkArg[args][${_:ChkArg[idx]}]}};
-					#var _:ChkArg[right] {0};
-				};
-			} {
-				#if {!@var_isType{ {${_:ChkArg[expected][${_:ChkArg[idx]}]}} {_:ChkArg[args][${_:ChkArg[idx]}]} }} {
-					Print {${client[Config][argEchoLvl]}}
-					      {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
-					      {${_:ChkArg[idx]}}
-					      {${_:ChkArg[fname]}}
-					      {${_:ChkArg[expected][${_:ChkArg[idx]}]}}
-					      {@var_getType{_:ChkArg[args][${_:ChkArg[idx]}]}};
-					#var _:ChkArg[right] {0};
-				};
-			};
-		};
-	};
-	#var result {${_:ChkArg[right]}};
-	#unvar _:ChkArg;
-}
-
 
 /* Verify loading*/
 #var loadState 1;

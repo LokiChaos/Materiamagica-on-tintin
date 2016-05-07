@@ -29,7 +29,7 @@ __EventBootstrap;
 
 
 _Class fakeload config/core etc/coreSettings.tt;
-_Class fakeload lib/utility lib/utility.tt;
+_Class fakeload lib/ttext lib/ttext.tt;
 _Class fakeload lib/type lib/type.tt;
 _Class fakeload lib/print lib/message.tt;
 _Class fakeload lib/classLoader lib/class.tt;

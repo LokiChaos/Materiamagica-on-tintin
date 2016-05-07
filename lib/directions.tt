@@ -1,0 +1,36 @@
+#nop lib/directions.tt;
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: dir;
+#nop PROVIDES: lib/dir;
+
+/* Direction functions */
+#function {dir_reverse} {
+	#var result {{n}{s}{s}{n}{e}{w}{w}{e}{u}{d}{d}{u}{ne}{sw}{sw}{ne}{nw}{se}{se}{nw}};
+	#var result ${result[%0]};
+}
+
+#function {dir_full} {
+	#var result %0;
+	#replace result {^n}  {north};
+	#replace result {^s}  {south};
+	#replace result {e$}  {east};
+	#replace result {w$}  {west};
+	#replace result {^u$} {up};
+	#replace result {^d$} {down};
+}
+
+#function {dir_short} {
+	#var result %0;
+	#replace result {north} {n};
+	#replace result {south} {s};
+	#replace result {east}  {e};
+	#replace result {west}  {w};
+	#replace result {up}    {u};
+	#replace result {down}  {d};
+}
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

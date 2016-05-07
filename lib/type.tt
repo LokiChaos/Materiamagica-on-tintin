@@ -1,0 +1,418 @@
+#nop lib/type.tt
+/*
+	Author: LokiChaos ©2009-2016 Released under the ISC License (See doc/license.txt)
+*/
+#nop CLASS: type;
+#nop PROVIDES: lib/type;
+#nop REQUIRES: lib/print lib/ttext;
+
+/*
+	Usage: @var_exists{<var>}
+	Returns: 0 if var is not defined, 1 if it is defined
+*/
+#function {var_exists} {
+	#math result {&{%0} != 0}
+}
+
+/*
+	Usage: @var_isNil{<var>}
+	Returns: 1 if value of <var> is nil {}, else 0
+*/
+#function {var_isNil} {
+	#math result {"${%0}" == "" && @var_exists{%0}};
+}
+
+#function {var_isTable} {
+	#math result {&{%0[]} != 0 && "%0" != ""};
+}
+
+#function {var_isList} {
+	#if {@var_isTable{%0}} {
+		#var result {1};
+		#forall {${%0[]}} {
+			#if {"&{%0[&0]}" != "&0"} {
+				#var result {0};
+			};
+		};
+	} {
+		#var result 0;
+	};
+}
+
+#function {var_isScalar} {
+	#math result {@var_exists{%0} && !@var_isNil{%0} && !@var_isTable{%0}};
+}
+
+#function {var_isNumber} {
+	#math result {${%0}};
+	#math result {"${result}" == "${%0}"};
+}
+
+#function {var_isInt} {
+	#if {@var_isNumber{%0}} {
+		#format result {%d} {${%0}};
+		#math result {"${result}" == "${%0}"};
+	} {
+		#var result 0;
+	};
+}
+
+#function {var_isFloat} {
+	#math result {@var_isNumber{%0} && !@var_isInt{%0}};
+}
+
+#function {var_isString} {
+	#math result {@var_isScalar{%0} && !@var_isNumber{%0}};
+}
+
+#function {var_isRef} {
+	#var result 0;
+	#if {@var_isString{%0}} {
+		#if {@var_exists{${%0}}} {
+			#var result 1;
+		};
+	};
+}
+
+/* Reference Vars */
+#function {var_refGetType} {
+	#if {@var_isString{%0}} {
+		#var result {*@var_getType{${%0}}};
+	};
+	#else {
+		#var result {@var_getType{%0}};
+	};
+}
+
+#function {var_refIsType} {
+	#var result {@var_isType{ {%1} {${%2}} }};
+}
+
+/* Value Checks */
+#function {val_refGetType} {
+	#var result {@val_getType{%0}};
+	#if {"$result" == "string"} {
+		#var result {*@var_getType{%0}};
+	};
+}
+
+#function {val_refIsType} {
+	#var result {@var_isType{ {%1} {%2} }};
+}
+
+#function {val_getType} {
+	beginScope;
+	#var my.value {%0};
+	#var result {@var_getType{my.value}};
+	endScope;
+}
+
+#function {val_isType} {
+	beginScope;
+	#var my.value {%2};
+	#var result {@var_isType{ {%1} {my.value} }};
+	endScope;
+}
+
+#function {val_tableIsType} {
+	beginScope;
+	#var my.table {%2};
+	#var result {@var_tableIsType{ {%1} {my.table} }};
+	endScope;
+}
+
+#function {val_tableGetType} {
+	beginScope;
+	#var my.table {%0};
+	#var result {@var_tableGetType{ {my.table} }};
+	endScope;
+}
+
+/* Table typing */
+#function {var_tableGetTypes} {
+	#var _:Vtts {};
+	#if {@var_isTable{%0}} {
+		#forall {${%0[]}} {
+			#list _:Vtts add {@var_getType{%0[&0]}};
+		};
+	};
+	#var result ${_:Vtts};
+	#unvar _:Vtts;
+}
+
+#function {var_tableGetType} {
+	#var _:Vtt {@var_tableGetTypes{%0}};
+	#var result {${_:Vtt[1]}};
+	#forall {${_:Vtt[]}} {
+		#if {"${_:Vtt[&0]}" != "${result}"} {
+			#var result {mixed};
+			#break;
+		};
+	};
+	#unvar _:Vtt;
+}
+
+#function {var_tableIsType} {
+	#if {@var_isTable{%2}} {
+		#var _:Vit[t] {${%2}};
+		#var _:Vit[r] 1;
+		#forall {${_:Vit[t][]}} {
+			#if {!@var_isType{ {%1} {_:Vit[t][&0]}}} {
+				#var _:Vit[r] 0;
+				#break;
+			};
+		};
+		#var result {${_:Vit[r]}};
+		#unvar _:Vit;
+	} {
+		#var result 0;
+	};
+}
+
+#function {var_getType} {
+	#if {"%0" == ""} {
+		#var result {none};
+	};
+	#else {
+		#if {!@var_exists{%0}} {
+			#var result {undef};
+		};
+		#elseif {@var_isNil{%0}} {
+			#var result {nil}
+		};
+		#elseif {@var_isTable{%0}} {
+			#if {@var_isList{%0}} {
+				#var result {list}
+			};
+			#else {
+				#var result {table}
+			};
+		};
+		#else {
+			#if {@var_isNumber{%0}} {
+				#if {@var_isInt{%0}} {
+					#var result {int};
+				};
+				#else {
+					#var result {float};
+				};
+			};
+			#else {
+				#var result {string}
+			};
+		};
+	};
+}
+
+#function {var_isType} {
+	#var _:VarIT[T] {
+	     {undef} {{none}{0}{undef}{1}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
+	     {nil}   {{none}{0}{undef}{0}{nil}{1}{table}{0}{list}{0}{int}{0}{float}{0}{string}{0}}
+	     {table} {{none}{0}{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{0}{float}{0}{string}{0}}
+	     {list}  {{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{1}{int}{0}{float}{0}{string}{0}}
+	     {scalar}{{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{1}{string}{1}}
+	     {number}{{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{1}{string}{0}}
+	     {int}   {{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{1}{float}{0}{string}{0}}
+	     {float} {{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{1}{string}{0}}
+	     {string}{{none}{0}{undef}{0}{nil}{0}{table}{0}{list}{0}{int}{0}{float}{0}{string}{1}}
+	     {any}   {{none}{0}{undef}{1}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
+	     {def}   {{none}{0}{undef}{0}{nil}{1}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
+	     {!nil}  {{none}{0}{undef}{0}{nil}{0}{table}{1}{list}{1}{int}{1}{float}{1}{string}{1}}
+	};
+	#var result {${_:VarIT[T][%1][@var_getType{%2}]}};
+	#unvar _:VarIT;
+}
+
+/*
+	Usage: @checkArgs{ {<function name>} {<argtype list>} {<args>}
+	<funtion name> - string, just used for error printing
+	<argtype list> - a list of the expected arguments
+	<args> - Normally %0 of the calling function
+*/
+#function {checkArgs} {
+	beginScope;
+	#if {${client[Config][verifyArgs]}} {
+		#var my {
+			{right}{1}
+			{fname}{%1}
+			{expected}{%2}
+			{skipped}{0}
+			{variadic}{0}
+			{idx}{1}
+			{args}{@argList{%3}}
+		};
+		#var my.expc {&{my.expected[]}};
+		#var my.argc {&{my.args[]}};
+
+		#while { &{my.expected[]} } {
+			#var my.bad {0};
+
+			#if {!${my.variadic}} {
+				#var my.exp {@__checkArgParse{${my.expected[1]}}};
+			};
+
+			#if {"${my.exp[type]}" == "variadic"} {
+				#math my.skipped {${my.skipped} + 1};
+				#var my.variadic  {1};
+				#var my.exp[type] {${my.exp[stype]}};
+				#var my.exp[stype] {any};
+			};
+
+			#if {&{my.args[]}} {
+				#if {${my.exp[ref]}} {
+					#if {!@val_refIsType{ {${my.exp[type]}} {${my.args[1]}} }} {
+						#var my.type {@val_refGetType{${my.args.[1]}}};
+						#var my.bad {1};
+					};
+				};
+				#elseif {"${my.exp[type]}" == "{table|list}" && "${my.exp[stype]}" != "any" } {
+					#if {!@val_tableIsType{ {${my.exp[stype]}} {${my.args[1]}} }} {
+						#var my.type {@val_getType{${my.args[1]}}};
+						#if {@val_isTable{${my.args[1]}}} {
+							#var my.type {${my.type}:@val_tableGetType{${my.args[1]}}};
+						};
+						#var my.bad {1};
+					};
+				};
+				#else {
+					#if {!@val_isType{ {${my.exp[type]}} {${my.args[1]}}}} {
+						#var my.type {@val_getType{${my.args[1]}}};
+						#var my.bad {1};
+					};
+				};
+
+				#if {${my.bad} && !${my.exp[opt]}} {
+					Print {${client[Config][argEchoLvl]}}
+						  {Bad arg #%d: Function '%s' was expecting type '%s' but got type '%s'}
+						  {${my.idx}}
+						  {${my.fname}}
+						  {${my.exp[ptype]}}
+						  {${my.type}};
+					#var my.right {0};
+				};
+
+				#if {${my.bad} && ${my.exp[opt]}} {
+					#math my.skipped {${my.skipped} + 1};
+					Print {${client[Config][argEchoLvl]}}
+						  {<099>Skipped arg #%d: Function '%s' skips type '%s' but got type '%s'}
+						  {${my.idx}}
+						  {${my.fname}}
+						  {${my.exp[ptype]}}
+						  {${my.type}};
+					#math my.idx {${my.idx} - 1};
+				};
+				#else {
+					#list my.args del 1;
+				};
+
+				#if {&{my.expected[]} && !${my.variadic}} {
+					#list my.expected del 1;
+				};
+				#math my.idx {${my.idx} + 1};
+			};
+			#elseif {${my.exp[opt]}} {
+				#math my.skipped {${my.skipped} + 1};
+				#if {&{my.expected[]} && !${my.variadic}} {
+					#list my.expected del 1;
+				};
+			};
+			#else {
+				#while { &{my.expected[]} } {
+					#var my.exp {@__checkArgParse{${my.expected[1]}}};
+					#if {${my.exp[opt]}} {
+						#math my.skipped {${my.skipped} + 1};
+					};
+					#if {&{my.expected[]} > 1} {
+						#list my.expected del 1;
+					} {
+						#break;
+					};
+				};
+				#break;
+			};
+		};
+
+		#if { &{my.args[]} || (&{my.expected[]} && !${my.variadic}) } {
+			Print {${client[Config][argEchoLvl]}}
+			      {%s args: Function '%s' was expecting %m arguments but got %d.}
+			      {@if{ {&{my.args[]} > &{my.expected[]} } {Extra} {Insufficent} }}
+			      {${my.fname}}
+			      {${my.expc} - ${my.skipped}}
+			      {${my.argc}};
+			#var my.right {0};
+		};
+		#var result {${my.right}};
+	} {
+		#var result 1;
+	}
+	endScope;
+}
+
+#function {__checkArgParse} {
+	beginScope;
+	#var my.arg {%0};
+	#var my.return {
+		{ref}{0}
+		{opt}{0}
+		{type}{none}
+		{ptype}{none}
+		{stype}{any}
+	};
+
+	#regex {${my.arg}} {^\?%*} {
+		#var my.return[opt] 1;
+		#var my.arg {&1};
+	};
+	#regex {${my.arg}} {^\*%*} {
+		#var my.return[ref] 1;
+		#var my.arg {&1};
+	};
+
+	#switch {"${my.arg}"} {
+		#case {"{nil|scalar|number|int|float|string|any|def|!nil|table|list}"} {
+			#var my.return[type] {${my.arg}};
+			#var my.return[ptype] {${my.arg}};
+		};
+		#case {"{table|list}:{nil|scalar|int|float|string|list|table|any|!nil|mixed}"} {
+			#regex {${my.arg}} {^%+:%+$} {
+				#var my.return[type] {&1};
+				#var my.return[stype] {&2};
+				#var my.return[ptype] {&1:&2};
+			};
+		};
+		#case {"{set|mset}"} {
+			#var my.return[type] {table};
+			#var my.return[stype] {int};
+			#var my.return[ptype] {${my.arg}};
+		};
+		#case {"{queue|pqueue|stack}"} {
+			#var my.return[type] {list};
+			#var my.return[ptype] {${my.arg}};
+		};
+		#case {"..."} {
+			#var my.return[type] {variadic};
+		};
+		#case {"...:{\*|}{nil|scalar|int|float|string|list|table|any|!nil}"} {
+			#regex {${my.arg}} {^...:{\*|}%+$} {
+				#var my.return[type] {variadic};
+				#var my.return[stype] {&2};
+				#var my.return[ref] {@if{ {"&1" == "*"} {1} {0} }};
+				#var my.return[ptype] {&2};
+			};
+		};
+		#default {
+			Print {ERROR} {Bad arg type '%0'};
+		};
+	};
+
+	#if {${my.return[ref]}} {
+		#var my.return[ptype] {*${my.return[ptype]}};
+	};
+
+	#var result {${my.return}};
+	endScope;
+}
+
+/* Verify loading*/
+#var loadState 1;
+/* EOF */

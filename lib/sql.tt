@@ -4,7 +4,7 @@
 	*/
 #nop CLASS: sqlite;
 #nop PROVIDES: lib/sql;
-#nop REQUIRES: lib/print;
+#nop REQUIRES: lib/print lib/ttext;
 
 /*
   Generic SQLite Database Connector 
@@ -29,46 +29,46 @@
 }
 
 #alias {db_submit} {
+	beginScope;
 	#if {"%0" != ""} {
 		#nop generate #format command and execute it;
-		#var _:dbFormat {#format {_:db[Command]} {%3}};
-		#var _:db[argc] 0;
-		#foreach {%0} {_:db[Temp]} {
-			#math _:db[argc] {${_:db[argc]} + 1};
-			#if {${_:db[argc]} > 3} {
-				#replace {_:db[Temp]} {"} {'}; 
-				#replace {_:db[Temp]} {'} {''}; 
-				#if {"${_:db[Temp]}" != ""} { 
-					#var {_:dbFormat} {${_:dbFormat} {${_:db[Temp]}}}; 
-				}; 
+		#var my.dbFormat {#format {my.Command} {%3}};
+		#var my.argc 0;
+		#foreach {%0} {my.Temp} {
+			#math my.argc {${my.argc} + 1};
+			#if {${my.argc} > 3} {
+				#replace {my.Temp} {"} {'};
+				#replace {my.Temp} {'} {''};
+				#if {"${my.Temp}" != ""} {
+					#var {my.dbFormat} {${my.dbFormat} {${my.Temp}}};
+				};
 			};
 		};
-		${_:dbFormat};
-		#unvar _:dbFormat;
+		${my.dbFormat};
 
 		#nop Call sqlite3 and make actual DB call;
-		#var _:db[Call] {sqlite3 -header %2 "${_:db[Command]}"};
-		#script {_:db[Res]} {${_:db[Call]}};
+		#var my.Call {sqlite3 -header %2 "${my.Command}"};
+		#script {my.Res} {${my.Call}};
 		#nop Replace pipe | field serpeators with semicolons for the #list command;
-		#forall {${_:db[Res]}} {
-			#replace _:db[Res][&0] {|} {;};
+		#forall {${my.Res}} {
+			#replace my.Res[&0] {|} {;};
 		};
 		#nop build array off of _:dbRes;
-		#var _:db[Out] {};
+		#var my.Out {};
 		#nop Build list of fields off the header;
-		#list _:db[fields] create {${_:db[Res][1]}};
-		#list _:db[Res] delete 1;
+		#list my.fields create {${my.Res[1]}};
+		#list my.Res delete 1;
 		#nop Process each returned record;
-		#foreach {${_:db[Res][]}} {_:db[recordIdx]} {
-			#list _:db[record] create {${_:db[Res][${_:db[recordIdx]}]}};
-			#forall {${_:db[fields][]}} {
-				#var _:db[Out][${_:db[recordIdx]}][${_:db[fields][&0]}] {${_:db[record][&0]}};
+		#foreach {${my.Res[]}} {my.recordIdx} {
+			#list my.record create {${my.Res[${my.recordIdx}]}};
+			#forall {${my.fields[]}} {
+				#var my.Out[${my.recordIdx}][${my.fields[&0]}] {${my.record[&0]}};
 			};
 		};
 		#nop Save results in the desired var and cleanup local vars;
-		#var {%1} {${_:db[Out]}};
-		#unvar _:db;
+		#var {%1} {${my.Out}};
 	};
+	endScope;
 };
 
 /* Verify loading */

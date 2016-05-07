@@ -16,17 +16,21 @@
 /* Read Global Settings and Preferences */
 #class config/core read etc/coreSettings.tt;
 
-/* Bootstrap debug, class loading, and dependency resolution */
+/* Bootstrap tt language extentions, type checking, message printing,
+   class loading, and dependency resolution */
+#class lib/ttext read lib/ttext.tt;
+__ScopeBootstrap;
+#class lib/type read lib/type.tt;
 #class lib/print read lib/message.tt;
-
 #class lib/classLoader read lib/class.tt;
 __ClassBootstrap;
-
 #class lib/eventHandler read lib/handler.tt;
 __EventBootstrap;
 
 
 _Class fakeload config/core etc/coreSettings.tt;
+_Class fakeload lib/utility lib/utility.tt;
+_Class fakeload lib/type lib/type.tt;
 _Class fakeload lib/print lib/message.tt;
 _Class fakeload lib/classLoader lib/class.tt;
 _Class fakeload lib/eventHandler lib/handler.tt;

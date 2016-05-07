@@ -4,6 +4,7 @@
 */
 #nop CLASS: string;
 #nop PROVIDES: lib/string;
+#nop REQUIRES: lib/ttext;
 
 #function {string_sanitize} {
 	#var result {%0};
@@ -33,22 +34,23 @@
 	Returns: <string> will every instance of every <pat> replaced with their corrisponding <rep>
 */
 #func {string_escape} {
+	beginScope;
 	#var result %1;
-	#var _:esctmp[aidx] 0;
-	#foreach {%0} {_:esctmp[arg]} {
-		#math _:esctmp[aidx] {1 + ${_:esctmp[aidx]}};
-		#if {${_:esctmp[aidx]} > 1 } {
-			#var _:esctmp[asidx] 0;
-			#var _:esctmp[a][2] {};
-			#foreach {${_:esctmp[arg]}} {_:esctmp[argsub]} {
-				#math _:esctmp[asidx] {1 + ${_:esctmp[asidx]}};
-				#var _:esctmp[a][${_:esctmp[asidx]}] {${_:esctmp[argsub]}};
+	#var my.aidx 0;
+	#foreach {%0} {my.arg} {
+		#math my.aidx {1 + ${my.aidx}};
+		#if {${my.aidx} > 1 } {
+			#var my.asidx 0;
+			#var my.a[2] {};
+			#foreach {${my.arg}} {my.argsub} {
+				#math my.asidx {1 + ${my.asidx}};
+				#var my.a[${my.asidx}] {${my.argsub}};
 			};
-			#line sub var #replace {result} {${_:esctmp[a][1]}} {${_:esctmp[a][2]}};
-			#unvar _:esctmp[a];
+			#line sub var #replace {result} {${my.a[1]}} {${my.a[2]}};
+			#unvar my.a;
 		};
 	};
-	#unvar _:esctmp;
+	endScope;
 };
 
 /* Escape Un-safe for sh/awk/sed*/

@@ -18,62 +18,50 @@
 */
 #function {string_esc} {
 	#var result {%0};
-	#replace {"} {\\"};
-	#script {result} {echo "$(echo "%0" | sed 's/[^-A-Za-z0-9_]/\\&/g')"};
+	#replace result {"} {\\"};
+	#script {result} {echo "$(echo "$result" | sed 's/[^-A-Za-z0-9_]/\\&/g')"};
 	#var result {$result[1]};
 }
 
 /*
-	Usage: @stringing_escape{ {<string>} {<pat>;<rep>} [...] }
+	Usage: @stringing_escape{ {<string>} {<replacment table>} }
 	<string> = a string
-	<pat> = a patter to be replaced
-	<rep> = what to replace <pat> with
-	Any number of <pat>/<rep> pairs my be given
+	<replacement table> = a table with keys being the patterns
+		to be replaced with thier corrosponding values
 	This is a genralized pattern replacement function.
 	Generally, it is called by another specific-case escape function.
 	Returns: <string> will every instance of every <pat> replaced with their corrisponding <rep>
 */
-#func {string_escape} {
-	beginScope;
-	#var result %1;
-	#var my.aidx 0;
-	#foreach {%0} {my.arg} {
-		#math my.aidx {1 + ${my.aidx}};
-		#if {${my.aidx} > 1 } {
-			#var my.asidx 0;
-			#var my.a[2] {};
-			#foreach {${my.arg}} {my.argsub} {
-				#math my.asidx {1 + ${my.asidx}};
-				#var my.a[${my.asidx}] {${my.argsub}};
-			};
-			#line sub var #replace {result} {${my.a[1]}} {${my.a[2]}};
-			#unvar my.a;
-		};
-	};
-	endScope;
-};
+#function {string_escape} {
+	#var result[r] {%1};
+	#var result[p] {%2};
+	#foreach {${result[p][]}} {result[pat]} {
+		#line sub var #replace {result[r]} {${result[pat]}} {${result[p][${result[pat]}]}};
+	}
+	#var result {${result[r]}};
+}
 
-/* Escape Un-safe for sh/awk/sed*/
 /*
 	Usage: @stringing_escape_shell{ <string> }
+	Escape Un-safe for sh/awk/sed
 	<string> = a string
-	Returns: <string> with all non-Alphanum, _, and - escaped.
+	Returns: <string> with single and double quotes escaped.
 */
 #function {string_escape_shell} {
-	#var result @string_escape{ {%0} {\';\047} {\";\\"} };
-};
+	#var result @string_escape{ {%0} {{\'}{\\'}{\"}{\\"}} };
+}
 
 /* Escaped URI */
 #function {string_escape_uri} {
 	#var result @string_escape{ {%0}
-	{\{;\0457B} {\};\0457D}
-	{\ ;\04520} {\=;\0453D} {\&;\04526}
-	{\:;\0453A} {\\\;;\0453B} {\/;\0452F} {\\;\0455C}
-	{\<;\0453C} {\>;\0453E} {\[;\0455B} {\];\0455D}
-	{\$;\04524}	{\#;\04523} {\|;\0457C} {\^;\0455E}
-	{\~;\0457E} {\`;\04560} {\?;\0453F} {\@;\04540}
+	{{\{}{\0457B} {\}}{\0457D}
+	 {\ }{\04520} {\=}{\0453D} {\&}{\04526}
+	 {\:}{\0453A} {\\\;}{\0453B} {\/}{\0452F} {\\}{\0455C}
+	 {\<}{\0453C} {\>}{\0453E} {\[}{\0455B} {\]}{\0455D}
+	 {\$}{\04524} {\#}{\04523} {\|}{\0457C} {\^}{\0455E}
+	 {\~}{\0457E} {\`}{\04560} {\?}{\0453F} {\@}{\04540}}
 	};
-};
+}
 
 /*
 	Usage: @string_dropcomma{ <string> }
@@ -153,6 +141,47 @@
 }
 
 /*
+	Usage: @string_truncate{ {<string>} {<len>} }
+	<string> = a string
+	<len> = a positive integer
+	Returns: <string> truncated to length <len>
+*/
+#function {string_truncate} {
+	#format result {%.%2s} {%1};
+}
+
+/*
+	Usage: @string_alignR{ {<string>} {<width>} }
+	Returns: <string> padded to right align it to <width>
+*/
+#function {string_alignR} {
+	#format result {%.%2s} {%1};
+	#format result {%+%2s} {$result};
+}
+
+/*
+	Usage: @string_alignR{ {<string>} {<width>} }
+	Returns: <string> padded to left align it to <width>
+*/
+#function {string_alignL} {
+	#format result {%-%2s} {%1};
+	#format result {%.%2s} {$result};
+}
+
+/*
+	Usage: @string_alignR{ {<string>} {<width>} }
+	Returns: <string> padded to center it in <width>
+*/
+#function {string_alignC} {
+	#format result[l] {%L} {%1};
+	#math result[p] {(%2 - ${result[l]})/2};
+	#format result[f] {PP+%msPPsPP+%ms} {${result[p]}} {%2 - ${result[p]} - ${result[l]}};
+	#replace {result[f]} {PP} {%};
+	#format result[r] {$result[f]} { } {%1} { };
+	#var result {${result[r]}};
+}
+
+/*
 	Usage: @string_substr{ {<string>} {<pos>} {<length>} }
 	<pos> = integer position of substring
 	<length> = integer length of substring
@@ -186,6 +215,60 @@
 	} {
 		#var result 0;
 	};
+}
+
+/*
+	Usage: @string_fuzzyCmp{ {<stringA>} {<stringB>} }
+	<string> = a string
+	A loose matching logic, if the longer matches the shorter up to the end of the shorter string
+	Returns: 1 if <stringA> matches <stringB> else 0.
+*/
+#function {string_fuzzyCmp} {
+	#math result {"%1" == "%2%*" || "%2" == "%1%*"};
+}
+
+/*
+	Usage: @string_cmp{ {<string>} {<string>} }
+	C-like string comparison
+	Returns: 0 if strings match, -1 if first < second, +1 if first > second
+*/
+#function {string_cmp} {
+	#if {"%1" == "%2"} {
+		#var result 0;
+	};
+	#elseif {"%1" > "%2"} {
+		#var result 1;
+	};
+	#else {
+		#var result -1;
+	};
+}
+
+/*
+	Usage: @string_ncmp{ {<string>} {<string>} {<n>} }
+	C-like string comparison, only compared first <n> characters
+	Returns: 0 if strings match, -1 if first < second, +1 if first > second
+*/
+#function {string_ncmp} {
+	#var result @string_cmp{ {@string_truncate{ {%1} {%3} }} {@string_truncate{ {%2 } {%3}}} };
+}
+
+/*
+	Usage: @string_casecmp{ {<string>} {<string>} {<n>} }
+	C-like string comparison, ignores case
+	Returns: 0 if strings match, -1 if first < second, +1 if first > second
+*/
+#function {string_casecmp} {
+	#var result @string_cmp{ {@string_toLower{%1}} {@string_toLower{%2}} };
+}
+
+/*
+	Usage: @string_casencmp{ {<string>} {<string>} {<n>} }
+	C-like string comparison, ignored case and only compared first <n> characters
+	Returns: 0 if strings match, -1 if first < second, +1 if first > second
+*/
+#function {string_casencmp} {
+	#var result @string_casecmp{ {@string_truncate{ {%1} {%3} }} {@string_truncate{ {%2 } {%3}}} };
 }
 
 /* Verify loading */

@@ -7,17 +7,11 @@
 
 /* Various utilities that extend the basic functionality of the tintin++ language */
 
-
 /* Variable Scope Manager */
 /*
-	Usage: beginScope [<context name>]
+	Usage: beginScope
 	Call to create a new scope
-	TODO: write doc on naming convention
-		a:alias e:event f:function
-		t:action/trigger m:macro
-
 	*Loop over Flagged variables
-		*Save Stateful var values to state cache
 		*Save Private var values
 		*Restore shadowed values of !Local
 	*Create new scope on stack
@@ -25,33 +19,18 @@
 
 #alias {beginScope} {
 	#foreach {${_VS.Stack.1.List[]}} {_VS.Temp} {
-		#switch {"${_VS.Stack.1.List[${_VS.Temp}]}"} {
-			#case {"s"} {
-				#if {&{${_VS.Temp}}} {
-					#var _VS.State[${_VS.Stack.1.Name}][${_VS.Temp}] {${${_VS.Temp}}};
-					#unvar ${_VS.Temp};
-				} {
-					#var _VS.State[${_VS.Stack.1.Name}][${_VS.Temp}] {__UNDEF__};
-				};
+		#if {"${_VS.Stack.1.List[${_VS.Temp}]}" == "p"} {
+			#if {&{${_VS.Temp}}} {
+				#var _VS.Stack.1.Private.${_VS.Temp} {${${_VS.Temp}}};
+				#unvar ${_VS.Temp};
 			};
-			#case {"p"} {
-				#if {&{${_VS.Temp}}} {
-					#var _VS.Stack.1.Private.${_VS.Temp} {${${_VS.Temp}}};
-					#unvar ${_VS.Temp};
-				} {
-					#var _VS.Stack.1.Private.${_VS.Temp} {__UNDEF__};
-				};
+			#if {&{_VS.Stack.1.Shadow[${_VS.Temp}]}} {
+				#var ${_VS.Temp} {${_VS.Stack.1.Shadow[${_VS.Temp}]}};
 			};
-		};
-		#if {"${_VS.Stack.1.List[${_VS.Temp}]}" != "l" &&
-		     &{_VS.Stack.1.Shadow[${_VS.Temp}]} &&
-		     "${_VS.Stack.1.Shadow[${_VS.Temp}]}" != "__UNDEF__"} {
-			#var ${_VS.Temp} {${_VS.Stack.1.Shadow[${_VS.Temp}]}};
 		};
 	};
 	#list _VS.Stack insert {1} {{List}{{my}{p}}
-	                            {Private}{{my}{__UNDEF__}}
-	                            {Name}{%1}
+	                            {Private}{}
 	                            {Shadow}{}};
 }
 
@@ -60,24 +39,18 @@
 	Call to cleanup current scope and restore prior
 
 	*Cleanup inner scope beign exited
-		*save all stateful values to cache
-		*Unshadow all private/state/local vars
+		*Unshadow all private/local vars
 	*Pop off exited scope
 	*Restore outer scope being returned to
 		*Update Shadow values
-		*Restore stateful vars
 		*Restore private vars
 */
 #alias {endScope} {
-
 	#foreach {${_VS.Stack.1.List[]}} {_VS.Temp} {
-		#if {"${_VS.Stack.1.List[${_VS.Temp}]}" == "s"} {
-			#var _VS.State[${_VS.Stack.1.Name}][${_VS.Temp}] {${${_VS.Temp}}};
-		};
-		#if {"${_VS.Stack.1.Shadow[${_VS.Temp}]}" == "__UNDEF__"} {
-			#unvar {${_VS.Temp}};
-		} {
+		#if {&{_VS.Stack.1.Shadow[${_VS.Temp}]}} {
 			#var {${_VS.Temp}} {${_VS.Stack.1.Shadow[${_VS.Temp}]}};
+		} {
+			#unvar {${_VS.Temp}};
 		};
 	};
 
@@ -85,31 +58,20 @@
 		#list _VS.Stack del 1;
 	} {
 		#var _VS.Stack.1 {{List}{{my}{p}}
-	                      {Private}{{my}{__UNDEF__}}
-	                      {Name}{_Root}
+	                      {Private}{}
 	                      {Shadow}{}};
 	};
 
 	#foreach {${_VS.Stack.1.List[]}} {_VS.Temp} {
-		#switch {"${_VS.Stack.1.List[${_VS.Temp}]}"} {
-			#case {"p"} {
-				#var _VS.Stack.1.Shadow[${_VS.Temp}] {${${_VS.Temp}}};
-				#if {"${_VS.Stack.1.Private[${_VS.Temp}]}" == "__UNDEF__"} {
-					#unvar {${_VS.Temp}};
-				} {
-					#var {${_VS.Temp}} {${_VS.Stack.1.Private[${_VS.Temp}]}};
-				};
-			};
-			#case {"s"} {
-				#var _VS.Stack.1.Shadow[${_VS.Temp}] {${${_VS.Temp}}};
-				#var ${_VS.Temp} {${_VS.State[${_VS.Stack.1.Name}][${_VS.Temp}]}};
-				#var _VS.State[${_VS.Stack.1.Name}][${_VS.Temp}] {};
+		#if {"${_VS.Stack.1.List[${_VS.Temp}]}" == "p"} {
+			#var _VS.Stack.1.Shadow[${_VS.Temp}] {${${_VS.Temp}}};
+			#if {&{_VS.Stack.1.Private[${_VS.Temp}]}} {
+				#var {${_VS.Temp}} {${_VS.Stack.1.Private[${_VS.Temp}]}};
+			} {
+				#unvar {${_VS.Temp}};
 			};
 		};
 	};
-}
-
-#alias {__varUnShadow} {
 }
 
 /*
@@ -125,27 +87,6 @@
 	__varFlag {%1} {%2} {p};
 }
 
-/*
-	Usage: State <varname> [<initalization value>]
-	Declares a variable as stateful, old value is cached to be restored when
-	Unstates'ed or at exit of scope.
-	The value will be saved at the end of the current scope and restored
-	next time State is invoked on the var in the same context
-*/
-#alias {State} {
-	#if {"%1" != "" && "%1" != "result" && "${_VS.Stack.1.Name}" != "" && !&{_VS.Stack.1.List[%1]}} {
-		__varFlag {%1} {} {s};
-		#if {&{_VS.State[${_VS.Stack.1.Name}][%1]} != 0} {
-			#var {%1} {${_VS.State[${_VS.Stack.1.Name}][%1]}};
-		} {
-			#if {"%2" != ""} {
-				#var {%1} {%2};
-			};
-			#var _VS.State[${_VS.Stack.1.Name}][%1] {};
-		}; 
-	};
-}
-
 #alias {Unlocal} {
 	__varUnFlag {%1} {%2} {l};
 }
@@ -156,21 +97,12 @@
 	};
 }
 
-#alias {Unstate} {
-	__varUnFlag {%1} {%2} {l};
-	#if {&{_VS.State[${_VS.Stack.1.Name}][%1]}} {
-		#unvar _VS.State[${_VS.Stack.1.Name}][%1];
-	};
-}
-
 /* Internal Helpers */
 #alias {__varFlag} {
 	#if {"%1" != "" && "%1" != "result" && !&{_VS.Stack.1.List[%1]}} {
 		#var _VS.Stack.1.List[%1] {%3};
 		#if {&{%1} != 0} {
 			#var _VS.Stack.1.Shadow[%1] {${%1}};
-		} {
-			#var _VS.Stack.1.Shadow[%1] {__UNDEF__};
 		};
 		#if {"%2" != ""} {
 			#var {%1} {%2};
@@ -180,10 +112,10 @@
 
 #alias {__varUnFlag} {
 	#if {"%1" != "" && "%1" != "result" && "${_VS.Stack.1.List[%1]}" == "%3"} {
-		#if {"${_VS.Stack.1.Shadow[%1]}" == "__UNDEF__"} {
-			#unvar {%1};
-		} {
+		#if {&{_VS.Stack.1.Shadow[%1]}} {
 			#var {%1} {${_VS.Stack.1.Shadow[%1]}};
+		} {
+			#unvar {%1};
 		};
 		#unvar _VS.Stack.1.Shadow[%1];
 		#unvar _VS.Stack.1.List[%1];
@@ -191,17 +123,6 @@
 }
 
 /* Scope system API */
-/*
-	Gets the name of current scope, or the Nth outer scope.
-*/
-#function {scopeName} {
-	#if {"%1" == "" || "%1" == "0"} {
-		#var result {${_VS.Stack.1.Name}};
-	};
-	#else {
-		#var result {${_VS.Stack[%1][Name]}};
-	};
-}
 
 /* Returns the stack level the current scope is */
 #function {scopeLevel} {
@@ -224,9 +145,6 @@
 	#if {"%1" != "" && !&{%1}} {
 		#if {"${_VS.Stack.1.List[%1]}" == "p"} {
 			#var result {private};
-		};
-		#elseif {"${_VS.Stack.1.List[%1]}" == "s"} {
-			#var result {state};
 		};
 		#elseif {"${_VS.Stack.1.List[%1]}" == "l"} {
 			#var result {local};
@@ -257,9 +175,6 @@
 		};
 		#unvar _VS.Temp;
 	};
-	#if {"${result}" == "__UNDEF__"} {
-		#var result {};
-	};
 }
 
 /* Returns value of the next outer scope's private variables */
@@ -285,8 +200,8 @@
 */
 #if {!&{_VS}} {
 	#alias {__ScopeBootstrap} {
-		#var _VS {{State}{}{Stack}{}};
-		beginScope _Root;
+		#var _VS {{Stack}{}};
+		beginScope;
 		#unalias __ScopeBootstrap;
 	};
 }
@@ -315,12 +230,12 @@
 }
 
 /* Functional Evaluate/Math */
-#function {e} {
+#function {eval} {
 	#math result {%0};
 }
 
 /* Fuctional Format */
-#function {f} {
+#function {format} {
 	#format result %0;
 }
 
@@ -328,7 +243,7 @@
 	Usage: @r{ {<string>} {<pattern>} {<count>}
 	Returns: list of matches &1 to &<count> in a list or 0 if <string> does not match <pattern>
 */
-#function {r} {
+#function {regex} {
 	beginScope;
 	#var my.func {
 		#function {__r} {
@@ -346,6 +261,7 @@
 	#replace {my.func} {\\} {};
 	${my.func};
 	#var result @__r{ {%1} {%2} };
+	#unfunc __r;
 	endScope;
 }
 

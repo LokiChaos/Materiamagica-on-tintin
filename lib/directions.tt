@@ -4,6 +4,7 @@
 */
 #nop CLASS: dir;
 #nop PROVIDES: lib/dir;
+#nop REQUIRES: lib/string;
 
 /* Direction functions */
 #function {dir_reverse} {
@@ -12,23 +13,25 @@
 }
 
 #function {dir_full} {
-	#var result %0;
-	#replace result {^n}  {north};
-	#replace result {^s}  {south};
-	#replace result {e$}  {east};
-	#replace result {w$}  {west};
-	#replace result {^u$} {up};
-	#replace result {^d$} {down};
+	#var result @string_multRep{ {%0}
+		{{^n}{north}
+		{^s}{south}
+		{e$}{east}
+		{w$}{west}
+		{^u$}{up}
+		{^d$}{down}}
+	};
 }
 
 #function {dir_short} {
-	#var result %0;
-	#replace result {north} {n};
-	#replace result {south} {s};
-	#replace result {east}  {e};
-	#replace result {west}  {w};
-	#replace result {up}    {u};
-	#replace result {down}  {d};
+	#var result @string_multRep{ {%0}
+		{{north}{n}
+		{south}{s}
+		{east}{e}
+		{west}{w}
+		{up}{u}
+		{down}{d}}
+	};
 }
 
 /* Verify loading */

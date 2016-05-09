@@ -32,7 +32,7 @@
 	Generally, it is called by another specific-case escape function.
 	Returns: <string> will every instance of every <pat> replaced with their corrisponding <rep>
 */
-#function {string_escape} {
+#function {string_multRep} {
 	#var result[r] {%1};
 	#var result[p] {%2};
 	#foreach {${result[p][]}} {result[pat]} {
@@ -48,12 +48,12 @@
 	Returns: <string> with single and double quotes escaped.
 */
 #function {string_escape_shell} {
-	#var result @string_escape{ {%0} {{\'}{\\'}{\"}{\\"}} };
+	#var result @string_multRep{ {%0} {{\'}{\\'}{\"}{\\"}} };
 }
 
 /* Escaped URI */
 #function {string_escape_uri} {
-	#var result @string_escape{ {%0}
+	#var result @string_multRep{ {%0}
 	{{\{}{\0457B} {\}}{\0457D}
 	 {\ }{\04520} {\=}{\0453D} {\&}{\04526}
 	 {\:}{\0453A} {\\\;}{\0453B} {\/}{\0452F} {\\}{\0455C}

@@ -4,7 +4,7 @@
 */
 #nop CLASS: state;
 #nop PROVIDES: core/state;
-#nop REQUIRES: core/gmcp;
+#nop REQUIRES: core/gmcp core/mmutil;
 /* 	State Machine Summary {{{
 	This is the core of the state machine logic for the client.
 	Many, many triggers on events to keep track of states...
@@ -115,12 +115,11 @@ _Event_register {prompt_pre} {procFlags} {_statePromptUpdate};
 	#unvar _roomExtraStr;
 }
 
-#act {^  Visible Exits: %1}
+#act {^  Visible Exits: %*}
 {
 	#if {"$stateChar[justLooking]" != "1"}
 	{
-		#script {_exitsC} {libexec/exits "%1"};
-		#var _exitsC {${_exitsC[1]}};
+		#var _exitsC {@exits_colorize{%1}};
 		#line gag;
 		#if {"$stateChar[is_onSpeedWalk]" != "1"} {
 		_Event_raise {visExits};};

@@ -24,6 +24,35 @@
 	#unvar __colorConvertTbl;
 }
 
+/* Colorizes Exit String */
+/* TODO: unhardcode colors and move to settings */
+/* TODO: underline direction you came from */
+#function {exits_colorize} {
+	#var result[exit] {%0};
+	#var result[eCol] {
+		{Dk}{<039>}
+		{CPK}{<111>}
+		{NPK}{<119>}
+		{LPK}{<119>}
+		{DkCPK}{<001>}
+		{DkNPK}{<119>}
+		{DkLPK}{<019>}
+	};
+
+	#replace result[exit] {({[NSEWUDew]+})} {<159>&1<139>};
+	#foreach {${result[eCol]}} {result[idx]} {
+		#replace result[exit] {{[NSEWUDew]+}[${result[idx]}]} {${result[eCol][${result[idx]}]}&1<139>};
+	};
+	#replace result[exit] {?} {<128>?};
+	#replace result[exit] {None.} {<128>None};
+
+	#if {&{navigation[lastDir]}} {
+		#nop do underline;
+	};
+
+	#format result[exit] {%.22s} {$result[exit]};
+	#format result {%-22s<099>} {$result[exit]};
+}
 
 /* Scroll <-> Spell Lookups from the data table {{{ */
 #function {spell2scroll} {

@@ -27,6 +27,9 @@
 /* Colorizes Exit String */
 /* TODO: unhardcode colors and move to settings */
 #function {exits_colorize} {
+	#if {&{navigation[lastDir]}} {
+		#format result[ld] {%n} {@dir_reverse{$navigation[lastDir]}};
+	};
 	#var result[exit] {%0};
 	#var result[eCol] {
 		{Dk}{<039>}
@@ -45,9 +48,8 @@
 	#replace result[exit] {?} {<128>?};
 	#replace result[exit] {None.} {<128>None};
 
-	#if {&{navigation[lastDir]}} {
-		#format result[ld] {%n} {@dir_reverse{$navigation[lastDir]}};
-		#replace result[exit] {>${result[ld]}<} {><488>${result[ld]}<088><}
+	#if {${result[ld]}} {
+		#replace result[exit] {>${result[ld]}<} {><488>${result[ld]}<088><};
 	};
 
 	#format result[exit] {%.22s} {$result[exit]};

@@ -32,7 +32,7 @@
 	the last direction command you entered.
 */
 
-#alias {^{n|s|e|w|ne|nw|se|sw}$}{
+#alias {^{n|s|e|w|ne|nw|se|sw|u|d}$}{
 	#var navigation[lastDir] {%0};
 	#send {%0};
 } {3}

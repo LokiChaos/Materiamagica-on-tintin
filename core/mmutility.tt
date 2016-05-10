@@ -49,7 +49,7 @@
 	#replace result[exit] {None.} {<128>None};
 
 	#if {&{navigation[lastDir]}} {
-		#replace result[exit] {{>|}${result[ld]}{ |<}} {&1<488>${result[ld]}<088>&2};
+		#replace result[exit] {{\b}${result[ld]}{\b}} {<488>${result[ld]}<099><139>};
 	};
 
 	#format result[exit] {%.22s} {$result[exit]};

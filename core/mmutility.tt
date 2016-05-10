@@ -48,7 +48,7 @@
 	#replace result[exit] {?} {<128>?};
 	#replace result[exit] {None.} {<128>None};
 
-	#if {${result[ld]}} {
+	#if {&{navigation[lastDir]}} {
 		#replace result[exit] {>${result[ld]}<} {><488>${result[ld]}<088><};
 	};
 

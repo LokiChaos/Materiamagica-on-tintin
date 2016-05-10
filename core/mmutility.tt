@@ -26,7 +26,6 @@
 
 /* Colorizes Exit String */
 /* TODO: unhardcode colors and move to settings */
-/* TODO: underline direction you came from */
 #function {exits_colorize} {
 	#var result[exit] {%0};
 	#var result[eCol] {
@@ -47,7 +46,8 @@
 	#replace result[exit] {None.} {<128>None};
 
 	#if {&{navigation[lastDir]}} {
-		#nop do underline;
+		#format result[ld] {%n} {$navigation[lastDir]};
+		#replace result[exit] {>${result[ld]}<} {><488>${result[ld]}<088><}
 	};
 
 	#format result[exit] {%.22s} {$result[exit]};

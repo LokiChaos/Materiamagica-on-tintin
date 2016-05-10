@@ -51,7 +51,7 @@
 	};
 
 	#format result[exit] {%.22s} {$result[exit]};
-	#format result {%-22s<099>} {$result[exit]};
+	#format result {<139>%-22s<099>} {$result[exit]};
 }
 
 /* Scroll <-> Spell Lookups from the data table {{{ */

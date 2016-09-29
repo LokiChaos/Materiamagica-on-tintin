@@ -18,8 +18,13 @@
 /* }}} */
 
 /* Recall Where Augmentation {{{ */
-#alias {recall$} {
+#alias {recall where} {
 	_Class load tmp/core/info/recall core/info/rtlib/recall.tt;
+	#send {recall list};
+	#nop %0;
+}
+
+#alias {recall$} {
 	#send {recall list};
 }
 /* }}} */

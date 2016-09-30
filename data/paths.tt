@@ -127,3 +127,7 @@
 #var Path_Temp_to_TempWG {;s;s;s;s;s;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;e;ne;ne;ne;ne;ne;ne;e}
 #var Path_TempWG_to_Temp {;w;sw;sw;sw;sw;sw;sw;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;w;n;n;n;n;n}
 /* }}} */
+
+/* Verify loading */
+#var loadState {1};
+/* EOF */

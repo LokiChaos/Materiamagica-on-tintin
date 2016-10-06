@@ -52,8 +52,8 @@
 		#replace result[exit] {{\b}${result[ld]}{\b}} {<488>${result[ld]}<099><139>};
 	};
 
-	#format result[exit] {%.22s} {$result[exit]};
-	#format result {<139>%-22s<099>} {$result[exit]};
+	#format result[exit] {%.23s} {$result[exit]};
+	#format result {<139>%-23s<099>} {$result[exit]};
 }
 
 /* Scroll <-> Spell Lookups from the data table {{{ */
